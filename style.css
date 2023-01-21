@@ -1530,8 +1530,6 @@ a:visited {
 }
 
 .buttom-header-searchtrip {
-    margin-top: 100px;
-    display: flex;
     background-color: #09527F;
 }
 
@@ -1560,6 +1558,13 @@ a:visited {
     bottom: 0;
     width: 100%;
     background-color: #09527F;
+}
+
+.summary-text {
+    font-size: 35px;
+    font-weight: 500;
+    padding-bottom: 10px;
+    border-radius: 10px;
 }
 
 .searchtripmargin {
@@ -1804,12 +1809,18 @@ a:visited {
     size: 30;
 }
 
+.continue-button {
+    margin-left: 1%;
+}
+
+.back-button {}
+
 .vertical-lines {
     width: 2px;
     height: 88px;
     background-color: rgba(255, 255, 255, 0.550);
     position: absolute;
-    left: 7.5%;
+    left: 7.9%;
 }
 
 .vertical-lines2 {
@@ -11534,5 +11545,57 @@ product checkout css
     }
 }
 
+@media all and (max-width: 1366px) {
+    .summary-text {
+        padding-top: 53.5%;
+    }
+    .depature-location {
+        padding-left: 150px;
+    }
+    .depature-location2 {
+        padding-left: 150px;
+    }
+    .vertical-lines {
+        left: 0%;
+    }
+    .vertical-lines2 {
+        margin-left: 1%;
+    }
+    .vertical-lines4 {
+        margin-left: 1%;
+    }
+    .col-1-mod {
+        margin-left: 1%;
+    }
+    .col-1-mod3 {
+        width: 24.5%;
+        margin-top: 1%;
+    }
+    .col-1-mod4 {
+        font-size: 14px;
+        width: 6.5%
+    }
+    .col-1-mod5 {
+        width: 18%;
+    }
+    .col-1-mod6 {
+        width: 19%;
+    }
+    .col-1-mod7 {
+        margin-top: 3%;
+        font-size: 13px;
+        width: 28%;
+    }
+    .form-row-mod {
+        margin-left: 1%;
+    }
+    .container-form-button {
+        padding-right: 22.5%;
+    }
+    .form-group col-md-4 {
+        font-size: 10px;
+    }
+}
 
-/*# sourceMappingURL=style.css.map */
+
+/*# sourceMappingURL=style.css.map *

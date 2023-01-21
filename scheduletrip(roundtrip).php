@@ -758,7 +758,7 @@
         </div>
     </div>
     <div class="container-summarytrip">
-        <h4 style="font-size:35px; font-weight:500; padding-bottom: 10px; border-radius: 10px;">Summary</h4>
+        <h4 class="summary-text">Summary</h4>
         <div class="accordion accordion-flush" id="accordionFlushExample">
             <div class="accordion-item" style="margin-bottom: 25px; border-radius: 10px">
                 <div class="depbackground-color" id="flush-headingOne">
