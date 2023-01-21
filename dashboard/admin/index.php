@@ -1,10 +1,7 @@
 <?php require "./resources/config.php";
     session_start(); 
     if(isset($_SESSION['admin_id']) && $_SESSION['admin_id'] != NULL) { 
-        error_reporting(E_ALL);
-        ini_set('display_errors', 1);
-      
-      
+
         $query = "SELECT dates,year(dates) as dateYear,SUM(payment_gross) as totalProfit FROM user_subscriptions  WHERE payment_status = 'Completed' ORDER BY dateYear";
         //execute query
         $result = $con->query($query);
@@ -12,7 +9,7 @@
         $data = array();
 
         foreach ($result as $row) {
-     $date = date("m",strtotime($row['dates']));
+     $date = date("m",strtotime($row['dates'])??'');
 
      
     if ($date=="01") {
