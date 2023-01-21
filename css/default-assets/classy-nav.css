@@ -70,7 +70,7 @@
     display: inline-block;
     clear: both;
     position: inherit;
-    z-index: 10;
+    z-index: 15;
 }
 
 .classynav ul li.cn-dropdown-item {
