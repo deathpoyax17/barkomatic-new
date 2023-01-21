@@ -38,9 +38,9 @@ $(document).ready(function() {
                         $('#res-message').html("Registered Successfully!");
                         $('.alert').show(80);
                         setTimeout(function() {
-                             setTimeout(function() {
-                           $('.alert').fadeOut(3000);
-                              }, 1000);
+                            setTimeout(function() {
+                                $('.alert').fadeOut(3000);
+                            }, 1000);
                             $('#fname').val('');
                             $('#mi').val('');
                             $('#lname').val('');
@@ -54,8 +54,8 @@ $(document).ready(function() {
                             $('#password').val('');
                             $('#confirm_password').val('');
                         }, 100);
-                     setTimeout(function() {
-                            window.location = "http://barkomatic.xyz/login.php";
+                        setTimeout(function() {
+                            window.location = "http://localhost/login.php";
                         }, 100);
                     }
                     $('#passenger_submit').attr('disabled', false);
@@ -113,7 +113,7 @@ $(document).ready(function() {
                             $('#cpass').val('');
                         }, 100);
                         setTimeout(function() {
-                            window.location = "http://barkomatic.xyz/login.php";
+                            window.location = "http:/localhost/login.php";
                         }, 100);
                     }
                     $('#shipping-submit').attr('disabled', false);

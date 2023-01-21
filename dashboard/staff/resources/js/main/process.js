@@ -12,7 +12,7 @@ $(document).ready(function() {
             success: function(response) {
                 alert(response);
                 setTimeout(function() {
-                    window.location = "http://barkomatic.xyz";
+                    window.location = "http://localhost/index.php";
                 }, 100);
             }
         });
@@ -59,8 +59,8 @@ $(document).ready(function() {
             });
         }
     });
-    
-       $(document).on('click', '.delete_vessel_btn', function(e) {
+
+    $(document).on('click', '.delete_vessel_btn', function(e) {
         e.preventDefault();
         var dlt_loc_id = $(this).attr("id");
         var action_dlt = "delete_vessel";
@@ -71,7 +71,7 @@ $(document).ready(function() {
             success: function(response) {
                 console.log(response);
                 setTimeout(function() {
-                   fetch_ticket_details()
+                    fetch_ticket_details()
                 }, 100);
                 setTimeout(function() {
                     $(this).prop("disabled", false);
@@ -210,8 +210,8 @@ $(document).ready(function() {
             }
         });
     });
-    
-        $(document).on('click', '.update_vessel_btn', function(e) {
+
+    $(document).on('click', '.update_vessel_btn', function(e) {
         e.preventDefault();
         var edit_id = $(this).attr("id");
         var edit_action = "vessel_edit_id_form";
@@ -222,10 +222,10 @@ $(document).ready(function() {
             data: { action: edit_action, edit_loc_id: edit_id },
             success: function(response) {
                 console.log(response);
-                      $('#edit_vessel_name').val(response.vessel_name);  
-                      $('#edit_vessel_capacity').val(response.tckt_qty);  
-                     $('#edit_vessel_price').val(response.tckt_price); 
-                    $('#exampleModal23').modal('show'); 
+                $('#edit_vessel_name').val(response.vessel_name);
+                $('#edit_vessel_capacity').val(response.tckt_qty);
+                $('#edit_vessel_price').val(response.tckt_price);
+                $('#exampleModal23').modal('show');
             }
         });
     });
@@ -461,15 +461,15 @@ $(document).ready(function() {
         $.ajax({
             url: "./modules/main/process.php",
             method: "POST",
-            dataType:"json",
+            dataType: "json",
             data: { action: edit_action, edit_accom_id: edit_id },
             success: function(response) {
                 console.log(response);
-                      $('#edit_accom_name').val(response.accomodation_name);  
-                      $('#edit_accom_st').val(response.seat_type);  
-                     $('#edit_accom_aircon').val(response.aircon);  
-                     $('#edit_accom_price').val(response.price);  
-                     $('#exampleModal').modal('show'); 
+                $('#edit_accom_name').val(response.accomodation_name);
+                $('#edit_accom_st').val(response.seat_type);
+                $('#edit_accom_aircon').val(response.aircon);
+                $('#edit_accom_price').val(response.price);
+                $('#exampleModal').modal('show');
             }
         });
     });

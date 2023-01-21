@@ -11,32 +11,32 @@ $(document).ready(function() {
             method: "POST",
             data: { action: st_action },
             success: function(response) {
-               // console.log(response);
+                // console.log(response);
             }
         });
     }
 });
 $(document).on('click', '.update_profile_btns', function(e) {
-        e.preventDefault();
-        var id = $(this).attr("id");
-        var editing_action = "ship_profile_edit_id_form";
-        $.ajax({
-            url: "./modules/profile.php",
-            method: "POST",
-            dataType: 'json',
-            data: { 
-                    action: editing_action,
-                    e_p_e: id 
-                
-            },
-            success: function(response) {
-                console.log(response);
-                      $('#ship_name_profiles').val(response.o_shipping_name);
-                      $('#ship_address_profiles').val(response.o_sl_address);
-                      $('#ship_email_profiles').val(response.email);  
-            }
-        });
+    e.preventDefault();
+    var id = $(this).attr("id");
+    var editing_action = "ship_profile_edit_id_form";
+    $.ajax({
+        url: "./modules/profile.php",
+        method: "POST",
+        dataType: 'json',
+        data: {
+            action: editing_action,
+            e_p_e: id
+
+        },
+        success: function(response) {
+            console.log(response);
+            $('#ship_name_profiles').val(response.o_shipping_name);
+            $('#ship_address_profiles').val(response.o_sl_address);
+            $('#ship_email_profiles').val(response.email);
+        }
     });
+});
 
 //* send mail status reservation
 $(document).ready(function() {
@@ -51,7 +51,7 @@ $(document).ready(function() {
             method: "POST",
             data: { action: st_action },
             success: function(response) {
-              //  console.log(response);
+                //  console.log(response);
             }
         });
     }
@@ -125,8 +125,7 @@ $(document).ready(function() {
                     $('#edit_role_email').val('');
                     $('#edit_role_uname').val('');
                     $('#edit_role_psswd').val('');
-                }
-               else if(response == "already taken"){
+                } else if (response == "already taken") {
                     alert("Username or Email Already Taken!");
                 }
                 setTimeout(function() {
@@ -208,6 +207,7 @@ $(document).ready(function() {
     setTimeout(function() {
         fetch_passenger_details();
     }, 100);
+
     function fetch_passenger_details() {
         var action = 'all_passenger_data';
         $.ajax({
@@ -219,8 +219,8 @@ $(document).ready(function() {
             }
         });
     }
- });
- 
+});
+
 // add delete ticket and fetch data
 // $(document).ready(function() {
 
@@ -350,8 +350,7 @@ $(document).ready(function() {
         if (image_name == '') {
             alert("Please Select Image");
             return false;
-        }
-        else {
+        } else {
             var extension = $('#image').val().split('.').pop().toLowerCase();
             if (jQuery.inArray(extension, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
                 alert("Invalid Image File");
@@ -384,31 +383,31 @@ $(document).ready(function() {
                 equalTo: '#ship_nw_psswd'
             }
         }
-    });    //* edit port location
+    }); //* edit port location
     $("#ship_change_pswd_form").submit(function(e) {
         e.preventDefault();
         $("#ship_change_pswd_form").validate();
-       // $("#ship_chgn_psswd_btn").prop("disabled", true);
+        // $("#ship_chgn_psswd_btn").prop("disabled", true);
         $.ajax({
             url: "./modules/profile.php",
             method: "POST",
             data: $(this).serialize() + '&action=ship_chgn_psswd_btn',
             success: function(data) {
-                    alert(data);
-                    $('#ship_nw_psswd').val("");
-                    $('#ship_c_nw_psswd').val("");
-                    $('#ship_change_pswd_form')[0].reset();
-                    // $('#imageModal').modal('hide');
-                    if(data == "Signout!"){
-                            setTimeout(function() {
-                                      window.location = "http://barkomatic.xyz/login.php";
-                              }, 1000);
-                    }
-                    //  $("#ship_chgn_psswd_btn").prop("disabled", false);
+                alert(data);
+                $('#ship_nw_psswd').val("");
+                $('#ship_c_nw_psswd').val("");
+                $('#ship_change_pswd_form')[0].reset();
+                // $('#imageModal').modal('hide');
+                if (data == "Signout!") {
+                    setTimeout(function() {
+                        window.location = "http://localhost/login.php";
+                    }, 1000);
                 }
+                //  $("#ship_chgn_psswd_btn").prop("disabled", false);
+            }
         });
     });
- 
+
 });
 
 
@@ -424,7 +423,7 @@ $(document).ready(function() {
             success: function(data) {
                 alert(data);
                 setTimeout(function() {
-                    window.location = "http://barkomatic.xyz";
+                    window.location = "http://localhost/index.php";
                 }, 1000);
             }
         });
