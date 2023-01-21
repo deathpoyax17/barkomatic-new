@@ -13,140 +13,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Title -->
     <title>Barkomatic - Search Trip</title>
-    <!-- Favicon -->
-      <link href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css' 
-          rel='stylesheet'>
-    <link rel="icon" href="./img/core-img/favicon.png">
-    <!-- Bootstrap DatePicker -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" type="text/css" />
-     
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-$(document).ready(function(){     
-  $(".srch_ship_sched").change(function(){
-        var deptid = $(this).val();
-       console.log(deptid);
-        $.ajax({
-            url: 'schedShip.php',
-            type: 'post',
-            data: {shipName:deptid},
-            dataType: 'json',
-            success:function(response){
-                // console.log(response);
-                var len = response.length;
-                $("#srch_sched_loc_from").empty();
-                $("#srch_sched_loc_to").empty();
-                 $("#srch_sched_loc_from").append("<option value=''>---Select---</option>");
-                  $("#srch_sched_loc_to").append("<option value=''>---Select---</option>");
-                for( var i = 0; i<len; i++){
-                    var id = response[i]['id'];
-                    var location_name = response[i]['location_name'];
-                     var location_to = response[i]['location_to'];
-                       var port_to = response[i]['port_to'];
-                         var port_from = response[i]['port_from'];
-                   
-                    $("#srch_sched_loc_from").append("<option value='"+location_name+"'>"+location_name+"("+port_from+")</option>");
-                      $("#srch_sched_loc_to").append("<option value='"+location_to+"'>"+location_to+"("+port_to+")</option>");
-                    // $('#srch_sched_loc_from').css('display','block');
-                     $('#srch_sched_loc_from').niceSelect('update');
-                      $('#srch_sched_loc_to').niceSelect('update');
-                     
-                   
-                }
-            }
-        });
-    });
-
-});
-</script>
-
-
-    <!-- Stylesheet -->
-    <style>
-   .ui-datepicker {
-            width: 12em; 
-        }
-    
-[type=radio] { 
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-/* IMAGE STYLES */
-[type=radio] + img {
-  cursor: pointer;
-  width: 50px;
-  height: 50px;
-}
-
-/* CHECKED STYLES */
-[type=radio]:checked + img {
-  outline: 2px solid #f00;
-}
-.date-card{
-  border:1px solid #ddd;
-  width:200px;
-  padding:10px;
-  display:flex;
-  align-items:center;
-}
-
-.date-card .day{
-  font-size:48px;
-  margin:0px 10px;
-  color:#2ab6b6;
-}
-
-.date-card .month{
-  font-weight:bold;
-}
-
-.date-card p{
-    font-size:9px;
-}
-.card-body {
-    min-height: 100px;
-    min-width: 300px;
-    margin-right: 5px;
-}
-
-
-.frame {
-  width: 85%;
-  overflow: auto;
-  overflow-y: hidden;
-}
-
-.card-list {
-  display: flex;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-.card {
-  height:119px;
-  flex-shrink: 0;
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
-.space {
-  flex-shrink: 0;
-  width: 100%;
-/*   background-color: white; */
-}
-
-    </style>
-
-    
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+   
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <link rel="icon" type="image/png" href="img/core-img/favicon.png">
+    <link rel="stylesheet" href="assets/vendors/bootstrap/css/bootstrap.min.css" media="all">
+    <link rel="stylesheet" type="text/css" href="assets/vendors/fontawesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendors/jquery-ui/jquery-ui.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendors/modal-video/modal-video.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendors/lightbox/dist/css/lightbox.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendors/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendors/slick/slick-theme.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="js/search-trip.js"></script>
+    <title>Barkomatic - Online Ticketing</title>
 </head>
-<body>
+<body class="container-tab">
     <!-- Preloader -->
-    <div id="preloader">
+    <!-- <div id="preloader">
         <div class="loader"></div>
-    </div>
+    </div> -->
     <!-- /Preloader -->
 
     <!-- Header Area Start -->
@@ -234,4 +129,6 @@ $(document).ready(function(){
             </div>
         </div>
     </header>
+
+
     <!-- Header Area End -->
