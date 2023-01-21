@@ -22,10 +22,9 @@
                             <div id="text" style="display:none">
                                 <div class="col-md-search">
                                     <div class="wrapper">
+                                        
                                         <div class="carousel">
-                                            <div class="card card-1">
-
-                                            </div>
+                                            <div class="card card-1"> </div>
 
                                             <div class="card card-2">
 
@@ -129,7 +128,8 @@
                             </div>
                         </div>
                     </div>
-                    <button class="designbutton">
+                   
+                    <button class="designbutton" type="submit" name="srch_sched_btn" id="srch_sched_btn">
                         <i class="fa-solid fa-magnifying-glass"> Search Trip</i>
                     </button>
             </div>
