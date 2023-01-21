@@ -400,7 +400,7 @@ $(document).ready(function() {
                 // $('#imageModal').modal('hide');
                 if (data == "Signout!") {
                     setTimeout(function() {
-                        window.location = "http://localhost/login.php";
+                        window.location = "http://localhost/barkomatic-new/login.php";
                     }, 1000);
                 }
                 //  $("#ship_chgn_psswd_btn").prop("disabled", false);
@@ -423,7 +423,7 @@ $(document).ready(function() {
             success: function(data) {
                 alert(data);
                 setTimeout(function() {
-                    window.location = "http://localhost/index.php";
+                    window.location = "http://localhost/barkomatic-new/index.php";
                 }, 1000);
             }
         });

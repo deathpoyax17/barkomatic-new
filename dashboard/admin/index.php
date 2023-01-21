@@ -12,7 +12,9 @@
         $data = array();
 
         foreach ($result as $row) {
-         $date = date("m",strtotime($row['dates']));
+     $date = date("m",strtotime($row['dates']));
+
+     
     if ($date=="01") {
              $month = "January";
          }
