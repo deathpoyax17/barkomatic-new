@@ -22,14 +22,22 @@
                             <div id="text" style="display:none">
                                 <div class="col-md-search">
                                     <div class="wrapper">
-                                        
-                                        <div class="carousel">
+                                        <br>
+                                        <div class="ship-button">
+                                        <input type="radio" id="a25" name="check-substitution-2" />
+                                        <label  for="a25"></label>
+                                        </div>
+                                        <div class="ship-button">
+                                        <input type="radio" id="a50" name="check-substitution-2" />
+                                        <label  for="a50"></label>
+                                        </div>
+                                        <!-- <div class="carousel">
                                             <div class="card card-1"> </div>
 
                                             <div class="card card-2">
 
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>

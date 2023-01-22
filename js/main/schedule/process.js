@@ -43,6 +43,7 @@ $(document).ready(function() {
             });
         }
     });
+
     //* fetch summary selected schedule
     $('#srch_sched_ftr_form').submit(function(e) {
         e.preventDefault();
