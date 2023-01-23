@@ -37,8 +37,8 @@
                                                 while ($row1 = $row_ship_sd->fetch_assoc()) { ?>
                                                 
                                                           <div class="ship-button">
-                                                          <input type="radio" id="<?php echo $row1['id']?>" name="srch_ship_sched" id="srch_ship_sched" value="<?php echo $row1['ship_name']; ?>" />
-                                                          <label  for="<?php echo $row1['id']?>">
+                                                          <input type="radio" id="b<?php echo $row1['id']?>" name="srch_ship_sched" id="srch_ship_sched" value="<?php echo $row1['ship_name']; ?>" />
+                                                          <label  for="b<?php echo $row1['id']?>">
                                                           <img src="data:image/jpeg;base64,<?php echo base64_encode($row1['ship_logo']); ?>" alt="<?php echo $row1['ship_name']; ?>">
                                                           </label>
                                                           </div>
@@ -168,15 +168,26 @@
                             <div id="text2" style="display: none;">
                                 <div class="col-md-search">
                                     <div class="wrapper">
-                                        <div class="carousel">
-                                            <div class="card card-1">
-
-                                            </div>
-
-                                            <div class="card card-2">
-
-                                            </div>
-                                        </div>
+                                    <br>
+                                        <?php 
+                                                $stmt_ship_sd = $con->prepare("SELECT DISTINCT
+                                                tsd.id,
+                                                tsd.ship_name,
+                                                tsd.ship_logo,
+                                                tss.ship_reside
+                                                FROM tbl_ship_detail tsd
+                                                JOIN tbl_ship_schedule tss ON tsd.ship_name=tss.ship_reside"); 
+                                                $stmt_ship_sd->execute();
+                                                $row_ship_sd = $stmt_ship_sd->get_result();
+                                                while ($row1 = $row_ship_sd->fetch_assoc()) { ?>
+                                                
+                                                          <div class="ship-button">
+                                                          <input type="radio" id="a<?php echo $row1['id']?>" name="srch_ship_sched" id="srch_ship_sched" value="<?php echo $row1['ship_name']; ?>" />
+                                                          <label  for="a<?php echo $row1['id']?>">
+                                                          <img src="data:image/jpeg;base64,<?php echo base64_encode($row1['ship_logo']); ?>" alt="<?php echo $row1['ship_name']; ?>">
+                                                          </label>
+                                                          </div>
+                                            <?php } ?>
                                     </div>
                                 </div>
                             </div>
@@ -196,54 +207,15 @@
                                 <div class="input-group-prepend">
                                     <label class="input-group-text" for="inputGroupSelect01">From</label>
                                 </div>
-                                <select class="custom-select" id="inputGroupSelect01">
+                                <select class="custom-select" name="srch_sched_loc_from" id="srch_sched_loc_from"> 
                                   <option selected>Choose Location</option>
-                                  <option value="0">Cebu</option>
-                                  <option value="1">Bacolod</option>
-                                  <option value="2">BayBay,Leyte</option>
-                                  <option value="3">Batangas</option>
-                                  <option value="4">Bogo,Cebu</option>
-                                  <option value="5">Bato,Leyte</option>
-                                  <option value="6">Butuan</option>
-                                  <option value="7">Cagayan de Oro</option>
-                                  <option value="8">Calapan</option>
-                                  <option value="9">Poro,Camotes</option>
-                                  <option value="10">Catiklan</option>
-                                  <option value="11">Cebu</option>
-                                  <option value="12">Consuelo,Camotes</option>
-                                  <option value="13">Danao</option>
-                                  <option value="14">Dapitan</option>
-                                  <option value="15">Dapdap</option>
-                                  <option value="16">Dumaguete</option>
-                                  <option value="17">Dipolog</option>
-                                  <option value="18">Dapa,Siargao</option>
-                                  <option value="19">Estacia</option>
-                                  <option value="20">Hagnaya</option>
-                                  <option value="21">Iligan</option>
-                                  <option value="22">Iloilo</option>
-                                  <option value="23">Medellin,Cebu</option>
-                                  <option value="24">Liloan,Southern Leyte</option>
-                                  <option value="25">Lipata,Siargao</option>
-                                  <option value="26">Lipata,Culasi</option>
-                                  <option value="27">Cataingan,Masbate</option>
-                                  <option value="28">Masbate</option>
-                                  <option value="29">Manila</option>
-                                  <option value="30">Ormoc</option>
-                                  <option value="31">Osamiz</option>
-                                  <option value="32">Palompon</option>
-                                  <option value="33">Puerto,Princesa Palawan</option>
-                                  <option value="34">Puerto Galera</option>
-                                  <option value="35">Roxas City,Capiz</option>
-                                  <option value="36">San Carlos,Negros</option>
-                                  <option value="37">Sibuyan,Romblon</option>
-                                  <option value="38">Santa Fe, Bantayan Island</option>
-                                  <option value="39">Surigao</option>
-                                  <option value="40">Matnog</option>
-                                  <option value="41">Tagbilaran,Bohol </option>
-                                  <option value="42">Toledo</option>
-                                  <option value="43">Tubigon</option>
-                                  <option value="44">Zamboanga</option>
-                                  <option value="45">Talibon,Bohol</option>
+                                  <?php 
+                                                    $stmt1 = $con->prepare("SELECT * FROM tbl_ship_port"); 
+                                                    $stmt1->execute();
+                                                    $result1 = $stmt1->get_result();
+                                                    while ($row1 = $result1->fetch_assoc()) { ?>
+                                                        <option value="<?php echo $row1['location_from']; ?>"><?php echo $row1['location_from']; ?>(<?php echo $row1['port_from']; ?>)</option>
+                                                <?php } ?>
                                 </select>
                             </div>
                         </div>
@@ -259,54 +231,16 @@
                                 <div class="input-group-prepend">
                                     <label class="input-group-text" for="inputGroupSelect01">To</label>
                                 </div>
-                                <select class="custom-select" id="inputGroupSelect01">
+                                <select class="form-control" name="srch_sched_loc_to" id="srch_sched_loc_to" required>
+                                <!-- <select class="custom-select" id="inputGroupSelect01"> -->
                                   <option selected>Choose Location</option>
-                                  <option value="0">Cebu</option>f
-                                  <option value="1">Bacolod</option>
-                                  <option value="2" >BayBay,Leyte</option>
-                                  <option value="3">Batangas</option>
-                                  <option value="4">Bogo,Cebu</option>
-                                  <option value="5">Bato,Leyte</option>
-                                  <option value="6">Butuan</option>
-                                  <option value="7">Cagayan de Oro</option>
-                                  <option value="8">Calapan</option>
-                                  <option value="9">Poro,Camotes</option>
-                                  <option value="10">Catiklan</option>
-                                  <option value="11">Cebu</option>
-                                  <option value="12">Consuelo,Camotes</option>
-                                  <option value="13">Danao</option>
-                                  <option value="14">Dapitan</option>
-                                  <option value="15">Dapdap</option>
-                                  <option value="16">Dumaguete</option>
-                                  <option value="17">Dipolog</option>
-                                  <option value="18">Dapa,Siargao</option>
-                                  <option value="19">Estacia</option>
-                                  <option value="20">Hagnaya</option>
-                                  <option value="21">Iligan</option>
-                                  <option value="22">Iloilo</option>
-                                  <option value="23">Medellin,Cebu</option>
-                                  <option value="24">Liloan,Southern Leyte</option>
-                                  <option value="25">Lipata,Siargao</option>
-                                  <option value="26">Lipata,Culasi</option>
-                                  <option value="27">Cataingan,Masbate</option>
-                                  <option value="28">Masbate</option>
-                                  <option value="29">Manila</option>
-                                  <option value="30">Ormoc</option>
-                                  <option value="31">Osamiz</option>
-                                  <option value="32">Palompon</option>
-                                  <option value="33">Puerto,Princesa Palawan</option>
-                                  <option value="34">Puerto Galera</option>
-                                  <option value="35">Roxas City,Capiz</option>
-                                  <option value="36">San Carlos,Negros</option>
-                                  <option value="37">Sibuyan,Romblon</option>
-                                  <option value="38">Santa Fe, Bantayan Island</option>
-                                  <option value="39">Surigao</option>
-                                  <option value="40">Matnog</option>
-                                  <option value="41">Tagbilaran,Bohol </option>
-                                  <option value="42">Toledo</option>
-                                  <option value="43">Tubigon</option>
-                                  <option value="44">Zamboanga</option>
-                                  <option value="45">Talibon, Bohol</option>
+                                                <?php 
+                                                    $stmt2 = $con->prepare("SELECT * FROM tbl_ship_port"); 
+                                                    $stmt2->execute();
+                                                    $result2 = $stmt2->get_result();
+                                                    while ($row2 = $result2->fetch_assoc()) { ?>
+                                                        <option value="<?php echo $row2['location_to']; ?>"><?php echo $row2['location_to']; ?>(<?php echo $row2['port_to']; ?>)</option>
+                                                <?php } ?>
                                 </select>
                             </div>
                         </div>
@@ -396,38 +330,99 @@
         </div>
     </div>
 </div>
-<div class="bottom-header-searchtrip">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 d-none d-lg-block">
-                <div class="header-contact-info">
-                    <ul>
-                        <li>
-                            <a href="#"><i class="fas fa-phone-alt"></i> +64 (909) 1234 396</a>
-                        </li>
-                        <li>
-                            <a href="mailto:info@Travel.com"><i class="fas fa-envelope"></i> BarkoamticOnlineTicketing@gmail.com</a>
-                        </li>
-                        <li>
-                            <i class="fas fa-map-marker-alt"></i> 6000 V. Rama Avenue, Englis, Cebu City
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-4 d-flex justify-content-lg-end justify-content-between">
-                <div class="header-social social-links">
-                    <ul>
-                        <li><a href="#"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
-                        <li><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
-                        <li><a href="#"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
-                        <li><a href="#"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
-                    </ul>
-                </div>
+<br>
+<br>
+<br>
+<br>
+<br>
 
+<footer class="footer-area section-padding-80-0">
+        <!-- Main Footer Area -->
+        <div class="main-footer-area">
+            <div class="container">
+                <div class="row align-items-baseline ">
+                    <!-- Single Footer Widget Area -->
+                    <div class="col-12 col-sm-6 col-lg-3">
+                        <div class="single-footer-widget mb-80">
+                            <!-- Footer Logo -->
+                            <a href="#" class="footer-logo"><img src="img/core-img/logo.png" alt=""></a>
+                            <p class="footprag">Call Us</p>
+                            <h4>+12 345-678-9999</h4>
+                            <p>Email Us</p>
+                            <h4>barkomatic2021@gmail.com
+                                <h4>
+
+                        </div>
+                    </div>
+
+                    <!-- Single Footer Widget Area -->
+                    <div class="col-12 col-sm-2 col-lg-4">
+                        <div class="single-footer-widget mb-80">
+                            <!-- Widget Title -->
+                            <h5 class="widget-title">MANUALS</h5>
+
+                            <!-- Single Blog Area -->
+                            <div class="latest-blog-area">
+                                <a href="#" class="post-title">Boarding Guidelines</a>
+                                <a href="#" class="post-title">Payment Option</a>
+                                <a href="#" class="post-title">Passenger Ticket Booking Manual</a>
+                                <a href="#" class="post-title">Rolling Cargo Booking Manual</a>
+                            </div>
+
+                            <!-- Single Blog Area -->
+                        </div>
+                    </div>
+
+                    <!-- Single Footer Widget Area -->
+                    <div class="col-12 col-sm-2 col-lg-4">
+                        <div class="single-footer-widget mb-80">
+                            <!-- Widget Title -->
+                            <h5 class="widget-title">POLICY</h5>
+
+                            <!-- Single Blog Area -->
+                            <div class="latest-blog-area">
+                                <a href="#" class="post-title">Refund Policy</a>
+                                <a href="#" class="post-title">Rebooking Policy</a>
+                                <a href="#" class="post-title">Barkomatic Terms & Conditions</a>
+                                <a href="#" class="post-title">Privacy Policy</a>
+                            </div>
+                            <!-- Single Blog Area -->
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+
+        <!-- Copywrite Area -->
+        <div class="container">
+            <div class="copywrite-content">
+                <div class="row align-items-center">
+                    <div class="col-12 col-md-8">
+                        <!-- Copywrite Text -->
+                        <div class="copywrite-text">
+                            <p>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;
+                                <script>
+                                    document.write(new Date().getFullYear());
+                                </script> All rights reserved | Barkomatic</a>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <!-- Social Info -->
+                        <div class="social-info">
+                            <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 <script src="js/jquery.validate.min.js"></script>
 <script src="js/wow.min.js"></script>
 <script src="js/main/active.js"></script>
