@@ -2,26 +2,31 @@
     <?php require "resources/templates/_search-trip_header.php"; ?>
    
 
-    <br>
-    <br>
-    <br>
-    <div class="section pt-0 container">
-        <div style="background: hsla(0,0%,100%,.94);" class="p-0 pt-0">
-            <div class="row p-0">
-                <div class="barkomatic-main-section col-12 p-0 pl-5">
-                    <form id="search_sched_form">
-                        <div class="row">
-                            <div class="col-md-12">
-                                 <input class="coupon_question form-control-sm" type="checkbox" name="coupon_question" value="1" />&nbsp<span>Has Prefered Shipping Lines</span>
-                                <div class="border-0" id="barkomatic-passenger-vehicle">
-                                    <!--<div class="barkomatic-nav barkomatic-nav-active col-6 pr-0 border-right p-2">-->
-                                    <!--    <span><i class="fa fa-user ml-0 mr-2"></i> Passenger</span>-->
-                                    <!--</div>-->
-                                   
-                                    <div class="answer col-md-12">
-                                  <!--edited-->
-                                            <?php 
+<!-- div id="siteLoader" class="site-loader">
+        <div class="preloader-content">
+            <img src="assets/images/loader1.gif" alt="">
+        </div >
+    </div -->
+    <div class="mobile-menu-container"></div>
+</header>
+<div class="searchtripmargin">
+    <div class="searchtrip-tab">
+        <input type="radio" id="tabpassenger" name="searchtrip-tab" checked="checked">
+        <label class="passenger" id="passengertab" for="tabpassenger"><i class="fa-solid fa-user"></i> Passenger</label>
+        <div class="tabsearchtrip">
+            <div id="passengertab">
+                <form class="container-search-trip">
+                    <div class="mt-2">
+                        <input class="hasprefchk" type="checkbox" id="myCheck" onclick="myFunction1()">
+                        <span class="haspref">Has Preffered Shipping Lines</span>
+                        <div class="rowhas">
+                            <div id="text" style="display:none">
+                                <div class="col-md-search">
+                                    <div class="wrapper">
+                                        <br>
+                                        <?php 
                                                 $stmt_ship_sd = $con->prepare("SELECT DISTINCT
+                                                tsd.id,
                                                 tsd.ship_name,
                                                 tsd.ship_logo,
                                                 tss.ship_reside
@@ -30,53 +35,70 @@
                                                 $stmt_ship_sd->execute();
                                                 $row_ship_sd = $stmt_ship_sd->get_result();
                                                 while ($row1 = $row_ship_sd->fetch_assoc()) { ?>
-                                                          <label>
-                                                          <input type="radio"  class="srch_ship_sched" name="srch_ship_sched" id="srch_ship_sched" value="<?php echo $row1['ship_name']; ?>">
-                                                          <!--http://barkomatic.xyz/img/ferry_logo/-->
+                                                
+                                                          <div class="ship-button">
+                                                          <input type="radio" id="b<?php echo $row1['id']?>" name="srch_ship_sched" id="srch_ship_sched" value="<?php echo $row1['ship_name']; ?>" />
+                                                          <label  for="b<?php echo $row1['id']?>">
                                                           <img src="data:image/jpeg;base64,<?php echo base64_encode($row1['ship_logo']); ?>" alt="<?php echo $row1['ship_name']; ?>">
                                                           </label>
+                                                          </div>
                                             <?php } ?>
-                                     
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="border-0" id="barkomatic-passenger-vehicle">
-                                    <div id="answering" class="answer col-md-12">
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-10 pl-5 p-0 pt-0">
-                                <div class="row pt-4">
-                                    <div class="col-6 text-dark pl-0 text-left pt-4">
-                                        <div id="from_loc_data" class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <label class="input-group-text" for="srch_trp_loc_from">From</label>
+                                        <!-- <div class="carousel">
+                                            <div class="card card-1"> </div>
+
+                                            <div class="card card-2">
+
                                             </div>
-                                            <select class="form-control" name="srch_sched_loc_from" id="srch_sched_loc_from" required>
-                                                <option>---Select---</option>
-                                                <?php 
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Preferred Shipping Lines Section End -->
+                    <div class="row ml-check mt-4">
+                        <input type="radio" name="tab" value="igotnone" onclick="show1();" class="roundtrip" checked style="width:25px;height: 20px; display: block;" />
+                        <span style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-size: 18px;font-weight: bold;color: #0ceafa; margin-right: 10px; margin-left: 3px;"> Round Trip </span>
+                        <input type="radio" name="tab" value="igottwo" onclick="show2();" style="width:25px;height: 20px; display: block; " />
+                        <span style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-size: 18px;font-weight: bold;color: #0ceafa; margin-left: 3px;"> One Way </span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col">
+                            <div class="input-group col-mb-3">
+                                <div class="input-group-prepend">
+                                    <!-- <label class="input-group-text" for="inputGroupSelect01">From</label> -->
+                                    <label class="input-group-text" for="srch_trp_loc_from">From</label>
+                                </div>
+                                <!-- <select class="custom-select" id="inputGroupSelect01"> -->
+                                <select class="custom-select" name="srch_sched_loc_from" id="srch_sched_loc_from"> 
+                                  <option selected>Choose Location</option>
+                                  <?php 
                                                     $stmt1 = $con->prepare("SELECT * FROM tbl_ship_port"); 
                                                     $stmt1->execute();
                                                     $result1 = $stmt1->get_result();
                                                     while ($row1 = $result1->fetch_assoc()) { ?>
                                                         <option value="<?php echo $row1['location_from']; ?>"><?php echo $row1['location_from']; ?>(<?php echo $row1['port_from']; ?>)</option>
                                                 <?php } ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-6 pr-0 text-dark text-left pt-4">
-                                        <div id="to_loc_data" class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <label class="input-group-text" for="srch_trp_loc_to">To</label>
-                                            </div>
-                                            <select class="form-control" name="srch_sched_loc_to" id="srch_sched_loc_to" required>
-                                                 <option>---Select---</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="input-group col-1" style="padding: 7px; padding-left: 33px; margin-bottom: 30px;">
+                            <button class="arrow-button">
+                                <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                                </button>
+                        </div>
+
+                        <div class="col">
+                            <div class="input-group col-mb-5">
+                                <div class="input-group-prepend">
+                                    <!-- <label class="input-group-text" for="inputGroupSelect01">To</label> -->
+                                    <label class="input-group-text" for="srch_trp_loc_to">To</label>
+                                </div>
+                                <select class="form-control" name="srch_sched_loc_to" id="srch_sched_loc_to" required>
+                                <!-- <select class="custom-select" id="inputGroupSelect01"> -->
+                                  <option selected>Choose Location</option>
                                                 <?php 
                                                     $stmt2 = $con->prepare("SELECT * FROM tbl_ship_port"); 
                                                     $stmt2->execute();
@@ -84,159 +106,333 @@
                                                     while ($row2 = $result2->fetch_assoc()) { ?>
                                                         <option value="<?php echo $row2['location_to']; ?>"><?php echo $row2['location_to']; ?>(<?php echo $row2['port_to']; ?>)</option>
                                                 <?php } ?>
-                                            </select>
-                                        </div>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <div class="input-group col-mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Depart</span>
+                                </div>
+                                <input type="text" id="from">
+                                <span class="input-group-append">
+                                        <span class="input-group-text bg-white">
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="input-group col-mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">Return</span>
+                                </div>
+                                <input type="text" id="to">
+                                <span class="input-group-append">
+                                                <span class="input-group-text bg-white">
+                                                    <i class="fa fa-calendar"></i>
+                                                </span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="input-group col-mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Passenger</span>
+                                </div>
+                                <input type="text">
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <button class="designbutton" type="submit" name="srch_sched_btn" id="srch_sched_btn">
+                        <i class="fa-solid fa-magnifying-glass"> Search Trip</i>
+                    </button>
+            </div>
+            </form>
+        </div>
+
+        <input type="radio" id="tabvehicle" name="searchtrip-tab">
+        <label class="vehicle" id="vehicletab" for="tabvehicle"><i class="fa-solid fa-car"></i> Vehicle</label>
+        <div class="tabsearchtrip2">
+            <div id="vehicletab">
+                <form class="container-search-trip">
+                    <div class="mt-2">
+                        <input class="hasprefchk" type="checkbox" id="myCheck2" onclick="myFunction2()">
+                        <span class="haspref">Has Preffered Shipping Lines</span>
+                        <div class="rowhas">
+                            <div id="text2" style="display: none;">
+                                <div class="col-md-search">
+                                    <div class="wrapper">
+                                    <br>
+                                        <?php 
+                                                $stmt_ship_sd = $con->prepare("SELECT DISTINCT
+                                                tsd.id,
+                                                tsd.ship_name,
+                                                tsd.ship_logo,
+                                                tss.ship_reside
+                                                FROM tbl_ship_detail tsd
+                                                JOIN tbl_ship_schedule tss ON tsd.ship_name=tss.ship_reside"); 
+                                                $stmt_ship_sd->execute();
+                                                $row_ship_sd = $stmt_ship_sd->get_result();
+                                                while ($row1 = $row_ship_sd->fetch_assoc()) { ?>
+                                                
+                                                          <div class="ship-button">
+                                                          <input type="radio" id="a<?php echo $row1['id']?>" name="srch_ship_sched" id="srch_ship_sched" value="<?php echo $row1['ship_name']; ?>" />
+                                                          <label  for="a<?php echo $row1['id']?>">
+                                                          <img src="data:image/jpeg;base64,<?php echo base64_encode($row1['ship_logo']); ?>" alt="<?php echo $row1['ship_name']; ?>">
+                                                          </label>
+                                                          </div>
+                                            <?php } ?>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row pt-2">
-                            <div class="col-10 pl-5 p-0 pt-0">
-                                <div class="row">
-                                    <div class="col-6 pl-0">
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text" id="basic-addon2">Depart</span>
-                                            </div>
-                                            <input type="text" name="srch_sched_loc_depart" id="srch_sched_loc_depart" class="form-control" required>
-                                            
-                                           <div class="input-group-append">
-                                                <span class="input-group-text" id="basic-addon2"><i class="fa fa-calendar"></i></span>
-                                            </div>
-                                            
-                                        </div>
-                                    </div>
-                                    <div class="col-6 pr-0">
-                                        <button type="submit" name="srch_sched_btn" id="srch_sched_btn" style="border-radius: 0px !important;border:none;" class="barkomatic-btn-search-trip form-control text-center btn text-white"><i class="fa fa-search ml-0"></i> Search Schedule</button>
+                    </div>
+                    <!-- Preferred Shipping Lines Section End -->
+                    <div class="row ml-check mt-4">
+                        <input type="radio" name="tab" value="igotnone" onclick="show1();" class="roundtrip" checked style="width:25px;height: 20px; display: block;" />
+                        <span style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-size: 18px;font-weight: bold;color: #0ceafa; margin-right: 10px; margin-left: 3px;"> Round Trip </span>
+                        <input type="radio" name="tab" value="igottwo" onclick="show2();" style="width:25px;height: 20px; display: block; " />
+                        <span style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-size: 18px;font-weight: bold;color: #0ceafa; margin-left: 3px;"> One Way </span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col">
+                            <div class="input-group col-mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">From</label>
+                                </div>
+                                <select class="custom-select" name="srch_sched_loc_from" id="srch_sched_loc_from"> 
+                                  <option selected>Choose Location</option>
+                                  <?php 
+                                                    $stmt1 = $con->prepare("SELECT * FROM tbl_ship_port"); 
+                                                    $stmt1->execute();
+                                                    $result1 = $stmt1->get_result();
+                                                    while ($row1 = $result1->fetch_assoc()) { ?>
+                                                        <option value="<?php echo $row1['location_from']; ?>"><?php echo $row1['location_from']; ?>(<?php echo $row1['port_from']; ?>)</option>
+                                                <?php } ?>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="input-group col-1" style="padding: 7px; padding-left: 24px; margin-bottom: 30px;">
+                            <button>
+                                <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                                </button>
+                        </div>
+
+                        <div class="col">
+                            <div class="input-group col-mb-5">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">To</label>
+                                </div>
+                                <select class="form-control" name="srch_sched_loc_to" id="srch_sched_loc_to" required>
+                                <!-- <select class="custom-select" id="inputGroupSelect01"> -->
+                                  <option selected>Choose Location</option>
+                                                <?php 
+                                                    $stmt2 = $con->prepare("SELECT * FROM tbl_ship_port"); 
+                                                    $stmt2->execute();
+                                                    $result2 = $stmt2->get_result();
+                                                    while ($row2 = $result2->fetch_assoc()) { ?>
+                                                        <option value="<?php echo $row2['location_to']; ?>"><?php echo $row2['location_to']; ?>(<?php echo $row2['port_to']; ?>)</option>
+                                                <?php } ?>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-depart">
+                            <div class="input-group col-mb-10">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">Depart</span>
+                                </div>
+                                <input type="text" id="from2">
+                                <span class="input-group-append">
+                                                <span class="input-group-text bg-white">
+                                                    <i class="fa fa-calendar"></i>
+                                                </span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-return">
+                            <div class="input-group col-mb-5">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">Return</span>
+                                </div>
+                                <input type="text" id="to2">
+                                <span class="input-group-append">
+                                                    <span class="input-group-text bg-white">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="category">
+                        <div class="row ml-check mt-4">
+                            <input type="radio" name="tab" value="igotnone" class="roundtrip" checked style="width:25px;height: 20px; display: block;" />
+                            <span style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-size: 15px;font-weight: bold;color: #000; margin-right: 10px; margin-left: 3px;"> Category </span>
+                            <input type="radio" name="tab" value="igottwo" style="width:25px;height: 20px; display: block; " />
+                            <span style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-size: 15px;font-weight: bold;color: #000; margin-left: 3px;"> Brand </span>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputGroupSelect01">Category</label>
+                            </div>
+                            <select class="custom-select" id="inputGroupSelect01">
+                              <option selected>PICK-UP</option>
+                              <option value="1">AUV</option>
+                              <option value="2">SUV</option>
+                              <option value="3">10-WHEELER / EMPTY</option>
+                            </select>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col">
+                                <div class="input-group col-mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="gridCheck1" checked style="width:20px;height: 20px; display: block;">
+                                        <label class="form-check-label" for="gridCheck1" style="padding-left: 10px; font-size: 19px;">
+                                              With Driver
+                                    </label>
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col">
+                                <div class="input-group col-mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Passenger</span>
+                                    </div>
+                                    <input type="text">
+                                </div>
+                                <span>(Including Driver)</span>
+                            </div>
+
+                            <div class="col">
+                                <div class="input-group col-mb-3">
+                                    <div class="input-group-prepend">
+                                    </div>
+                                    <button class="designbutton2">
+                                        <i class="fa-solid fa-magnifying-glass"> Cargo Trip</i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                    </form>
-                </div>
-            </div>
-            <div class="container mt-3 mb-3" id="srch_sched_data">
-                <form id="srch_sched_ftr_form">
-                </form>
-            </div>
-            <div class="contianer">
-                <form id="smmry_dptr_slctd_sched_form">
+                    </div>
                 </form>
             </div>
         </div>
     </div>
-    <script src="js/jquery/jquery.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/roberto.bundle.js"></script>
-    <script src="js/jquery.validate.min.js"></script>
-    <script src="js/main/active.js"></script>
-    <script src="js/main/schedule/avail_process.js"></script>
-    
-    <script>
-function selectOnChange(obj) {
-         var price =  $(obj).find(':selected').data('price');
-         var cost = document.getElementById("cost").value;
-         var priceInt = parseInt(price);
-         var costInt= parseInt(cost);
-         var total = parseInt(priceInt + costInt);
-         document.getElementById("AcommondationPrice").value = priceInt;
-         document.getElementById("total").value = total;
-         if (price == 0) {
-            document.getElementById("AcommondationPrice").value = "";
-         }
-    
-	  }
-    </script>
-<script>
-$(document).ready(function(){
-$(".answer").hide();
-$(".coupon_question").click(function() {
-    if($(this).is(":checked")) {
-        $(".answer").show();
-    } else {
-        $(".answer").hide();
-    }
-});;
-});
-</script>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
 
-    <script src="js/jquery/datepicker/wow.min.js"></script>
-<!-- <link rel="stylesheet" href="css/jquery-ui.css" /> -->
-	<script>
-		 new WOW().init();
-	</script>
-<!-- <script src="js/jquery-1.10.2.js"></script> -->
-<script src="js/jquery/datepicker/jquery-ui1.js"></script>
-    <script>
-   
-    // var badDates = new Array("23-04-2022","24-04-2022","19-04-2022","20-04-2022");
-	// $.getJSON('getDates.php, function(json){badDates=json;});
-   $(document).ready(function(){
-		var badDates;
-		$.getJSON('sched_date.php', function(json) { 
-		badDates = json;
-		console.log(badDates);
-        $( "#srch_sched_loc_depart").datepicker({
-			dateFormat: 'dd-mm-yy',
-			minDate: 0,
-			firstDay: 1,
-            beforeShowDay: function(date) {
-                if($.inArray($.datepicker.formatDate('yy-mm-dd', date), badDates) >= 0)
-                {
-                      return [true, "av", "available"];
-                }
-                else
-                {
-                    return [false, "notav", 'Not Available'];
-                   
-                   
-                }
-            }
-		});
-	});
-    });
+<footer class="footer-area section-padding-80-0">
+        <!-- Main Footer Area -->
+        <div class="main-footer-area">
+            <div class="container">
+                <div class="row align-items-baseline ">
+                    <!-- Single Footer Widget Area -->
+                    <div class="col-12 col-sm-6 col-lg-3">
+                        <div class="single-footer-widget mb-80">
+                            <!-- Footer Logo -->
+                            <a href="#" class="footer-logo"><img src="img/core-img/logo.png" alt=""></a>
+                            <p class="footprag">Call Us</p>
+                            <h4>+12 345-678-9999</h4>
+                            <p>Email Us</p>
+                            <h4>barkomatic2021@gmail.com
+                                <h4>
 
-</script>
-<script>
-$(document).ready(function(){
-    $('input[type=radio]').click(function(e) {
-        var gender = $(this).val();
-        var act = "getShipsched";
-       $.ajax({
-        url : "getShipsched.php",
-        type : "POST",
-        data: {action:act,shipname:gender},
-        success : function(data) {
-          setTimeout(function() {
-                        $("#answering").html(data);
-            }, 100);
-            console.log(data);
-           }
-        });
-		
-    });
-});
-</script>
-<script>
-$(document).ready(function(){
-    $('.carousel[data-type="multi"] .item').each(function() {
-	var next = $(this).next();
-	if (!next.length) {
-		next = $(this).siblings(':first');
-	}
-	next.children(':first-child').clone().appendTo($(this));
+                        </div>
+                    </div>
 
-	for (var i = 0; i < 2; i++) {
-		next = next.next();
-		if (!next.length) {
-			next = $(this).siblings(':first');
-		}
+                    <!-- Single Footer Widget Area -->
+                    <div class="col-12 col-sm-2 col-lg-4">
+                        <div class="single-footer-widget mb-80">
+                            <!-- Widget Title -->
+                            <h5 class="widget-title">MANUALS</h5>
 
-		next.children(':first-child').clone().appendTo($(this));
-	}
-});
-});
-</script>
-    </body>
+                            <!-- Single Blog Area -->
+                            <div class="latest-blog-area">
+                                <a href="#" class="post-title">Boarding Guidelines</a>
+                                <a href="#" class="post-title">Payment Option</a>
+                                <a href="#" class="post-title">Passenger Ticket Booking Manual</a>
+                                <a href="#" class="post-title">Rolling Cargo Booking Manual</a>
+                            </div>
+
+                            <!-- Single Blog Area -->
+                        </div>
+                    </div>
+
+                    <!-- Single Footer Widget Area -->
+                    <div class="col-12 col-sm-2 col-lg-4">
+                        <div class="single-footer-widget mb-80">
+                            <!-- Widget Title -->
+                            <h5 class="widget-title">POLICY</h5>
+
+                            <!-- Single Blog Area -->
+                            <div class="latest-blog-area">
+                                <a href="#" class="post-title">Refund Policy</a>
+                                <a href="#" class="post-title">Rebooking Policy</a>
+                                <a href="#" class="post-title">Barkomatic Terms & Conditions</a>
+                                <a href="#" class="post-title">Privacy Policy</a>
+                            </div>
+                            <!-- Single Blog Area -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Copywrite Area -->
+        <div class="container">
+            <div class="copywrite-content">
+                <div class="row align-items-center">
+                    <div class="col-12 col-md-8">
+                        <!-- Copywrite Text -->
+                        <div class="copywrite-text">
+                            <p>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;
+                                <script>
+                                    document.write(new Date().getFullYear());
+                                </script> All rights reserved | Barkomatic</a>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <!-- Social Info -->
+                        <div class="social-info">
+                            <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+<script src="js/jquery.validate.min.js"></script>
+<script src="js/wow.min.js"></script>
+<script src="js/main/active.js"></script>
+<script src="js/main/schedule/process.js"></script>
+</body>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
+
 </html>
