@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 24, 2023 at 01:35 PM
+-- Generation Time: Jan 25, 2023 at 08:46 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `barkomatic_new`
+-- Database: `barkomatic-new`
 --
 
 -- --------------------------------------------------------
@@ -33,6 +33,18 @@ CREATE TABLE `accommodations` (
   `room_type` varchar(30) NOT NULL,
   `price` int(12) NOT NULL,
   `availability` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin`
+--
+
+CREATE TABLE `admin` (
+  `admin_id` int(11) NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -56,6 +68,7 @@ CREATE TABLE `ferries` (
 
 CREATE TABLE `passengers` (
   `passenger_id` int(11) NOT NULL,
+  `alt_passenger_id` int(100) NOT NULL,
   `name` varchar(100) NOT NULL,
   `address` text NOT NULL,
   `contact_info` int(100) NOT NULL,
@@ -118,7 +131,8 @@ CREATE TABLE `ship_owners` (
   `name` int(100) NOT NULL,
   `address` text NOT NULL,
   `contact_info` int(100) NOT NULL,
-  `plan_id` int(100) NOT NULL
+  `plan_id` int(100) NOT NULL,
+  `alt_owner_id` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -129,6 +143,7 @@ CREATE TABLE `ship_owners` (
 
 CREATE TABLE `staff` (
   `staff_id` int(11) NOT NULL,
+  `alt_staff_id` int(100) NOT NULL,
   `name` varchar(100) NOT NULL,
   `position` varchar(100) NOT NULL,
   `contact_info` int(100) NOT NULL,
@@ -146,6 +161,42 @@ CREATE TABLE `subscription_plans` (
   `plan_name` varchar(100) NOT NULL,
   `plan_description` text NOT NULL,
   `price` int(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_passenger`
+--
+
+CREATE TABLE `tbl_passenger` (
+  `alt_passenger_id` int(11) NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_ship_onwer_account`
+--
+
+CREATE TABLE `tbl_ship_onwer_account` (
+  `alt_owner_id` int(11) NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_staff_account`
+--
+
+CREATE TABLE `tbl_staff_account` (
+  `alt_staff_id` int(11) NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -175,6 +226,12 @@ ALTER TABLE `accommodations`
   ADD UNIQUE KEY `ferry_id` (`ferry_id`);
 
 --
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`admin_id`);
+
+--
 -- Indexes for table `ferries`
 --
 ALTER TABLE `ferries`
@@ -185,7 +242,8 @@ ALTER TABLE `ferries`
 -- Indexes for table `passengers`
 --
 ALTER TABLE `passengers`
-  ADD PRIMARY KEY (`passenger_id`);
+  ADD PRIMARY KEY (`passenger_id`),
+  ADD UNIQUE KEY `alt_passenger_id` (`alt_passenger_id`);
 
 --
 -- Indexes for table `payments`
@@ -216,20 +274,40 @@ ALTER TABLE `schedules`
 --
 ALTER TABLE `ship_owners`
   ADD PRIMARY KEY (`owner_id`),
-  ADD UNIQUE KEY `plan_id` (`plan_id`);
+  ADD UNIQUE KEY `plan_id` (`plan_id`),
+  ADD UNIQUE KEY `alt_owner_id` (`alt_owner_id`);
 
 --
 -- Indexes for table `staff`
 --
 ALTER TABLE `staff`
   ADD PRIMARY KEY (`staff_id`),
-  ADD UNIQUE KEY `owner_id` (`owner_id`);
+  ADD UNIQUE KEY `owner_id` (`owner_id`),
+  ADD UNIQUE KEY `alt_staff_id` (`alt_staff_id`);
 
 --
 -- Indexes for table `subscription_plans`
 --
 ALTER TABLE `subscription_plans`
   ADD PRIMARY KEY (`plan_id`);
+
+--
+-- Indexes for table `tbl_passenger`
+--
+ALTER TABLE `tbl_passenger`
+  ADD PRIMARY KEY (`alt_passenger_id`);
+
+--
+-- Indexes for table `tbl_ship_onwer_account`
+--
+ALTER TABLE `tbl_ship_onwer_account`
+  ADD PRIMARY KEY (`alt_owner_id`);
+
+--
+-- Indexes for table `tbl_staff_account`
+--
+ALTER TABLE `tbl_staff_account`
+  ADD PRIMARY KEY (`alt_staff_id`);
 
 --
 -- Indexes for table `tickets`
@@ -249,6 +327,12 @@ ALTER TABLE `tickets`
 --
 ALTER TABLE `accommodations`
   MODIFY `accomodation_id` int(30) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ferries`
@@ -293,6 +377,24 @@ ALTER TABLE `staff`
   MODIFY `staff_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `tbl_passenger`
+--
+ALTER TABLE `tbl_passenger`
+  MODIFY `alt_passenger_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_ship_onwer_account`
+--
+ALTER TABLE `tbl_ship_onwer_account`
+  MODIFY `alt_owner_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_staff_account`
+--
+ALTER TABLE `tbl_staff_account`
+  MODIFY `alt_staff_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `tickets`
 --
 ALTER TABLE `tickets`
@@ -313,6 +415,12 @@ ALTER TABLE `accommodations`
 --
 ALTER TABLE `ferries`
   ADD CONSTRAINT `ferries_ibfk_1` FOREIGN KEY (`owner_id`) REFERENCES `ship_owners` (`owner_id`);
+
+--
+-- Constraints for table `passengers`
+--
+ALTER TABLE `passengers`
+  ADD CONSTRAINT `passengers_ibfk_1` FOREIGN KEY (`alt_passenger_id`) REFERENCES `tbl_passenger` (`alt_passenger_id`);
 
 --
 -- Constraints for table `payments`
@@ -339,13 +447,15 @@ ALTER TABLE `schedules`
 -- Constraints for table `ship_owners`
 --
 ALTER TABLE `ship_owners`
-  ADD CONSTRAINT `ship_owners_ibfk_1` FOREIGN KEY (`plan_id`) REFERENCES `subscription_plans` (`plan_id`);
+  ADD CONSTRAINT `ship_owners_ibfk_1` FOREIGN KEY (`plan_id`) REFERENCES `subscription_plans` (`plan_id`),
+  ADD CONSTRAINT `ship_owners_ibfk_2` FOREIGN KEY (`alt_owner_id`) REFERENCES `tbl_ship_onwer_account` (`alt_owner_id`);
 
 --
 -- Constraints for table `staff`
 --
 ALTER TABLE `staff`
-  ADD CONSTRAINT `staff_ibfk_1` FOREIGN KEY (`owner_id`) REFERENCES `ship_owners` (`owner_id`);
+  ADD CONSTRAINT `staff_ibfk_1` FOREIGN KEY (`owner_id`) REFERENCES `ship_owners` (`owner_id`),
+  ADD CONSTRAINT `staff_ibfk_2` FOREIGN KEY (`alt_staff_id`) REFERENCES `tbl_staff_account` (`alt_staff_id`);
 
 --
 -- Constraints for table `tickets`
