@@ -3,7 +3,7 @@
 define("DB_HOST", "localhost");
 define("DB_ROOT", "root");
 define("DB_PASS", "");
-define("DB_NAME", "barkomatic");
+define("DB_NAME", "barkomatic-new");
    
     $con = mysqli_connect(DB_HOST, DB_ROOT, DB_PASS, DB_NAME);
     if (!$con) {

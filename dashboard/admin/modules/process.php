@@ -185,17 +185,10 @@ function reservation_data($c) {
 
 //* summary reservation list in dashboard landing page
 function summ_reservation_data($c) {
-    $sql_slct = "SELECT 
-    tbl_stfd.id,
-    tbl_stfd.ship_name,
-    tbl_stfd.email,
-    tbl_stfa.username,
-    tbl_stfd.subscription_id,
-    tbl_stfd.stat,
-    tbl_stfa.password
-    FROM tbl_ship_detail tbl_stfd
-    INNER JOIN tbl_ship_account tbl_stfa 
-    ON tbl_stfd.id = tbl_stfa.id";
+    $sql_slct = "SELECT *
+    FROM tbl_ship_onwer_account tbl_soa
+    INNER JOIN ship_owners tbl_o
+    ON tbl_soa.alt_owner_id = tbl_o.alt_owner_id";
 $stmt = $c->prepare($sql_slct);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -204,7 +197,8 @@ $output = '
 <thead>
 <tr>
 <th>Ship Name</th>
-<th>Email</th>
+<th>Address</th>
+<th>Contact Info</th>
 <th>Username</th>
 <th>Password</th>
 <th>Payment Status</th>
@@ -229,8 +223,9 @@ while($row = $result->fetch_assoc()) {
     }
 $output .= '
 <tr>
-<td>'.$row['ship_name'].'</td>
-<td>'.$row['email'].'</td>
+<td>'.$row['name'].'</td>
+<td>'.$row['address'].'</td>
+<td>'.$row['contact_info'].'</td>
 <td>'.$row['username'].'</td>
 <td>'.$row['password'].'</td>
 <td>'.$payment.'</td>
@@ -238,7 +233,7 @@ $output .= '
 ';
 if($row['stat'] == 1){
 $output .= '<td class="text-center">
-    <button type="button" name="rl_btn_delete" class="button small red delete_role_btn" id="'.$row["id"].'">
+    <button type="button" name="rl_btn_delete" class="button small red delete_role_btn" id="'.$row["alt_owner_id"].'">
         <span class="icon"><i class="mdi mdi-trash-can"></i></span>
     </button>
 </td>
@@ -246,7 +241,7 @@ $output .= '<td class="text-center">
 }
 else{
    $output .= '<td class="text-center">
-      <button type="button" name="edit_role_btn" class="button small green update_role_btn" id="'.$row["id"].'">
+      <button type="button" name="edit_role_btn" class="button small green update_role_btn" id="'.$row["alt_owner_id"].'">
                     <span class="icon"><i class="mdi mdi-pencil"></i></span>
                 </button>
     <button type="button" name="rl_btn_delete" class="button small red delete_role_btn" id="'.$row["id"].'">
@@ -503,17 +498,10 @@ function edit_assigned_role($c) {
 
 //* summary staff fetch data
 function summ_staff_data($c) {
-    $sql_slct = "SELECT 
-                tbl_stfd.id,
-                tbl_stfd.subscription_id,
-                tbl_stfd.ship_name,
-                tbl_stfd.email,
-                tbl_stfa.password,
-                tbl_stfa.username,
-                tbl_stfa.password
-                FROM tbl_ship_detail tbl_stfd
-                JOIN tbl_ship_account tbl_stfa 
-                ON tbl_stfd.id = tbl_stfa.id WHERE tbl_stfd.subscription_id=1";
+    $sql_slct = "SELECT *
+                FROM tbl_ship_onwer_account tbl_soa
+                JOIN ship_owners tbl_o 
+                ON tbl_soa.alt_owner_id = tbl_o.alt_owner_id WHERE tbl_o.plan_id!=NULL";
      $stmt = $c->prepare($sql_slct);
      $stmt->execute();
      $result = $stmt->get_result();
@@ -531,8 +519,8 @@ function summ_staff_data($c) {
     while($row = $result->fetch_assoc()) {
         $output .= '
         <tr>
-            <td>'.$row['ship_name'].'</td>
-            <td>'.$row['email'].'</td>
+            <td>'.$row['name'].'</td>
+            <td>'.$row['address'].'</td>
             <td>'.$row['username'].'</td>
             <td>'.$row['password'].'</td>
         <tr>';
@@ -547,9 +535,9 @@ function summ_staff_data($c) {
 function total_number_of_staff($c) {
     $counter = 0;
     $sql_slct = "SELECT 
-                * FROM tbl_ship_account tbl_sa
-                INNER JOIN tbl_ship_detail tbl_sd ON tbl_sa.id = tbl_sd.id
-                WHERE tbl_sd.subscription_id=1";
+                * FROM ship_owners tbl_sa
+                INNER JOIN subscription_plans tbl_pln ON tbl_pln.plan_id = tbl_sa.plan_id
+                WHERE tbl_sa.plan_id!=NULL";
     $stmt = $c->prepare($sql_slct);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -572,7 +560,7 @@ function total_number_of_staff($c) {
 // total num of Shipping Owner Account fetch
 function active_reservation($c) {
     $counter = 0;
-    $sql_slct = "SELECT * FROM tbl_ship_account";
+    $sql_slct = "SELECT * FROM tbl_ship_onwer_account";
     $stmt = $c->prepare($sql_slct);
     $stmt->execute();
     $result = $stmt->get_result();
