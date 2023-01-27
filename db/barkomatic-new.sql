@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 27, 2023 at 10:43 AM
+-- Generation Time: Jan 27, 2023 at 02:19 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -77,6 +77,8 @@ CREATE TABLE `passengers` (
   `passenger_id` int(11) NOT NULL,
   `alt_passenger_id` int(100) NOT NULL,
   `name` varchar(100) NOT NULL,
+  `lastname` varchar(100) NOT NULL,
+  `gender` varchar(100) NOT NULL,
   `address` text NOT NULL,
   `contact_info` int(100) NOT NULL,
   `email` varchar(100) NOT NULL,
@@ -178,6 +180,11 @@ CREATE TABLE `staff` (
   `staff_id` int(11) NOT NULL,
   `alt_staff_id` int(100) NOT NULL,
   `name` varchar(100) NOT NULL,
+  `mid_name` varchar(100) NOT NULL,
+  `last_name` varchar(100) NOT NULL,
+  `age` int(100) NOT NULL,
+  `gender` varchar(30) NOT NULL,
+  `address` text NOT NULL,
   `email` varchar(100) DEFAULT NULL,
   `position` varchar(100) NOT NULL,
   `contact_info` int(100) NOT NULL,
@@ -331,8 +338,8 @@ ALTER TABLE `schedules`
 --
 ALTER TABLE `ship_owners`
   ADD PRIMARY KEY (`owner_id`),
-  ADD UNIQUE KEY `plan_id` (`plan_id`),
-  ADD UNIQUE KEY `alt_owner_id` (`alt_owner_id`);
+  ADD UNIQUE KEY `alt_owner_id` (`alt_owner_id`),
+  ADD UNIQUE KEY `plan_id` (`plan_id`);
 
 --
 -- Indexes for table `staff`

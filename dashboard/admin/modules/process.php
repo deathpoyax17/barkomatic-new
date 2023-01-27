@@ -208,14 +208,14 @@ $output = '
 </thead>
 <tbody id="port-location-data-content">';
 while($row = $result->fetch_assoc()) {
-    if($row['subscription_id'] == 1){
+    if($row['plan_id'] == 1){
      
         $payment = "Complete";
     }
     else{
         $payment = "Not Complete";
     }
-    if($row['stat']==1){
+    if($row['stats']==1){
            $stat = "Approved";
     }
     else{
@@ -223,7 +223,7 @@ while($row = $result->fetch_assoc()) {
     }
 $output .= '
 <tr>
-<td>'.$row['name'].'</td>
+<td>'.$row['ship_name'].'</td>
 <td>'.$row['address'].'</td>
 <td>'.$row['contact_info'].'</td>
 <td>'.$row['username'].'</td>
@@ -231,7 +231,7 @@ $output .= '
 <td>'.$payment.'</td>
 <td>'.$stat.'</td>
 ';
-if($row['stat'] == 1){
+if($row['stats'] == 1){
 $output .= '<td class="text-center">
     <button type="button" name="rl_btn_delete" class="button small red delete_role_btn" id="'.$row["alt_owner_id"].'">
         <span class="icon"><i class="mdi mdi-trash-can"></i></span>

@@ -38,8 +38,8 @@ ob_start();
 
 //* ship profile fetch - data
 function fetch_ship_profile($c) {
-    $ship_line_id = $_SESSION['ship_id'];
-    $stmt = $c->prepare("SELECT id,ship_logo,ship_name,email,o_shipping_name,o_sl_address FROM tbl_ship_detail WHERE id=?");
+    $ship_line_id = $_SESSION['alt_owner_id'];
+    $stmt = $c->prepare("SELECT * FROM ship_owners WHERE alt_owner_id=?");
     $stmt->bind_param("i", $ship_line_id);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -66,27 +66,27 @@ function fetch_ship_profile($c) {
         <div class="field">
             <label class="label">Account Name</label>
             <div class="control">
-                <input type="text" readonly value="'.$row["o_shipping_name"].'" class="input is-static">
+                <input type="text" readonly value="'.$row["name"].'" class="input is-static">
             </div>
         </div>
         <hr>
          <div class="field">
             <label class="label">Account Address</label>
             <div class="control">
-                <input type="text" readonly value="'.$row["o_sl_address"].'" class="input is-static">
+                <input type="text" readonly value="'.$row["address"].'" class="input is-static">
             </div>
         </div>
         <br>
          <div class="field">
                <div class="control">
-                      <button type="button" class="button green update_profile_btns" id="'.$row["id"].'" data-toggle="modal" data-target="#exampleModal">
+                      <button type="button" class="button green update_profile_btns" id="'.$row["alt_owner_id"].'" data-toggle="modal" data-target="#exampleModal">
                     <span >Update Profile</span>
                 </button>
                   </div>
         </div>
              <div class="field">
                <div class="control">
-                      <button type="button" class="button red edit_pass_btn" id="'.$row["id"].'" data-toggle="modal" data-target="#exampleModals">
+                      <button type="button" class="button red edit_pass_btn" id="'.$row["alt_owner_id"].'" data-toggle="modal" data-target="#exampleModals">
                     <span >Change Password</span>
                 </button>
                   </div>

@@ -175,20 +175,11 @@ function shipSession($c, $u_ownr) {
                             $_SESSION['email'] = $em_ownr;
                             $_SESSION['ship_logo'] = $shpl;
                             
-                            if($stats == 1) {
+                         
                                 
-                                if($sub_id == 1){
+                           
                                     echo "Shipping Owner Login Successfully!";
-                                }
-                                else{
-                                    echo "Please subscribe first.";
-                                    
-                                }
-                            }
-                            else{
-                            echo "Please Wait! Your Application are still pending from the admin";
-                            session_destroy();
-                             }
+                        
                              
                           
                           

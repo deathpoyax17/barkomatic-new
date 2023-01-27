@@ -68,16 +68,16 @@ if(isset($_POST["action"]) && $_POST["action"] == "all_passenger_data") {
 }
 function all_passenger_data($c) {
     $stmt = $c->prepare("SELECT
-                         tpa.username,
-                         tpd.first_name,
-                         tpd.lastname,
-                         tpd.gender,
-                         tpd.dob,
-                         tpd.email,
-                         tpd.phone_number,
-                         tpd.Address
-                         FROM tbl_passenger_account tpa
-                         RIGHT JOIN tbl_passenger_detail tpd ON tpa.id = tpd.id");
+                         tbl_p.username,
+                         p.name,
+                         p.lastname,
+                         p.gender,
+                         p.dob,
+                         p.email,
+                         p.contact_info,
+                         p.Address
+                         FROM passengers p
+                         RIGHT JOIN tbl_passenger tbl_p ON p.alt_passenger_id = tbl_p.alt_passenger_id");
     $stmt->execute();
     $result = $stmt->get_result();
     $output = '
@@ -99,12 +99,12 @@ function all_passenger_data($c) {
         $output .= '
             <tr>
                 <td>'.$row["username"].'</td>
-                <td>'.$row["first_name"].'</td>
+                <td>'.$row["name"].'</td>
                 <td>'.$row["lastname"].'</td>
                 <td>'.$row["gender"].'</td>
                 <td>'.$row["dob"].'</td>
                 <td>'.$row["email"].'</td>
-                <td>'.$row["phone_number"].'</td>
+                <td>'.$row["contact_info"].'</td>
                 <td>'.$row["Address"].'</td>
             </tr>';
     }
@@ -196,8 +196,12 @@ function mail_reservation_status($c) {
 
 //* reservation details
 function reservation_data($c) {
-    $stmt = $c->prepare("SELECT * FROM tbl_passenger_reservation WHERE ship_name=?");
-    $stmt->bind_param('s', $_SESSION['ship_name']);
+    $stmt = $c->prepare("SELECT * 
+                         FROM reservations r 
+                         JOIN tickets t ON r.ticket_id= t.ticket_id
+                         JOIN tbl_ship_onwer_account tbl_soa ON t.alt_owner_id=tbl_soa.alt_owner_id
+                         WHERE tbl_soa.alt_owner_id=?");
+    $stmt->bind_param('s', $_SESSION['alt_owner_id']);
     $stmt->execute();
     $result = $stmt->get_result();
     $output = '
@@ -208,7 +212,7 @@ function reservation_data($c) {
                     <th>Passenger Name</th>
                     <th>Route</th>
                     <th>Date/Time</th>
-                    <th>Accomodation</th>
+                    <th>Accomodatin</th>
                     <th>Reservation Date</th>
                     <th>Expiration</th>
                     <th>Status</th>
@@ -235,8 +239,12 @@ function reservation_data($c) {
 
 //* summary reservation list in dashboard landing page
 function summ_reservation_data($c) {
-    $stmt = $c->prepare("SELECT * FROM reservation WHERE ship_name=? AND re_type=1");
-    $stmt->bind_param('s', $_SESSION['ship_name']);
+    $stmt = $c->prepare("SELECT *
+                         FROM reservations r
+                         INNER JOIN tickets t ON r.ticket_id=t.ticket_id
+                         INNER JOIN tbl_ship_onwer_account soa ON t.alt_owner_id=soa.alt_owner_id
+                         WHERE soa.alt_owner_id=?");
+    $stmt->bind_param('s', $_SESSION['alt_owner_id']);
     $stmt->execute();
     $result = $stmt->get_result();
     $output = '
@@ -275,22 +283,22 @@ function summ_reservation_data($c) {
 //* all staff fetch data
 function all_staff_data($c) {
     $sql_slct = "SELECT 
-                tbl_stfd.id,
-                tbl_stfd.name,
-                tbl_stfd.mid_name,
-                tbl_stfd.last_name,
-                tbl_stfd.age,
-                tbl_stfd.gender,
-                tbl_stfd.address,
-                tbl_stfd.contact,
-                tbl_stfd.email,
-                tbl_stfa.username,
-                tbl_stfa.password
-                FROM tbl_staff_detail tbl_stfd
-                INNER JOIN tbl_staff_account tbl_stfa 
-                ON tbl_stfd.id = tbl_stfa.id WHERE tbl_stfd.ship_reside=?";
+                tbl_s.alt_staff_id,
+                tbl_s.name,
+                tbl_s.mid_name,
+                tbl_s.last_name,
+                tbl_s.age,
+                tbl_s.gender,
+                tbl_s.address,
+                tbl_s.contact_info,
+                tbl_s.email,
+                tbl_sa.username,
+                tbl_sa.password
+                FROM tbl_staff_account tbl_sa
+                INNER JOIN staff tbl_s
+                ON tbl_sa.alt_staff_id = tbl_s.alt_staff_id WHERE tbl_s.owner_id=?";
      $stmt = $c->prepare($sql_slct);
-     $stmt->bind_param('s',$_SESSION['ship_name']);
+     $stmt->bind_param('s',$_SESSION['alt_owner_id']);
      $stmt->execute();
      $result = $stmt->get_result();
     $output = '
@@ -320,7 +328,7 @@ function all_staff_data($c) {
             <td>'.$row['age'].'</td>
             <td>'.$row['gender'].'</td>
             <td>'.$row['address'].'</td>
-            <td>'.$row['contact'].'</td>
+            <td>'.$row['contact_info'].'</td>
             <td>'.$row['email'].'</td>
             <td>'.$row['username'].'</td>
             <td>'.$row['password'].'</td>
@@ -463,16 +471,16 @@ function edit_assigned_role($c) {
 //* summary staff fetch data
 function summ_staff_data($c) {
     $sql_slct = "SELECT 
-                tbl_stfd.id,
-                tbl_stfd.name,
-                tbl_stfd.email,
-                tbl_stfa.username,
-                tbl_stfa.password
-                FROM tbl_staff_detail tbl_stfd
-                JOIN tbl_staff_account tbl_stfa 
-                ON tbl_stfd.id = tbl_stfa.id WHERE tbl_stfd.ship_reside=? LIMIT 3";
+                tbl_sa.alt_staff_id,
+                tbl_sa.username,
+                tbl_sa.password,
+                tbl_s.name,
+                tbl_s.email
+                FROM tbl_staff_account tbl_sa
+                JOIN staff tbl_s 
+                ON tbl_sa.alt_staff_id = tbl_s.alt_staff_id WHERE tbl_s.owner_id=? LIMIT 3";
      $stmt = $c->prepare($sql_slct);
-     $stmt->bind_param('s',$_SESSION['ship_name']);
+     $stmt->bind_param('s',$_SESSION['alt_owner_id']);
      $stmt->execute();
      $result = $stmt->get_result();
     $output = '
