@@ -59,6 +59,18 @@
                                     <div class="form-group">
                                         <input type="date" class="form-control" name="dob" id="dob" placeholder="Date of Birth" required>
                                     </div>
+                                    <div class="form-group">
+                                        <select name="nationality" id="nationality" class="form-control" required>
+                                            <option value="" disabled selected>Nationality</option>
+                                            <option value="Filipino">Filipino</option>
+                                            <option value="American">American</option>
+                                            <option value="American">French</option>
+                                            <option value="American">Korean</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" type="file" id="formFile" placeholder="Discount">
+                                    </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
