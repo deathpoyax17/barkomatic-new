@@ -79,7 +79,7 @@ function shipLogin($con) {
 
     $uname_sp_ownr = $_POST['username_sh_owner'];
     $hash_password_sh_ownr = sha1($_POST['password_sh_owner']);
-    $stmt = $con->prepare("SELECT * FROM tbl_ship_account WHERE username=? AND password=?");
+    $stmt = $con->prepare("SELECT * FROM tbl_ship_onwer_account WHERE username=? AND password=?");
     $stmt->bind_param('ss', $uname_sp_ownr,$hash_password_sh_ownr);
     $stmt->execute();
     $ownr = $stmt->fetch();
@@ -95,7 +95,7 @@ function shipLogin($con) {
 
     $uname_sp_admin = $_POST['username_sh_owner'];
     $hash_password_sh_admin = $_POST['password_sh_owner'];
-    $stmt = $con->prepare("SELECT * FROM tbl_admin WHERE username=? AND password=?");
+    $stmt = $con->prepare("SELECT * FROM admin WHERE username=? AND password=?");
     $stmt->bind_param('ss', $uname_sp_admin,$hash_password_sh_admin);
     $stmt->execute();
     $admin = $stmt->fetch();
@@ -121,7 +121,7 @@ function shipLogin($con) {
                 ////PASSENGER ===========================================================
                 $uname = $_POST['username_sh_owner'];
                 $hash_password = sha1($_POST['password_sh_owner']);
-                $q1 = $con->prepare("SELECT * FROM tbl_passenger_account WHERE username=? AND password=?");
+                $q1 = $con->prepare("SELECT * FROM tbl_passenger WHERE username=? AND password=?");
                 $q1->bind_param('ss', $uname,$hash_password);
                 $q1->execute();
                 $r = $q1->fetch();
@@ -142,18 +142,18 @@ function shipLogin($con) {
 }
 function shipSession($c, $u_ownr) {
     $sql_slct_ownr = "SELECT 
-                        tbl_sd.id,
-                        tbl_sd.ship_name,
-                        tbl_sd.email,
-                        tbl_sd.ship_logo,
-                        tbl_sa.username,
-                        tbl_sd.stat,
-                        tbl_sd.subscription_id,
-                        tbl_sd.o_shipping_name,
-                        tbl_sd.o_sl_address
-                        FROM tbl_ship_detail tbl_sd
-                        INNER JOIN tbl_ship_account tbl_sa ON tbl_sa.id = tbl_sd.id
-                        WHERE tbl_sa.username=?";
+                        tbl_soa.alt_owner_id,
+                        tbl_soa.username,
+                        tbl_o.name,
+                        tbl_o.plan_id,
+                        tbl_o.stats,
+                        tbl_o.ship_name,
+                        tbl_o.address,
+                        tbl_o.email,
+                        tbl_o.ship_logo
+                        FROM tbl_ship_onwer_account tbl_soa
+                        INNER JOIN ship_owners tbl_o ON tbl_soa.alt_owner_id = tbl_o.alt_owner_id
+                        WHERE tbl_soa.username=?";
     
     if($stmt_onwr = mysqli_prepare($c, $sql_slct_ownr)) {
         echo $c->error;
@@ -164,18 +164,19 @@ function shipSession($c, $u_ownr) {
             if(mysqli_stmt_num_rows($stmt_onwr) == 1) {
                 mysqli_stmt_bind_result($stmt_onwr, $id_ownr,$sn,$em_ownr,$shpl,$username_ownr,$stats,$sub_id,$o_name,$o_address);
                 if(mysqli_stmt_fetch($stmt_onwr)) {
-                    if($id_ownr != '' && $sn != '' && $username_ownr != '' && $o_name !='' && $o_address!='') {
+                    if($id_ownr != '' && $sn != '' && $username_ownr != '' && $o_name !='') {
                     
-                            $_SESSION['ship_id'] = $id_ownr;
-                            $_SESSION['ship_name'] = $sn; 
-                            $_SESSION['subscription_id'] = $sub_id;
-                            $_SESSION['stat'] = $stats;
-                            $_SESSION['o_shipping_name']=$o_name;
-                            $_SESSION['o_sl_address']=$o_address;
+                            $_SESSION['alt_owner_id'] = $id_ownr;
+                            $_SESSION['name'] = $sn; 
+                            $_SESSION['plan_id'] = $sub_id;
+                            $_SESSION['stats'] = $stats;
+                            $_SESSION['ship_name']=$o_name;
+                            $_SESSION['address']=$o_address;
                             $_SESSION['email'] = $em_ownr;
                             $_SESSION['ship_logo'] = $shpl;
                             
                             if($stats == 1) {
+                                
                                 if($sub_id == 1){
                                     echo "Shipping Owner Login Successfully!";
                                 }
@@ -193,11 +194,14 @@ function shipSession($c, $u_ownr) {
                           
                                
                     }
+                   
                     
                 }
+              
                 
              
             }
+      
            
         }
         mysqli_stmt_close($stmt_onwr);
@@ -209,10 +213,10 @@ function shipSession($c, $u_ownr) {
 }
 // admin session
 function adminSession($c, $u_admin) {
-    $sql_slct_admin = "SELECT tbl_ad.id,
+    $sql_slct_admin = "SELECT tbl_ad.admin_id,
                        tbl_ad.username,
                        tbl_ad.password
-                        FROM tbl_admin tbl_ad WHERE tbl_ad.username=?";
+                        FROM admin tbl_ad WHERE tbl_ad.username=?";
     
     if($stmt_admin = mysqli_prepare($c, $sql_slct_admin)) {
         mysqli_stmt_bind_param($stmt_admin, 's', $bpn_admin);
