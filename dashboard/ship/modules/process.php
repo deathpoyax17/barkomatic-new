@@ -13,6 +13,7 @@ if(isset($_POST["action"]) && $_POST["action"] == "add_ticket_form") {
     create_ticket($con);
 }
 if(isset($_POST["action"]) && $_POST["action"] == "rl_create_acc_form") {
+    session_start();
     create_account_assign_role($con);
 }
 if(isset($_POST["action"]) && $_POST["action"] == "total_number_of_staff") {
@@ -333,10 +334,10 @@ function all_staff_data($c) {
             <td>'.$row['username'].'</td>
             <td>'.$row['password'].'</td>
             <td class="text-center">
-                <button type="button" name="edit_role_btn" class="button small green update_role_btn" id="'.$row["id"].'" data-toggle="modal" data-target="#exampleModal">
+                <button type="button" name="edit_role_btn" class="button small green update_role_btn" id="'.$row["alt_staff_id"].'" data-toggle="modal" data-target="#exampleModal">
                     <span class="icon"><i class="mdi mdi-pencil"></i></span>
                 </button>
-                <button type="button" name="rl_btn_delete" class="button small red delete_role_btn" id="'.$row["id"].'">
+                <button type="button" name="rl_btn_delete" class="button small red delete_role_btn" id="'.$row["alt_staff_id"].'">
                     <span class="icon"><i class="mdi mdi-trash-can"></i></span>
                 </button>
             </td>
@@ -580,11 +581,11 @@ $ship_comp = check_input($_POST['ship_comp']);
     $timestamp = date("Y-m-d H:i:s");
     
      $stmt_slct1 = $con->prepare("SELECT 
-                                    tsd.email,
+                                    s.email,
                                     tsa.username
-                                    FROM tbl_staff_detail tsd
-                                    INNER JOIN tbl_staff_account tsa ON tsd.id = tsa.id
-                                    WHERE tsd.email=? OR tsa.username=?");
+                                    FROM tbl_staff_account tsa
+                                    INNER JOIN staff s ON tsa.alt_staff_id = s.alt_staff_id
+                                    WHERE s.email=? OR tsa.username=?");
     $stmt_slct1->bind_param('ss', $email, $uname);
     $stmt_slct1->execute();
     $result1 = $stmt_slct1->get_result();
@@ -595,68 +596,71 @@ $ship_comp = check_input($_POST['ship_comp']);
           echo 'Username or Email Already taken!';
     }
     else {
-        $stmt_insrt_sd = $con->prepare("INSERT INTO tbl_staff_detail(name,mid_name,last_name,age,gender,address,contact,email,ship_reside) VALUES (?,?,?,?,?,?,?,?,?)");
-        $stmt_insrt_sd->bind_param('sssssssss', $name,$m_name,$l_name,$age,$gender,$add,$c_num,$email,$ship_comp);
-        $stmt_insrt_sd->execute();
-        $stmt_insrt_sd->close();
-
         $stmt_insrt_sa = $con->prepare("INSERT INTO tbl_staff_account (username,password) VALUES (?,?)");
         $stmt_insrt_sa->bind_param('ss', $uname,$pass);
         $stmt_insrt_sa->execute();
         $stmt_insrt_sa->close();
 
-        $stmt_insrt_rp = $con->prepare("INSERT INTO tbl_staff_reset_password (token_expire) VALUES (?)");
-        $stmt_insrt_rp->bind_param('s', $timestamp);
-        $stmt_insrt_rp->execute();
-        $stmt_insrt_rp->close();
+        $owner_id = mysqli_insert_id($con);
+        $own_id=$_SESSION['alt_owner_id'];
+        $stmt_insrt_sd = $con->prepare("INSERT INTO staff(alt_staff_id,name,mid_name,last_name,age,gender,address,email,contact_info,owner_id) VALUES (?,?,?,?,?,?,?,?,?,?)");
+        $stmt_insrt_sd->bind_param('ssssssssss',$owner_id,$name,$m_name,$l_name,$age,$gender,$add,$email,$c_num,$own_id);
+        $stmt_insrt_sd->execute();
+        $stmt_insrt_sd->close();
+        echo 'Successfully created an account.';
+
+        // $stmt_insrt_rp = $con->prepare("INSERT INTO tbl_staff_reset_password (token_expire) VALUES (?)");
+        // $stmt_insrt_rp->bind_param('s', $timestamp);
+        // $stmt_insrt_rp->execute();
+        // $stmt_insrt_rp->close();
         
-         try {
-                 $mail = new PHPMailer();
+        //  try {
+        //          $mail = new PHPMailer();
                 // $mail->SMTPDebug = SMTP::DEBUG_SERVER;
                 // $mail->SMTPDebug = 3;
-                $mail->isSMTP();
-                $mail->SMTPAuth = false;
-                $mail->SMTPAutoTLS = false;
-                $mail->Host = "localhost";
-                $mail->Username = 'barkomatic@barkomatic.xyz';
-                $mail->Password = 'barkomatic@barkomatic';
-                $mail->Port = 25;
-                $mail->setFrom('barkomatic@barkomatic.xyz', 'New Hired Staff');
-                $mail->addAddress($email);
-                $mail->isHTML(true);
-                $mail->Subject = 'Staff Information';
-       	        $mail->Body = "
-        <!DOCTYPE html>
-        <head>
-        <style>
-            body {
-                font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-                }
-        </style>
-        </head>
-        <body>
-            <div class='container m-auto'>
-                <div class='row'>
-                    <div class='col-sm-12'>
-                     Hello $name,
+        //         $mail->isSMTP();
+        //         $mail->SMTPAuth = false;
+        //         $mail->SMTPAutoTLS = false;
+        //         $mail->Host = "localhost";
+        //         $mail->Username = 'barkomatic@barkomatic.xyz';
+        //         $mail->Password = 'barkomatic@barkomatic';
+        //         $mail->Port = 25;
+        //         $mail->setFrom('barkomatic@barkomatic.xyz', 'New Hired Staff');
+        //         $mail->addAddress($email);
+        //         $mail->isHTML(true);
+        //         $mail->Subject = 'Staff Information';
+       	//         $mail->Body = "
+        // <!DOCTYPE html>
+        // <head>
+        // <style>
+        //     body {
+        //         font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        //         }
+        // </style>
+        // </head>
+        // <body>
+        //     <div class='container m-auto'>
+        //         <div class='row'>
+        //             <div class='col-sm-12'>
+        //              Hello $name,
                      
-                     Congratulations you've been hired as Staff in Shipping $ship_comp, Please save the following credentials.
-                     <br>
-                     login information:<br>
-                     <b>Username</b> : $uname <br>
-                     <b>Password</b> : $pass1 <br>
-                    </div>
-                </div>
-            </div>
-        </body>
-        </html>";
-        $mail->send();
-        echo 'Successfully created an account.';
-        }
-        catch(Exception $e){
-        echo "Could not sent the reservation confirmation. Mailer Error: {$mail->ErrorInfo}";
+        //              Congratulations you've been hired as Staff in Shipping $ship_comp, Please save the following credentials.
+        //              <br>
+        //              login information:<br>
+        //              <b>Username</b> : $uname <br>
+        //              <b>Password</b> : $pass1 <br>
+        //             </div>
+        //         </div>
+        //     </div>
+        // </body>
+        // </html>";
+        // $mail->send();
+        // echo 'Successfully created an account.';
+        // }
+        // catch(Exception $e){
+        // echo "Could not sent the reservation confirmation. Mailer Error: {$mail->ErrorInfo}";
         // echo 'Could not sent the reservation confirmation.{$mail->ErrorInfo}';
-    } 
+    // } 
     }
 }
 // fetch ticket
