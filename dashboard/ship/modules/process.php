@@ -235,7 +235,7 @@ function reservation_data($c) {
 
 //* summary reservation list in dashboard landing page
 function summ_reservation_data($c) {
-    $stmt = $c->prepare("SELECT * FROM tbl_passenger_reservation WHERE ship_name=? AND re_type=1");
+    $stmt = $c->prepare("SELECT * FROM reservation WHERE ship_name=? AND re_type=1");
     $stmt->bind_param('s', $_SESSION['ship_name']);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -506,10 +506,10 @@ function total_number_of_staff($c) {
     $counter = 0;
     $sql_slct = "SELECT 
                 * FROM tbl_staff_account tbl_sa
-                INNER JOIN tbl_staff_detail tbl_sd ON tbl_sa.id = tbl_sd.id
-                WHERE tbl_sd.ship_reside=?";
+                INNER JOIN staff tbl_s ON tbl_sa.alt_staff_id = tbl_s.alt_staff_id
+                WHERE tbl_s.alt_staff_id=?";
     $stmt = $c->prepare($sql_slct);
-    $stmt->bind_param('s', $_SESSION['ship_name']);
+    $stmt->bind_param('s', $_SESSION['alt_staff_id']);
     $stmt->execute();
     $result = $stmt->get_result();
     while($row = $result->fetch_assoc()) {
@@ -531,9 +531,13 @@ function total_number_of_staff($c) {
 // total num of active reservation fetch
 function active_reservation($c) {
     $counter = 0;
-    $sql_slct = "SELECT * FROM tbl_passenger_reservation WHERE ship_name=?";
+    $sql_slct = "SELECT * 
+    FROM reservations r
+    INNER JOIN tickets t ON r.ticket_id = t.ticket_id
+    INNER JOIN tbl_ship_onwer_account soa ON t.alt_owner_id = soa.alt_owner_id
+    WHERE t.alt_owner_id=?";
     $stmt = $c->prepare($sql_slct);
-    $stmt->bind_param('s', $_SESSION['ship_name']);
+    $stmt->bind_param('s', $_SESSION['alt_owner_id']);
     $stmt->execute();
     $result = $stmt->get_result();
     while($row = $result->fetch_assoc()) {
