@@ -903,7 +903,7 @@ a:visited {
     background-color: #0072bc;
     position: absolute;
     max-width: 305px;
-    height: 180px;
+    height: 175px;
     border-radius: 5px 5px 0px 0px;
     top: 26.6%;
     left: 61.9%;
@@ -916,9 +916,9 @@ a:visited {
     background-color: #09527F;
     position: absolute;
     max-width: 268px;
-    height: 165px;
+    height: 166px;
     border-radius: 0px 0px 5px 5px;
-    top: 45%;
+    top: 44.5%;
     left: 61.9%;
     padding-left: 25px;
     padding-right: 25px;
@@ -11640,26 +11640,26 @@ product checkout css
         font-size: 10px;
     }
     .container-form-total {
-        font-size: 14px;
-        max-width: 258px;
+        font-size: 12px;
+        max-width: 240px;
         height: 168px;
         top: 36.6%;
-        left: 61.9%;
+        left: 58.2%;
     }
     .container-form-total2 {
         background-color: #09527F;
         position: absolute;
-        max-width: 258px;
+        max-width: 240px;
         height: 165px;
         border-radius: 0px 0px 5px 5px;
         top: 62%;
-        left: 61.9%;
+        left: 58.2%;
         padding-left: 25px;
         padding-right: 25px;
         padding-top: 10px;
     }
     .contain-payment-total {
-        font-size: 30px;
+        font-size: 27px;
         padding-left: 55px;
         padding-top: 5px;
     }
@@ -11670,9 +11670,9 @@ product checkout css
     }
     .container-form-payment {
         border-radius: 5px;
-        padding-left: 60px;
-        padding-right: 55px;
-        max-width: 1100px;
+        padding-left: 40px;
+        padding-right: 20px;
+        width: 450px;
         margin-top: 3%;
         margin-left: 24%;
         margin-right: 40%;
@@ -11687,13 +11687,16 @@ product checkout css
     .container-important2 {
         padding-left: 15px;
         padding-right: 15px;
-        width: 485px;
+        width: 450px;
         margin-left: 24%;
-        margin-right: 40%;
+        margin-right: 30%;
         border-radius: 5px;
         margin-top: 0.5%;
         background-color: #f1fdfa;
         margin-bottom: 2%;
+    }
+    .container-field2 {
+        width: 450px;
     }
     .container-pay {
         display: flex;
@@ -11704,14 +11707,21 @@ product checkout css
     .container-pay .option_item {
         display: block;
         position: relative;
-        width: 175px;
-        height: 175px;
+        width: 161px;
+        height: 161px;
         margin: 10px;
-        margin-right: 10px;
+        margin-right: 7px;
+    }
+    .container-pay .option_item2 {
+        display: block;
+        position: relative;
+        width: 162px;
+        height: 160px;
+        margin: 10px;
     }
     .option_item3 .option_inner3 {
-        width: 185px;
-        height: 100%;
+        width: 161px;
+        height: 161px;
         background: #fff;
         border-radius: 5px;
         text-align: center;
@@ -11721,10 +11731,10 @@ product checkout css
         display: block;
         border: 5px solid transparent;
         position: relative;
-        margin-left: 1px;
+        margin-left: 0.5px;
     }
     .option_item4 .option_inner4 {
-        width: 772px;
+        width: 700px;
         height: 100%;
         background: #fff;
         border-radius: 5px;
