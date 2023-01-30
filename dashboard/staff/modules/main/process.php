@@ -215,18 +215,10 @@ function fetch_num_port($c) {
     echo $output;
     $stmt->close();
 }
+
 function fetch_ticket_details($c) {
-    $ssr = $_SESSION['stff_ship_reside'];
-    $sql_slct = "SELECT DISTINCT
-                tbl_tkt.id,
-                tbl_tkt.tckt_qty,
-                tbl_tkt.tckt_stats,
-                tbl_tkt.tckt_owner,
-                tbl_tkt.tckt_price,
-                tbl_tkt.vessel_name
-                FROM tbl_tckt tbl_tkt
-                JOIN tbl_ship_detail tbl_to 
-                ON tbl_tkt.tckt_owner = tbl_to.ship_name WHERE tbl_tkt.tckt_owner=?";
+    $ssr = $_SESSION['owner_id'];
+    $sql_slct = "SELECT * from ferries WHERE owner_id=?";
      $stmt = $c->prepare($sql_slct);
      echo $c->error;
      $stmt->bind_param('s',$ssr);
@@ -237,19 +229,15 @@ function fetch_ticket_details($c) {
     <thead>
         <tr><th>Vessel Name</th>
             <th>Seat Capacity</th>
-            <th>Ticket Status</th>
-             <th>Ticket Price</th>
-            <th></th>
+            <th>ACTION</th>
         </tr>
     </thead>
     <tbody id="port-location-data-content">';
     while($row = $result->fetch_assoc()) {
         $output .= '
         <tr>
-            <td>'.$row['vessel_name'].'</td>
-            <td>'.$row['tckt_qty'].'</td>
-            <td>'.$row['tckt_stats'].'</td>
-            <td>'.$row['tckt_price'].'</td>
+            <td>'.$row['name'].'</td>
+            <td>'.$row['capacity'].'</td>
             <td class="text-center">
                 <button type="button" name="edit_vessel_btn" class="button small green update_vessel_btn" id="'.$row["id"].'" data-toggle="modal" data-target="#exampleModal23">
                     <span class="icon"><i class="mdi mdi-pencil"></i></span>
@@ -344,17 +332,18 @@ function add_port_location($c) {
 }
 //* ship port fetch data
 function fetch_port_location($c) {
-    $ship_name = $_SESSION['stff_ship_reside'];
+    $ship_name = $_SESSION['owner_id'];
     $stmt = $c->prepare("SELECT
-                        tsp.id,
-                        tsp.location_from,
-                        tsp.port_from,
-                        tsp.location_to,
-                        tsp.port_to,
-                        sb.ship
-                        FROM tbl_ship_port tsp
-                        JOIN tbl_add_ship_loc_belong sb ON tsp.id = sb.id
-                        WHERE sb.ship=?"); 
+                        r.route_id,
+                        r.departure_from,
+                        r.departure_port,
+                        r.arrival_from,
+                        r.arrival_port,
+                        f.owner_id,
+                        f.name
+                        FROM routes r
+                        JOIN ferries f ON r.ferry_id = f.ferry_id
+                        WHERE f.owner_id=?"); 
     $stmt->bind_param('s',$ship_name);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -362,6 +351,7 @@ function fetch_port_location($c) {
         <table class="table table-bordered table-sm mb-0">
             <thead>
                 <tr>
+                    <th>Vessel</th>
                     <th>Location From</th>
                     <th>Port</th>
                     <th>Location To</th>
@@ -373,15 +363,16 @@ function fetch_port_location($c) {
     while ($row = $result->fetch_assoc()) {
         $output .= '
             <tr>
-                <td>'.$row["location_from"].'</td>
-                <td>'.$row["port_from"].'</td>
-                <td>'.$row["location_to"].'</td>
-                <td>'.$row["port_to"].'</td>
+                <td>'.$row["name"].'</td>
+                <td>'.$row["departure_from"].'</td>
+                <td>'.$row["departure_port"].'</td>
+                <td>'.$row["arrival_from"].'</td>
+                <td>'.$row["arrival_port"].'</td>
                 <td class="text-center">
-                    <button type="button" name="update" id="'.$row["id"].'" class="button small green update_loc_btn" data-toggle="modal" data-target="#exampleModal">
+                    <button type="button" name="update" id="'.$row["route_id"].'" class="button small green update_loc_btn" data-toggle="modal" data-target="#exampleModal">
                         <span class="icon"><i class="mdi mdi-pencil"></i></span>
                     </button>
-                    <button type="button" name="delete" id="'.$row["id"].'" class="button small red delete_loc_btn">
+                    <button type="button" name="delete" id="'.$row["route_id"].'" class="button small red delete_loc_btn">
                         <span class="icon"><i class="mdi mdi-trash-can"></i></span>
                     </button>
                 </td>

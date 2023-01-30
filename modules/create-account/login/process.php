@@ -245,15 +245,17 @@ function adminSession($c, $u_admin) {
 //         echo 'Login failed! Please check your username and password!';
 //     }
 // }
+
 function staff_session($c, $u_stff) {
     $sql_slct_ownr = "SELECT 
-                        s.id,
+                        s.staff_id
+                        s.alt_staff_id,
                         s.name,
                         s.email,
                         s.owner_id,
                         tbl_sa.username
-                        FROM tbl_staff_acount tbl_sa
-                        INNER JOIN staff s ON  tbl_sa.alt_staff_id = s.alt_staff_id
+                        FROM tbl_staff_account tbl_sa
+                        JOIN staff s ON tbl_sa.alt_staff_id = s.alt_staff_id
                         WHERE tbl_sa.username=?";
     
     if($stmt_stff = mysqli_prepare($c, $sql_slct_ownr)) {
@@ -264,14 +266,13 @@ function staff_session($c, $u_stff) {
             if(mysqli_stmt_num_rows($stmt_stff) == 1) {
                 mysqli_stmt_bind_result($stmt_stff, $id_stff,$name,$em_stff,$stff_ship_reside,$username_stff);
                 if(mysqli_stmt_fetch($stmt_stff)) {
-                    if($id_stff != '' && $name != '' && $em_stff != '' && $stff_ship_reside != '' && $username_stff != '') {
+                    if($id_stff !='') {
                         $_SESSION['staff_id'] = $id_stff;
-                        $_SESSION['name'] = $name; 
                         $_SESSION['email'] = $em_stff;
                         $_SESSION['owner_id'] = $stff_ship_reside;
                         $_SESSION['username'] = $username_stff;
                         echo "Staff Login";
-                    }
+                    } 
                 }
             }
         }
