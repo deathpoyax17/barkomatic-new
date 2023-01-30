@@ -523,14 +523,20 @@ $q1 = $c->prepare("SELECT acomm_name FROM accommodations WHERE acomm_name=?");
           echo "Accomodation Name Already Exist!";
       }
 else{
-  
-  $stmt = $c->prepare("INSERT INTO accommodations (ferry_id,acomm_name,room_type,aircon,price,availability) VALUES (?,?,?,?,?,?)");
-  $stmt->bind_param('ssssss', $vessel,$accomm_name,$seat_typ,$aircon,$price,$avail);
-  if($stmt->execute()){
-  echo "Added Succesfully";
-  $q1->close();
-} else {
-  echo "Error: " . $c->error;
+    try{
+        $stmt = $c->prepare("INSERT INTO accommodations (ferry_id,acomm_name,room_type,aircon,price,availability) VALUES (?,?,?,?,?,?)");
+        $stmt->bind_param('ssssss', $vessel,$accomm_name,$seat_typ,$aircon,$price,$avail);
+        if($stmt->execute()){
+            echo "Added Succesfully";
+            $q1->close();
+          } 
+    }catch (mysqli_sql_exception $e) {
+        if ($e->getCode() == 1062) {
+            echo "Duplicate Ferry";
+        } else {
+            throw $e;// in case it's any other error
+        }
+
 }
 $stmt->close();
 }
