@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 30, 2023 at 10:11 AM
+-- Generation Time: Jan 30, 2023 at 10:50 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `accommodations` (
   `accomodation_id` int(30) NOT NULL,
-  `ferry_id` int(20) NOT NULL,
+  `ferry_id` int(100) NOT NULL,
   `acomm_name` varchar(100) NOT NULL,
   `room_type` varchar(30) NOT NULL,
   `aircon` tinyint(1) NOT NULL,
@@ -42,7 +42,8 @@ CREATE TABLE `accommodations` (
 --
 
 INSERT INTO `accommodations` (`accomodation_id`, `ferry_id`, `acomm_name`, `room_type`, `aircon`, `price`, `availability`) VALUES
-(3, 1, 'testing', 'Stadard a', 0, 500, 1);
+(3, 1, 'testing', 'Stadard a', 0, 500, 1),
+(30, 1, 'test', 'test', 0, 300, 1);
 
 -- --------------------------------------------------------
 
@@ -316,8 +317,7 @@ CREATE TABLE `tickets` (
 -- Indexes for table `accommodations`
 --
 ALTER TABLE `accommodations`
-  ADD PRIMARY KEY (`accomodation_id`),
-  ADD UNIQUE KEY `ferry_id` (`ferry_id`);
+  ADD PRIMARY KEY (`accomodation_id`);
 
 --
 -- Indexes for table `admin`
@@ -428,7 +428,7 @@ ALTER TABLE `tickets`
 -- AUTO_INCREMENT for table `accommodations`
 --
 ALTER TABLE `accommodations`
-  MODIFY `accomodation_id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `accomodation_id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `admin`
@@ -511,12 +511,6 @@ ALTER TABLE `tickets`
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `accommodations`
---
-ALTER TABLE `accommodations`
-  ADD CONSTRAINT `accommodations_ibfk_1` FOREIGN KEY (`ferry_id`) REFERENCES `ferries` (`ferry_id`);
 
 --
 -- Constraints for table `ferries`
