@@ -23,12 +23,14 @@ $(document).ready(function(){
     
     $('#loc-to').on('change', function(){
         var locato = $(this).val();
+
             $.ajax({
                 type:'POST',
                 url:'data.php',
                 data:'locato='+locato,
                 success:function(html){
                     $('#port-to').html(html);
+                    console.log(html);
                 }
             }); 
         

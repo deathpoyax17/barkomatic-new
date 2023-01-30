@@ -283,16 +283,9 @@ function active_reservation($c) {
 function add_port_location($c) {
     $lf = check_input($_POST['location_from']);
     $p1 = check_input($_POST['port_1']);
-    $lt = check_input($_POST['location_to']);
-    $p2 = check_input($_POST['port_2']);
-    $ves= check_input($_POST['vessel']);
-    $ship_belong = $_SESSION['owner_id'];
     
-  $q1 = $c->prepare("SELECT * 
-                    from routes r
-                    JOIN ferries f ON r.ferry_id = f.ferry_id
-                    WHERE r.departure_from=? AND r.departure_port=? AND r.arrival_from=? AND r.arrival_port=? AND f.owner_id=? ");
-        $q1->bind_param('sssss', $lf, $p1, $lt, $p2, $ship_belong);
+  $q1 = $c->prepare("SELECT * from routes WHERE departure_from=? AND departure_port=?");
+        $q1->bind_param('ss', $lf, $p1);
         echo $c->error;
         $q1->execute();
         $result = $q1->get_result();
@@ -301,8 +294,8 @@ function add_port_location($c) {
         if($row!=NULL){
             echo "Already Exist";
         }else{
-        $stmt_tsp = $c->prepare("INSERT INTO routes (departure_from,departure_port,arrival_from,arrival_port,ferry_id) VALUES (?,?,?,?,?)");
-        $stmt_tsp->bind_param('sssss', $lf,$p1,$lt,$p2,$ves);
+        $stmt_tsp = $c->prepare("INSERT INTO routes (departure_from,departure_port,date_created) VALUES (?,?,NOW())");
+        $stmt_tsp->bind_param('ss', $lf,$p1);
         $stmt_tsp->execute();
         if($stmt_tsp){
             echo 'Added Successfully.';
@@ -312,30 +305,17 @@ function add_port_location($c) {
 }
 //* ship port fetch data
 function fetch_port_location($c) {
-    $ship_name = $_SESSION['owner_id'];
-    $stmt = $c->prepare("SELECT
-                        r.route_id,
-                        r.departure_from,
-                        r.departure_port,
-                        r.arrival_from,
-                        r.arrival_port,
-                        f.owner_id,
-                        f.name
-                        FROM routes r
-                        JOIN ferries f ON r.ferry_id = f.ferry_id
-                        WHERE f.owner_id=?"); 
-    $stmt->bind_param('s',$ship_name);
+  
+    $stmt = $c->prepare("SELECT * FROM routes"); 
     $stmt->execute();
     $result = $stmt->get_result();
     $output = '
         <table class="table table-bordered table-sm mb-0">
             <thead>
                 <tr>
-                    <th>Vessel</th>
-                    <th>Location From</th>
-                    <th>Port</th>
-                    <th>Location To</th>
-                    <th>Port</th>
+                    <th>Date Created</th>
+                    <th>Location Port</th>
+                    <th>Port Name</th>
                     <th></th>
                 </tr>
             </thead>
@@ -343,11 +323,9 @@ function fetch_port_location($c) {
     while ($row = $result->fetch_assoc()) {
         $output .= '
             <tr>
-                <td>'.$row["name"].'</td>
+                <td>'.$row["date_created"].'</td>
                 <td>'.$row["departure_from"].'</td>
                 <td>'.$row["departure_port"].'</td>
-                <td>'.$row["arrival_from"].'</td>
-                <td>'.$row["arrival_port"].'</td>
                 <td class="text-center">
                     <button type="button" name="update" id="'.$row["route_id"].'" class="button small green update_loc_btn" data-toggle="modal" data-target="#exampleModal">
                         <span class="icon"><i class="mdi mdi-pencil"></i></span>
@@ -423,7 +401,7 @@ function add_schedule($c) {
     $slt = check_input($_POST['sched_loc_to']);
     $spt = check_input($_POST['sched_port_to']);
     $vessel = check_input($_POST['vessel']);
-    $ship_belong = check_input($_POST['ship']);
+    $ship_belong = $_SESSION['owner_id'];
     
       $qz = $c->prepare("SELECT
                         tss.id,
@@ -482,8 +460,11 @@ function add_schedule($c) {
 //* fetch accommodation type
 function fetch_accomm_detail($c) {
     
-     $ship_name = $_SESSION['stff_ship_reside'];
-    $stmt = $c->prepare("SELECT * FROM tbl_ship_has_accomodation_type WHERE ship_reside=? "); 
+     $ship_name = $_SESSION['owner_id'];
+    $stmt = $c->prepare("SELECT * 
+                        FROM accommodations accom
+                        JOIN ferries fer ON  accom.ferry_id=fer.ferry_id
+                        WHERE fer.owner_id=?"); 
     $stmt->bind_param('s', $ship_name);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -491,9 +472,9 @@ function fetch_accomm_detail($c) {
         <table class="table table-bordered table-sm mb-0">
             <thead>
                 <tr>
+                    <th>Vessel Name</th>
                     <th>Accomodation Name</th>
                     <th>Seat Type</th>
-                    <th>Aircon</th>
                     <th>Price</th>
                     <th></th>
                 </tr>
@@ -502,15 +483,15 @@ function fetch_accomm_detail($c) {
     while ($row = $result->fetch_assoc()) {
         $output .= '
             <tr>
-                <td>'.$row["accomodation_name"].'</td>
-                <td>'.$row["seat_type"].'</td>
-                <td>'.$row["aircon"].'</td>
+                <td>'.$row["name"].'</td>
+                <td>'.$row["acomm_name"].'</td>
+                <td>'.$row["room_type"].'</td>
                 <td>₱ '.$row["price"].'</td>
                 <td class="text-center">
-                    <button type="button" name="update" id="'.$row["id"].'" class="button small green update_accom_btn" data-toggle="modal" data-target="#exampleModal">
+                    <button type="button" name="update" id="'.$row["accomodation_id"].'" class="button small green update_accom_btn" data-toggle="modal" data-target="#exampleModal">
                         <span class="icon"><i class="mdi mdi-pencil"></i></span>
                     </button>
-                    <button type="button" name="delete_accom" id="'.$row["id"].'" class="button small red delete_accom_btn">
+                    <button type="button" name="delete_accom" id="'.$row["accomodation_id"].'" class="button small red delete_accom_btn">
                         <span class="icon"><i class="mdi mdi-trash-can"></i></span>
                     </button>
                 </td>
@@ -524,13 +505,14 @@ function fetch_accomm_detail($c) {
 //* add ship accommodation type
 function add_accomodation_type($c) {
       $accomm_names = $_POST['accomodation_name'];
+    $vessel = check_input($_POST['vessel']);
     $accomm_name = check_input($_POST['accomodation_name']);
     $seat_typ = check_input($_POST['accomm_seat_typ']);
-    $aircon = check_input($_POST['accomm_aircon']);
+    $avail = 1;
     $price = check_input($_POST['accomm_typ_price']);
-    $ship_belong = $_POST['ship'];
+    $ship_belong = $_SESSION['owner_id'];
     
-  $q1 = $c->prepare("SELECT accomodation_name FROM tbl_ship_has_accomodation_type WHERE accomodation_name=?");
+  $q1 = $c->prepare("SELECT acomm_name FROM accommodations WHERE acomm_name=?");
         $q1->bind_param('s', $accomm_names);
         $q1->execute();
         $result = $q1->get_result();
@@ -543,14 +525,9 @@ function add_accomodation_type($c) {
    
 else{
     
-    $stmt = $c->prepare("INSERT INTO tbl_ship_has_accomodation_type (accomodation_name,seat_type,aircon,price,ship_reside) VALUES (?,?,?,?,?)");
-    $stmt->bind_param('sssss', $accomm_name,$seat_typ,$aircon,$price,$ship_belong);
+    $stmt = $c->prepare("INSERT INTO accommodations (ferry_id,acomm_name,room_type,price,availability) VALUES (?,?,?,?,?)");
+    $stmt->bind_param('sssss', $vessel,$accomm_name,$seat_typ,$price,$avail);
     if($stmt->execute()){
-    $lastid= $c ->insert_id;
-    $stmt_sb = $c->prepare("INSERT INTO tbl_ship_belong (id,ship) VALUES (?,?)");
-    $stmt_sb->bind_param('ss', $lastid,$ship_belong);
-    $stmt_sb->execute();
-    $stmt_sb->close();
     echo "Added Succesfully";
     $q1->close();
 }

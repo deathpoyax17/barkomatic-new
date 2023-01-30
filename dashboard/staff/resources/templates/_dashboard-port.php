@@ -13,7 +13,7 @@
             </header>
             <div class="card-content">
                 <form id="add_port_loc_form">
-                                <div class="field">
+                                <!-- <div class="field">
                                         <label class="label">Vessel</label>
                                         <div class="field-body">
                                             <div class="field">
@@ -38,7 +38,7 @@
                                                 <p class="help">Required. Vessel</p>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                     <div class="field">
                         <label class="label">Location From</label>
                         <div class="field-body">
@@ -63,7 +63,7 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="field">
+                    <!-- <div class="field">
                         <label class="label">Location To</label>
                         <div class="field-body">
                             <div class="field">
@@ -84,7 +84,7 @@
                                 <p class="help">Required. Port</p>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <hr>
                     <div class="field">
                         <div class="control">

@@ -92,9 +92,8 @@
                             <select class="form-control select1" id="loc-from" name="sched_loc_from">
                                 <option class="form-control" value="">----SELECT LOCATION----</option>
                                 <?php
-                                    $ship=$_SESSION['owner_id'];
-                                    $stmt = $con->prepare("SELECT * from routes JOIN ferries ON routes.ferry_id = ferries.ferry_id WHERE ferries.owner_id=?");
-                                        $stmt->bind_param("s",$ship);
+                                 
+                                    $stmt = $con->prepare("SELECT departure_from from routes");
                                     if(mysqli_stmt_execute($stmt)) {
                                         $result = mysqli_stmt_get_result($stmt);
                                         if(mysqli_num_rows($result) > 0) {
@@ -123,14 +122,13 @@
                             <select class="form-control select2" id="loc-to" name="sched_loc_to">
                                 <option class="form-control" value="">----SELECT LOCATION----</option>
                                 <?php
-                                         $ship=$_SESSION['owner_id'];
-                                        $stmt = $con->prepare("SELECT * from routes JOIN ferries ON routes.ferry_id = ferries.ferry_id WHERE ferries.owner_id=?");
-                                        $stmt->bind_param("s",$ship);
+                                    
+                                        $stmt = $con->prepare("SELECT departure_from from routes");
                                         if(mysqli_stmt_execute($stmt)) {
                                         $result = mysqli_stmt_get_result($stmt);
                                         if(mysqli_num_rows($result) > 0) {
                                             while($row = mysqli_fetch_array($result)) { ?>
-                                                <option class="form-control" value="<?php echo $row['arrival_to']; ?>"><?php echo $row['arrival_to']; ?></option>
+                                                <option class="form-control" value="<?php echo $row['departure_from']; ?>"><?php echo $row['departure_from']; ?></option>
                                         <?php } 
                                         }
                                     } ?>
