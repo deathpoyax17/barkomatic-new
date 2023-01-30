@@ -63,7 +63,21 @@
                             </div>
                         </div>
                     </div>
-                   
+                    <div class="field">
+                        <label class="label">Aircon</label>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    <select name="accomm_aircon" id="accomm_aircon" class="form-control">
+                                        <option selected value="">--</option>
+                                        <option value="1">YES</option>
+                                        <option value="0">NO</option>
+                                    </select>
+                                </div>
+                                <p class="help">Required. Aircon</p>
+                            </div>
+                        </div>
+                    </div>
                     <div class="field">
                         <label class="label">Price</label>
                         <div class="field-body">

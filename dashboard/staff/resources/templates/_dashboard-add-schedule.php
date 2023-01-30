@@ -14,7 +14,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <?php 
-                    $stmt_sa = $con->prepare("SELECT * FROM routes JOIN ferries ON routes.ferry_id = ferries.ferry_id");
+                    $stmt_sa = $con->prepare("SELECT * FROM routes");
                     $stmt_sa->execute();
                     $stmt_sa->store_result();
                     // $stmt_sa->bind_result($count_id);

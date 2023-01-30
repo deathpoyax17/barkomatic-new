@@ -7,7 +7,7 @@ if(!empty($_POST["port_name"])){
     // Fetch state data based on the specific country 
     $locname=$_POST['port_name'];
     // $shipName = $_SESSION['owner_id'];
-    $query = "SELECT * routes WHERE departure_from='$locname'"; 
+    $query = "SELECT departure_port from routes WHERE departure_from='$locname'"; 
     $result = $con->query($query); 
      
     // Generate HTML of state options list 
@@ -23,9 +23,9 @@ if(!empty($_POST["port_name"])){
     
     if(!empty($_POST["locato"])){ 
     // Fetch state data based on the specific country 
-    $locnames=$_POST['locato'];
+    $locname=$_POST['locato'];
     //  $shipName = $_SESSION['owner_id'];
-    $query = "SELECT * routes WHERE departure_from='$locnames'";  
+    $query = "SELECT departure_port from routes WHERE departure_from='$locname'";  
     $result = $con->query($query); 
      
     // Generate HTML of state options list 

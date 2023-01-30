@@ -504,36 +504,38 @@ function fetch_accomm_detail($c) {
 
 //* add ship accommodation type
 function add_accomodation_type($c) {
-      $accomm_names = $_POST['accomodation_name'];
-    $vessel = check_input($_POST['vessel']);
-    $accomm_name = check_input($_POST['accomodation_name']);
-    $seat_typ = check_input($_POST['accomm_seat_typ']);
-    $avail = 1;
-    $price = check_input($_POST['accomm_typ_price']);
-    $ship_belong = $_SESSION['owner_id'];
-    
-  $q1 = $c->prepare("SELECT acomm_name FROM accommodations WHERE acomm_name=?");
-        $q1->bind_param('s', $accomm_names);
-        $q1->execute();
-        $result = $q1->get_result();
-        $row = $result->fetch_array(MYSQLI_ASSOC);
-        
-        if(isset($row['accomodation_name']) == $accomm_names){
-            echo "Accomodation Name Already Exist!";
-        }
-
-   
+    $accomm_names = $_POST['accomodation_name'];
+  $vessel = check_input($_POST['vessel']);
+  $accomm_name = check_input($_POST['accomodation_name']);
+  $aircon = check_input($_POST['accomm_aircon']);
+  $seat_typ = check_input($_POST['accomm_seat_typ']);
+  $avail = 1;
+  $price = check_input($_POST['accomm_typ_price']);
+  $ship_belong = $_SESSION['owner_id'];
+  
+$q1 = $c->prepare("SELECT acomm_name FROM accommodations WHERE acomm_name=?");
+      $q1->bind_param('s', $accomm_names);
+      $q1->execute();
+      $result = $q1->get_result();
+      $row = $result->fetch_array(MYSQLI_ASSOC);
+      
+      if(isset($row['accomodation_name']) == $accomm_names){
+          echo "Accomodation Name Already Exist!";
+      }
 else{
-    
-    $stmt = $c->prepare("INSERT INTO accommodations (ferry_id,acomm_name,room_type,price,availability) VALUES (?,?,?,?,?)");
-    $stmt->bind_param('sssss', $vessel,$accomm_name,$seat_typ,$price,$avail);
-    if($stmt->execute()){
-    echo "Added Succesfully";
-    $q1->close();
+  
+  $stmt = $c->prepare("INSERT INTO accommodations (ferry_id,acomm_name,room_type,aircon,price,availability) VALUES (?,?,?,?,?,?)");
+  $stmt->bind_param('ssssss', $vessel,$accomm_name,$seat_typ,$aircon,$price,$avail);
+  if($stmt->execute()){
+  echo "Added Succesfully";
+  $q1->close();
+} else {
+  echo "Error: " . $c->error;
 }
- $stmt->close();
+$stmt->close();
 }
 }
+
 
 //* edit-delete - port location
 function edit_port_form($con) {
