@@ -239,10 +239,10 @@ function fetch_ticket_details($c) {
             <td>'.$row['name'].'</td>
             <td>'.$row['capacity'].'</td>
             <td class="text-center">
-                <button type="button" name="edit_vessel_btn" class="button small green update_vessel_btn" id="'.$row["id"].'" data-toggle="modal" data-target="#exampleModal23">
+                <button type="button" name="edit_vessel_btn" class="button small green update_vessel_btn" id="'.$row["ferry_id"].'" data-toggle="modal" data-target="#exampleModal23">
                     <span class="icon"><i class="mdi mdi-pencil"></i></span>
                 </button>
-                <button type="button" name="rl_vessel_delete" class="button small red delete_vessel_btn" id="'.$row["id"].'">
+                <button type="button" name="rl_vessel_delete" class="button small red delete_vessel_btn" id="'.$row["ferry_id"].'">
                     <span class="icon"><i class="mdi mdi-trash-can"></i></span>
                 </button>
             </td>
@@ -285,18 +285,13 @@ function add_port_location($c) {
     $p1 = check_input($_POST['port_1']);
     $lt = check_input($_POST['location_to']);
     $p2 = check_input($_POST['port_2']);
-    $ship_belong = $_POST['ship'];
+    $ves= check_input($_POST['vessel']);
+    $ship_belong = $_SESSION['owner_id'];
     
-  $q1 = $c->prepare("SELECT
-                        tsp.id,
-                        tsp.location_from,
-                        tsp.port_from,
-                        tsp.location_to,
-                        tsp.port_to,
-                        sb.ship
-                        FROM tbl_ship_port tsp
-                        JOIN tbl_add_ship_loc_belong sb ON tsp.id = sb.id
-                        WHERE tsp.location_from=? AND tsp.port_from=? AND tsp.location_to=? AND tsp.port_to=? AND sb.ship=? ");
+  $q1 = $c->prepare("SELECT * 
+                    from routes r
+                    JOIN ferries f ON r.ferry_id = f.ferry_id
+                    WHERE r.departure_from=? AND r.departure_port=? AND r.arrival_from=? AND r.arrival_port=? AND f.owner_id=? ");
         $q1->bind_param('sssss', $lf, $p1, $lt, $p2, $ship_belong);
         echo $c->error;
         $q1->execute();
@@ -306,28 +301,13 @@ function add_port_location($c) {
         if($row!=NULL){
             echo "Already Exist";
         }else{
-    $stmt_sb = $c->prepare("INSERT INTO tbl_add_ship_loc_belong (ship) VALUES (?)");
-    $stmt_sb->bind_param('s', $ship_belong);
-    $stmt_sb->execute();
-    if($stmt_sb){
-        
-        $stmt_tsp = $c->prepare("INSERT INTO tbl_ship_port (location_from,port_from,location_to,port_to) VALUES (?,?,?,?)");
-        $stmt_tsp->bind_param('ssss', $lf,$p1,$lt,$p2);
+        $stmt_tsp = $c->prepare("INSERT INTO routes (departure_from,departure_port,arrival_from,arrival_port,ferry_id) VALUES (?,?,?,?,?)");
+        $stmt_tsp->bind_param('sssss', $lf,$p1,$lt,$p2,$ves);
         $stmt_tsp->execute();
         if($stmt_tsp){
-        $stmt_tspl = $c->prepare("INSERT INTO tbl_all_ship_port_location (location_from,location_to) VALUES (?,?)");
-        $stmt_tspl->bind_param('ss', $lf,$lt);
-        $stmt_tspl->execute();
-        $stmt_tspl->close();
-         if($stmt_tspl){
             echo 'Added Successfully.';
-         }
-       
-       $stmt_tsp->close();
-        
-    }
-    $stmt_sb->close();
-     }
+            $stmt_tsp->close();
+    }    
   }
 }
 //* ship port fetch data
@@ -696,12 +676,12 @@ function ship_sched_edit_id_form($con) {
 function create_ticket($con) {
     
      $vsl_name = check_input($_POST['vessel_name']);
-      $tckt_price = check_input($_POST['ticket_price']);
+    //   $tckt_price = check_input($_POST['ticket_price']);
     $tckt_qnty = check_input($_POST['ticket_quantity']);
-    $tckt_stats = check_input($_POST['ticket_status']);
-    $tckt_owner = check_input($_POST['ship_comp']);
+    // $tckt_stats = check_input($_POST['ticket_status']);
+    $tckt_owner = $_SESSION['owner_id'];
     // $timestamp = date("Y-m-d H:i:s");
-       $q1 = $con->prepare("SELECT vessel_name FROM tbl_tckt WHERE vessel_name=?");
+       $q1 = $con->prepare("SELECT name FROM ferries WHERE name=?");
         $q1->bind_param('s', $vsl_name);
         $q1->execute();
         $result = $q1->get_result();
@@ -711,8 +691,8 @@ function create_ticket($con) {
             echo "Vessel Name Already Exist!";
         }else{
      
-        $stmt_insrt_sd = $con->prepare("INSERT INTO tbl_tckt (vessel_name,tckt_qty,tckt_stats,tckt_owner,tckt_price) VALUES (?,?,?,?,?)");
-        $stmt_insrt_sd->bind_param('sssss', $vsl_name, $tckt_qnty,$tckt_stats,$tckt_owner,$tckt_price);
+        $stmt_insrt_sd = $con->prepare("INSERT INTO ferries (name,capacity,owner_id) VALUES (?,?,?)");
+        $stmt_insrt_sd->bind_param('sss', $vsl_name, $tckt_qnty,$tckt_owner);
         $stmt_insrt_sd->execute();
         $stmt_insrt_sd->close();
         echo 'Successfully Generate Ticket';
