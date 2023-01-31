@@ -49,6 +49,7 @@
                         <label for="vessel" class="col-sm-4 control-label">Choose Vessel</label>
                         <div class="col-sm-8">
                             <select class="form-control" id="vessel" name="vessel">
+                            <option class="form-control" value="">Choose Vessel</option>
                                 <?php
                                 $ship_reside = $_SESSION['owner_id'];
                                     $stmt = $con->prepare("SELECT * FROM ferries WHERE owner_id = '$ship_reside' ");
@@ -63,6 +64,14 @@
                                         }
                                 
                                     } ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="accomm-vessel" class="col-sm-4 control-label">Accomodation</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="accomm-vessel" name="accomm-vessel">
+                            
                             </select>
                         </div>
                     </div>
@@ -93,13 +102,13 @@
                                 <option class="form-control" value="">----SELECT LOCATION----</option>
                                 <?php
                                  
-                                    $stmt = $con->prepare("SELECT departure_from from routes");
+                                    $stmt = $con->prepare("SELECT * from routes");
                                     if(mysqli_stmt_execute($stmt)) {
                                         $result = mysqli_stmt_get_result($stmt);
                                         if(mysqli_num_rows($result) > 0) {
                                             while($row = mysqli_fetch_array($result)) { ?>
                                                 
-                                                <option class="form-control" value="<?php echo $row['departure_from']; ?>"><?php echo $row['departure_from']; ?></option>
+                                                <option class="form-control" value="<?php echo $row['route_id']; ?>"><?php echo $row['departure_from']; ?></option>
                                         <?php } 
                                         }
                                     } ?>
@@ -123,12 +132,12 @@
                                 <option class="form-control" value="">----SELECT LOCATION----</option>
                                 <?php
                                     
-                                        $stmt = $con->prepare("SELECT departure_from from routes");
+                                        $stmt = $con->prepare("SELECT * from routes");
                                         if(mysqli_stmt_execute($stmt)) {
                                         $result = mysqli_stmt_get_result($stmt);
                                         if(mysqli_num_rows($result) > 0) {
                                             while($row = mysqli_fetch_array($result)) { ?>
-                                                <option class="form-control" value="<?php echo $row['departure_from']; ?>"><?php echo $row['departure_from']; ?></option>
+                                                <option class="form-control" value="<?php echo $row['route_id']; ?>"><?php echo $row['departure_from']; ?></option>
                                         <?php } 
                                         }
                                     } ?>

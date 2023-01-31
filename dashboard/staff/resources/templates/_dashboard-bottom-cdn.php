@@ -35,6 +35,22 @@ $(document).ready(function(){
             }); 
         
     });
+
+        
+    $('#vessel').on('change', function(){
+        var vesselAccom = $(this).val();
+
+            $.ajax({
+                type:'POST',
+                url:'data.php',
+                data:'vesselAccom='+vesselAccom,
+                success:function(html){
+                    $('#accomm-vessel').html(html);
+                    console.log(html);
+                }
+            }); 
+        
+    });
     
 });
 </script>

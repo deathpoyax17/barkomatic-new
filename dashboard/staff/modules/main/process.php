@@ -123,8 +123,10 @@ if(isset($_POST["action"]) && $_POST["action"] == "fetch_ticket_detail") {
 
 //* reservation details
 function reservation_data($c) {
-    $stmt = $c->prepare("SELECT * FROM tbl_passenger_reservation WHERE ship_name=?");
-    $stmt->bind_param('s',$_SESSION['stff_ship_reside']);
+    $stmt = $c->prepare("SELECT * FROM reservations
+                         JOIN tickets ON reservations.ticket_id=tickets.ticket_id
+                         WHERE alt_owner_id=?");
+    $stmt->bind_param('s',$_SESSION['owner_id']);
     $stmt->execute();
     $result = $stmt->get_result();
     $output = '
@@ -259,9 +261,9 @@ function fetch_ticket_details($c) {
 //* total active reservation
 function active_reservation($c) {
     $counter = 0;
-    $sql_slct = "SELECT * FROM tbl_passenger_reservation WHERE ship_name=?";
+    $sql_slct = "SELECT * FROM reservations WHERE ship_name=?";
     $stmt = $c->prepare($sql_slct);
-    $stmt->bind_param('s', $_SESSION['stff_ship_reside']);
+    $stmt->bind_param('s', $_SESSION['owner_id']);
     $stmt->execute();
     $result = $stmt->get_result();
     while($row = $result->fetch_assoc()) {
@@ -347,8 +349,8 @@ function fetch_port_location($c) {
                     //     <span class="icon"><i class="mdi mdi-pencil"></i></span>
                     // </button>
 function fetch_depart_detail($c) {
-       $ship_name = $_SESSION['stff_ship_reside'];
-    $stmt = $c->prepare("SELECT * FROM tbl_ship_schedule WHERE ship_reside=?"); 
+       $ship_name = $_SESSION['owner_id'];
+    $stmt = $c->prepare("SELECT * FROM schedules WHERE owner_id=?"); 
     $stmt->bind_param('s',$ship_name);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -371,17 +373,17 @@ function fetch_depart_detail($c) {
     while ($row = $result->fetch_assoc()) {
         $output .= '
             <tr>
-                <td>'.$row["depart_date"].'</td>
-                <td>'.$row["depart_time"].'</td>
+                <td>'.$row["departure_date"].'</td>
+                <td>'.$row["arrival_time"].'</td>
                 <td>'.$row["location_from"].'</td>
                 <td>'.$row["port_from"].'</td>
                 <td>'.$row["location_to"].'</td>
                 <td>'.$row["port_to"].'</td>
-                <td>'.$row["ship_reside"].'</td>
-                <td>'.$row["vessel"].'</td>
+                <td>'.$row["owner_id"].'</td>
+                <td>'.$row["ferry_id"].'</td>
                 <td class="text-center">
                    
-                    <button type="button" name="delete_sched" id="'.$row["id"].'" class="button small red delete_ship_sched_btn">
+                    <button type="button" name="delete_sched" id="'.$row["schedule_id"].'" class="button small red delete_ship_sched_btn">
                         <span class="icon"><i class="mdi mdi-trash-can"></i></span>
                     </button>
                 </td>
@@ -396,27 +398,21 @@ function fetch_depart_detail($c) {
 function add_schedule($c) {
     $d = date('Y-m-d', strtotime($_POST['event-start-date']));
     $t = date('h:i A', strtotime($_POST['ship_depart_time']));
+    $vess= check_input($_POST['vessel']);
     $slf= check_input($_POST['sched_loc_from']);
-    $spf = check_input($_POST['sched_port_from']);
+    // $spf = check_input($_POST['sched_port_from']);
     $slt = check_input($_POST['sched_loc_to']);
-    $spt = check_input($_POST['sched_port_to']);
+    // $spt = check_input($_POST['sched_port_to']);
+    $av = check_input($_POST['accomm-vessel']);
     $vessel = check_input($_POST['vessel']);
     $ship_belong = $_SESSION['owner_id'];
     
-      $qz = $c->prepare("SELECT
-                        tss.id,
-                        tss.ship_reside,
-                        tss.depart_date,
-                        tss.depart_time,
-                        tss.location_from,
-                        tss.port_from,
-                        tss.location_to,
-                        tss.port_to,
-                        tss.vessel
-                        FROM tbl_ship_schedule tss
-                        JOIN tbl_ship_belong sb ON tss.id = sb.id
-                        WHERE  tss.ship_reside=? AND tss.depart_date=? AND tss.depart_time=? AND tss.location_from=? AND tss.port_from=? AND  tss.location_to=? AND tss.port_to=? AND tss.vessel=? AND sb.ship=? ");
-        $qz->bind_param('sssssssss', $ship_belong, $d, $t, $slf, $spf , $slt, $spt, $vessel, $ship_belong);
+    
+      $qz = $c->prepare("SELECT *
+                        FROM schedules
+                        WHERE departure_date=? AND arrival_time=? 
+                        AND route_id_from=? AND route_id_to=? AND ferry_id=? AND owner_id=? ");
+        $qz->bind_param('ssssss', $d, $t, $slf, $slt, $vessel, $ship_belong);
         echo $c->error;
         $qz->execute();
         $result = $qz->get_result();
@@ -425,15 +421,10 @@ function add_schedule($c) {
             echo "Already Exist";
         }
         else{
-      $qz1 = $c->prepare("SELECT
-                        tss.id,
-                        tss.ship_reside,
-                        tss.depart_date,
-                        tss.vessel
-                        FROM tbl_ship_schedule tss
-                        LEFT JOIN tbl_ship_belong sb ON tss.id = sb.id
-                        WHERE  tss.ship_reside=? AND tss.depart_date=? AND tss.vessel=?");
-        $qz1->bind_param('sss', $ship_belong,$d, $vessel);
+      $qz1 = $c->prepare("SELECT *
+                            FROM schedules
+                            WHERE owner_id=? AND ferry_id=?");
+        $qz1->bind_param('ss', $ship_belong, $vessel);
         echo $c->error;
         $qz1->execute();
         $result3 = $qz1->get_result();
@@ -442,15 +433,9 @@ function add_schedule($c) {
             echo "Vessel is on sheduled";
         }
         else{
-    $stmt = $c->prepare("INSERT INTO tbl_ship_schedule (ship_reside,depart_date,depart_time,location_from,port_from,location_to,port_to,vessel) VALUES (?,?,?,?,?,?,?,?)");
-    $stmt->bind_param('ssssssss', $ship_belong,$d,$t,$slf,$spf,$slt,$spt,$vessel);
+    $stmt = $c->prepare("INSERT INTO schedules (route_id_from,route_id_to,ferry_id,accommodation_id,owner_id,departure_date,arrival_time) VALUES (?,?,?,?,?,?,?)");
+    $stmt->bind_param('sssssss', $slf,$slt,$vessel,$av,$ship_belong,$d,$t);
     if($stmt->execute()){
-    $lastid= $c ->insert_id;
-    $stmt_sb = $c->prepare("INSERT INTO tbl_ship_belong (id,ship) VALUES (?,?)");
-    $stmt_sb->bind_param('ss', $lastid, $ship_belong);
-    $stmt_sb->execute();
-    $stmt_sb->close();
-
     echo 'Schedule added successfully!';
         }
            $stmt->close();
@@ -579,7 +564,7 @@ function port_edit_id_form($con) {
 }
 function delete_location($con) {
     $delete_id = $_POST['delete_loc_id'];
-    $ship_name = $_SESSION['stff_ship_reside'];
+    $ship_name = $_SESSION['owner_id'];
     
     $sql_dlt = "DELETE tbl_ship_port,tbl_add_ship_loc_belong FROM tbl_add_ship_loc_belong 
                 INNER JOIN tbl_ship_port ON tbl_add_ship_loc_belong.id = tbl_ship_port.id

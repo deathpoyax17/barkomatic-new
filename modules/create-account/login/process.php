@@ -248,8 +248,7 @@ function adminSession($c, $u_admin) {
 
 function staff_session($c, $u_stff) {
     $sql_slct_ownr = "SELECT 
-                        s.staff_id
-                        s.alt_staff_id,
+                        s.staff_id,
                         s.name,
                         s.email,
                         s.owner_id,
