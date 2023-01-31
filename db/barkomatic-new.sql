@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 30, 2023 at 10:50 AM
+-- Generation Time: Jan 31, 2023 at 07:06 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -42,7 +42,6 @@ CREATE TABLE `accommodations` (
 --
 
 INSERT INTO `accommodations` (`accomodation_id`, `ferry_id`, `acomm_name`, `room_type`, `aircon`, `price`, `availability`) VALUES
-(3, 1, 'testing', 'Stadard a', 0, 500, 1),
 (30, 1, 'test', 'test', 0, 300, 1);
 
 -- --------------------------------------------------------
@@ -153,8 +152,8 @@ CREATE TABLE `routes` (
 --
 
 INSERT INTO `routes` (`route_id`, `departure_from`, `departure_port`, `date_created`) VALUES
-(1, 'Cebu City', 'Pier 3', '0000-00-00'),
-(2, 'Tabugon', 'Tabugon port', '2023-01-30');
+(2, 'Tabugon', 'Tabugon port', '2023-01-30'),
+(3, 'Cebu City', 'Pier 3', '2023-01-31');
 
 -- --------------------------------------------------------
 
@@ -164,10 +163,21 @@ INSERT INTO `routes` (`route_id`, `departure_from`, `departure_port`, `date_crea
 
 CREATE TABLE `schedules` (
   `schedule_id` int(11) NOT NULL,
-  `route_id` int(100) NOT NULL,
-  `departure_time` datetime NOT NULL,
-  `arrival_time` datetime NOT NULL
+  `route_id_from` int(100) NOT NULL,
+  `route_id_to` int(100) NOT NULL,
+  `ferry_id` int(100) NOT NULL,
+  `accommodation_id` int(100) NOT NULL,
+  `owner_id` int(100) NOT NULL,
+  `departure_date` date NOT NULL,
+  `arrival_time` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `schedules`
+--
+
+INSERT INTO `schedules` (`schedule_id`, `route_id_from`, `route_id_to`, `ferry_id`, `accommodation_id`, `owner_id`, `departure_date`, `arrival_time`) VALUES
+(2, 2, 3, 1, 30, 1, '2023-03-15', '10:00:00');
 
 -- --------------------------------------------------------
 
@@ -367,8 +377,7 @@ ALTER TABLE `routes`
 -- Indexes for table `schedules`
 --
 ALTER TABLE `schedules`
-  ADD PRIMARY KEY (`schedule_id`),
-  ADD UNIQUE KEY `route_id` (`route_id`);
+  ADD PRIMARY KEY (`schedule_id`);
 
 --
 -- Indexes for table `ship_owners`
@@ -464,13 +473,13 @@ ALTER TABLE `reservations`
 -- AUTO_INCREMENT for table `routes`
 --
 ALTER TABLE `routes`
-  MODIFY `route_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `route_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `schedules`
 --
 ALTER TABLE `schedules`
-  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `ship_owners`
@@ -539,12 +548,6 @@ ALTER TABLE `payments`
 ALTER TABLE `reservations`
   ADD CONSTRAINT `reservations_ibfk_1` FOREIGN KEY (`alt_passenger_id`) REFERENCES `passengers` (`alt_passenger_id`),
   ADD CONSTRAINT `reservations_ibfk_2` FOREIGN KEY (`ticket_id`) REFERENCES `tickets` (`ticket_id`);
-
---
--- Constraints for table `schedules`
---
-ALTER TABLE `schedules`
-  ADD CONSTRAINT `schedules_ibfk_1` FOREIGN KEY (`route_id`) REFERENCES `routes` (`route_id`);
 
 --
 -- Constraints for table `ship_owners`

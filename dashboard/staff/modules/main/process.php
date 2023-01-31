@@ -348,52 +348,65 @@ function fetch_port_location($c) {
 //  <button type="button" name="update" id="'.$row["id"].'" class="button small green update_ship_sched_btn" data-toggle="modal" data-target="#exampleModal">
                     //     <span class="icon"><i class="mdi mdi-pencil"></i></span>
                     // </button>
-function fetch_depart_detail($c) {
-       $ship_name = $_SESSION['owner_id'];
-    $stmt = $c->prepare("SELECT * FROM schedules WHERE owner_id=?"); 
-    $stmt->bind_param('s',$ship_name);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $output = '
-        <table class="table table-bordered table-sm mb-0">
-            <thead>
-                <tr>
-                    <th>Depart Date</th>
-                    <th>Depart Time</th>
-                    <th>Location From</th>
-                    <th>Port</th>
-                    <th>Location To</th>
-                    <th>Port</th>
-                    <th>Ship Reside</th>
-                    <th>Vessel</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody id="port-location-data-content">';
-    while ($row = $result->fetch_assoc()) {
-        $output .= '
-            <tr>
-                <td>'.$row["departure_date"].'</td>
-                <td>'.$row["arrival_time"].'</td>
-                <td>'.$row["location_from"].'</td>
-                <td>'.$row["port_from"].'</td>
-                <td>'.$row["location_to"].'</td>
-                <td>'.$row["port_to"].'</td>
-                <td>'.$row["owner_id"].'</td>
-                <td>'.$row["ferry_id"].'</td>
-                <td class="text-center">
-                   
-                    <button type="button" name="delete_sched" id="'.$row["schedule_id"].'" class="button small red delete_ship_sched_btn">
-                        <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-                    </button>
-                </td>
-            </tr>';
-    }
-    $output .= '</tbody>';
-    $output .= '</table';
-    echo $output;
-}
-
+                    function fetch_depart_detail($c) {
+                        $port = $c->query("SELECT route_id, concat(`departure_from`,'[',`departure_port`,']') as `route` FROM routes");
+                    
+                        if (isset($_SESSION['owner_id'])) {
+                            $ship_name = $_SESSION['owner_id'];
+                            $stmt = $c->prepare("SELECT sched.schedule_id,
+                                                        sched.departure_date,
+                                                        sched.arrival_time,
+                                                        so.ship_name,
+                                                        fer.name,
+                                                        sched.route_id_from,
+                                                        sched.route_id_to
+                                                 FROM schedules sched
+                                                 JOIN ferries fer ON sched.ferry_id = fer.ferry_id
+                                                 JOIN ship_owners so ON sched.owner_id=so.owner_id
+                                                 WHERE sched.owner_id=?"); 
+                            $stmt->bind_param('i', $ship_name);
+                            $stmt->execute();
+                            $result = $stmt->get_result();
+                            $routes = array_column($port->fetch_all(MYSQLI_ASSOC),'route','route_id');
+                            $output = '
+                                <table class="table table-bordered table-sm mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Depart Date</th>
+                                            <th>Depart Time</th>
+                                            <th>Location From</th>
+                                            <th>Location To</th>
+                                            <th>Ship Reside</th>
+                                            <th>Vessel</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="port-location-data-content">';
+                            while ($row = $result->fetch_assoc()) {
+                                $output .= '
+                                    <tr>
+                                        <td>'.$row["departure_date"].'</td>
+                                        <td>'.$row["arrival_time"].'</td>
+                                        <td>'.$routes[$row["route_id_from"]].'</td>
+                                        <td>'.$routes[$row["route_id_to"]].'</td>
+                                        <td>'.$row["ship_name"].'</td>
+                                        <td>'.$row["name"].'</td>
+                                        <td class="text-center">
+                                           
+                                            <button type="button" name="delete_sched" id="'.$row["schedule_id"].'" class="button small red delete_ship_sched_btn">
+                                                <span class="icon"><i class="mdi mdi-trash-can"></i></span>
+                                            </button>
+                                        </td>
+                                    </tr>';
+                            }
+                            $output .= '</tbody>';
+                            $output .= '</table>';
+                            echo $output;
+                        } else {
+                            echo "Session variable 'owner_id' is not set.";
+                        }
+                    }
+                    
 //* add schedule for booking
 function add_schedule($c) {
     $d = date('Y-m-d', strtotime($_POST['event-start-date']));
@@ -727,13 +740,12 @@ function accom_edit_id_form($con) {
 }
 function delete_accom($con) {
     $delete_id = $_POST['delete_accom_id'];
-    $ship_name = $_SESSION['stff_ship_reside'];
+    $ship_name = $_SESSION['owner_id'];
     
-    $sql_dlt = "DELETE tbl_ship_has_accomodation_type,
-                tbl_ship_belong 
-                FROM tbl_ship_belong 
-                INNER JOIN tbl_ship_has_accomodation_type ON tbl_ship_belong.id = tbl_ship_has_accomodation_type.id
-                WHERE tbl_ship_has_accomodation_type.id=? AND tbl_ship_belong.ship=?";
+    $sql_dlt = "DELETE accommodations
+                FROM accommodations 
+                INNER JOIN ferries ON accommodations.ferry_id = ferries.ferry_id
+                WHERE accommodations.accomodation_id =? AND ferries.owner_id=?";
 
     $stmt = $con->prepare($sql_dlt);
     $stmt->bind_param('is',$delete_id,$ship_name);
