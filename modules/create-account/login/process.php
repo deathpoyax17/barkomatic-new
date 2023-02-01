@@ -846,6 +846,6 @@ function checkInput($data) {
 //* signout users
 function signoutUser() {
     if(session_destroy()){
-        echo "Signout successfully!";
+        echo " Staff Signout successfully!";
     }
 }

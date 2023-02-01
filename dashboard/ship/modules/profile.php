@@ -145,5 +145,5 @@ function ship_change_password($c) {
 //* signout users
 function sign_out() {
     session_destroy();
-    echo "Owner Signout Successfully!";
+    echo "Shipping Owner Signout Successfully!";
 }

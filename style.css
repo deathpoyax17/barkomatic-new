@@ -162,13 +162,6 @@
         text-transform: none;
     }
     
-    button,
-    [type=button],
-    [type=reset],
-    [type=submit] {
-        -webkit-appearance: button;
-    }
-    
     button::-moz-focus-inner,
     [type=button]::-moz-focus-inner,
     [type=reset]::-moz-focus-inner,
@@ -217,7 +210,6 @@
     }
     
     [type=search] {
-        -webkit-appearance: textfield;
         outline-offset: -2px;
     }
     
@@ -3372,7 +3364,6 @@
     
     .main-navigation ul li.menu-item-has-children>a:after {
         display: inline-block;
-        float: right;
         font-size: 14px;
         font-family: "Font Awesome 5 Free";
         font-weight: 900;
@@ -5180,7 +5171,6 @@
         -webkit-animation: videoPulse 1.6s ease-out infinite;
         animation: videoPulse 1.6s ease-out infinite;
         opacity: 0;
-        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
     }
     
     @media screen and (max-width: 575px) {
