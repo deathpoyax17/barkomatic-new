@@ -11467,7 +11467,7 @@ product checkout css
         }
     }
     
-    @media all and (max-width: 1366px) {
+    @media all and (max-width: 1027px) {
         .summary-text {
             padding-top: 53.5%;
         }
@@ -11494,7 +11494,7 @@ product checkout css
             margin-top: 1%;
         }
         .col-1-mod4 {
-            font-size: 14px;
+            font-size: 10px;
             width: 6.5%
         }
         .col-1-mod5 {
