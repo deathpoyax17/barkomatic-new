@@ -270,7 +270,7 @@ function staff_session($c, $u_stff) {
                         $_SESSION['email'] = $em_stff;
                         $_SESSION['owner_id'] = $stff_ship_reside;
                         $_SESSION['username'] = $username_stff;
-                        echo "Staff Login";
+                        echo "Staff Login Successfully!";
                     } 
                 }
             }
