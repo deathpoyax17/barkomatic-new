@@ -52,7 +52,7 @@ $(document).ready(function() {
                         setTimeout(function() {
                             window.location = 'http://localhost/barkomatic-new/index.php';
                         }, 100);
-                    } else if (res == "Staff Login Successfully!") {
+                    } else if (res == "Staff Login") {
                         setTimeout(function() {
 
                             window.location = "http://localhost/barkomatic-new/dashboard/staff/index.php?page=dashboard";
@@ -99,10 +99,8 @@ $(document).ready(function() {
             method: 'post',
             data: $('#signout_frm').serialize() + '&action=signout_frm',
             success: function(res) {
-                if (res == "Staff Signout Successfully!") {
-                    setTimeout(function() {
-                        window.location = 'http://localhost/barkomatic-new/index.php';
-                    }, 100);
+                if (res == "Signout Successfully!") {
+                    window.location.reload();
                 } else {
                     console.log(res);
                 }
