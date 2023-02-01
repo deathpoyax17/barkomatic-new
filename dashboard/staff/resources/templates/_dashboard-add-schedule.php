@@ -113,7 +113,7 @@
                                         }
                                     } ?>
                             </select>
-                            <div id="test" style="font-color:red;"></div>
+                            <div id="test"></div>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -142,7 +142,7 @@
                                         }
                                     } ?>
                             </select>
-                             <div id="test" style="font-color:red;"></div>
+                             <div id="test" ></div>
                         </div>
                     </div>
                     <div class="form-group row">

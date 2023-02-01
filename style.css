@@ -1874,8 +1874,6 @@
         margin-left: 1%;
     }
     
-    .back-button {}
-    
     .vertical-lines {
         width: 2px;
         height: 88px;
@@ -3884,7 +3882,6 @@
     .slicknav_btn {
         position: relative;
         display: block;
-        vertical-align: middle;
         float: right;
         padding: 0;
         line-height: 1.125em;
@@ -7025,11 +7022,6 @@ Due to the split circle of progress-left and progress right, we must use the ani
         color: #ffffff;
     }
     
-    .single-tour-inner {
-        /* the parent */
-        /* item */
-    }
-    
     .single-tour-inner h2 {
         margin-bottom: 35px;
     }
@@ -7754,7 +7746,6 @@ procduct details css
         font-weight: 900;
         font-size: 14px;
         display: block;
-        vertical-align: middle;
         position: absolute;
         top: 50%;
         -webkit-transform: translate(0, -50%);
