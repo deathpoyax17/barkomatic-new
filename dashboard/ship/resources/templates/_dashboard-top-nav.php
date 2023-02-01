@@ -59,10 +59,11 @@
         <a title="Messages" href="#" class="navbar-item has-divider desktop-icon-only text-decoration-none">
             <span class="icon"><i class="mdi mdi-email-outline"></i></span>
             <span>Messages</span>
+
+            
         </a> -->
-        <a href="#" id="ship_ownr_signout" title="Signout" class="navbar-item desktop-icon-only text-decoration-none">
-            <span class="icon"><i class="mdi mdi-logout"></i></span>
-            <span>Signout</span>
-        </a>
+        <button type="button" class="btn btn-danger" href="#" id="ship_ownr_signout" title="Signout" class="navbar-item desktop-icon-only text-decoration-none ">
+            Sign Out <i class="mdi mdi-logout"></i>
+        </button>
     </div>
 </nav>

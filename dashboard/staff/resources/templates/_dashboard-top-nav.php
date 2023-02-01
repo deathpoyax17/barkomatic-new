@@ -35,9 +35,8 @@
                 <a class="navbar-link"></a>
             </div>
         </div>
-        <a style="text-decoration:none;" href="#" title="Signout" id="ship_stff_signout" class="navbar-item desktop-icon-only">
-            <span class="icon">logout<i class="mdi mdi-logout"></i></span>
-            <span>Signoutt</span>
-        </a>
+        <button type="button" class="btn btn-danger" href="#" title="Signout" id="ship_stff_signout" class="navbar-item desktop-icon-only">
+            Sign Out <i class="mdi mdi-logout"></i>
+        </button>
     </div>
 </nav>

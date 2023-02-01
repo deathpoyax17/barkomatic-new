@@ -52,7 +52,7 @@ $(document).ready(function() {
                         setTimeout(function() {
                             window.location = 'http://localhost/barkomatic-new/index.php';
                         }, 100);
-                    } else if (res == "Staff Login") {
+                    } else if (res == "Staff Login Successfully!") {
                         setTimeout(function() {
 
                             window.location = "http://localhost/barkomatic-new/dashboard/staff/index.php?page=dashboard";
@@ -77,7 +77,7 @@ $(document).ready(function() {
                 method: 'post',
                 data: $('#staff_login_form').serialize() + '&action=staff_login_form',
                 success: function(res) {
-                    if (res == "Login Successfully!") {
+                    if (res == " Staff Login Successfully!") {
                         setTimeout(function() {
                             window.location = "http://localhost/barkomatic-new/dashboard/staff/index.php?page=dashboard";
                         }, 100);
@@ -99,8 +99,10 @@ $(document).ready(function() {
             method: 'post',
             data: $('#signout_frm').serialize() + '&action=signout_frm',
             success: function(res) {
-                if (res == "Signout successfully!") {
-                    window.location.reload();
+                if (res == "Staff Signout Successfully!") {
+                    setTimeout(function() {
+                        window.location = 'http://localhost/barkomatic-new/index.php';
+                    }, 100);
                 } else {
                     console.log(res);
                 }
