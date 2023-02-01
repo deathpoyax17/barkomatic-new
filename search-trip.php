@@ -25,19 +25,18 @@
                                         <br>
                                         <?php 
                                                 $stmt_ship_sd = $con->prepare("SELECT DISTINCT
-                                                tsd.id,
+                                                tsd.owner_id,
                                                 tsd.ship_name,
-                                                tsd.ship_logo,
-                                                tss.ship_reside
-                                                FROM tbl_ship_detail tsd
-                                                JOIN tbl_ship_schedule tss ON tsd.ship_name=tss.ship_reside"); 
+                                                tsd.ship_logo
+                                                FROM ship_owners tsd
+                                                JOIN schedules tss ON tsd.owner_id=tss.owner_id"); 
                                                 $stmt_ship_sd->execute();
                                                 $row_ship_sd = $stmt_ship_sd->get_result();
                                                 while ($row1 = $row_ship_sd->fetch_assoc()) { ?>
                                                 
                                                           <div class="ship-button">
-                                                          <input type="radio" id="b<?php echo $row1['id']?>" name="srch_ship_sched" id="srch_ship_sched" value="<?php echo $row1['ship_name']; ?>" />
-                                                          <label  for="b<?php echo $row1['id']?>">
+                                                          <input type="radio" id="b<?php echo $row1['owner_id']?>" name="srch_ship_sched" id="srch_ship_sched" value="<?php echo $row1['ship_name']; ?>" />
+                                                          <label  for="b<?php echo $row1['owner_id']?>">
                                                           <img src="data:image/jpeg;base64,<?php echo base64_encode($row1['ship_logo']); ?>" alt="<?php echo $row1['ship_name']; ?>">
                                                           </label>
                                                           </div>
@@ -73,11 +72,11 @@
                                 <select class="custom-select" name="srch_sched_loc_from" id="srch_sched_loc_from"> 
                                   <option selected>Choose Location</option>
                                   <?php 
-                                                    $stmt2 = $con->prepare("SELECT * FROM tbl_ship_port"); 
+                                                    $stmt2 = $con->prepare("SELECT * FROM routes"); 
                                                     $stmt2->execute();
                                                     $result2 = $stmt2->get_result();
                                                     while ($row2 = $result2->fetch_assoc()) { ?>
-                                                        <option value="<?php echo $row2['location_from']; ?>"><?php echo $row2['location_from']; ?>(<?php echo $row2['port_from']; ?>)</option>
+                                                        <option value="<?php echo $row2['departure_from']; ?>"><?php echo $row2['departure_from']; ?>(<?php echo $row2['departure_port']; ?>)</option>
                                   <?php } ?>
                                 </select>
                             </div>
@@ -99,11 +98,11 @@
                                 <!-- <select class="custom-select" id="inputGroupSelect01"> -->
                                   <option selected>Choose Location</option>
                                                 <?php 
-                                                    $stmt2 = $con->prepare("SELECT * FROM tbl_ship_port"); 
+                                                    $stmt2 = $con->prepare("SELECT * FROM routes"); 
                                                     $stmt2->execute();
                                                     $result2 = $stmt2->get_result();
                                                     while ($row2 = $result2->fetch_assoc()) { ?>
-                                                        <option value="<?php echo $row2['location_to']; ?>"><?php echo $row2['location_to']; ?>(<?php echo $row2['port_to']; ?>)</option>
+                                                        <option value="<?php echo $row2['departure_from']; ?>"><?php echo $row2['departure_from']; ?>(<?php echo $row2['departure_port']; ?>)</option>
                                                 <?php } ?>
                                 </select>
                             </div>
@@ -169,20 +168,19 @@
                                     <div class="wrapper">
                                       <br>
                                       <?php 
-                                                $stmt_ship_sd = $con->prepare("SELECT DISTINCT
-                                                tsd.id,
+                                                $stmt_ship_sd =$con->prepare("SELECT DISTINCT
+                                                tsd.owner_id,
                                                 tsd.ship_name,
-                                                tsd.ship_logo,
-                                                tss.ship_reside
-                                                FROM tbl_ship_detail tsd
-                                                JOIN tbl_ship_schedule tss ON tsd.ship_name=tss.ship_reside"); 
+                                                tsd.ship_logo
+                                                FROM ship_owners tsd
+                                                JOIN schedules tss ON tsd.owner_id=tss.owner_id"); 
                                                 $stmt_ship_sd->execute();
                                                 $row_ship_sd = $stmt_ship_sd->get_result();
                                                 while ($row1 = $row_ship_sd->fetch_assoc()) { ?>
                                                 
                                                           <div class="ship-button">
-                                                          <input type="radio" id="a<?php echo $row1['id']?>" name="srch_ship_sched" value="<?php echo $row1['ship_name']; ?>" />
-                                                          <label  for="a<?php echo $row1['id']?>">
+                                                          <input type="radio" id="a<?php echo $row1['owner_id']?>" name="srch_ship_sched" value="<?php echo $row1['ship_name']; ?>" />
+                                                          <label  for="a<?php echo $row1['owner_id']?>">
                                                           <img src="data:image/jpeg;base64,<?php echo base64_encode($row1['ship_logo']); ?>" alt="<?php echo $row1['ship_name']; ?>">
                                                           </label>
                                                           </div>
@@ -317,7 +315,7 @@
                                 <div class="input-group col-mb-3">
                                     <div class="input-group-prepend">
                                     </div>
-                                    <button class="designbutton2">
+                                    <button type="submit" name="srch_sched_btn" id="srch_sched_btn" class="designbutton2 barkomatic-btn-search-trip">
                                         <i class="fa-solid fa-magnifying-glass"> Cargo Trip</i>
                                     </button>
                                 </div>
