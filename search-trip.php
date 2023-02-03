@@ -159,7 +159,9 @@
         <div class="tabsearchtrip2">
             <div id="vehicletab">
                 <form class="container-search-trip">
+
                     <div class="mt-2">
+
                         <input class="hasprefchk" type="checkbox" id="myCheck2" onclick="myFunction2()">
                         <span class="haspref">Has Preffered Shipping Lines</span>
                         <div class="rowhas">
@@ -192,6 +194,7 @@
                     </div>
                     <!-- Preferred Shipping Lines Section End -->
                     <div class="row ml-check mt-4">
+
                         <input type="radio" name="tab" value="igotnone" onclick="show1();" class="roundtrip" checked style="width:25px;height: 20px; display: block;" />
                         <span style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-size: 18px;font-weight: bold;color: #0ceafa; margin-right: 10px; margin-left: 3px;"> Round Trip </span>
                         <input type="radio" name="tab" value="igottwo" onclick="show2();" style="width:25px;height: 20px; display: block; " />
@@ -199,6 +202,7 @@
                     </div>
 
                     <div class="form-row">
+
                         <div class="col">
                             <div class="input-group col-mb-3">
                                 <div class="input-group-prepend">
@@ -243,6 +247,7 @@
                         </div>
                     </div>
                     <div class="form-row">
+
                         <div class="col-depart">
                             <div class="input-group col-mb-10">
                                 <div class="input-group-prepend">
@@ -271,6 +276,7 @@
                         </div>
                     </div>
                     <div class="category">
+
                         <div class="row ml-check mt-4">
                             <input type="radio" name="tab" value="igotnone" class="roundtrip" checked style="width:25px;height: 20px; display: block;" />
                             <span style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-size: 15px;font-weight: bold;color: #000; margin-right: 10px; margin-left: 3px;"> Category </span>

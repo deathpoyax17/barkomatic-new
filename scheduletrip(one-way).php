@@ -1,7 +1,6 @@
 <?php
     require("resources/templates/_header(withmodifyitinerary).php")
 ?>
-
     <div class="progressbar-row2">
         <div class="col-sm-2"> </div>
         <div class="progressbar col-sm-8" style="font-size: 12px;margin-top: 50px; font-weight: bolder; color: #fff; ">
