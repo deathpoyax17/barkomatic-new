@@ -1571,6 +1571,26 @@
         position: fixed;
     }
     
+    .container-background-eticket {
+        background-color: #09527F;
+    }
+    
+    .container-eticket {
+        max-width: 900px;
+        max-height: 900px;
+        background-color: #fff;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .header-eticket {
+        justify-content: center;
+    }
+    
+    .body-eticket {
+        justify-content: center;
+    }
+    
     .header-header-searchtrip {
         background-color: #09527F;
         padding-bottom: 0.3%;
@@ -1613,7 +1633,14 @@
         background-color: #09527F;
     }
     
-    .summary-text {
+    .summary-text-oneway {
+        font-size: 35px;
+        font-weight: 500;
+        padding-bottom: 10px;
+        border-radius: 10px;
+    }
+    
+    .summary-text-roundtrip {
         font-size: 35px;
         font-weight: 500;
         padding-bottom: 10px;
@@ -11468,8 +11495,11 @@ product checkout css
     }
     
     @media all and (max-width: 1366px) {
-        .summary-text {
-            padding-top: 70.5%;
+        .summary-text-oneway {
+            padding-top: 12.3%;
+        }
+        .summary-text-roundtrip {
+            padding-top: 57.5%;
         }
         .depature-location {
             padding-left: 150px;
@@ -11478,30 +11508,33 @@ product checkout css
             padding-left: 150px;
         }
         .vertical-lines {
-            left: 0%;
+            left: 0.5%;
         }
         .vertical-lines2 {
-            margin-left: 1%;
+            margin-left: 0.5%;
         }
         .vertical-lines4 {
             margin-left: 1%;
         }
         .col-1-mod {
-            margin-left: 1%;
+            margin-left: 0.4%;
+        }
+        .col-1-mod2 {
+            margin-top: 4%;
         }
         .col-1-mod3 {
-            width: 24.5%;
+            width: 29%;
             margin-top: 1%;
         }
         .col-1-mod4 {
-            font-size: 10px;
-            width: 6.5%
+            font-size: 9%;
+            width: 7.3%
         }
         .col-1-mod5 {
-            width: 18%;
+            width: 20%;
         }
         .col-1-mod6 {
-            width: 19%;
+            width: 21.5%;
         }
         .col-1-mod7 {
             margin-top: 3%;
