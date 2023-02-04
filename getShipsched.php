@@ -1,5 +1,6 @@
 <?php
 require "resources/config.php";
+
 if(isset($_POST['action']) && $_POST['action'] == 'getShipsched') {
 $acton = $_POST['shipname'];
    $stmt = $con->prepare("SELECT * FROM tbl_ship_schedule WHERE ship_reside=?");

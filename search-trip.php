@@ -53,6 +53,15 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                            <div class="col-md-12">
+                                <div class="border-0" id="barkomatic-passenger-vehicle">
+                                    <div id="answering" class="answer col-md-12">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     <!-- Preferred Shipping Lines Section End -->
                     <div class="row ml-check mt-4">
                         <input type="radio" name="tab" value="igotnone" onclick="show1();" class="roundtrip" checked style="width:25px;height: 20px; display: block;" />
@@ -424,6 +433,151 @@
 <script src="js/wow.min.js"></script>
 <script src="js/main/active.js"></script>
 <script src="js/main/schedule/process.js"></script>
+<script>
+function selectOnChange(obj) {
+         var price =  $(obj).find(':selected').data('price');
+         var cost = document.getElementById("cost").value;
+         
+         var priceInt = parseInt(price);
+         var costInt= parseInt(cost);
+
+         var total = parseInt(priceInt + costInt);
+         document.getElementById("AcommondationPrice").value = priceInt;
+         document.getElementById("total").value = total;
+
+         
+         if (price == 0) {
+            document.getElementById("AcommondationPrice").value = "";
+         }
+    
+	  }
+
+
+function check(input)
+    {
+    	
+    	var checkboxes = document.getElementsByClassName("radioCheck");
+    	
+    	for(var i = 0; i < checkboxes.length; i++)
+    	{
+    		//uncheck all
+    		if(checkboxes[i].checked == true)
+    		{
+                // checkboxes[i].disabled = 'false';
+    			checkboxes[i].checked = false;
+                checkboxes[i].disabled = 'false';
+    		}
+            else if(checkboxes[i].checked != true)
+    		{  
+    			checkboxes[i].disabled = 'true';
+    		}  
+    	}
+    	//set checked of clicked object
+    	if(input.checked == true)
+    	{
+    		input.checked = false;
+    	}
+    	else
+    	{   
+    		input.checked = true;
+    	}	
+    }
+
+// for (i=0; i<document.creditCheck.length; i++){
+// if (document.creditCheck[i].checked !=true)
+//   document.creditCheck[i].disabled='true';
+// }
+    </script>
+<script>
+$(document).ready(function(){
+$(".answer").hide();
+$(".coupon_question").click(function() {
+    if($(this).is(":checked")) {
+        $(".answer").show();
+    } else {
+        $(".answer").hide();
+    }
+});;
+});
+</script>
+ <script src="js/jquery/datepicker/wow.min.js"></script>
+<!-- <link rel="stylesheet" href="css/jquery-ui.css" /> -->
+	<script>
+		 new WOW().init();
+	</script>
+<!-- <script src="js/jquery-1.10.2.js"></script> -->
+<script src="js/jquery/datepicker/jquery-ui1.js"></script>
+    <script>
+   
+    // var badDates = new Array("23-04-2022","24-04-2022","19-04-2022","20-04-2022");
+	// $.getJSON('getDates.php, function(json){badDates=json;});
+   $(document).ready(function(){
+		var badDates;
+		$.getJSON('sched_date.php', function(json) { 
+		badDates = json;
+		console.log(badDates);
+        $( "#srch_sched_loc_depart").datepicker({
+			dateFormat: 'dd-mm-yy',
+			minDate: 0,
+			firstDay: 1,
+            beforeShowDay: function(date) {
+                if($.inArray($.datepicker.formatDate('yy-mm-dd', date), badDates) >= 0)
+                {
+                      return [true, "av", "available"];
+                }
+                else
+                {
+                    return [false, "notav", 'Not Available'];
+                   
+                   
+                }
+            }
+		});
+	});
+    });
+
+</script>
+<script>
+$(document).ready(function(){
+    $('input[type=radio]').click(function(e) {
+        var gender = $(this).val();
+        var act = "getShipsched";
+       $.ajax({
+        url : "getShipsched.php",
+        type : "POST",
+        data: {action:act,shipname:gender},
+        success : function(data) {
+          setTimeout(function() {
+                        $("#answering").html(data);
+            }, 100);
+        console.log(data);
+           }
+        });
+		
+    });
+});
+</script>
+
+<script>
+$(document).ready(function(){
+    $('.carousel[data-type="multi"] .item').each(function() {
+	var next = $(this).next();
+	if (!next.length) {
+		next = $(this).siblings(':first');
+	}
+	next.children(':first-child').clone().appendTo($(this));
+
+	for (var i = 0; i < 2; i++) {
+		next = next.next();
+		if (!next.length) {
+			next = $(this).siblings(':first');
+		}
+
+		next.children(':first-child').clone().appendTo($(this));
+	}
+});
+});
+</script>
 </body>
 
 <!-- Optional JavaScript -->
