@@ -11467,7 +11467,7 @@ product checkout css
         }
     }
     
-    @media all and (max-width: 1027px) {
+    @media all and (max-width: 1366px) {
         .summary-text {
             padding-top: 70.5%;
         }
