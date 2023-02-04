@@ -14,7 +14,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <?php 
-                    $stmt_sa = $con->prepare("SELECT * FROM tbl_ship_port");
+                    $stmt_sa = $con->prepare("SELECT * FROM routes");
                     $stmt_sa->execute();
                     $stmt_sa->store_result();
                     // $stmt_sa->bind_result($count_id);
@@ -28,7 +28,7 @@
             <div class="modal-body">
                 <input type="hidden" name="event-index">
                 <?php 
-                    $stmt_sa = $con->prepare("SELECT * FROM tbl_ship_port");
+                    $stmt_sa = $con->prepare("SELECT * FROM routes");
                     $stmt_sa->execute();
                     $stmt_sa->store_result();
                     // $stmt_sa->bind_result($count_id);
@@ -49,14 +49,15 @@
                         <label for="vessel" class="col-sm-4 control-label">Choose Vessel</label>
                         <div class="col-sm-8">
                             <select class="form-control" id="vessel" name="vessel">
+                            <option class="form-control" value="">Choose Vessel</option>
                                 <?php
-                                $ship_reside = $_SESSION['stff_ship_reside'];
-                                    $stmt = $con->prepare("SELECT * FROM tbl_tckt WHERE tckt_owner = '$ship_reside' ");
+                                $ship_reside = $_SESSION['owner_id'];
+                                    $stmt = $con->prepare("SELECT * FROM ferries WHERE owner_id = '$ship_reside' ");
                                     if(mysqli_stmt_execute($stmt)) {
                                         $result = mysqli_stmt_get_result($stmt);
                                         if(mysqli_num_rows($result) > 0) {
                                             while($row = mysqli_fetch_array($result)) { ?>
-                                                <option class="form-control" value="<?php echo $row['vessel_name']; ?>"><?php echo $row['vessel_name']; ?></option>
+                                                <option class="form-control" value="<?php echo $row['ferry_id']; ?>"><?php echo $row['name']; ?></option>
                                         <?php } 
                                         }else{
                                             echo "NONE";
@@ -66,12 +67,20 @@
                             </select>
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label for="accomm-vessel" class="col-sm-4 control-label">Accomodation</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="accomm-vessel" name="accomm-vessel">
+                            
+                            </select>
+                        </div>
+                    </div>
                     <hr>
                     <div class="form-group row">
                         <label for="min-date" class="col-sm-4 control-label">Depart Date</label>
                         <div class="col-sm-8">
                             <div class="input-group input-daterange" data-provide="datepicker">
-                                <input type="hidden" name="ship" value="<?php echo $_SESSION['stff_ship_reside'];?>">
+                                <input type="hidden" name="ship" value="<?php echo $_SESSION['owner_id'];?>">
                                 <input id="min-date" name="event-start-date" type="text" class="form-control" readonly>
                                 <div class="input-group-prepend input-group-append">
                                     <div class="input-group-text"><i class="mdi mdi-calendar-month" ></i></div>
@@ -92,24 +101,19 @@
                             <select class="form-control select1" id="loc-from" name="sched_loc_from">
                                 <option class="form-control" value="">----SELECT LOCATION----</option>
                                 <?php
-                                    $ship=$_SESSION['stff_ship_reside'];
-                                    $stmt = $con->prepare("SELECT 
-                                                                tsp.location_from,
-                                                                taslb.ship
-                                                                FROM tbl_ship_port tsp
-                                                                JOIN tbl_add_ship_loc_belong taslb ON tsp.id=taslb.id WHERE taslb.ship=?");
-                                        $stmt->bind_param("s",$ship);
+                                 
+                                    $stmt = $con->prepare("SELECT * from routes");
                                     if(mysqli_stmt_execute($stmt)) {
                                         $result = mysqli_stmt_get_result($stmt);
                                         if(mysqli_num_rows($result) > 0) {
                                             while($row = mysqli_fetch_array($result)) { ?>
                                                 
-                                                <option class="form-control" value="<?php echo $row['location_from']; ?>"><?php echo $row['location_from']; ?></option>
+                                                <option class="form-control" value="<?php echo $row['route_id']; ?>"><?php echo $row['departure_from']; ?></option>
                                         <?php } 
                                         }
                                     } ?>
                             </select>
-                            <div id="test" style="font-color:red;"></div>
+                            <div id="test"></div>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -127,23 +131,18 @@
                             <select class="form-control select2" id="loc-to" name="sched_loc_to">
                                 <option class="form-control" value="">----SELECT LOCATION----</option>
                                 <?php
-                                      $ship=$_SESSION['stff_ship_reside'];
-                                        $stmt = $con->prepare("SELECT 
-                                                                tsp.location_to,
-                                                                taslb.ship
-                                                                FROM tbl_ship_port tsp
-                                                                JOIN tbl_add_ship_loc_belong taslb ON tsp.id=taslb.id WHERE taslb.ship=?");
-                                        $stmt->bind_param("s",$ship);
-                                    if(mysqli_stmt_execute($stmt)) {
+                                    
+                                        $stmt = $con->prepare("SELECT * from routes");
+                                        if(mysqli_stmt_execute($stmt)) {
                                         $result = mysqli_stmt_get_result($stmt);
                                         if(mysqli_num_rows($result) > 0) {
                                             while($row = mysqli_fetch_array($result)) { ?>
-                                                <option class="form-control" value="<?php echo $row['location_to']; ?>"><?php echo $row['location_to']; ?></option>
+                                                <option class="form-control" value="<?php echo $row['route_id']; ?>"><?php echo $row['departure_from']; ?></option>
                                         <?php } 
                                         }
                                     } ?>
                             </select>
-                             <div id="test" style="font-color:red;"></div>
+                             <div id="test" ></div>
                         </div>
                     </div>
                     <div class="form-group row">

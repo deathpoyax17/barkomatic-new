@@ -67,5 +67,5 @@ function ship_change_password($c) {
 //* signout users
 function sign_out() {
     session_destroy();
-    echo "Signout successfully!";
+    echo "Admin Signout Successfully!";
 }

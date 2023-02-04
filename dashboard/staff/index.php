@@ -1,5 +1,5 @@
 <?php session_start();
-    if(isset($_SESSION['stff_id']) && $_SESSION['stff_id'] != '') { ?>
+    if(isset($_SESSION['staff_id']) && $_SESSION['staff_id'] != '') { ?>
         <!DOCTYPE html>
         <html lang="en" class="">
         <head>

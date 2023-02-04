@@ -18,7 +18,7 @@
                         <div class="field-body">
                             <div class="field">
                                 <div class="control">
-                                    <input type="hidden" name="ship_comp" value="<?php echo $_SESSION['stff_ship_reside'];?>">
+                                    <input type="hidden" name="ship_comp" value="<?php echo $_SESSION['owner_id'];?>">
                                     <input type="text" autocomplete="on" name="vessel_name" id="vessel_name" class="input" required>
                                 </div>
                                 <p class="help">Required. Vessel Name</p>
@@ -56,18 +56,7 @@
                         </div>
                     </div>
                     
-                       <div class="field">
-                        <label class="label">Ticket Price</label>
-                        <div class="field-body">
-                            <div class="field">
-                                <div class="control">
-                                    <input type="hidden" name="ticket_status" value="Open For Avail">
-                                    <input type="number" autocomplete="on" name="ticket_price" id="ticket_price" class="input" required>
-                                </div>
-                                <p class="help">Required. Price</p>
-                            </div>
-                        </div>
-                    </div>
+                     
                     <hr>
                     <div class="field">
                         <div class="control">

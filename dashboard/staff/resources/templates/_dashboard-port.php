@@ -1,3 +1,4 @@
+<?php  require "resources/config.php"; ?>
 <div id="alert" class="alert alert-success lead ml-5 p-2" role="alert">
     <span id="res-icon"></span>
     <span id="res-message"></span>
@@ -12,12 +13,38 @@
             </header>
             <div class="card-content">
                 <form id="add_port_loc_form">
+                                <!-- <div class="field">
+                                        <label class="label">Vessel</label>
+                                        <div class="field-body">
+                                            <div class="field">
+                                                <div class="control">
+                                                <select class="form-control" id="vessel" name="vessel">
+                                                    <?php
+                                                    $ship_reside = $_SESSION['owner_id'];
+                                                        $stmt = $con->prepare("SELECT * FROM ferries WHERE owner_id = '$ship_reside' ");
+                                                        if(mysqli_stmt_execute($stmt)) {
+                                                            $result = mysqli_stmt_get_result($stmt);
+                                                            if(mysqli_num_rows($result) > 0) {
+                                                                while($row = mysqli_fetch_array($result)) { ?>
+                                                                    <option class="form-control" value="<?php echo $row['ferry_id']; ?>"><?php echo $row['name']; ?></option>
+                                                            <?php } 
+                                                            }else{
+                                                                echo "NONE";
+                                                            }
+                                                    
+                                                        } ?>
+                                                </select>
+                                                </div>
+                                                <p class="help">Required. Vessel</p>
+                                            </div>
+                                        </div>
+                                    </div> -->
                     <div class="field">
                         <label class="label">Location From</label>
                         <div class="field-body">
                             <div class="field">
                                 <div class="control">
-                                    <input type="hidden" name="ship" value="<?php echo $_SESSION['stff_ship_reside'];?>">
+                                    <input type="hidden" name="ship" value="<?php echo $_SESSION['owner_id'];?>">
                                     <input type="text" name="location_from" id="location_from" class="input" required>
                                 </div>
                                 <p class="help">Required. Location From</p>
@@ -36,7 +63,7 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="field">
+                    <!-- <div class="field">
                         <label class="label">Location To</label>
                         <div class="field-body">
                             <div class="field">
@@ -57,7 +84,7 @@
                                 <p class="help">Required. Port</p>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <hr>
                     <div class="field">
                         <div class="control">

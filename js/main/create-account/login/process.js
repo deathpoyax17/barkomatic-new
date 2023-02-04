@@ -77,7 +77,7 @@ $(document).ready(function() {
                 method: 'post',
                 data: $('#staff_login_form').serialize() + '&action=staff_login_form',
                 success: function(res) {
-                    if (res == "Login Successfully!") {
+                    if (res == " Staff Login Successfully!") {
                         setTimeout(function() {
                             window.location = "http://localhost/barkomatic-new/dashboard/staff/index.php?page=dashboard";
                         }, 100);
@@ -99,7 +99,7 @@ $(document).ready(function() {
             method: 'post',
             data: $('#signout_frm').serialize() + '&action=signout_frm',
             success: function(res) {
-                if (res == "Signout successfully!") {
+                if (res == "Signout Successfully!") {
                     window.location.reload();
                 } else {
                     console.log(res);

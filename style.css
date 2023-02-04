@@ -162,13 +162,6 @@
         text-transform: none;
     }
     
-    button,
-    [type=button],
-    [type=reset],
-    [type=submit] {
-        -webkit-appearance: button;
-    }
-    
     button::-moz-focus-inner,
     [type=button]::-moz-focus-inner,
     [type=reset]::-moz-focus-inner,
@@ -217,7 +210,6 @@
     }
     
     [type=search] {
-        -webkit-appearance: textfield;
         outline-offset: -2px;
     }
     
@@ -1874,8 +1866,6 @@
         margin-left: 1%;
     }
     
-    .back-button {}
-    
     .vertical-lines {
         width: 2px;
         height: 88px;
@@ -3374,7 +3364,6 @@
     
     .main-navigation ul li.menu-item-has-children>a:after {
         display: inline-block;
-        float: right;
         font-size: 14px;
         font-family: "Font Awesome 5 Free";
         font-weight: 900;
@@ -3884,7 +3873,6 @@
     .slicknav_btn {
         position: relative;
         display: block;
-        vertical-align: middle;
         float: right;
         padding: 0;
         line-height: 1.125em;
@@ -5183,7 +5171,6 @@
         -webkit-animation: videoPulse 1.6s ease-out infinite;
         animation: videoPulse 1.6s ease-out infinite;
         opacity: 0;
-        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
     }
     
     @media screen and (max-width: 575px) {
@@ -7025,11 +7012,6 @@ Due to the split circle of progress-left and progress right, we must use the ani
         color: #ffffff;
     }
     
-    .single-tour-inner {
-        /* the parent */
-        /* item */
-    }
-    
     .single-tour-inner h2 {
         margin-bottom: 35px;
     }
@@ -7754,7 +7736,6 @@ procduct details css
         font-weight: 900;
         font-size: 14px;
         display: block;
-        vertical-align: middle;
         position: absolute;
         top: 50%;
         -webkit-transform: translate(0, -50%);
@@ -11486,9 +11467,9 @@ product checkout css
         }
     }
     
-    @media all and (max-width: 1366px) {
+    @media all and (max-width: 1027px) {
         .summary-text {
-            padding-top: 53.5%;
+            padding-top: 70.5%;
         }
         .depature-location {
             padding-left: 150px;
@@ -11513,7 +11494,7 @@ product checkout css
             margin-top: 1%;
         }
         .col-1-mod4 {
-            font-size: 14px;
+            font-size: 10px;
             width: 6.5%
         }
         .col-1-mod5 {
