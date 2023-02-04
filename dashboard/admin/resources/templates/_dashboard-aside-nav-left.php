@@ -6,7 +6,7 @@
             <?php } else if(isset($_SESSION['ship_name']) && $_SESSION['ship_name'] != '') { ?>
                 <a href="index.php?page=dashboard" class="text-decoration-none font-weight-bold"><?php echo $_SESSION['ship_name']; ?></a>
             <?php } else { ?>
-                <a href="index.php?page=dashboard" class="text-decoration-none font-weight-bold">LOGO</a>
+                <a href="index.php?page=dashboard" class="text-decoration-none font-weight-bold">ADMIN</a>
             <?php } ?>
         </div>
     </div>

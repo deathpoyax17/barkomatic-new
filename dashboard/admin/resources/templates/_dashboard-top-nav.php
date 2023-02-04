@@ -48,6 +48,9 @@
                     <div class="is-user-name"><span><?php //echo $_SESSION['username']; ?></span></div> -->
                 </a>
             </div>
+            <button type="button" class="btn btn-danger" href="#" id="ship_ownr_signout" title="Signout" class="navbar-item desktop-icon-only text-decoration-none">
+            Sign Out <i class="mdi mdi-logout"></i>
+        </button>
         </div>
         <!-- <a title="Notifications" href="#" class="navbar-item has-divider desktop-icon-only text-decoration-none">
             <span class="icon"><i class="mdi mdi-bell-outline"></i></span>
@@ -57,9 +60,5 @@
             <span class="icon"><i class="mdi mdi-email-outline"></i></span>
             <span>Messages</span>
         </a> -->
-        <a href="#" id="ship_ownr_signout" title="Signout" class="navbar-item desktop-icon-only text-decoration-none">
-            <span class="icon"><i class="mdi mdi-logout"></i></span>
-            <span>Signout</span>
-        </a>
     </div>
 </nav>

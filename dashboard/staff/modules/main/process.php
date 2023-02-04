@@ -62,7 +62,7 @@ if($_POST["action"] == "ship_stff_signout") {
 }
 function sign_out() {
     session_destroy();
-    echo "Signout Successfully!";
+    echo "Staff Signout Successfully!";
 }
 
 //* edit-delete - port location

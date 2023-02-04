@@ -124,14 +124,14 @@ $(document).ready(function() {
             method: "POST",
             data: { action: edit_action, edit_role_id: edit_id },
             success: function(response) {
-                 alert(response);
+                alert(response);
                 setTimeout(function() {
                     $("#edit_role_btn").prop("disabled", false);
                 }, 100);
                 setTimeout(function() {
                     windows.reload();
                 }, 100);
-               
+
             }
         });
     });
@@ -153,7 +153,7 @@ $(document).ready(function() {
                     $(this).prop("disabled", false);
                 }, 100);
                 setTimeout(function() {
-                   windows.location.reload(true);
+                    windows.location.reload(true);
                 }, 100);
             }
         });
@@ -380,7 +380,7 @@ $(document).ready(function() {
             success: function(data) {
                 alert(data);
                 setTimeout(function() {
-                    window.location = "http://barkomatic.xyz";
+                    window.location = "http://localhost/barkomatic-new/index.php";
                 }, 1000);
             }
         });
