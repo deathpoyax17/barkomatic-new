@@ -43,9 +43,429 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
     <script src="js/script.js"></script>
     <script src="js/script1.js"></script>
+    <link rel="stylesheet" href="sample.css">
     <link rel="stylesheet" href="calendar-css/style.css">
 
     <title>Barkomatic - Online Ticketing</title>
+
+    <style>
+        
+ .navigation {
+     height: 16%;
+     background:#09527f;
+}
+ .brand {
+     position: absolute;
+     padding-left: 20px;
+     float: left;
+     line-height: 55px;
+     text-transform: uppercase;
+     font-size: 1.4em;
+}
+ .brand a, .brand a:visited {
+     color: #ffffff;
+     text-decoration: none;
+}
+ .nav-container {
+     max-width: 1000px;
+     margin: 0 auto;
+}
+ nav {
+     margin-top:3%;
+   
+     float: right;
+}
+ nav ul {
+     list-style: none;
+     margin: 0;
+     padding: 0;
+}
+ nav ul li {
+    z-index: 500;
+     float: left;
+     position: relative;
+}
+ nav ul li a,nav ul li a:visited {
+     display: block;
+     padding: 0 20px;
+     line-height: 55px;
+     color: #fff;
+     background: #262626 ;
+     text-decoration: none;
+}
+ nav ul li a{
+     background: transparent;
+     color: #FFF;
+}
+ nav ul li a:hover, nav ul li a:visited:hover {
+     background: #2581DC;
+     color: #ffffff;
+}
+ .navbar-dropdown li a{
+     background: #09527f;
+}
+ nav ul li a:not(:only-child):after, nav ul li a:visited:not(:only-child):after {
+     padding-left: 4px;
+     content: ' \025BE';
+}
+ nav ul li ul li {
+     min-width: 190px;
+}
+ nav ul li ul li a {
+     padding: 15px;
+     line-height: 20px;
+}
+ .navbar-dropdown {
+     position: absolute;
+     display: none;
+     z-index: 1;
+     background: #fff;
+     box-shadow: 0 0 35px 0 rgba(0,0,0,0.25);
+}
+/* Mobile navigation */
+ .nav-mobile {
+     display: none;
+     position: absolute;
+     top: 0;
+     right: 0;
+     background: transparent;
+     height: 55px;
+     width: 70px;
+}
+ @media only screen and (max-width: 800px) {
+     .nav-mobile {
+         display: block;
+    }
+     nav {
+         width: 100%;
+         padding: 55px 0 15px;
+    }
+     nav ul {
+         display: none;
+    }
+     nav ul li {
+         float: none;
+    }
+     nav ul li a {
+         padding: 15px;
+         line-height: 20px;
+         background: #09527f;
+    }
+     nav ul li ul li a {
+         padding-left: 30px;
+    }
+     .navbar-dropdown {
+         position: static;
+}
+.brand img{
+    width:200px;
+}
+.buttom-header-searchtrip{
+    width:100%;
+}
+.buttom-header-searchtrip i,button,h5,p {
+    width:100%;
+    font-size: 70%;
+}
+.buttom-header-searchtrip .col-1-mod4 {
+    width:100%;
+    font-size: 100%;
+}
+ }
+ @media screen and (min-width:800px) {
+     .nav-list {
+         display: block !important;
+    }
+}
+ #navbar-toggle {
+     position: absolute;
+     left: 18px;
+     top: 15px;
+     cursor: pointer;
+     padding: 10px 35px 16px 0px;
+}
+ #navbar-toggle span, #navbar-toggle span:before, #navbar-toggle span:after {
+     cursor: pointer;
+     border-radius: 1px;
+     height: 3px;
+     width: 30px;
+     background: #ffffff;
+     position: absolute;
+     display: block;
+     content: '';
+     transition: all 300ms ease-in-out;
+}
+ #navbar-toggle span:before {
+     top: -10px;
+}
+ #navbar-toggle span:after {
+     bottom: -10px;
+}
+ #navbar-toggle.active span {
+     background-color: transparent;
+}
+ #navbar-toggle.active span:before, #navbar-toggle.active span:after {
+     top: 0;
+}
+ #navbar-toggle.active span:before {
+     transform: rotate(45deg);
+}
+ #navbar-toggle.active span:after {
+     transform: rotate(-45deg);
+}
+ 
+.container-summarytrip {
+        border-radius: 5px 5px 0px 0px;
+        padding-right: 0px;
+       margin:0 6px 0 6px;
+}
+.calendar-section {
+       padding-left: 0px;
+       padding-right: 0px;
+       margin:0 6px 0 6px;
+       
+}
+.calendar-section2 {
+       padding-left: 0px;
+       padding-right: 0px;
+       margin:0 6px 0 6px;
+       
+}
+.depature-location::after{
+    width: 1px;
+    height: 88%;
+    border-left: 2px dotted #b2c0c3;
+   
+  }
+  .depature-location{
+    width:100%;
+    padding-left:22px;
+    font-size:5px;
+  }
+  .depature-location2::after{
+    width: 1px;
+    height: 88%;
+    border-left: 2px dotted #b2c0c3;
+   
+  }
+  .depature-location2{
+    width:100%;
+    padding-left:22px;
+    font-size:5px;
+  }
+@media only screen and (min-width: 600px) {
+    .depature-location{
+        display: flex;
+        position: absolute;
+        padding-left:150px;
+        padding-right: 25px;
+}
+.depature-location2{
+        display: flex;
+        position: absolute;
+        padding-left:150px;
+        padding-right: 25px;
+}
+.calendar-section {
+       padding-left: 100px;
+       padding-right: 400px;
+       padding-top:40px;
+      
+}
+.calendar-section2 {
+       padding-left: 100px;
+       padding-right: 400px;
+       padding-top:40px;
+      
+}
+.container-summarytrip {
+        position: absolute;
+        border-radius: 5px 5px 0px 0px;
+        top: 250px;
+        left: 68.3%;
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+}
+.cd-breadcrumb, .cd-multi-steps {
+  width: 90%;
+  max-width: 768px;
+  padding: 0.5em 1em;
+  margin: 1em auto;
+  background-color: #edeff0;
+  border-radius: .25em;
+}
+.cd-breadcrumb::after, .cd-multi-steps::after {
+  clear: both;
+  content: "";
+  display: table;
+}
+.cd-breadcrumb li, .cd-multi-steps li {
+  display: inline-block;
+  float: left;
+  margin: 0.5em 0;
+}
+.cd-breadcrumb li::after, .cd-multi-steps li::after {
+  /* this is the separator between items */
+  display: inline-block;
+  content: '\00bb';
+  margin: 0 .6em;
+  color: #959fa5;
+}
+.cd-breadcrumb li:last-of-type::after, .cd-multi-steps li:last-of-type::after {
+  /* hide separator after the last item */
+  display: none;
+}
+.cd-breadcrumb li > *, .cd-multi-steps li > * {
+  /* single step */
+  display: inline-block;
+  font-size: 1.4rem;
+  color: #2c3f4c;
+}
+.cd-breadcrumb li.current > *, .cd-multi-steps li.current > * {
+  /* selected step */
+  color:#17a2b8;
+}
+.no-touch .cd-breadcrumb a:hover, .no-touch .cd-multi-steps a:hover {
+  /* steps already visited */
+  color:#17a2b8;
+}
+
+@media only screen and (min-width: 768px) {
+  .cd-breadcrumb, .cd-multi-steps {
+    padding: 0 1.2em;
+  }
+  .cd-breadcrumb li, .cd-multi-steps li {
+    margin: 1.2em 0;
+  }
+  .cd-breadcrumb li::after, .cd-multi-steps li::after {
+    margin: 0 1em;
+  }
+  .cd-breadcrumb li > *, .cd-multi-steps li > * {
+    font-size: 1.6rem;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .cd-multi-steps {
+    /* reset style */
+    background-color: transparent;
+    padding: 0;
+    text-align: center;
+  }
+
+  .cd-multi-steps li {
+    position: relative;
+    float: none;
+    margin: 0.4em 40px 0.4em 0;
+  }
+  .cd-multi-steps li:last-of-type {
+    margin-right: 0;
+  }
+  .cd-multi-steps li::after {
+    /* this is the line connecting 2 adjacent items */
+    position: absolute;
+    content: '';
+    height: 6px;
+    background: #edeff0;
+    /* reset style */
+    margin: 0;
+  }
+  .cd-multi-steps li.visited::after {
+    background-color:#0791be;
+  }
+  .cd-multi-steps li > *, .cd-multi-steps li.current > * {
+    position: relative;
+    color: #2c3f4c;
+  }
+
+  .cd-multi-steps.text-top li{
+    width: 150px;
+    text-align: center;
+  }
+  .cd-multi-steps.text-top li::after{
+    /* this is the line connecting 2 adjacent items */
+    position: absolute;
+    left: 50%;
+    /* 40px is the <li> right margin value */
+    width: calc(100% + 40px);
+  }
+  .cd-multi-steps.text-top li > *::before {
+    /* this is the spot indicator */
+    content: '';
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    right: auto;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background-color: #edeff0;
+  }
+  .cd-multi-steps.text-top li.visited > *::before,
+  .cd-multi-steps.text-top li.current > *::before,
+  .cd-multi-steps.text-bottom li.current > *::before {
+    background-color: #1cc3b2;
+  }
+  .no-touch .cd-multi-steps.text-top a:hover{
+    color:#17a2b8;
+  }
+  .no-touch .cd-multi-steps.text-top a:hover::before{
+    box-shadow: 0 0 0 3px rgba(150, 192, 61, 0.3);
+  }
+
+  .cd-multi-steps.text-top li::after {
+    /* this is the line connecting 2 adjacent items */
+    bottom: 4px;
+  }
+  .cd-multi-steps.text-top li > * {
+    padding-bottom: 20px;
+  }
+  .cd-multi-steps.text-top li > *::before {
+    /* this is the spot indicator */
+    bottom: 0;
+  }
+}
+.cd-multi-steps.count li {
+  counter-increment: steps;
+}
+
+.cd-multi-steps.count li > *::before {
+  content: counter(steps) " - ";
+}
+
+@media only screen and (min-width: 768px) {
+  .cd-multi-steps.text-top.count li > *::before {
+    /* this is the spot indicator */
+    content: counter(steps);
+    height: 26px;
+    width: 26px;
+    line-height: 26px;
+    font-size: 1.4rem;
+    color: #ffffff;
+  }
+
+  .cd-multi-steps.text-top.count li:not(.current) em::before {
+    /* steps not visited yet - counter color */
+    color: #2c3f4c;
+  }
+
+  .cd-multi-steps.text-top.count li::after {
+    bottom: 11px;
+  }
+
+  .cd-multi-steps.text-top.count li > * {
+    padding-bottom: 34px;
+  }
+
+}
+
+              
+   </style>
 </head>
 
 <body class="container-tab2">
@@ -56,133 +476,84 @@
             </div >
         </div -->
      <!-- Header Area Start -->
-     <header class="header-area">
-        <!-- Main Header Start -->
-        <div class="main-header-area">
-            <div class="classy-nav-container breakpoint-off">
-                <div class="container">
-                    <!-- Classy Menu -->
-                    <nav class="classy-navbar justify-content-between" id="robertoNav">
-                        <!-- Logo -->
-                        <a class="nav-brand mr-0" href="index.php">
+     <section class="navigation">
+  <div class="nav-container">
+    <div class="brand">
+    <a href="index.php">
                             <img src="./img/core-img/logo.png" alt="BarkoMatic">
-                        </a>
-                        <!-- Navbar Toggler -->
-                        <div class="classy-navbar-toggler">
-                            <span class="navbarToggler">
-                                <span></span>
-                            <span></span>
-                            <span></span>
-                            </span>
-                        </div>
-                        <!-- Menu -->
-                        <div class="classy-menu">
-                            <!-- Menu Close Button -->
-                            <div class="classycloseIcon">
-                                <div class="cross-wrap">
-                                    <span class="top"></span>
-                                    <span class="bottom"></span>
-                                </div>
-                            </div>
-                            <!-- Nav Start -->
-                            <div class="classynav">
-                                <ul id="nav">
-                                    <li class="">
-                                        <a href="index.php">Home</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="#">Contact Us</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="index.html">Privacy Policy</a>
-                                    </li>
-                                    <li class="cn-dropdown-item has-down">
-                                        <a href="#">PASSENGER GIUDE LINES</a>
-                                        <ul class="dropdown" style="background-color: #09527F;">
-                                            <li>
-                                                <a href="passenger.html">- Passenger</a>
-                                            </li>
-                                            <li>
-                                                <a href="rollings-cargo.html">- Rollings Cargo</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="cn-dropdown-item has-down">
-                                        <a href="#">CARGO GUIDELINES</a>
-                                        <ul class="dropdown" style="background-color: #09527F;">
-                                            <li>
-                                                <a href="faq.html">- FAQ</a>
-                                            </li>
-                                            <li>
-                                                <a href="about.html">- About Us</a>
-                                            </li>
-                                            <li>
-                                                <a href="ticket-agent.html">- Ticket Agent</a>
-                                            </li>
-                                            <li>
-                                                <a href="blog.html">- Blog</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                                <!-- Book Now -->
-                                <!-- <div class="book-now-btn">
-                                    <a href="book.php">
-                                        Book Now
-                                        <i class="bi bi-arrow-right-circle-fill"></i>
-                                    </a>
-                                </div> -->
-                            </div>
-                            <!-- Nav End -->
-                        </div>
-                    </nav>
+    </a>
+    </div>
+    <nav>
+      <div class="nav-mobile"><a id="navbar-toggle" href="#!"><span></span></a></div>
+      <ul class="nav-list">
+        <li>
+        <a href="index.html">Home</a>
+        </li>
+        <li>
+        <a href="#">How to Book</a>
+          <ul class="navbar-dropdown">
+          <li><a href="passenger.html">- Passenger</a></li>
+          <li><a href="rollings-cargo.html">- Rollings Cargo</a></li>
+          </ul>
+        </li>
+        <li><a href="contact.php">Contact Us</a></li>
+    
+        <li>
+          <a href="#!">Portfolio</a>
+        </li>
+        <li>
+        <a href="#">About Us</a>
+          <ul class="navbar-dropdown">
+          <li><a href="faq.html">- FAQ</a></li>
+            <li><a href="about.html">- About Us</a></li>
+            <li><a href="ticket-agent.html">- Ticket Agent</a></li>
+            <li><a href="blog.html">- Blog</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</section>
+
+    <!-- Header Area End -->
+
+<div class="itinerary-nav-bar">
+    <div class="container">
+        <div class="itinerary-nav-body">
+            <div class="box-group dest-group">
+                <div class="dest-box"><div>
+                    <div class="form-location-code">CEB</div>
+                    <span class="form-label-heading mb-tab">Cebu</span>
+                </div>
+            </div>
+            <div class="dest-fa">
+                <span class="fa fa-exchange">
+                </span>  
+            </div><div class="dest-box">
+                <div><div class="form-location-code">TAG</div>
+                <span class="form-label-heading mb-tab">Tagbilaran City, Bohol</span>
+            </div></div></div><div class="box-group mb-tab">
+                <div><div class="form-label-title">1</div>
+                <div class="form-label-heading">Passengers</div>
+            </div><!----><!----></div>
+            
+            <div class="box-group mb-tab">
+                <div>
+                    <div class="form-label-title">Mon, 6 Feb 2023</div>
+                    <div class="form-label-heading">Departure</div>
+                </div>
+            </div>
+            <div class="box-group mb-tab">
+                <div>
+                    <div class="form-label-title">Tue, 7 Feb 2023</div>
+                    <div class="form-label-heading">Return</div></div>
+                </div><!----><div class="box-group departure-return">
+                    <div class="form-label-title p-1">Mon, 6 Feb - Tue, 7 Feb</div></div>
+                    <div class="box-group"><span role="button" class="modify-btn">
+                        <span class="fa fa-edit pr-2"></span>MODIFY ITINERARY </span>
+                    </div>
                 </div>
             </div>
         </div>
-    </header>
-
-    <!-- Header Area End -->
-    <div class="buttom-header-searchtrip">
-        <span class="horizontal-lines"></span>
-        <div class="margin-moditene">
-            <form>
-                <span class="vertical-lines"></span>
-                <div class="form-row-mod">
-                    <div class="col-1-mod">
-                        <h5 style="color: #fff;">CEB</h5>
-                        <p style="color: #fff;">Cebu</p>
-                    </div>
-                    <div class="col-1-mod2">
-                        <i class="fa-solid fa-arrow-right-arrow-left fa-xl"></i>
-                    </div>
-                    <div class="col-1-mod3">
-                        <h5 style="color: #fff;">TAG</h5>
-                        <p style="color: #fff;">Tagbilaran, Bohol City</p>
-                    </div>
-                    <span class="vertical-lines2"></span>
-                    <div class="col-1-mod4">
-                        <h5 style="color: #fff;">1</h5>
-                        <p style="color: #fff;">Passenger</p>
-                    </div>
-                    <span class="vertical-lines3"></span>
-                    <div class="col-1-mod5">
-                        <h5 style="color: #fff;">Sat, 17 Sep 2022</h5>
-                        <p style="color: #fff;">Departure</p>
-                    </div>
-                    <span class="vertical-lines4"></span>
-                    <div class="col-1-mod6">
-                        <h5 style="color: #fff;">Sun, 18 Sep 2022</h5>
-                        <p style="color: #fff;">Return</p>
-                    </div>
-                    <span class="vertical-lines5"></span>
-                    <div class="col-1-mod7">
-                        <button type="button" class="modifybutton" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-edit" style="color: #000;"></i> MODIFY ITINERARY</button>
-                        <?php 
-                        require("resources/templates/_modify-itinerary.php");
-                        ?>
-                    </div>
-                    <span class="vertical-lines6"></span>
-                </div>
-            </form>
-        </div>
-    </div>
+   
+                     

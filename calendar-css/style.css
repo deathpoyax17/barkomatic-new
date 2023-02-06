@@ -259,7 +259,7 @@ body {
 /* CUSTOM CSS */
 
 .dateRangeCalendarWrapper {
-    margin: 40px auto;
+    margin: 0px auto 40px auto;
     max-width: 771px;
     border: 1px solid #eee;
     box-shadow: 0 0 18px rgba(0, 0, 0, 0.1);
