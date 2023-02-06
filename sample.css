@@ -8259,11 +8259,7 @@ span.close-button:hover {
         width: 100%
     }
 
-    .flex-wrap-wrap {
-        -khtml-flex-wrap: wrap;
-        -o-flex-wrap: wrap;
-        flex-wrap: wrap
-    }
+
 }
 
 @media (max-width: 767px) {

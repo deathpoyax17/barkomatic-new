@@ -476,9 +476,9 @@
      <section class="navigation">
   <div class="nav-container">
     <div class="brand">
-    <!-- <a href="index.php">
+    <a href="index.php">
                             <img src="./img/core-img/logo.png" alt="BarkoMatic">
-    </a> -->
+    </a>
     </div>
     <nav>
       <div class="nav-mobile"><a id="navbar-toggle" href="#!"><span></span></a></div>
