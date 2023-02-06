@@ -72,7 +72,6 @@
 }
  nav {
      margin-top:3%;
-   
      float: right;
 }
  nav ul {
@@ -157,9 +156,7 @@
      .navbar-dropdown {
          position: static;
 }
-.brand img{
-    width:200px;
-}
+
 .buttom-header-searchtrip{
     width:100%;
 }
@@ -479,9 +476,9 @@
      <section class="navigation">
   <div class="nav-container">
     <div class="brand">
-    <a href="index.php">
+    <!-- <a href="index.php">
                             <img src="./img/core-img/logo.png" alt="BarkoMatic">
-    </a>
+    </a> -->
     </div>
     <nav>
       <div class="nav-mobile"><a id="navbar-toggle" href="#!"><span></span></a></div>
@@ -497,10 +494,6 @@
           </ul>
         </li>
         <li><a href="contact.php">Contact Us</a></li>
-    
-        <li>
-          <a href="#!">Portfolio</a>
-        </li>
         <li>
         <a href="#">About Us</a>
           <ul class="navbar-dropdown">
