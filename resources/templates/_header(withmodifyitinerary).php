@@ -57,6 +57,7 @@
  .brand {
      position: absolute;
      padding-left: 20px;
+     top:2%;
      float: left;
      line-height: 55px;
      text-transform: uppercase;
@@ -168,6 +169,8 @@
     width:100%;
     font-size: 100%;
 }
+
+
  }
  @media screen and (min-width:800px) {
      .nav-list {
@@ -254,13 +257,13 @@
     .depature-location{
         display: flex;
         position: absolute;
-        padding-left:150px;
+        padding-left:115px;
         padding-right: 25px;
 }
 .depature-location2{
         display: flex;
         position: absolute;
-        padding-left:150px;
+        padding-left:115px;
         padding-right: 25px;
 }
 .calendar-section {
@@ -285,12 +288,12 @@
     }
 }
 .cd-breadcrumb, .cd-multi-steps {
-  width: 90%;
   max-width: 768px;
   padding: 0.5em 1em;
-  margin: 1em auto;
+  margin:5%;
   background-color: #edeff0;
   border-radius: .25em;
+  position:relative;
 }
 .cd-breadcrumb::after, .cd-multi-steps::after {
   clear: both;
@@ -307,7 +310,7 @@
   display: inline-block;
   content: '\00bb';
   margin: 0 .6em;
-  color: #959fa5;
+  color: ##ffffff;
 }
 .cd-breadcrumb li:last-of-type::after, .cd-multi-steps li:last-of-type::after {
   /* hide separator after the last item */
@@ -330,6 +333,7 @@
 
 @media only screen and (min-width: 768px) {
   .cd-breadcrumb, .cd-multi-steps {
+   
     padding: 0 1.2em;
   }
   .cd-breadcrumb li, .cd-multi-steps li {
@@ -345,6 +349,7 @@
 @media only screen and (min-width: 768px) {
   .cd-multi-steps {
     /* reset style */
+    
     background-color: transparent;
     padding: 0;
     text-align: center;
@@ -368,11 +373,16 @@
     margin: 0;
   }
   .cd-multi-steps li.visited::after {
-    background-color:#0791be;
+    background-color:#ffffff;
+    opacity: 0.6;
   }
   .cd-multi-steps li > *, .cd-multi-steps li.current > * {
     position: relative;
-    color: #2c3f4c;
+    color: #ffffff;
+    font-weight: bolder;
+    font-size:1.2em;
+    font-family: Montserrat, Helvetica, Arial, sans-serif !important;
+
   }
 
   .cd-multi-steps.text-top li{
@@ -406,7 +416,7 @@
   .cd-multi-steps.text-top li.visited > *::before,
   .cd-multi-steps.text-top li.current > *::before,
   .cd-multi-steps.text-bottom li.current > *::before {
-    background-color: #1cc3b2;
+    background-color: #17a2b8;
   }
   .no-touch .cd-multi-steps.text-top a:hover{
     color:#17a2b8;
@@ -474,10 +484,11 @@
         </div -->
      <!-- Header Area Start -->
      <section class="navigation">
+      <div class="container">
   <div class="nav-container">
     <div class="brand">
     <a href="index.php">
-                            <img src="./img/core-img/logo.png" alt="BarkoMatic">
+              <img width="70%" src="./img/core-img/logo.png">
     </a>
     </div>
     <nav>
@@ -506,6 +517,7 @@
       </ul>
     </nav>
   </div>
+</div>
 </section>
 
     <!-- Header Area End -->
@@ -521,7 +533,7 @@
             </div>
             <div class="dest-fa">
                 <span class="fa fa-exchange">
-                </span>  
+              </span>  
             </div><div class="dest-box">
                 <div><div class="form-location-code">TAG</div>
                 <span class="form-label-heading mb-tab">Tagbilaran City, Bohol</span>

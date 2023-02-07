@@ -369,14 +369,9 @@ body {
 }
 
 .selected-date-area {
-    margin: 55px auto;
-    padding: 20px;
-    border: 1px solid #eee;
-    background: white;
-    max-width: 771px;
-    box-shadow: 0 0 18px rgba(0, 0, 0, 0.1);
+  
     display: none;
-    border-radius: 10px;
+
 }
 
 .selected-date-area>span {
@@ -386,14 +381,7 @@ body {
 }
 
 .selected-date-area1 {
-    margin: 55px auto;
-    padding: 20px;
-    border: 1px solid #eee;
-    background: white;
-    max-width: 771px;
-    box-shadow: 0 0 18px rgba(0, 0, 0, 0.1);
     display: none;
-    border-radius: 10px;
 }
 
 .selected-date-area1>span {

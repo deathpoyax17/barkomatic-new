@@ -1,12 +1,13 @@
 <?php require_once("resources/templates/_header(withmodifyitinerary).php"); ?>
-
-        <div class="col-sm-2"> </div>      
+<div class="container">
+            
                     <ol class="cd-multi-steps text-top">
-                        <li class="visited"><a href="#0">Cart</a></li>
-                        <li class="visited" ><a href="#0">Billing</a></li>
-                        <li class="current"><em>Delivery</em></li>
-                        <li><em>Review</em></li>
+                        <li class="visited"><a href="#0">SCHEDULE</a></li>
+                        <li class="visited" ><a href="#0">PASSENGER INFO</a></li>
+                        <li class="current"><em>PAYMENT</em></li>
+                        <li><em>COMPLETE</em></li>
                     </ol>
+                    <br>
     <div class="depature-location">
         <h3 style="color: #ededed;">Cebu City</h3><i class="fa-solid fa-arrow-right" style="color: #fff; font-size: 28px; padding-left: 10px; padding-right: 10px;"></i>
         <h3 style="color: #ededed;">Tagbilaran City, Bohol</h3>
@@ -36,42 +37,94 @@
         </div>
 
         <div class="selected-date-area" id="selectedDateRange">
-            <div class="contain-selected-date">
-                <div class="time-depature">
-                    <p style="font-weight: bolder; font-size: 20px; padding-top: 10px; color: #fff;">9:00 AM</p>
-                    <hr>
-                    <p style="color: #fff;">6 Hours</p>
+    <div radio-group="">
+      <form novalidate="" class="ng-untouched ng-pristine ng-valid">
+        <div formarrayname="voyageAccommodations" class="ng-untouched ng-pristine ng-valid" >
+          <div class="itinerary-table booking-table item-selected">
+            <!-- <input type="radio" hidden="" value="[object Object]" /> -->
+            <div class="itinerary-row itinerary-head">
+              <div class="itr-col booking-time-container">
+                <div>
+                  <div class="departure-time">6:00 AM</div>
+                  <!---->
+                  <div class="travel-time">2 hours</div>
+                  <!----><!---->
                 </div>
-                <div class="shippinglines-depature" style="display: flex;">
-                    <img src="./assets/images/vgshipping.png" alt="vgshipping" style="width: 64px; height: 64px; border-radius: 60%; border: 2px solid #000; margin-top: 15px;">
-                    <div class="horizontal-line"></div>
-                    <div class="ship-depature">
-                        <p style=" border: 2px solid #000; width: 100%; border-radius: 40px; padding: 5px 25px; margin-top: 17px;">Vg Shipping Lines<br>Vg Shipping (VG-RORO)</p>
+              </div>
+              <div class="itr-col itinerary-vessel">
+                <div class="booking-media-left itinerary-shipping-logo">
+                  <img
+                    alt=""
+                    src="https://storage.googleapis.com/barkota-reseller-assets/companies/mark-ocean-fast-ferries-inc.png"/><!---->
+                </div>
+                <div class="itinerary-name">
+                  <div class="booking-type booking-td-title">
+                    <div>Ocean Fast Ferries Inc.</div>
+                    <!---->
+                    <div class="booking-td-meta book-text-muted">
+                      Ocean Jet (FASTCRAFT)
                     </div>
+                    <!---->
+                  </div>
                 </div>
+              </div>
+              <!---->
             </div>
-            <div class="contain-selected-date">
-                <div class="dropdown-accommodation">
-                    <div class="dropdown">
-                        <button class="btn btn-outline-secondary dropdown-toggle" style="width: 180px; height: 50px; border-radius: 10px;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                          Standard A
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="#">Standard A</a></li>
-                            <li><a class="dropdown-item" href="#">Open Air</a></li>
-                            <li><a class="dropdown-item" href="#">Tourist Class </a></li>
-                        </ul>
+            
+            <div class="itinerary-row">
+              <div class="itinerary-col itinerary-select">
+                <div class="form-select">
+                  <select formcontrolname="selectedAccommodation" class="form-control accommodation border ng-untouched ng-pristine ng-valid">
+                    <option value="0: Object">Business Class</option>
+                    <option value="1: Object">Open Air</option>
+                    <option value="2: Object">Tourist Class</option>
+                    <!---->
+                  </select>
+                </div>
+                <!---->
+              </div>
+              <!---->
+              <div
+                class="itinerary-col itinerary-price" style="position: relative; overflow: hidden">
+                <div class="booking-td-title text-wrap">
+                  <div>
+                    <div class="booking-td-title">
+                      <!-- <span class="price-value" style="margin-right: 20px"> -->
+                        ₱1,200.00
+                      <!-- </span> -->
                     </div>
+                    <div class="booking-type booking-td-title">
+                      <div class="booking-td-meta" style="margin-right: 5px">
+                        <!-- <span style="font-weight: 800; color: #ff8c00"> -->
+                          Ticket Price 
+                              <!-- </span> -->
+                      </div>
+                    </div>
+                  </div>
+                  <!---->
                 </div>
-                <div class="ticketprice">
-                    <p style=" color: #0072BC; font-weight: 700; font-size: large;">₱800.00</p>
-                    <p style=" color: rgb(105, 104, 104);">Ticket Price</p>
-                </div>
-                <div class="select-button">
-                    <button type="button" style="width: 200px; height: 50px; border-radius: 10px;" class="btn btn-primary">Select</button>
-                </div>
+                <!---->
+              </div>
+              <!----><!---->
+              <div class="itinerary-col itinerary-select-btn">
+                <button type="button" class="btn btn-success select-button">
+                <!-- <span>Selected &nbsp;<span class="fa fa-check"></span></span> -->
+                Select
+                </button>
+              </div>
+              <!----><!---->
             </div>
+            <!----><!---->
+            <div class="itinerary-row"><!----><!----><!----></div>
+            <!----><!---->
+          </div>
+          <!---->
         </div>
+        <!---->
+      </form>
+    </div>
+    <!---->
+  </div>
 
     </div>
 
@@ -101,42 +154,77 @@
         </div>
 
         <div class="selected-date-area1" id="selectedDateRange1">
-            <div class="contain-selected-date">
-                <div class="time-depature">
-                    <p style="font-weight: bolder; font-size: 20px; padding-top: 10px; color: #fff;">9:00 AM</p>
-                    <hr>
-                    <p style="color: #fff;">6 Hours</p>
+        <div radio-group="">
+      <form novalidate="" class="ng-untouched ng-pristine ng-valid">
+        <div formarrayname="voyageAccommodations" class="ng-untouched ng-pristine ng-valid" >
+          <div class="itinerary-table booking-table item-selected">
+            <input type="radio" hidden="" value="[object Object]" />
+            <div class="itinerary-row itinerary-head">
+              <div class="itr-col booking-time-container">
+                <div>
+                  <div class="departure-time">6:00 AM</div>
+                  <div class="travel-time">2 hours</div>
                 </div>
-                <div class="shippinglines-depature" style="display: flex;">
-                    <img src="./assets/images/vgshipping.png" alt="vgshipping" style="width: 64px; height: 64px; border-radius: 60%; border: 2px solid #000; margin-top: 15px;">
-                    <div class="horizontal-line"></div>
-                    <div class="ship-depature">
-                        <p style=" border: 2px solid #000; width: 100%; border-radius: 40px; padding: 5px 25px; margin-top: 17px;">Vg Shipping Lines<br>Vg Shipping (VG-RORO)</p>
+              </div>
+              <div class="itr-col itinerary-vessel">
+                <div class="booking-media-left itinerary-shipping-logo">
+                  <img
+                    alt=""
+                    src="https://storage.googleapis.com/barkota-reseller-assets/companies/mark-ocean-fast-ferries-inc.png"/><!---->
+                </div>
+                <div class="itinerary-name">
+                  <div class="booking-type booking-td-title">
+                    <div>Ocean Fast Ferries Inc.</div>
+                    <div class="booking-td-meta book-text-muted">
+                      Ocean Jet (FASTCRAFT)
                     </div>
+                  </div>
                 </div>
+              </div>
             </div>
-            <div class="contain-selected-date">
-                <div class="dropdown-accommodation">
-                    <div class="dropdown">
-                        <button class="btn btn-outline-secondary dropdown-toggle" style="width: 180px; height: 50px; border-radius: 10px;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                          Standard A
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="#">Standard A</a></li>
-                            <li><a class="dropdown-item" href="#">Open Air</a></li>
-                            <li><a class="dropdown-item" href="#">Tourist Class </a></li>
-                        </ul>
+            
+            <div class="itinerary-row">
+              <div class="itinerary-col itinerary-select">
+                <div class="form-select">
+                  <select formcontrolname="selectedAccommodation" class="form-control accommodation border ng-untouched ng-pristine ng-valid">
+                    <option value="0: Object">Business Class</option>
+                    <option value="1: Object">Open Air</option>
+                    <option value="2: Object">Tourist Class</option>
+                  </select>
+                </div>
+              </div>
+              <div
+                class="itinerary-col itinerary-price" style="position: relative; overflow: hidden">
+                <div class="booking-td-title text-wrap">
+                  <div>
+                    <div class="booking-td-title">
+                      <!-- <span class="price-value" style="margin-right: 20px"> -->
+                        ₱1,200.00
+                      <!-- </span> -->
                     </div>
+                    <div class="booking-type booking-td-title">
+                      <div class="booking-td-meta" style="margin-right: 5px">
+                        <!-- <span style="font-weight: 800; color: #ff8c00"> -->
+                          Ticket Price 
+                              <!-- </span> -->
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="ticketprice">
-                    <p style=" color: #0072BC; font-weight: 700; font-size: large;">₱800.00</p>
-                    <p style=" color: rgb(105, 104, 104);">Ticket Price</p>
-                </div>
-                <div class="select-button">
-                    <button type="button" style="width: 200px; height: 50px; border-radius: 10px;" class="btn btn-primary">Select</button>
-                </div>
+              </div>
+              <div class="itinerary-col itinerary-select-btn">
+                <button type="button" class="btn btn-success select-button">
+                <!-- <span>Selected &nbsp;<span class="fa fa-check"></span></span> -->
+                Select
+                </button>
+              </div>
             </div>
+            <div class="itinerary-row"></div>
+          </div>
         </div>
+      </form>
+    </div>
+    
     </div>
     <div class="container-summarytrip">
         <h4 class="summary-text-roundtrip">Summary</h4>
@@ -300,6 +388,8 @@
             </div>
         </div>
     </div>
+    </div>
+
     <div class="bottom-header-searchtrip4">
         <div class="container">
             <div class="row">
@@ -332,6 +422,7 @@
             </div>
         </div>
     </div>
+
 <script>
     	(function($) { 
   $(function() { 

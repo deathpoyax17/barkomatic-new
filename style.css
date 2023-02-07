@@ -1831,7 +1831,6 @@
     }
     
     .dropdown-accommodation {
-        padding-left: 20px;
         margin-right: 45px;
     }
     
@@ -1840,9 +1839,6 @@
         height: fit-content;
     }
     
-    .select-button {
-        margin-left: 80px;
-    }
     
     .vertical-dotted-line {
         border-left: 2px dotted black;
