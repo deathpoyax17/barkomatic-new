@@ -127,7 +127,7 @@
   </div>
 
     </div>
-
+<br>
     <div class="depature-location2">
         <h3 style="color: #ededed;">Tagbilaran City, Bohol</h3><i class="fa-solid fa-arrow-right" style="color: #fff; font-size: 28px; padding-left: 10px; padding-right: 10px;"></i>
         <h3 style="color: #ededed;">Cebu City</h3>
