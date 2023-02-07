@@ -2297,17 +2297,8 @@ p.post-parg {
     border-radius: 30px !important;
 }
 
-.datepicker {
-    padding: 15px;
-    -webkit-box-shadow: 0 2px 40px 8px rgba(15, 15, 15, 0.15);
-    box-shadow: 0 2px 40px 8px rgba(15, 15, 15, 0.15);
-}
 
-.datepicker.dropdown-menu {
-    font-size: 14px;
-    color: #636a76;
-    font-weight: 400;
-}
+
 
 .hotel-reservation--area .nice-select {
     line-height: 48px;
@@ -2350,15 +2341,10 @@ p.post-parg {
     border-top-left-radius: 0;
 }
 
-.ui-widget-header {
-    border: 1px solid #e8f1f8;
-    background: #1cc3b2;
-}
-
 .ui-widget.ui-widget-content {
     border: 1px solid #e8f1f8;
     background-color: #e8f1f8;
-    height: 5px !important;
+ 
 }
 
 .ui-slider .ui-slider-handle {

@@ -2034,7 +2034,7 @@
         display: block;
     }
     
-    .searchtrip-tab input[type='radio']:checked+label {
+    .searchtrip-tab input[data-type='tab-radio']:checked+label {
         background-color: rgba(13, 117, 191, 0.7);
     }
     
