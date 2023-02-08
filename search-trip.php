@@ -220,7 +220,7 @@
                                 <select class="custom-select" name="srch_sched_loc_from" id="srch_sched_loc_from"> 
                                   <option selected>Choose Location</option>
                                   <?php 
-                                                    $stmt2 = $con->prepare("SELECT * FROM tbl_ship_port"); 
+                                                    $stmt2 = $con->prepare("SELECT * FROM routes"); 
                                                     $stmt2->execute();
                                                     $result2 = $stmt2->get_result();
                                                     while ($row2 = $result2->fetch_assoc()) { ?>

@@ -8,40 +8,63 @@
     </div -->
 <div class="mobile-menu-container"></div>
 </header>
+
 <div class="searchtripmargin">
-    <div class="searchtrip-tab">
 
-        <input type="radio" data-type="tab-radio" id="tabpassenger" name="searchtrip-tab" checked="checked">
-        <label class="passenger" id="passengertab" for="tabpassenger"><i class="fa-solid fa-user"></i> Passenger</label>
-        <div class="tabsearchtrip">
-            <div id="passengertab">
-
-                <div class="search-form-box">
+<div class="container">
+  <div class="col">
+    <div class="tab-wrapper">
+      <div class="tab-header" full-width border>
+        <button class="tab-btn">
+        <i class="fas fa-user"></i>
+        Passenger
+        </button>
+        <button class="tab-btn">
+        <i class="fas fa-car"></i>
+        Vehicle
+        </button>
+       
+        <div class="underline"></div>
+      </div>
+      <div class="tab-body">
+        <div class="tab-content">
+       
                     <form novalidate="" class="ng-untouched ng-pristine ng-invalid">
+                    <div class="search-form-box">
                         <div class="row">
                             <div class="col">
                                 <div class="check-box-mv mg-t-10">
-                                    <input type="checkbox" id="check-email" /><label for="check-email"
+                                    <input class="coupon_question" type="checkbox" id="check-email" /><label for="check-email"
                                         class="text-normal">Has Preferred Shipping Lines</label>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row answer">
                             <div class="col">
                                 <div class="shipping-lines-company mt-2">
-                                    <div class="ship-radio">
-                                        <input type="radio" name="shippingLine" formcontrolname="shippingLine"
-                                            style="display: none" id="company0"
-                                            class="ng-untouched ng-pristine ng-invalid" /><label
-                                            class="company radio-label" for="company0">
-                                            <div class="company-img">
-                                                <img width="150" alt="" class="company-logo"
-                                                    src="https://storage.googleapis.com/barkota-reseller-assets/companies/list_2go.png" />
-                                            </div>
-                                        </label>
-                                    </div>
-                                    <div class="ship-radio">
-                                        <input type="radio" name="shippingLine" formcontrolname="shippingLine"
+                                <?php 
+                                           $stmt_ship_sd =$con->prepare("SELECT DISTINCT
+                                           tsd.owner_id,
+                                           tsd.ship_name,
+                                           tsd.ship_logo
+                                           FROM ship_owners tsd
+                                           JOIN schedules tss ON tsd.owner_id=tss.owner_id"); 
+                                           $stmt_ship_sd->execute();
+                                           $row_ship_sd = $stmt_ship_sd->get_result();
+                                           while ($row1 = $row_ship_sd->fetch_assoc()) { ?>
+
+                                                          <div class="ship-radio">
+                                                            <input type="radio" name="srch_ship_sched" formcontrolname="srch_ship_sched" style="display: none" id="<?php echo $row1['owner_id']; ?>" class="ng-untouched ng-pristine ng-invalid" /><label
+                                                                class="company radio-label" for="<?php echo $row1['owner_id']; ?>" data-id="srch_ship_sched" value="<?php echo $row1['ship_name']; ?>" >
+                                                                <div class="company-img">
+                                                                    <img width="150" alt="" class="company-logo"
+                                                                    src="data:image/jpeg;base64,<?php echo base64_encode($row1['ship_logo']); ?>" alt="<?php echo $row1['ship_name']; ?>"/>
+                                                                </div>
+                                                            </label>
+                                                        </div>
+                                            <?php } ?>
+                                    <!-- <div class="ship-radio">
+                                        <input type="radio" name="srch_ship_sched" formcontrolname="srch_ship_sched"
                                             style="display: none" id="company1"
                                             class="ng-untouched ng-pristine ng-invalid" /><label
                                             class="company radio-label" for="company1">
@@ -50,183 +73,7 @@
                                                     src="https://storage.googleapis.com/barkota-reseller-assets/companies/list_starlite.png" />
                                             </div>
                                         </label>
-                                    </div>
-                                    <div class="ship-radio">
-                                        <input type="radio" name="shippingLine" formcontrolname="shippingLine"
-                                            style="display: none" id="company2"
-                                            class="ng-untouched ng-pristine ng-invalid" /><label
-                                            class="company radio-label" for="company2">
-                                            <div class="company-img">
-                                                <img width="150" alt="" class="company-logo"
-                                                    src="https://storage.googleapis.com/barkota-reseller-assets/companies/list_clemer.png" />
-                                            </div>
-                                        </label>
-                                    </div>
-                                    <div class="ship-radio">
-                                        <input type="radio" name="shippingLine" formcontrolname="shippingLine"
-                                            style="display: none" id="company3"
-                                            class="ng-untouched ng-pristine ng-invalid" /><label
-                                            class="company radio-label" for="company3">
-                                            <div class="company-img">
-                                                <img width="150" alt="" class="company-logo"
-                                                    src="https://storage.googleapis.com/barkota-reseller-assets/companies/list-aznar.png" />
-                                            </div>
-                                        </label>
-                                    </div>
-                                    <div class="ship-radio">
-                                        <input type="radio" name="shippingLine" formcontrolname="shippingLine"
-                                            style="display: none" id="company4"
-                                            class="ng-untouched ng-pristine ng-invalid" /><label
-                                            class="company radio-label" for="company4">
-                                            <div class="company-img">
-                                                <img width="150" alt="" class="company-logo"
-                                                    src="https://storage.googleapis.com/barkota-reseller-assets/companies/list_evaristo.png" />
-                                            </div>
-                                        </label>
-                                    </div>
-                                    <div class="ship-radio">
-                                        <input type="radio" name="shippingLine" formcontrolname="shippingLine"
-                                            style="display: none" id="company5"
-                                            class="ng-untouched ng-pristine ng-invalid" /><label
-                                            class="company radio-label" for="company5">
-                                            <div class="company-img">
-                                                <img width="150" alt="" class="company-logo"
-                                                    src="https://storage.googleapis.com/barkota-reseller-assets/companies/list_fastcat.png" />
-                                            </div>
-                                        </label>
-                                    </div>
-                                    <div class="ship-radio">
-                                        <input type="radio" name="shippingLine" formcontrolname="shippingLine"
-                                            style="display: none" id="company6"
-                                            class="ng-untouched ng-pristine ng-invalid" /><label
-                                            class="company radio-label" for="company6">
-                                            <div class="company-img">
-                                                <img width="150" alt="" class="company-logo"
-                                                    src="https://storage.googleapis.com/barkota-reseller-assets/companies/list-ffcruz.png" />
-                                            </div>
-                                        </label>
-                                    </div>
-                                    <div class="ship-radio">
-                                        <input type="radio" name="shippingLine" formcontrolname="shippingLine"
-                                            style="display: none" id="company7"
-                                            class="ng-untouched ng-pristine ng-invalid" /><label
-                                            class="company radio-label" for="company7">
-                                            <div class="company-img">
-                                                <img width="150" alt="" class="company-logo"
-                                                    src="https://storage.googleapis.com/barkota-reseller-assets/companies/list_islandwater.png" />
-                                            </div>
-                                        </label>
-                                    </div>
-                                    <div class="ship-radio">
-                                        <input type="radio" name="shippingLine" formcontrolname="shippingLine"
-                                            style="display: none" id="company8"
-                                            class="ng-untouched ng-pristine ng-invalid" /><label
-                                            class="company radio-label" for="company8">
-                                            <div class="company-img">
-                                                <img width="150" alt="" class="company-logo"
-                                                    src="https://storage.googleapis.com/barkota-reseller-assets/companies/list_jomalia.png" />
-                                            </div>
-                                        </label>
-                                    </div>
-                                    <div class="ship-radio">
-                                        <input type="radio" name="shippingLine" formcontrolname="shippingLine"
-                                            style="display: none" id="company9"
-                                            class="ng-untouched ng-pristine ng-invalid" /><label
-                                            class="company radio-label" for="company9">
-                                            <div class="company-img">
-                                                <img width="150" alt="" class="company-logo"
-                                                    src="https://storage.googleapis.com/barkota-reseller-assets/companies/list_lapulapu.png" />
-                                            </div>
-                                        </label>
-                                    </div>
-                                    <div class="ship-radio">
-                                        <input type="radio" name="shippingLine" formcontrolname="shippingLine"
-                                            style="display: none" id="company10"
-                                            class="ng-untouched ng-pristine ng-invalid" /><label
-                                            class="company radio-label" for="company10">
-                                            <div class="company-img">
-                                                <img width="150" alt="" class="company-logo"
-                                                    src="https://storage.googleapis.com/barkota-reseller-assets/companies/list_lite-ferries.png" />
-                                            </div>
-                                        </label>
-                                    </div>
-                                    <div class="ship-radio">
-                                        <input type="radio" name="shippingLine" formcontrolname="shippingLine"
-                                            style="display: none" id="company11"
-                                            class="ng-untouched ng-pristine ng-invalid" /><label
-                                            class="company radio-label" for="company11">
-                                            <div class="company-img">
-                                                <img width="150" alt="" class="company-logo"
-                                                    src="https://storage.googleapis.com/barkota-reseller-assets/companies/list_medallion.png" />
-                                            </div>
-                                        </label>
-                                    </div>
-                                    <div class="ship-radio">
-                                        <input type="radio" name="shippingLine" formcontrolname="shippingLine"
-                                            style="display: none" id="company12"
-                                            class="ng-untouched ng-pristine ng-invalid" /><label
-                                            class="company radio-label" for="company12">
-                                            <div class="company-img">
-                                                <img width="150" alt="" class="company-logo"
-                                                    src="https://storage.googleapis.com/barkota-reseller-assets/companies/list_oceanjet.png" />
-                                            </div>
-                                        </label>
-                                    </div>
-                                    <div class="ship-radio">
-                                        <input type="radio" name="shippingLine" formcontrolname="shippingLine"
-                                            style="display: none" id="company13"
-                                            class="ng-untouched ng-pristine ng-invalid" /><label
-                                            class="company radio-label" for="company13">
-                                            <div class="company-img">
-                                                <img width="150" alt="" class="company-logo"
-                                                    src="https://storage.googleapis.com/barkota-reseller-assets/companies/list_amt.png" />
-                                            </div>
-                                        </label>
-                                    </div>
-                                    <div class="ship-radio">
-                                        <input type="radio" name="shippingLine" formcontrolname="shippingLine"
-                                            style="display: none" id="company14"
-                                            class="ng-untouched ng-pristine ng-invalid" /><label
-                                            class="company radio-label" for="company14">
-                                            <div class="company-img">
-                                                <img width="150" alt="" class="company-logo"
-                                                    src="https://storage.googleapis.com/barkota-reseller-assets/companies/mark-supercat-chelsea.png" />
-                                            </div>
-                                        </label>
-                                    </div>
-                                    <div class="ship-radio">
-                                        <input type="radio" name="shippingLine" formcontrolname="shippingLine"
-                                            style="display: none" id="company15"
-                                            class="ng-untouched ng-pristine ng-invalid" /><label
-                                            class="company radio-label" for="company15">
-                                            <div class="company-img">
-                                                <img width="150" alt="" class="company-logo"
-                                                    src="https://storage.googleapis.com/barkota-reseller-assets/companies/list_transasia.png" />
-                                            </div>
-                                        </label>
-                                    </div>
-                                    <div class="ship-radio">
-                                        <input type="radio" name="shippingLine" formcontrolname="shippingLine"
-                                            style="display: none" id="company16"
-                                            class="ng-untouched ng-pristine ng-invalid" /><label
-                                            class="company radio-label" for="company16">
-                                            <div class="company-img">
-                                                <img width="150" alt="" class="company-logo"
-                                                    src="https://storage.googleapis.com/barkota-reseller-assets/companies/list_grandferries.png" />
-                                            </div>
-                                        </label>
-                                    </div>
-                                    <div class="ship-radio">
-                                        <input type="radio" name="shippingLine" formcontrolname="shippingLine"
-                                            style="display: none" id="company17"
-                                            class="ng-untouched ng-pristine ng-invalid" /><label
-                                            class="company radio-label" for="company17">
-                                            <div class="company-img">
-                                                <img width="150" alt="" class="company-logo"
-                                                    src="https://storage.googleapis.com/barkota-reseller-assets/companies/list_weesam.png" />
-                                            </div>
-                                        </label>
-                                    </div>
+                                    </div> -->
                                     <!---->
                                 </div>
                             </div>
@@ -235,11 +82,12 @@
                         <div class="row">
                             <div class="col">
                                 <div class="md-radio">
-                                    <input id="1" type="radio" name="tripDirection" formcontrolname="tripDirection"
-                                        checked="" class="ng-untouched ng-pristine ng-valid" /><label for="1">Round
-                                        Trip</label><input id="2" type="radio" name="tripDirection"
+                                    <input id="trip1" type="radio" name="tripDirection" formcontrolname="tripDirection"
+                                        checked="" class="ng-untouched ng-pristine ng-valid" /><label for="trip1">Round
+                                        Trip</label>
+                                        <input id="trip2" type="radio" name="tripDirection"
                                         formcontrolname="tripDirection"
-                                        class="ng-untouched ng-pristine ng-valid" /><label for="2">One Way</label>
+                                        class="ng-untouched ng-pristine ng-valid" /><label for="trip2">One Way</label>
                                 </div>
                             </div>
                         </div>
@@ -251,8 +99,7 @@
                                     <div class="input-group-prepend">
                                         <label class="input-group-text input-label-w">From</label>
                                     </div>
-                                    <!----><select formcontrolname="origin" required=""
-                                        class="custom-select ng-untouched ng-pristine ng-valid">
+                                    <!----><select formcontrolname="origin" required="" class="custom-select ng-untouched ng-pristine ng-valid">
                                         <option value="0: Object">Bacolod</option>
                                         <option value="1: Object">Batangas</option>
                                         <option value="2: Object">Bato, Leyte</option>
@@ -433,16 +280,14 @@
                             <!---->
                         </div>
                         <!---->
+                        </div>
                     </form>
-                </div>
-            </div>
+               
         </div>
-        <input type="radio" id="tabvehicle" data-type="tab-radio" name="searchtrip-tab">
-        <label class="vehicle" id="vehicletab" for="tabvehicle"><i class="fa-solid fa-car"></i> Vehicle</label>
-        <div class="tabsearchtrip2">
-            <div id="vehicletab">
-                <div class="search-form-box">
+        <div class="tab-content">
+        
                     <form novalidate="" class="ng-pristine ng-valid ng-touched">
+                    <div class="search-form-box">
                         <div class="row">
                             <div class="col">
                                 <div class="check-box-mv mg-t-10">
@@ -760,16 +605,14 @@
                         </div>
                         <!---->
                         <!---->
+                        </div>
                     </form>
                 </div>
-
-            </div>
         </div>
-    </div>
+      </div>
+  </div>
 </div>
-
-
-
+</div>
 <script src="js/jquery.validate.min.js"></script>
 <script src="js/wow.min.js"></script>
 <script src="js/main/active.js"></script>
@@ -828,7 +671,9 @@ $(document).ready(function() {
         if ($(this).is(":checked")) {
             $(".answer").show();
         } else {
-            $(".answer").hide();
+            setTimeout(function() {
+                $(".answer").hide();
+                }, 100);
         }
     });;
 });
@@ -909,6 +754,48 @@ $(document).ready(function() {
         }
     });
 });
+</script>
+<script>
+function inittab(tabWrapper, activeTab = 1) {
+  const tabBtns = tabWrapper.querySelectorAll(".tab-btn");
+  const underline = tabWrapper.querySelector(".underline");
+  const tabContents = tabWrapper.querySelectorAll(".tab-content");
+
+  activeTab = activeTab - 1;
+  tabBtns[activeTab].classList.add("active");
+  underline.style.width = `${tabBtns[activeTab].offsetWidth}px`;
+  underline.style.left = `${tabBtns[activeTab].offsetLeft}px`;
+  tabContents.forEach((content) => {
+    content.style.transform = `translateX(-${activeTab * 100}%)`;
+  });
+
+  tabBtns.forEach((btn, index) => {
+    btn.addEventListener("click", () => {
+      tabBtns.forEach((btn) => btn.classList.remove("active"));
+      btn.classList.add("active");
+      underline.style.width = `${btn.offsetWidth}px`;
+      underline.style.left = `${btn.offsetLeft}px`;
+      tabContents.forEach((content) => {
+        content.style.transform = `translateX(-${index * 100}%)`;
+      });
+    });
+
+    //same effect as on click when button in focus
+    btn.addEventListener("focus", () => {
+      tabBtns.forEach((btn) => btn.classList.remove("active"));
+      btn.classList.add("active");
+      underline.style.width = `${btn.offsetWidth}px`;
+      underline.style.left = `${btn.offsetLeft}px`;
+      tabContents.forEach((content) => {
+        content.style.transform = `translateX(-${index * 100}%)`;
+      });
+    });
+  });
+}
+
+const tabWrappers = document.querySelectorAll(".tab-wrapper");
+tabWrappers.forEach((tabWrapper, index) => inittab(tabWrapper));
+
 </script>
 </body>
 

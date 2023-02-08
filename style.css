@@ -2366,8 +2366,8 @@
     select {
         border: 1px solid #d9d9d9;
         color: #383838;
-        height: 48px;
-        padding: 0 20px 0 10px;
+        height: 31px;
+        /* padding: 0 20px 0 10px; */
     }
     
     select option {
@@ -7095,12 +7095,6 @@ procduct details css
         }
     }
     
-    .tab-content {
-        padding: 30px;
-        border-width: 0 1px 1px 1px;
-        border-style: solid;
-        border-color: #d4d4d4;
-    }
     
     .tab-content ul {
         margin: 30px 0 0;
@@ -10269,14 +10263,6 @@ product checkout css
         transform: scale(1);
     }
     
-    .ui-datepicker {
-        background-color: #ffffff;
-        -webkit-border-radius: 0px;
-        -moz-border-radius: 0px;
-        -ms-border-radius: 0px;
-        border-radius: 0px;
-        width: 280px;
-    }
     
     .ui-datepicker.ui-widget {
         font-family: inherit;
@@ -10291,7 +10277,7 @@ product checkout css
     }
     
     .ui-datepicker .ui-datepicker-title {
-        font-size: 15px;
+
         line-height: 1.2;
     }
     
@@ -10307,11 +10293,9 @@ product checkout css
         width: 30px;
         text-align: center;
         top: 50%;
-        -webkit-transform: translate(0, -50%);
         -moz-transform: translate(0, -50%);
         -ms-transform: translate(0, -50%);
         -o-transform: translate(0, -50%);
-        transform: translate(0, -50%);
         -webkit-transition: all 0.3s linear;
         -moz-transition: all 0.3s linear;
         -ms-transition: all 0.3s linear;
@@ -10325,9 +10309,7 @@ product checkout css
         font-size: 0px;
         margin: 0;
         height: auto;
-        position: static;
         text-indent: inherit;
-        width: auto;
     }
     
     .ui-datepicker .ui-datepicker-prev span:before,
@@ -10337,11 +10319,7 @@ product checkout css
         font-weight: 900;
     }
     
-    .ui-datepicker .ui-datepicker-prev.ui-state-hover,
-    .ui-datepicker .ui-datepicker-next.ui-state-hover {
-        background-color: #2C75BA;
-        color: #ffffff;
-    }
+
     
     .ui-datepicker .ui-datepicker-prev span:before {
         content: "\f053";
@@ -10376,9 +10354,7 @@ product checkout css
         font-size: 12px;
         display: block;
         line-height: 30px;
-        height: 30px;
         padding: 0;
-        width: 30px;
         text-align: center;
         -webkit-transition: background-color 0.4s, color 0.4s;
         -moz-transition: background-color 0.4s, color 0.4s;
