@@ -475,7 +475,7 @@
    </style>
 </head>
 
-
+<body class="container-tab2">
 
     <!-- div id="siteLoader" class="site-loader">
             <div class="preloader-content">
@@ -488,7 +488,7 @@
   <div class="nav-container">
     <div class="brand">
     <a href="index.php">
-              <img width="70%" src="./img/core-img/logo.png">
+              <img src="./img/core-img/logo.png">
     </a>
     </div>
     <nav>

@@ -606,9 +606,10 @@
 --------------------------------------------------------------*/
     
     .container {
-        max-width: 100%;
+        width: 50%;
         padding-left: 15px;
         padding-right: 15px;
+        border: 2px solid red;
     }
     
     .container-tab {
@@ -7091,7 +7092,6 @@ procduct details css
         }
     }
     
-    
     .tab-content ul {
         margin: 30px 0 0;
         padding: 0;
@@ -10259,7 +10259,6 @@ product checkout css
         transform: scale(1);
     }
     
-    
     .ui-datepicker.ui-widget {
         font-family: inherit;
     }
@@ -10273,7 +10272,6 @@ product checkout css
     }
     
     .ui-datepicker .ui-datepicker-title {
-
         line-height: 1.2;
     }
     
@@ -10314,8 +10312,6 @@ product checkout css
         font-family: "Font Awesome 5 Free";
         font-weight: 900;
     }
-    
-
     
     .ui-datepicker .ui-datepicker-prev span:before {
         content: "\f053";
