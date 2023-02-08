@@ -63,17 +63,6 @@
                                                             </label>
                                                         </div>
                                             <?php } ?>
-                                    <!-- <div class="ship-radio">
-                                        <input type="radio" name="srch_ship_sched" formcontrolname="srch_ship_sched"
-                                            style="display: none" id="company1"
-                                            class="ng-untouched ng-pristine ng-invalid" /><label
-                                            class="company radio-label" for="company1">
-                                            <div class="company-img">
-                                                <img width="150" alt="" class="company-logo"
-                                                    src="https://storage.googleapis.com/barkota-reseller-assets/companies/list_starlite.png" />
-                                            </div>
-                                        </label>
-                                    </div> -->
                                     <!---->
                                 </div>
                             </div>
