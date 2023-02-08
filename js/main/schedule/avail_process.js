@@ -32,12 +32,15 @@ $(document).ready(function() {
                 method: 'POST',
                 data: $('#search_sched_form').serialize() + '&action=search_sched_form',
                 success: function(response) {
-                    setTimeout(function() {
-                        $("#srch_sched_ftr_form").html(response);
-                    }, 100);
-                    setTimeout(function() {
-                        $(':input[type="submit"]').prop('disabled', false);
-                    }, 100);
+                    // setTimeout(function() {
+                    //     var responseData = response;
+                    //     window.location.href = 'https://localhost/barkomatic-new/scheduletrip(roundtrip).php?data=' + encodeURIComponent(responseData);
+
+                    // }, 100);
+                    // setTimeout(function() {
+                    //     $(':input[type="submit"]').prop('disabled', false);
+                    // }, 100);
+                    console.log(response);
                 }
             });
         }

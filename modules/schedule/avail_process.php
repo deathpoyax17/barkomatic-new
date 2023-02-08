@@ -36,97 +36,21 @@ function search_available_schedule($c) {
     $sslt = $_POST['srch_sched_loc_to'];
     $ssld = date('Y-m-d', strtotime($_POST['srch_sched_loc_depart']));
 
-    $sql_slct = "SELECT 
-                tbl_ship_sd.ship_name,
-                tbl_ship_sd.ship_logo,
-                tbl_ship_sd.stat,
-                tbl_ship_sd.subscription_id,
-                tbl_ship_sched.depart_date,
-                tbl_ship_sched.depart_time,
-                tbl_ship_sched.location_from,
-                tbl_ship_sched.port_from,
-                tbl_ship_sched.location_to,
-                tbl_ship_sched.port_to,
-                tbl_ship_sched.vessel,
-                tbl_ship_acctyp.accomodation_name,
-                tbl_ship_acctyp.price,
-                tbl_ship_acctyp.id,
-                tbl_tcket.vessel_name,
-                tbl_tcket.tckt_stats,
-                tbl_tcket.tckt_owner,
-                tbl_tcket.tckt_price
-                FROM tbl_ship_detail tbl_ship_sd
-                JOIN tbl_ship_schedule tbl_ship_sched
-                JOIN tbl_ship_has_accomodation_type tbl_ship_acctyp
-                JOIN tbl_tckt tbl_tcket ON tbl_ship_sd.ship_name = tbl_tcket.tckt_owner
-                WHERE tbl_ship_sd.ship_name=? AND tbl_ship_sched.depart_date=? AND tbl_ship_sched.location_from=? AND tbl_ship_sched.location_to=?";
+    $sql_slct = "SELECT * 
+                 FROM schedules s
+                 JOIN routes r ON s.route_id_from = r.route_id
+                 WHERE s.owner_id=? AND s.route_id_from=? AND s.route_id_to=? AND s.departure_date=?";
     $stmt = $c->prepare($sql_slct);
     echo $c -> error;
-    $stmt->bind_param("ssss", $srch_ss,$ssld,$sslf,$sslt);
+    $stmt->bind_param("ssss", $srch_ss,$sslf,$sslt,$ssld);
     $stmt->execute();
     $result = $stmt->get_result();
     $row = $result->fetch_array();
     if(!empty($row)) {
         echo '
-        <div>
-        <div class="form-group accomm_type" name="sample_list" >
-                <select onchange="selectOnChange(this)" name="srch_sched_accomm_type" id="slct_accomm_type" class="form-control select">
-                <option value="0" data-price="0" data-name="None" >Ordinary</option> 
-         ';
-         $stmt2 = $c->prepare("SELECT * FROM tbl_ship_has_accomodation_type WHERE ship_reside=?"); 
-         $stmt2->bind_param("s", $srch_ss);
-         $stmt2->execute();
-         $result2 = $stmt2->get_result();
-        while($row1 = $result2->fetch_assoc()){
-            echo '<option value="'.$row1["id"].'" data-price="'.$row1["price"].'" data-name="'.$row1["accomodation_name"].'">'.$row1["accomodation_name"].'</option>
-                ';
-        }
-                echo ' 
-                </select>
-                </div>
+            goods
        ';
-    $output = '
-                
-                <div class="row pl-4 border rounded-fill m-auto">
-                <br>
-                <div class="col-sm-4">
-                    <div class="form-group text-center">
-                        <input type="text" name="srch_sched_time" value="'.$row["depart_time"].'" class="form-control border-top-0 rounded-0 text-center"  readonly>
-                    </div>
-                </div>
-                <div class="col-sm-4 text-center">
-                    <div class="form-group pt-2 text-center">
-                        <img src="data:image/jpeg;base64,'.base64_encode($row["ship_logo"]).'" alt="" width="70">&nbsp <h1>'.$row["vessel"].'</h1>
-                        <input type="hidden" name="srch_sched_ship_nm" value="'.$row["ship_name"].'" class="bg-light border-0" readonly>
-                    </div>
-                    <br>
-                    <br>
-                    <div class="form-group">
-                        <input type="text" id="cost"  name="srch_sched_price_display" value="'.$row["tckt_price"].'" class="form-control border-0 p-0 bg-light text-center" readonly>
-                        <input type="hidden" name="srch_sched_price" value="'.$row["tckt_price"].'" class="form-control border-0 p-0 bg-light text-center" readonly>
-                        <small>Ticket Price</small>
-                        <br>
-                        <br>
-                        <input type="text" id="AcommondationPrice"  name="srch_sched_Accom_price" value="" class="form-control border-0 p-0 bg-light text-center" readonly>
-                        <input type="hidden" id="AcommondationPrice" name="srch_sched_Accom_price" value="" class="form-control border-0 p-0 bg-light text-center" readonly>
-                        <small>Accomodation Price</small>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <input type="text" id="total"  name="srch_sched_price_display" value="P'.$row["tckt_price"].'" class="form-control border-0 p-0 bg-light text-center" readonly>
-                        <input type="hidden" id="total" name="srch_sched_total_price" value="'.$row["tckt_price"].'" class="form-control border-0 p-0 bg-light text-center" readonly>
-                        <small>Total Price</small>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group">
-                    </div>
-                    <div class="form-group text-center">
-                        <input type="submit" id="srch_sched_filter_btn" value="GO" class="btn btn-success">
-                    </div>
-                </div>
-            </div>';
+    $output = 'super goods';
     echo $output;
 } else {
     echo '<p class="text-danger text-center lead">No Available Schedules!</p>';
@@ -142,27 +66,10 @@ function search_available_schedule($c) {
     $sslt = $_POST['srch_sched_loc_to'];
     $ssld = date('Y-m-d', strtotime($_POST['srch_sched_loc_depart']));
 
-    $sql_slct = "SELECT 
-                tbl_ship_sd.ship_name,
-                tbl_ship_sd.ship_logo,
-                tbl_ship_sched.depart_date,
-                tbl_ship_sched.depart_time,
-                tbl_ship_sched.location_from,
-                tbl_ship_sched.port_from,
-                tbl_ship_sched.location_to,
-                tbl_ship_sched.port_to,
-                tbl_ship_acctyp.accomodation_name,
-                tbl_ship_acctyp.price,
-                tbl_ship_acctyp.id,
-                tbl_tcket.vessel_name,
-                tbl_tcket.tckt_stats,
-                tbl_tcket.tckt_owner,
-                tbl_tcket.tckt_price
-                FROM tbl_ship_detail tbl_ship_sd
-                JOIN tbl_ship_schedule tbl_ship_sched
-                JOIN tbl_ship_has_accomodation_type tbl_ship_acctyp
-                JOIN tbl_tckt tbl_tcket ON tbl_ship_sd.ship_name = tbl_tcket.tckt_owner
-                WHERE tbl_ship_sched.depart_date=? AND tbl_ship_sched.location_from=? AND tbl_ship_sched.location_to=?";
+    $sql_slct = "SELECT * 
+    FROM schedules s
+    JOIN routes r ON s.route_id_from = r.route_id
+    WHERE s.route_id_from=? AND s.route_id_to=? AND s.departure_date=?";
     $stmt = $c->prepare($sql_slct);
     echo $c -> error;
     $stmt->bind_param("sss",$ssld,$sslf,$sslt);
@@ -171,65 +78,10 @@ function search_available_schedule($c) {
     $row = $result->fetch_array();
     if(!empty($row)) {
         echo '
-        <div>
-        <div class="form-group accomm_type" name="sample_list" >
-                <select onchange="selectOnChange(this)" name="srch_sched_accomm_type" id="slct_accomm_type" class="form-control select">
-                <option value="0" data-price="0" data-name="None" >Ordinary</option> 
-         ';
-         $stmt2 = $c->prepare("SELECT * FROM tbl_ship_has_accomodation_type WHERE ship_reside=?"); 
-         $stmt2->bind_param("s", $srch_ss);
-         $stmt2->execute();
-         $result2 = $stmt2->get_result();
-        while($row1 = $result2->fetch_assoc()){
-            echo '<option value="'.$row1["id"].'" data-price="'.$row1["price"].'" data-name="'.$row1["accomodation_name"].'">'.$row1["accomodation_name"].'</option>
-                ';
-        }
-                echo ' 
-                </select>
-                </div>
+       goods
        ';
     $output = '
-                
-                <div class="row pl-4 border rounded-fill m-auto">
-                <br>
-                <div class="col-sm-4">
-                    <div class="form-group text-center">
-                        <input type="text" name="srch_sched_time" value="'.$row["depart_time"].'" class="form-control border-top-0 rounded-0 text-center"  readonly>
-                    </div>
-                </div>
-                <div class="col-sm-4 text-center">
-                    <div class="form-group pt-2 text-center">
-                        <img src="data:image/jpeg;base64,'.base64_encode($row["ship_logo"]).'" alt="" width="70"> &nbsp <h1>'.$row["vessel_name"].'</h1>
-                        <input type="hidden" name="srch_sched_ship_nm" value="'.$row["ship_name"].'" class="bg-light border-0" readonly>
-                    </div>
-                    <br>
-                    <br>
-                    <div class="form-group">
-                        <input type="text" id="cost"  name="srch_sched_price_display" value="'.$row["tckt_price"].'" class="form-control border-0 p-0 bg-light text-center" readonly>
-                        <input type="hidden" name="srch_sched_price" value="'.$row["tckt_price"].'" class="form-control border-0 p-0 bg-light text-center" readonly>
-                        <small>Ticket Price</small>
-                        <br>
-                        <br>
-                        <input type="text" id="AcommondationPrice"  name="srch_sched_Accom_price" value="" class="form-control border-0 p-0 bg-light text-center" readonly>
-                        <input type="hidden" id="AcommondationPrice" name="srch_sched_Accom_price" value="" class="form-control border-0 p-0 bg-light text-center" readonly>
-                        <small>Accomodation Price</small>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <input type="text" id="total"  name="srch_sched_price_display" value="P'.$row["tckt_price"].'" class="form-control border-0 p-0 bg-light text-center" readonly>
-                        <input type="hidden" id="total" name="srch_sched_total_price" value="'.$row["tckt_price"].'" class="form-control border-0 p-0 bg-light text-center" readonly>
-                        <small>Total Price</small>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group">
-                    </div>
-                    <div class="form-group text-center">
-                        <input type="submit" id="srch_sched_filter_btn" value="GO" class="btn btn-success">
-                    </div>
-                </div>
-            </div>';
+              goods';
     echo $output;
 } else {
     echo '<p class="text-danger text-center lead">No Available Schedules!</p>';

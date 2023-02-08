@@ -29,7 +29,7 @@
       <div class="tab-body">
         <div class="tab-content">
        
-                    <form novalidate="" class="ng-untouched ng-pristine ng-invalid">
+                    <form id="search_sched_form" class="ng-untouched ng-pristine ng-invalid">
                     <div class="search-form-box">
                         <div class="row">
                             <div class="col">
@@ -52,9 +52,8 @@
                                            $stmt_ship_sd->execute();
                                            $row_ship_sd = $stmt_ship_sd->get_result();
                                            while ($row1 = $row_ship_sd->fetch_assoc()) { ?>
-
                                                           <div class="ship-radio">
-                                                            <input type="radio" name="srch_ship_sched" formcontrolname="srch_ship_sched" style="display: none" id="<?php echo $row1['owner_id']; ?>" class="ng-untouched ng-pristine ng-invalid" /><label
+                                                            <input type="radio" name="srch_ship_sched" style="display: none" id="<?php echo $row1['owner_id']; ?>" class="ng-untouched ng-pristine ng-invalid" /><label
                                                                 class="company radio-label" for="<?php echo $row1['owner_id']; ?>" data-id="srch_ship_sched" value="<?php echo $row1['ship_name']; ?>" >
                                                                 <div class="company-img">
                                                                     <img width="150" alt="" class="company-logo"
@@ -88,62 +87,62 @@
                                     <div class="input-group-prepend">
                                         <label class="input-group-text input-label-w">From</label>
                                     </div>
-                                    <!----><select formcontrolname="origin" required="" class="custom-select ng-untouched ng-pristine ng-valid">
-                                        <option value="0: Object">Bacolod</option>
-                                        <option value="1: Object">Batangas</option>
-                                        <option value="2: Object">Bato, Leyte</option>
-                                        <option value="3: Object">Baybay, Leyte</option>
-                                        <option value="4: Object">Bogo, Cebu</option>
-                                        <option value="5: Object">Butuan</option>
-                                        <option value="6: Object">Cagayan de Oro</option>
-                                        <option value="7: Object">Calapan</option>
-                                        <option value="8: Object">Calbayog City</option>
-                                        <option value="9: Object">Cataingan, Masbate</option>
-                                        <option value="10: Object">Caticlan</option>
-                                        <option value="11: Object">Cebu</option>
-                                        <option value="12: Object">Consuelo, Camotes</option>
-                                        <option value="13: Object">Danao</option>
-                                        <option value="14: Object">Dapa, Siargao</option>
-                                        <option value="15: Object">Dapitan</option>
-                                        <option value="16: Object">Dipolog</option>
-                                        <option value="17: Object">Dumaguete</option>
-                                        <option value="18: Object">EB Magalona, Negros Occ</option>
-                                        <option value="19: Object">Estancia</option>
-                                        <option value="20: Object">Getafe</option>
-                                        <option value="21: Object">Guimaras</option>
-                                        <option value="22: Object">Hagnaya</option>
-                                        <option value="23: Object">Hilongos</option>
-                                        <option value="24: Object">Iligan</option>
-                                        <option value="25: Object">Iloilo</option>
-                                        <option value="26: Object">Isabel, Leyte</option>
-                                        <option value="27: Object">Jagna, Bohol</option>
-                                        <option value="28: Object">Larena, Siquijor</option>
-                                        <option value="29: Object">Manila</option>
-                                        <option value="30: Object">Masbate</option>
-                                        <option value="31: Object">Matnog</option>
-                                        <option value="32: Object">Medellin, Cebu</option>
-                                        <option value="33: Object">Nasipit</option>
-                                        <option value="34: Object">Odiongan, Romblon</option>
-                                        <option value="35: Object">Ormoc</option>
-                                        <option value="36: Object">Ozamiz</option>
-                                        <option value="37: Object">Palompon</option>
-                                        <option value="38: Object">Plaridel</option>
-                                        <option value="39: Object">Puerto Galera</option>
-                                        <option value="40: Object">Puerto Princesa, Palawan</option>
-                                        <option value="41: Object">Romblon, Romblon</option>
-                                        <option value="42: Object">Roxas City, Capiz</option>
-                                        <option value="43: Object">Roxas, Mindoro</option>
-                                        <option value="44: Object">San Carlos, Negros</option>
-                                        <option value="45: Object">Santa Fe, Bantayan Island</option>
-                                        <option value="46: Object">Sibuyan, Romblon</option>
-                                        <option value="47: Object">Siquijor</option>
-                                        <option value="48: Object">Surigao</option>
-                                        <option value="49: Object">Tagbilaran City, Bohol</option>
-                                        <option value="50: Object">Talibon</option>
-                                        <option value="51: Object">Toledo</option>
-                                        <option value="52: Object">Tubigon</option>
-                                        <option value="53: Object">Ubay, Bohol</option>
-                                        <option value="54: Object">Zamboanga</option>
+                                    <!----><select name="srch_sched_loc_from" required="" class="custom-select ng-untouched ng-pristine ng-valid">
+                                        <option value="Bacolod">Bacolod</option>
+                                        <option value="Batangas">Batangas</option>
+                                        <option value="Bato">Bato, Leyte</option>
+                                        <option value="Baybay">Baybay, Leyte</option>
+                                        <option value="Bogo">Bogo, Cebu</option>
+                                        <option value="Butuan">Butuan</option>
+                                        <option value="Cagayant">Cagayan de Oro</option>
+                                        <option value="Calapan">Calapan</option>
+                                        <option value="Calbayog">Calbayog City</option>
+                                        <option value="Cataingan">Cataingan, Masbate</option>
+                                        <option value="Caticlan">Caticlan</option>
+                                        <option value="Cebu">Cebu</option>
+                                        <option value="Consuelo">Consuelo, Camotes</option>
+                                        <option value="Danao">Danao</option>
+                                        <option value="Dapa">Dapa, Siargao</option>
+                                        <option value="Dapitan">Dapitan</option>
+                                        <option value="Dipolog">Dipolog</option>
+                                        <option value="Dumaguete">Dumaguete</option>
+                                        <option value="Magalona">EB Magalona, Negros Occ</option>
+                                        <option value="Estancia">Estancia</option>
+                                        <option value="Getafe">Getafe</option>
+                                        <option value="Guimaras">Guimaras</option>
+                                        <option value="Hagnaya">Hagnaya</option>
+                                        <option value="Hilongos">Hilongos</option>
+                                        <option value="Iligan">Iligan</option>
+                                        <option value="Iloilo">Iloilo</option>
+                                        <option value="Isabel">Isabel, Leyte</option>
+                                        <option value="Jagna">Jagna, Bohol</option>
+                                        <option value="Larena">Larena, Siquijor</option>
+                                        <option value="Manila">Manila</option>
+                                        <option value="Masbate">Masbate</option>
+                                        <option value="Matnog">Matnog</option>
+                                        <option value="Medellin">Medellin, Cebu</option>
+                                        <option value="Nasipit">Nasipit</option>
+                                        <option value="Odiongan">Odiongan, Romblon</option>
+                                        <option value="Ormoc">Ormoc</option>
+                                        <option value="Ozamiz">Ozamiz</option>
+                                        <option value="Palompon">Palompon</option>
+                                        <option value="Plaridel">Plaridel</option>
+                                        <option value="Galera">Puerto Galera</option>
+                                        <option value="Palawan">Puerto Princesa, Palawan</option>
+                                        <option value="Romblon">Romblon, Romblon</option>
+                                        <option value="Capiz">Roxas City, Capiz</option>
+                                        <option value="Mindoro">Roxas, Mindoro</option>
+                                        <option value="Negros">San Carlos, Negros</option>
+                                        <option value="Bantayan Island">Santa Fe, Bantayan Island</option>
+                                        <option value="Sibuyan">Sibuyan, Romblon</option>
+                                        <option value="Siquijor">Siquijor</option>
+                                        <option value="Surigao">Surigao</option>
+                                        <option value="Tagbilaran">Tagbilaran City, Bohol</option>
+                                        <option value="Talibon">Talibon</option>
+                                        <option value="Toledo">Toledo</option>
+                                        <option value="Tubigon">Tubigon</option>
+                                        <option value="Bohol">Ubay, Bohol</option>
+                                        <option value="Zamboanga">Zamboanga</option>
                                         <!---->
                                     </select>
                                     <!---->
@@ -160,32 +159,63 @@
                                     <div class="input-group-prepend">
                                         <label class="input-group-text input-label-w">To</label>
                                     </div>
-                                    <!----><select formcontrolname="destination"
+                                    <!----><select name="srch_sched_loc_to"
                                         class="custom-select ng-untouched ng-pristine ng-valid">
-                                        <option value="0: Object">Bato, Leyte</option>
-                                        <option value="1: Object">Baybay, Leyte</option>
-                                        <option value="2: Object">Butuan</option>
-                                        <option value="3: Object">Cagayan de Oro</option>
-                                        <option value="4: Object">Calbayog City</option>
-                                        <option value="5: Object">Cataingan, Masbate</option>
-                                        <option value="6: Object">Dipolog</option>
-                                        <option value="7: Object">Getafe</option>
-                                        <option value="8: Object">Hilongos</option>
-                                        <option value="9: Object">Iligan</option>
-                                        <option value="10: Object">Iloilo</option>
-                                        <option value="11: Object">Larena, Siquijor</option>
-                                        <option value="12: Object">Manila</option>
-                                        <option value="13: Object">Masbate</option>
-                                        <option value="14: Object">Nasipit</option>
-                                        <option value="15: Object">Ormoc</option>
-                                        <option value="16: Object">Ozamiz</option>
-                                        <option value="17: Object">Palompon</option>
-                                        <option value="18: Object">Plaridel</option>
-                                        <option value="19: Object">Surigao</option>
-                                        <option value="20: Object">Tagbilaran City, Bohol</option>
-                                        <option value="21: Object">Talibon</option>
-                                        <option value="22: Object">Tubigon</option>
-                                        <option value="23: Object">Ubay, Bohol</option>
+                                        <option value="Cataingan">Cataingan, Masbate</option>
+                                        <option value="Caticlan">Caticlan</option>
+                                        <option value="Cebu">Cebu</option>
+                                        <option value="Consuelo">Consuelo, Camotes</option>
+                                        <option value="Danao">Danao</option>
+                                        <option value="Dapa">Dapa, Siargao</option>
+                                        <option value="Dapitan">Dapitan</option>
+                                        <option value="Dipolog">Dipolog</option>
+                                        <option value="Dumaguete">Dumaguete</option>
+                                        <option value="Magalona">EB Magalona, Negros Occ</option>
+                                        <option value="Estancia">Estancia</option>
+                                        <option value="Getafe">Getafe</option>
+                                        <option value="Guimaras">Guimaras</option>
+                                        <option value="Hagnaya">Hagnaya</option>
+                                        <option value="Hilongos">Hilongos</option>
+                                        <option value="Iligan">Iligan</option>
+                                        <option value="Iloilo">Iloilo</option>
+                                        <option value="Isabel">Isabel, Leyte</option>
+                                        <option value="Jagna">Jagna, Bohol</option>
+                                        <option value="Larena">Larena, Siquijor</option>
+                                        <option value="Manila">Manila</option>
+                                        <option value="Masbate">Masbate</option>
+                                        <option value="Matnog">Matnog</option>
+                                        <option value="Medellin">Medellin, Cebu</option>
+                                        <option value="Nasipit">Nasipit</option>
+                                        <option value="Odiongan">Odiongan, Romblon</option>
+                                        <option value="Ormoc">Ormoc</option>
+                                        <option value="Ozamiz">Ozamiz</option>
+                                        <option value="Palompon">Palompon</option>
+                                        <option value="Plaridel">Plaridel</option>
+                                        <option value="Galera">Puerto Galera</option>
+                                        <option value="Palawan">Puerto Princesa, Palawan</option>
+                                        <option value="Romblon">Romblon, Romblon</option>
+                                        <option value="Capiz">Roxas City, Capiz</option>
+                                        <option value="Mindoro">Roxas, Mindoro</option>
+                                        <option value="Negros">San Carlos, Negros</option>
+                                        <option value="Bantayan Island">Santa Fe, Bantayan Island</option>
+                                        <option value="Sibuyan">Sibuyan, Romblon</option>
+                                        <option value="Siquijor">Siquijor</option>
+                                        <option value="Surigao">Surigao</option>
+                                        <option value="Tagbilaran">Tagbilaran City, Bohol</option>
+                                        <option value="Talibon">Talibon</option>
+                                        <option value="Toledo">Toledo</option>
+                                        <option value="Tubigon">Tubigon</option>
+                                        <option value="Bohol">Ubay, Bohol</option>
+                                        <option value="Zamboanga">Zamboanga</option>
+                                        <option value="Bacolod">Bacolod</option>
+                                        <option value="Batangas">Batangas</option>
+                                        <option value="Bato">Bato, Leyte</option>
+                                        <option value="Baybay">Baybay, Leyte</option>
+                                        <option value="Bogo">Bogo, Cebu</option>
+                                        <option value="Butuan">Butuan</option>
+                                        <option value="Cagayant">Cagayan de Oro</option>
+                                        <option value="Calapan">Calapan</option>
+                                        <option value="Calbayog">Calbayog City</option>
                                         <!---->
                                     </select>
                                     <!---->
@@ -201,7 +231,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text input-label-w">Depart</span>
                                             </div>
-                                            <input id="from2" type="text" formcontrolname="departureDate" bsdatepicker="" placement="top" class="form-control ng-untouched ng-pristine ng-valid" />
+                                            <input id="from2" type="text" name="srch_sched_loc_depart" bsdatepicker="" placement="top" class="form-control ng-untouched ng-pristine ng-valid" />
                                             <!---->
                                             <div class="input-group-append toggle-calendar" aria-expanded="false">
                                                 <span class="input-group-text"><span
@@ -243,7 +273,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md">
-                                        <button type="button" class="btn btn-primary btn-block">
+                                        <button type="submit" name="srch_sched_btn" id="srch_sched_btn" class="btn btn-primary btn-block">
                                             <span class="mr-2"><span class="svg-icon svg-icon-white svg-icon-2x"><svg
                                                         xmlns="http://www.w3.org/2000/svg"
                                                         xmlns:xlink="http://www.w3.org/1999/xlink" width="20px"
@@ -605,7 +635,7 @@
 <script src="js/jquery.validate.min.js"></script>
 <script src="js/wow.min.js"></script>
 <script src="js/main/active.js"></script>
-<script src="js/main/schedule/process.js"></script>
+<script src="js/main/schedule/avail_process.js"></script>
 <script>
 function selectOnChange(obj) {
     var price = $(obj).find(':selected').data('price');
