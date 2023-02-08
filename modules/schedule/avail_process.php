@@ -39,7 +39,7 @@ function search_available_schedule($c) {
     $sql_slct = "SELECT * 
                  FROM schedules s
                  JOIN routes r ON s.route_id_from = r.route_id
-                 WHERE s.owner_id=? AND s.route_id_from=? AND s.route_id_to=? AND s.departure_date=?";
+                 WHERE s.owner_id=? AND r.departure_from=? AND s.departure_date=?";
     $stmt = $c->prepare($sql_slct);
     echo $c -> error;
     $stmt->bind_param("ssss", $srch_ss,$sslf,$sslt,$ssld);
@@ -47,16 +47,11 @@ function search_available_schedule($c) {
     $result = $stmt->get_result();
     $row = $result->fetch_array();
     if(!empty($row)) {
-        echo '
-            goods
-       ';
-    $output = 'super goods';
-    echo $output;
+        echo $row["departure_from"];
 } else {
-    echo '<p class="text-danger text-center lead">No Available Schedules!</p>';
+    echo $row["departure_from"];
 }
     $stmt->close(); 
-    
     }
     else
     {
@@ -77,12 +72,7 @@ function search_available_schedule($c) {
     $result = $stmt->get_result();
     $row = $result->fetch_array();
     if(!empty($row)) {
-        echo '
-       goods
-       ';
-    $output = '
-              goods';
-    echo $output;
+    echo $row["departure_from"];
 } else {
     echo '<p class="text-danger text-center lead">No Available Schedules!</p>';
 }
