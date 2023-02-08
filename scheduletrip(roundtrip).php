@@ -1,5 +1,5 @@
 <?php require_once("resources/templates/_header(withmodifyitinerary).php"); ?>
-<div class="container">
+<body class="container-tab2">
             
                     <ol class="cd-multi-steps text-top">
                         <li class="visited"><a href="#0">SCHEDULE</a></li>

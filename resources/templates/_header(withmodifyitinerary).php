@@ -50,7 +50,7 @@
 
     <style>
         
- .navigation {
+.navigation {
      height: 16%;
      background:#09527f;
 }
@@ -475,7 +475,7 @@
    </style>
 </head>
 
-<body class="container-tab2">
+
 
     <!-- div id="siteLoader" class="site-loader">
             <div class="preloader-content">
