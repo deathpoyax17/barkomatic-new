@@ -30,57 +30,46 @@ function search_available_schedule($c) {
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
     if(isset($_POST['srch_ship_sched'])){
-        
-    $srch_ss = $_POST['srch_ship_sched'];
-    $sslf = $_POST['srch_sched_loc_from'];
-    $sslt = $_POST['srch_sched_loc_to'];
-    $ssld = date('Y-m-d', strtotime($_POST['srch_sched_loc_depart']));
-
-    $sql_slct = "SELECT * 
-                 FROM schedules s
-                 JOIN routes r ON s.route_id_from = r.route_id
-                 WHERE s.owner_id=? AND r.departure_from=? AND s.departure_date=?";
-    $stmt = $c->prepare($sql_slct);
-    echo $c -> error;
-    $stmt->bind_param("ssss", $srch_ss,$sslf,$sslt,$ssld);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $row = $result->fetch_array();
-    if(!empty($row)) {
-        echo $row["departure_from"];
-} else {
-    echo $row["departure_from"];
-}
-    $stmt->close(); 
+        $srch_ss = $_POST['srch_ship_sched'];
+        $sslf = $_POST['srch_sched_loc_from'];
+        $sslt = $_POST['srch_sched_loc_to'];
+        $ssld = date('Y-m-d', strtotime($_POST['srch_sched_loc_depart']));
+        $port = $c->query("SELECT route_id, concat(`departure_from`,'[',`departure_port`,']') as `route` FROM routes");
+        $routes = array();
+        while($port_row = $port->fetch_assoc()) {
+            $routes[$port_row["route_id"]] = $port_row["route"];
+        }
+    
+        $sql_slct = "SELECT s.schedule_id,
+        s.departure_date,
+        s.arrival_time,
+        so.ship_name,
+        fer.name,
+        s.route_id_from,
+        s.route_id_to
+     FROM schedules s
+     JOIN ferries fer ON s.ferry_id = fer.ferry_id
+     JOIN ship_owners so ON s.owner_id=so.owner_id
+     WHERE s.owner_id=? AND s.route_id_from=? AND s.route_id_to=? AND s.departure_date=?";
+        $stmt = $c->prepare($sql_slct);
+        echo $c -> error;
+        $stmt->bind_param("ssss", $srch_ss,$sslf,$sslt,$ssld);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_array();
+        if(!empty($row)) {
+            echo $routes[$row["route_id_to"]];
+            echo $routes[$row["route_id_from"]];
+        }else{
+            echo $ssld;
+        }
     }
-    else
-    {
-        
-        //  $srch_ss = $_POST['srch_ship_sched'];
-    $sslf = $_POST['srch_sched_loc_from'];
-    $sslt = $_POST['srch_sched_loc_to'];
-    $ssld = date('Y-m-d', strtotime($_POST['srch_sched_loc_depart']));
-
-    $sql_slct = "SELECT * 
-    FROM schedules s
-    JOIN routes r ON s.route_id_from = r.route_id
-    WHERE s.route_id_from=? AND s.route_id_to=? AND s.departure_date=?";
-    $stmt = $c->prepare($sql_slct);
-    echo $c -> error;
-    $stmt->bind_param("sss",$ssld,$sslf,$sslt);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $row = $result->fetch_array();
-    if(!empty($row)) {
-    echo $row["departure_from"];
-} else {
-    echo '<p class="text-danger text-center lead">No Available Schedules!</p>';
+    else {
+    echo "nan";
+    
 }
-    $stmt->close();
-    }
+}
    
-}
-
 
 
 //* search available schedule1

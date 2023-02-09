@@ -1,4 +1,7 @@
-<?php session_start();
+<?php
+
+session_start();
+
     if(isset($_SESSION['staff_id']) && $_SESSION['staff_id'] != '') { ?>
         <!DOCTYPE html>
         <html lang="en" class="">

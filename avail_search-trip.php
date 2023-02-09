@@ -53,8 +53,8 @@
                                            $row_ship_sd = $stmt_ship_sd->get_result();
                                            while ($row1 = $row_ship_sd->fetch_assoc()) { ?>
                                                           <div class="ship-radio">
-                                                            <input type="radio" name="srch_ship_sched" style="display: none" id="<?php echo $row1['owner_id']; ?>" class="ng-untouched ng-pristine ng-invalid" /><label
-                                                                class="company radio-label" for="<?php echo $row1['owner_id']; ?>" data-id="srch_ship_sched" value="<?php echo $row1['ship_name']; ?>" >
+                                                            <input type="radio" data-type="radio" name="srch_ship_sched" style="display: none" id="<?php echo $row1['owner_id']; ?>" value="<?php echo $row1['owner_id']; ?>"  class="ng-untouched ng-pristine ng-invalid" />
+                                                            <label class="company radio-label" for="<?php echo $row1['owner_id']; ?>" data-id="srch_ship_sched">
                                                                 <div class="company-img">
                                                                     <img width="150" alt="" class="company-logo"
                                                                     src="data:image/jpeg;base64,<?php echo base64_encode($row1['ship_logo']); ?>" alt="<?php echo $row1['ship_name']; ?>"/>
@@ -88,61 +88,13 @@
                                         <label class="input-group-text input-label-w">From</label>
                                     </div>
                                     <!----><select name="srch_sched_loc_from" required="" class="custom-select ng-untouched ng-pristine ng-valid">
-                                        <option value="Bacolod">Bacolod</option>
-                                        <option value="Batangas">Batangas</option>
-                                        <option value="Bato">Bato, Leyte</option>
-                                        <option value="Baybay">Baybay, Leyte</option>
-                                        <option value="Bogo">Bogo, Cebu</option>
-                                        <option value="Butuan">Butuan</option>
-                                        <option value="Cagayant">Cagayan de Oro</option>
-                                        <option value="Calapan">Calapan</option>
-                                        <option value="Calbayog">Calbayog City</option>
-                                        <option value="Cataingan">Cataingan, Masbate</option>
-                                        <option value="Caticlan">Caticlan</option>
-                                        <option value="Cebu">Cebu</option>
-                                        <option value="Consuelo">Consuelo, Camotes</option>
-                                        <option value="Danao">Danao</option>
-                                        <option value="Dapa">Dapa, Siargao</option>
-                                        <option value="Dapitan">Dapitan</option>
-                                        <option value="Dipolog">Dipolog</option>
-                                        <option value="Dumaguete">Dumaguete</option>
-                                        <option value="Magalona">EB Magalona, Negros Occ</option>
-                                        <option value="Estancia">Estancia</option>
-                                        <option value="Getafe">Getafe</option>
-                                        <option value="Guimaras">Guimaras</option>
-                                        <option value="Hagnaya">Hagnaya</option>
-                                        <option value="Hilongos">Hilongos</option>
-                                        <option value="Iligan">Iligan</option>
-                                        <option value="Iloilo">Iloilo</option>
-                                        <option value="Isabel">Isabel, Leyte</option>
-                                        <option value="Jagna">Jagna, Bohol</option>
-                                        <option value="Larena">Larena, Siquijor</option>
-                                        <option value="Manila">Manila</option>
-                                        <option value="Masbate">Masbate</option>
-                                        <option value="Matnog">Matnog</option>
-                                        <option value="Medellin">Medellin, Cebu</option>
-                                        <option value="Nasipit">Nasipit</option>
-                                        <option value="Odiongan">Odiongan, Romblon</option>
-                                        <option value="Ormoc">Ormoc</option>
-                                        <option value="Ozamiz">Ozamiz</option>
-                                        <option value="Palompon">Palompon</option>
-                                        <option value="Plaridel">Plaridel</option>
-                                        <option value="Galera">Puerto Galera</option>
-                                        <option value="Palawan">Puerto Princesa, Palawan</option>
-                                        <option value="Romblon">Romblon, Romblon</option>
-                                        <option value="Capiz">Roxas City, Capiz</option>
-                                        <option value="Mindoro">Roxas, Mindoro</option>
-                                        <option value="Negros">San Carlos, Negros</option>
-                                        <option value="Bantayan Island">Santa Fe, Bantayan Island</option>
-                                        <option value="Sibuyan">Sibuyan, Romblon</option>
-                                        <option value="Siquijor">Siquijor</option>
-                                        <option value="Surigao">Surigao</option>
-                                        <option value="Tagbilaran">Tagbilaran City, Bohol</option>
-                                        <option value="Talibon">Talibon</option>
-                                        <option value="Toledo">Toledo</option>
-                                        <option value="Tubigon">Tubigon</option>
-                                        <option value="Bohol">Ubay, Bohol</option>
-                                        <option value="Zamboanga">Zamboanga</option>
+                                    <?php 
+                                                    $stmt1 = $con->prepare("SELECT * FROM routes"); 
+                                                    $stmt1->execute();
+                                                    $result1 = $stmt1->get_result();
+                                                    while ($row1 = $result1->fetch_assoc()) { ?>
+                                                        <option value="<?php echo $row1['route_id']; ?>"><?php echo $row1['departure_from']; ?></option>
+                                                <?php } ?>
                                         <!---->
                                     </select>
                                     <!---->
@@ -161,61 +113,13 @@
                                     </div>
                                     <!----><select name="srch_sched_loc_to"
                                         class="custom-select ng-untouched ng-pristine ng-valid">
-                                        <option value="Cataingan">Cataingan, Masbate</option>
-                                        <option value="Caticlan">Caticlan</option>
-                                        <option value="Cebu">Cebu</option>
-                                        <option value="Consuelo">Consuelo, Camotes</option>
-                                        <option value="Danao">Danao</option>
-                                        <option value="Dapa">Dapa, Siargao</option>
-                                        <option value="Dapitan">Dapitan</option>
-                                        <option value="Dipolog">Dipolog</option>
-                                        <option value="Dumaguete">Dumaguete</option>
-                                        <option value="Magalona">EB Magalona, Negros Occ</option>
-                                        <option value="Estancia">Estancia</option>
-                                        <option value="Getafe">Getafe</option>
-                                        <option value="Guimaras">Guimaras</option>
-                                        <option value="Hagnaya">Hagnaya</option>
-                                        <option value="Hilongos">Hilongos</option>
-                                        <option value="Iligan">Iligan</option>
-                                        <option value="Iloilo">Iloilo</option>
-                                        <option value="Isabel">Isabel, Leyte</option>
-                                        <option value="Jagna">Jagna, Bohol</option>
-                                        <option value="Larena">Larena, Siquijor</option>
-                                        <option value="Manila">Manila</option>
-                                        <option value="Masbate">Masbate</option>
-                                        <option value="Matnog">Matnog</option>
-                                        <option value="Medellin">Medellin, Cebu</option>
-                                        <option value="Nasipit">Nasipit</option>
-                                        <option value="Odiongan">Odiongan, Romblon</option>
-                                        <option value="Ormoc">Ormoc</option>
-                                        <option value="Ozamiz">Ozamiz</option>
-                                        <option value="Palompon">Palompon</option>
-                                        <option value="Plaridel">Plaridel</option>
-                                        <option value="Galera">Puerto Galera</option>
-                                        <option value="Palawan">Puerto Princesa, Palawan</option>
-                                        <option value="Romblon">Romblon, Romblon</option>
-                                        <option value="Capiz">Roxas City, Capiz</option>
-                                        <option value="Mindoro">Roxas, Mindoro</option>
-                                        <option value="Negros">San Carlos, Negros</option>
-                                        <option value="Bantayan Island">Santa Fe, Bantayan Island</option>
-                                        <option value="Sibuyan">Sibuyan, Romblon</option>
-                                        <option value="Siquijor">Siquijor</option>
-                                        <option value="Surigao">Surigao</option>
-                                        <option value="Tagbilaran">Tagbilaran City, Bohol</option>
-                                        <option value="Talibon">Talibon</option>
-                                        <option value="Toledo">Toledo</option>
-                                        <option value="Tubigon">Tubigon</option>
-                                        <option value="Bohol">Ubay, Bohol</option>
-                                        <option value="Zamboanga">Zamboanga</option>
-                                        <option value="Bacolod">Bacolod</option>
-                                        <option value="Batangas">Batangas</option>
-                                        <option value="Bato">Bato, Leyte</option>
-                                        <option value="Baybay">Baybay, Leyte</option>
-                                        <option value="Bogo">Bogo, Cebu</option>
-                                        <option value="Butuan">Butuan</option>
-                                        <option value="Cagayant">Cagayan de Oro</option>
-                                        <option value="Calapan">Calapan</option>
-                                        <option value="Calbayog">Calbayog City</option>
+                                        <?php 
+                                                    $stmt1 = $con->prepare("SELECT * FROM routes"); 
+                                                    $stmt1->execute();
+                                                    $result1 = $stmt1->get_result();
+                                                    while ($row1 = $result1->fetch_assoc()) { ?>
+                                                        <option value="<?php echo $row1['route_id']; ?>"><?php echo $row1['departure_from']; ?></option>
+                                                <?php } ?>
                                         <!---->
                                     </select>
                                     <!---->
@@ -732,7 +636,7 @@ $(document).ready(function() {
 </script>
 <script>
 $(document).ready(function() {
-    $('input[type=radio]').click(function(e) {
+    $('input[data-type=radio]').click(function(e) {
         var gender = $(this).val();
         var act = "getShipsched";
         $.ajax({

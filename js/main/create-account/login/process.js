@@ -35,7 +35,7 @@ $(document).ready(function() {
                 method: 'post',
                 data: $('#login_showner_form').serialize() + '&action=login_showner_form',
                 success: function(res) {
-                    alert(res);
+                    console.log(res);
                     if (res == "Shipping Owner Login Successfully!") {
                         setTimeout(function() {
                             window.location = "http://localhost/barkomatic-new/dashboard/ship/index.php?page=dashboard";
@@ -52,9 +52,9 @@ $(document).ready(function() {
                         setTimeout(function() {
                             window.location = 'http://localhost/barkomatic-new/index.php';
                         }, 100);
-                    } else if (res == "Staff Login") {
+                    }
+                     else if (res == "Staff Login Successfully!") {
                         setTimeout(function() {
-
                             window.location = "http://localhost/barkomatic-new/dashboard/staff/index.php?page=dashboard";
                         }, 100);
                     }
@@ -77,11 +77,12 @@ $(document).ready(function() {
                 method: 'post',
                 data: $('#staff_login_form').serialize() + '&action=staff_login_form',
                 success: function(res) {
-                    if (res == " Staff Login Successfully!") {
-                        setTimeout(function() {
-                            window.location = "http://localhost/barkomatic-new/dashboard/staff/index.php?page=dashboard";
-                        }, 100);
-                    }
+                    console.log(res);
+                    // if (res == "Staff Login Successfully!") {
+                    //     setTimeout(function() {
+                    //         window.location.href = "http://localhost/barkomatic-new/dashboard/staff/index.php?page=dashboard";
+                    //     }, 100);
+                    // }
                     $(':input[type="submit"]').prop('disabled', false);
                 }
             });
