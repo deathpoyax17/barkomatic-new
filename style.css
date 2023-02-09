@@ -484,6 +484,7 @@
     ol {
         list-style: decimal;
     }
+    
     li>ol {
         margin-bottom: 0;
         margin-left: 1.5em;
@@ -605,9 +606,10 @@
 --------------------------------------------------------------*/
     
     .container {
-        max-width: 1170px;
+        width: 50%;
         padding-left: 15px;
         padding-right: 15px;
+        border: 2px solid red;
     }
     
     .container-tab {
@@ -641,7 +643,6 @@
         background-repeat: no-repeat;
         background-attachment: fixed;
     }
-    
     
     .progressbar-row {
         display: flex;
@@ -880,8 +881,6 @@
         padding-top: 10px;
     }
     
-
-    
     .container-summarytrip2 {
         position: absolute;
         border-radius: 5px 5px 0px 0px;
@@ -895,7 +894,6 @@
     .contain-selected-date {
         display: flex;
     }
-    
     /* .depature-location{
         display: flex;
         position: absolute;
@@ -903,7 +901,6 @@
         padding-right: 25px;
         padding-top: 130px;
     } */
-    
     
     .shippinglogo {
         padding-top: 25px;
@@ -935,6 +932,7 @@
     
     .container-form-collapse {
         width: 235px;
+        display: block;
     }
     
     .depaturedetails {
@@ -1838,7 +1836,6 @@
         margin-right: 100px;
         height: fit-content;
     }
-    
     
     .vertical-dotted-line {
         border-left: 2px dotted black;
@@ -7095,7 +7092,6 @@ procduct details css
         }
     }
     
-    
     .tab-content ul {
         margin: 30px 0 0;
         padding: 0;
@@ -10263,7 +10259,6 @@ product checkout css
         transform: scale(1);
     }
     
-    
     .ui-datepicker.ui-widget {
         font-family: inherit;
     }
@@ -10277,7 +10272,6 @@ product checkout css
     }
     
     .ui-datepicker .ui-datepicker-title {
-
         line-height: 1.2;
     }
     
@@ -10318,8 +10312,6 @@ product checkout css
         font-family: "Font Awesome 5 Free";
         font-weight: 900;
     }
-    
-
     
     .ui-datepicker .ui-datepicker-prev span:before {
         content: "\f053";
@@ -11437,7 +11429,6 @@ product checkout css
         .summary-text-oneway {
             padding-top: 12.3%;
         }
-
         .vertical-lines {
             left: 0.5%;
         }
@@ -11644,72 +11635,72 @@ product checkout css
         }
     }
     
-.main-header-area {
-    position: relative;
-    /* z-index: 1; */
-    background-color: #09527F;
-    height: 110px;
-}
-
-.main-header-area .book-now-btn a {
-    border-radius: 10px;
-    margin-left: 40px;
-    padding: 0 10px;
-    background-color: #1cc3b2;
-    height: 65px;
-    line-height: 65px;
-    text-align: center;
-    color: #ffffff;
-    font-size: 16px;
-}
-
-.main-header-area .book-now-btn a i {
-    padding-left: 5px;
-}
-
-@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .main-header-area {
+        position: relative;
+        /* z-index: 1; */
+        background-color: #09527F;
+        height: 110px;
+    }
+    
     .main-header-area .book-now-btn a {
-        height: 50px;
-        line-height: 50px;
-        border-radius: 30px;
+        border-radius: 10px;
+        margin-left: 40px;
+        padding: 0 10px;
+        background-color: #1cc3b2;
+        height: 65px;
+        line-height: 65px;
+        text-align: center;
+        color: #ffffff;
+        font-size: 16px;
     }
-}
-
-@media only screen and (max-width: 767px) {
-    .main-header-area .book-now-btn a {
-        height: 50px;
-        line-height: 50px;
-        border-radius: 30px;
+    
+    .main-header-area .book-now-btn a i {
+        padding-left: 5px;
     }
-}
-
-.main-header-area .book-now-btn a:hover,
-.main-header-area .book-now-btn a:focus {
-    background-color: #2a303b;
-    color: #ffffff;
-}
-
-.main-header-area .search-btn {
-    cursor: pointer;
-    -webkit-transition-duration: 500ms;
-    -o-transition-duration: 500ms;
-    transition-duration: 500ms;
-}
-
-@media only screen and (min-width: 768px) and (max-width: 991px) {
+    
+    @media only screen and (min-width: 768px) and (max-width: 991px) {
+        .main-header-area .book-now-btn a {
+            height: 50px;
+            line-height: 50px;
+            border-radius: 30px;
+        }
+    }
+    
+    @media only screen and (max-width: 767px) {
+        .main-header-area .book-now-btn a {
+            height: 50px;
+            line-height: 50px;
+            border-radius: 30px;
+        }
+    }
+    
+    .main-header-area .book-now-btn a:hover,
+    .main-header-area .book-now-btn a:focus {
+        background-color: #2a303b;
+        color: #ffffff;
+    }
+    
     .main-header-area .search-btn {
-        padding: 30px 0;
+        cursor: pointer;
+        -webkit-transition-duration: 500ms;
+        -o-transition-duration: 500ms;
+        transition-duration: 500ms;
     }
-}
-
-@media only screen and (max-width: 767px) {
-    .main-header-area .search-btn {
-        padding: 30px 0;
+    
+    @media only screen and (min-width: 768px) and (max-width: 991px) {
+        .main-header-area .search-btn {
+            padding: 30px 0;
+        }
     }
-}
-
-.main-header-area .search-btn:hover,
-.main-header-area .search-btn:focus {
-    color: #1cc3b2;
-}
+    
+    @media only screen and (max-width: 767px) {
+        .main-header-area .search-btn {
+            padding: 30px 0;
+        }
+    }
+    
+    .main-header-area .search-btn:hover,
+    .main-header-area .search-btn:focus {
+        color: #1cc3b2;
+    }
     /*# sourceMappingURL=style.css.map *

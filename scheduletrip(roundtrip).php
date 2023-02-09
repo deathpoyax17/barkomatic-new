@@ -1,6 +1,5 @@
 <?php require_once("resources/templates/_header(withmodifyitinerary).php"); ?>
 <div class="container">
-            
                     <ol class="cd-multi-steps text-top">
                         <li class="visited"><a href="#0">SCHEDULE</a></li>
                         <li class="visited" ><a href="#0">PASSENGER INFO</a></li>
@@ -8,12 +7,14 @@
                         <li><em>COMPLETE</em></li>
                     </ol>
                     <br>
+</div>
+
+<div class="container">
     <div class="depature-location">
         <h3 style="color: #ededed;">Cebu City</h3><i class="fa-solid fa-arrow-right" style="color: #fff; font-size: 28px; padding-left: 10px; padding-right: 10px;"></i>
         <h3 style="color: #ededed;">Tagbilaran City, Bohol</h3>
     </div>
-
-
+</div>
     <div class="calendar-section">
 
         <div class="dateRangeCalendarWrapper">
@@ -127,6 +128,7 @@
   </div>
 
     </div>
+    
 <br>
     <div class="depature-location2">
         <h3 style="color: #ededed;">Tagbilaran City, Bohol</h3><i class="fa-solid fa-arrow-right" style="color: #fff; font-size: 28px; padding-left: 10px; padding-right: 10px;"></i>

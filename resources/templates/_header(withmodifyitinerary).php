@@ -50,7 +50,7 @@
 
     <style>
         
- .navigation {
+.navigation {
      height: 16%;
      background:#09527f;
 }
@@ -488,7 +488,7 @@
   <div class="nav-container">
     <div class="brand">
     <a href="index.php">
-              <img width="70%" src="./img/core-img/logo.png">
+              <img src="./img/core-img/logo.png">
     </a>
     </div>
     <nav>
