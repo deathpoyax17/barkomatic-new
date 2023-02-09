@@ -1,4 +1,6 @@
-<?php require "resources/templates/_search-trip_header.php"; ?>
+<?php
+header('Access-Control-Allow-Origin: *');
+require "resources/templates/_search-trip_header.php"; ?>
 
 
 <!-- div id="siteLoader" class="site-loader">

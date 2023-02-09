@@ -15,10 +15,7 @@
 //         });
 //     }
 // });
-//$(document).ready(function() {
 
-
-//});
 //* search available schedule & filter selected
 $(document).ready(function() {
     //* fetch search schedules
@@ -26,25 +23,25 @@ $(document).ready(function() {
     $('#srch_sched_btn').click(function(e) {
         if (document.querySelector('#search_sched_form').checkValidity()) {
             e.preventDefault();
-            $(':input[type="submit"]').prop('disabled', true);
+            // $(':input[type="submit"]').prop('disabled', true);
             $.ajax({
                 url: './modules/schedule/avail_process.php',
                 method: 'POST',
                 data: $('#search_sched_form').serialize() + '&action=search_sched_form',
                 success: function(response) {
-                    // setTimeout(function() {
-                    //     var responseData = response;
-                    //     window.location.href = 'https://localhost/barkomatic-new/scheduletrip(roundtrip).php?data=' + encodeURIComponent(responseData);
-
-                    // }, 100);
-                    // setTimeout(function() {
-                    //     $(':input[type="submit"]').prop('disabled', false);
-                    // }, 100);
                     console.log(response);
+                    setTimeout(function() {
+                        $.post("./scheduletrip(roundtrip).php", {data_received: response},function(){
+                            window.location = "./scheduletrip(roundtrip).php";
+                        });
+                    }, 100);
                 }
             });
+
         }
     });
+
+
     //* fetch summary selected schedule
     $('#srch_sched_ftr_form').submit(function(e) {
         e.preventDefault();

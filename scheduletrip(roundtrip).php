@@ -12,8 +12,17 @@
 <div class="container">
     <div class="depature-location">
         <h3 style="color: #ededed;">Cebu City</h3><i class="fa-solid fa-arrow-right" style="color: #fff; font-size: 28px; padding-left: 10px; padding-right: 10px;"></i>
-        <h3 style="color: #ededed;">Tagbilaran City, Bohol</h3>
+        <h3 style="color: #ededed;"> <?php
+   
+      $responseData = $_POST['data_received'];
+      $responseData = json_decode($responseData, true);
+     echo $sched_date = $responseData['schedule_date'];
+     echo $depart_from = $responseData['route_id_from'];
+    
+  
+    ?></h3>
     </div>
+   
 </div>
     <div class="calendar-section">
 
