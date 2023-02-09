@@ -552,8 +552,8 @@
                 <div>
                     <div class="form-label-title">Tue, 7 Feb 2023</div>
                     <div class="form-label-heading">Return</div></div>
-                </div><!----><div class="box-group departure-return">
-                    <div class="form-label-title p-1">Mon, 6 Feb - Tue, 7 Feb</div></div>
+                </div><!----><div class="box-group departure-return d-flex d-lg-none">
+                    <div class="form-label-title p-1 " >Mon, 6 Feb - Tue, 7 Feb</div></div>
                     <div class="box-group"><span role="button" class="modify-btn">
                         <span class="fa fa-edit pr-2"></span>MODIFY ITINERARY </span>
                     </div>
