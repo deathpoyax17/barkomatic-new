@@ -472,7 +472,7 @@ if(isset($_COOKIE['data'])){
       
       $('#selectedDateRange').css('display', 'block');
       $('#selectedDateRange').find('span').text('Selected Date: ' + moment(selectedDate).format('DD-MMM-YYYY'));
-      
+      console.log(selectedDate);
     <?php endif; ?>
   });
 </script>

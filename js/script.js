@@ -85,6 +85,7 @@ $(document).ready(function() {
 
         $('#selectedDateRange').css('display', 'block');
         $('#selectedDateRange').find('span').text('Selected Date: ' + moment(selectedDate).format('DD-MMM-YYYY'));
+        console.log(selectedDate);
     });
 
     var currentMonth = new Date().getMonth();
