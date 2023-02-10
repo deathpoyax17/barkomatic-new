@@ -34,7 +34,19 @@ function selectDate($c){
     if(isset($_POST["getDate"])){
         $getdate = htmlentities($_POST["getDate"], ENT_QUOTES, 'UTF-8');
     }
-    $stmt_ship_sd = $c->prepare("SELECT * from schedules WHERE departure_date=?"); 
+    $stmt_ship_sd = $c->prepare("SELECT 
+                                    f.name,
+                                    so.ship_name,
+                                    ac.acomm_name,
+                                    ac.price,
+                                    ac.room_type,
+                                    ac.aircon
+                                    from schedules s
+                                    JOIN ferries f ON s.ferry_id = f.ferry_id
+                                    JOIN accommodations a ON s.accommodation_id = a.accomodation_id
+                                    JOIN accommodations ac ON f.ferry_id = ac.ferry_id
+                                    JOIN ship_owners so ON s.owner_id = so.owner_id
+                                    WHERE departure_date=?"); 
     if($stmt_ship_sd === false){
         echo 'Error preparing statement: ' . $c->error;
         return;
@@ -75,10 +87,10 @@ function selectDate($c){
                         </div>
                         <div class="itinerary-name">
                             <div class="booking-type booking-td-title">
-                                <div>Ocean Fast Ferries Inc.</div>
+                                <div>'.$row1['name'].'</div>
                                 <!---->
                                 <div class="booking-td-meta book-text-muted">
-                                    Ocean Jet (FASTCRAFT)
+                                    '.$row1['ship_name'].'
                                 </div>
                                 <!---->
                             </div>
