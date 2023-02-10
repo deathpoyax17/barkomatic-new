@@ -11,6 +11,10 @@ use PHPMailer\PHPMailer\Exception;
 if(isset($_POST['action']) && $_POST['action'] == 'search_sched_form') {
     search_available_schedule($con);
 }
+
+if(isset($_POST['action']) && $_POST['action'] == 'DateAction') {
+    selectDate($con);
+}
 if(isset($_POST['action']) && $_POST['action'] == 'srch_sched_ftr_form') {
     session_start();
     if(isset($_SESSION['first_name']) && $_SESSION['first_name'] != "") {
@@ -24,6 +28,132 @@ if(isset($_POST['action']) && $_POST['action'] == 'smmry_dptr_slctd_sched_form')
     session_start();
     reservation($con);
 }
+
+function selectDate($c){
+    $getdate = '';
+    if(isset($_POST["getDate"])){
+        $getdate = htmlentities($_POST["getDate"], ENT_QUOTES, 'UTF-8');
+    }
+    $stmt_ship_sd = $c->prepare("SELECT * from schedules WHERE departure_date=?"); 
+    if($stmt_ship_sd === false){
+        echo 'Error preparing statement: ' . $c->error;
+        return;
+    }
+    $stmt_ship_sd->bind_param('s', $getdate);
+    if($stmt_ship_sd->execute() === false){
+        echo 'Error executing statement: ' . $stmt_ship_sd->error;
+        return;
+    }
+    $row_ship_sd = $stmt_ship_sd->get_result();
+    if($row_ship_sd === false){
+        echo 'Error retrieving result set: ' . $stmt_ship_sd->error;
+        return;
+    }
+    $num_rows = $row_ship_sd->num_rows;
+    echo "Number of rows: $num_rows\n";
+    while ($row1 = $row_ship_sd->fetch_assoc()) { 
+        $output = '
+      
+        <div formarrayname="voyageAccommodations" class="ng-untouched ng-pristine ng-valid">
+            <div class="itinerary-table booking-table item-selected">
+                <!-- <input type="radio" hidden="" value="[object Object]" /> -->
+                <div class="itinerary-row itinerary-head">
+                    <div class="itr-col booking-time-container">
+                        <div>
+                            <div class="departure-time">6:00 AM</div>
+                            <!---->
+                            <div class="travel-time">2 hours</div>
+                            <!---->
+                            <!---->
+                        </div>
+                    </div>
+                    <div class="itr-col itinerary-vessel">
+                        <div class="booking-media-left itinerary-shipping-logo">
+                            <img alt=""
+                                src="https://storage.googleapis.com/barkota-reseller-assets/companies/mark-ocean-fast-ferries-inc.png" />
+                            <!---->
+                        </div>
+                        <div class="itinerary-name">
+                            <div class="booking-type booking-td-title">
+                                <div>Ocean Fast Ferries Inc.</div>
+                                <!---->
+                                <div class="booking-td-meta book-text-muted">
+                                    Ocean Jet (FASTCRAFT)
+                                </div>
+                                <!---->
+                            </div>
+                        </div>
+                    </div>
+                    <!---->
+                </div>
+
+                <div class="itinerary-row">
+                    <div class="itinerary-col itinerary-select">
+                        <div class="form-select">
+                            <select formcontrolname="selectedAccommodation"
+                                class="form-control accommodation border ng-untouched ng-pristine ng-valid">
+                                <option value="0: Object">Business Class</option>
+                                <option value="1: Object">Open Air</option>
+                                <option value="2: Object">Tourist Class</option>
+                                <!---->
+                            </select>
+                        </div>
+                        <!---->
+                    </div>
+                    <!---->
+                    <div class="itinerary-col itinerary-price" style="position: relative; overflow: hidden">
+                        <div class="booking-td-title text-wrap">
+                            <div>
+                                <div class="booking-td-title">
+                                    <!-- <span class="price-value" style="margin-right: 20px"> -->
+                                    ₱1,200.00
+                                    <!-- </span> -->
+                                </div>
+                                <div class="booking-type booking-td-title">
+                                    <div class="booking-td-meta" style="margin-right: 5px">
+                                        <!-- <span style="font-weight: 800; color: #ff8c00"> -->
+                                        Ticket Price
+                                        <!-- </span> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!---->
+                        </div>
+                        <!---->
+                    </div>
+                    <!---->
+                    <!---->
+                    <div class="itinerary-col itinerary-select-btn">
+                        <button type="button" class="btn btn-success select-button">
+                            <!-- <span>Selected &nbsp;<span class="fa fa-check"></span></span> -->
+                            Select
+                        </button>
+                    </div>
+                    <!---->
+                    <!---->
+                </div>
+                <!---->
+                <!---->
+                <div class="itinerary-row">
+                    <!---->
+                    <!---->
+                    <!---->
+                </div>
+                <!---->
+                <!---->
+            </div>
+            <!---->
+        </div>
+        <!---->
+
+        ';
+        echo $output;
+    }
+   
+
+}
+
+
 
 //* search available schedule
 function search_available_schedule($c) {

@@ -74,18 +74,27 @@ $(document).ready(function() {
     }
 
     $(document).on('click', '.cal-cell[date-id]', function() {
+        var DateAction = "DateAction";
         var selectedDate = $(this).attr('date-id');
         var startDay = parseInt(selectedDate.slice(6, selectedDate.length));
         var startMonth = parseInt(selectedDate.slice(4, 6));
         var startYear = parseInt(selectedDate.slice(0, 4));
-
         selectedDate = new Date(startYear, startMonth - 1, startDay);
-
+        SelDate = moment(selectedDate).format('YYYY-MM-DD');
         //var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        $.ajax({
+            url: 'modules/schedule/avail_process.php',
+            method: 'POST',
+            data: { action: DateAction, getDate: SelDate },
+            success: function(data) {
+                setTimeout(function() {
+                    $('#selectedDateRange').css('display', 'block');
+                    // $('#selectedDateRange').find('span').text('Selected Date: ' + moment(selectedDate).format('DD-MMM-YYYY'));
+                    $("#selectedDateForm").html(data);
+                }, 100);
+            }
+        });
 
-        $('#selectedDateRange').css('display', 'block');
-        $('#selectedDateRange').find('span').text('Selected Date: ' + moment(selectedDate).format('DD-MMM-YYYY'));
-        console.log(selectedDate);
     });
 
     var currentMonth = new Date().getMonth();

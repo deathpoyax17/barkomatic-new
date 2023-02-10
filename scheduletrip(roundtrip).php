@@ -46,9 +46,15 @@ if(isset($_COOKIE['data'])){
     </div>
 
     <div class="selected-date-area" id="selectedDateRange">
-      
-        <div radio-group="">
-            <form class="ng-untouched ng-pristine ng-valid">
+    <?php 
+    if(isset($date)){
+                                           $stmt_ship_sd =$con->prepare("SELECT * from schedules WHERE departure_date=?"); 
+                                           $stmt_ship_sd->bind_param('s',$date);
+                                           $stmt_ship_sd->execute();
+                                           $row_ship_sd = $stmt_ship_sd->get_result();
+                                           while ($row1 = $row_ship_sd->fetch_assoc()) { ?>
+                                                          <div radio-group="">
+            <form id="selectedDateForm" class="ng-untouched ng-pristine ng-valid">
                 <div formarrayname="voyageAccommodations" class="ng-untouched ng-pristine ng-valid">
                     <div class="itinerary-table booking-table item-selected">
                         <!-- <input type="radio" hidden="" value="[object Object]" /> -->
@@ -142,6 +148,8 @@ if(isset($_COOKIE['data'])){
                 <!---->
             </form>
         </div>
+                                            <?php } } ?>
+       
         <!---->
     </div>
 
