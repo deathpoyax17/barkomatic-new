@@ -522,43 +522,5 @@
 
     <!-- Header Area End -->
 
-<div class="itinerary-nav-bar">
-    <div class="container">
-        <div class="itinerary-nav-body">
-            <div class="box-group dest-group">
-                <div class="dest-box"><div>
-                    <div class="form-location-code">CEB</div>
-                    <span class="form-label-heading mb-tab">Cebu</span>
-                </div>
-            </div>
-            <div class="dest-fa">
-                <span class="fa fa-exchange">
-              </span>  
-            </div><div class="dest-box">
-                <div><div class="form-location-code">TAG</div>
-                <span class="form-label-heading mb-tab">Tagbilaran City, Bohol</span>
-            </div></div></div><div class="box-group mb-tab">
-                <div><div class="form-label-title">1</div>
-                <div class="form-label-heading">Passengers</div>
-            </div><!----><!----></div>
-            
-            <div class="box-group mb-tab">
-                <div>
-                    <div class="form-label-title">Mon, 6 Feb 2023</div>
-                    <div class="form-label-heading">Departure</div>
-                </div>
-            </div>
-            <div class="box-group mb-tab">
-                <div>
-                    <div class="form-label-title">Tue, 7 Feb 2023</div>
-                    <div class="form-label-heading">Return</div></div>
-                </div><!----><div class="box-group departure-return d-flex d-lg-none">
-                    <div class="form-label-title p-1 " >Mon, 6 Feb - Tue, 7 Feb</div></div>
-                    <div class="box-group"><span role="button" class="modify-btn">
-                        <span class="fa fa-edit pr-2"></span>MODIFY ITINERARY </span>
-                    </div>
-                </div>
-            </div>
-        </div>
    
                      

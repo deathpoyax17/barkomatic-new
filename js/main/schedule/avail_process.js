@@ -30,16 +30,15 @@ $(document).ready(function() {
                 data: $('#search_sched_form').serialize() + '&action=search_sched_form',
                 success: function(response) {
                     console.log(response);
-                    setTimeout(function() {
-                        $.post("./scheduletrip(roundtrip).php", {data_received: response},function(){
-                            window.location = "./scheduletrip(roundtrip).php";
-                        });
-                    }, 100);
+                    var data = JSON.parse(response);
+                    document.cookie = "data=" + encodeURIComponent(JSON.stringify(data));
+                    window.location = "scheduletrip(roundtrip).php";
                 }
             });
-
-        }
-    });
+        }  else {  
+            e.preventDefault();  
+        }  
+    }); 
 
 
     //* fetch summary selected schedule
