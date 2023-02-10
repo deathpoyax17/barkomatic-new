@@ -46,6 +46,7 @@ if(isset($_COOKIE['data'])){
     </div>
 
     <div class="selected-date-area" id="selectedDateRange">
+      
         <div radio-group="">
             <form class="ng-untouched ng-pristine ng-valid">
                 <div formarrayname="voyageAccommodations" class="ng-untouched ng-pristine ng-valid">
