@@ -36,15 +36,15 @@ function selectDate($c){
     }
     $stmt_ship_sd = $c->prepare("SELECT 
                                     f.name,
+                                    f.ferry_id,
                                     so.ship_name,
-                                    ac.acomm_name,
-                                    ac.price,
-                                    ac.room_type,
-                                    ac.aircon
+                                    a.acomm_name,
+                                    a.price,
+                                    a.room_type,
+                                    a.aircon
                                     from schedules s
                                     JOIN ferries f ON s.ferry_id = f.ferry_id
                                     JOIN accommodations a ON s.accommodation_id = a.accomodation_id
-                                    JOIN accommodations ac ON f.ferry_id = ac.ferry_id
                                     JOIN ship_owners so ON s.owner_id = so.owner_id
                                     WHERE departure_date=?"); 
     if($stmt_ship_sd === false){
@@ -64,6 +64,12 @@ function selectDate($c){
     $num_rows = $row_ship_sd->num_rows;
     echo "Number of rows: $num_rows\n";
     while ($row1 = $row_ship_sd->fetch_assoc()) { 
+        $ferry = $row1['ferry_id'];
+        $stmt = $c->prepare("SELECT * FROM accommodations WHERE ferry_id=?"); 
+        $stmt->bind_param('s', $ferry);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
         $output = '
       
         <div formarrayname="voyageAccommodations" class="ng-untouched ng-pristine ng-valid">
@@ -100,63 +106,48 @@ function selectDate($c){
                 </div>
 
                 <div class="itinerary-row">
-                    <div class="itinerary-col itinerary-select">
-                        <div class="form-select">
-                            <select formcontrolname="selectedAccommodation"
-                                class="form-control accommodation border ng-untouched ng-pristine ng-valid">
-                                <option value="0: Object">Business Class</option>
-                                <option value="1: Object">Open Air</option>
-                                <option value="2: Object">Tourist Class</option>
-                                <!---->
-                            </select>
-                        </div>
-                        <!---->
+                <div class="itinerary-col itinerary-select">
+                    <div class="form-select">
+                        <select formcontrolname="selectedAccommodation" class="form-control accommodation border ng-untouched ng-pristine ng-valid">';
+
+                                // loop over the result set to generate options
+                                while ($row = $result->fetch_assoc()) {
+                                $acommodations = $row["acomm_name"];
+                                $output .= '<option value="'.$acommodations.'">'.$acommodations.'</option>';
+                                }
+
+$output .= '							</select>
                     </div>
-                    <!---->
+                </div>
                     <div class="itinerary-col itinerary-price" style="position: relative; overflow: hidden">
                         <div class="booking-td-title text-wrap">
                             <div>
                                 <div class="booking-td-title">
-                                    <!-- <span class="price-value" style="margin-right: 20px"> -->
-                                    ₱1,200.00
-                                    <!-- </span> -->
+                                    <span class="price-value" style="margin-right: 20px">
+                                    ₱'.$row1["price"].'
+                                    </span>
                                 </div>
                                 <div class="booking-type booking-td-title">
                                     <div class="booking-td-meta" style="margin-right: 5px">
-                                        <!-- <span style="font-weight: 800; color: #ff8c00"> -->
+                                        <span style="font-weight: 800; color: #ff8c00">
                                         Ticket Price
-                                        <!-- </span> -->
+                                        </span>
                                     </div>
                                 </div>
                             </div>
-                            <!---->
                         </div>
-                        <!---->
                     </div>
-                    <!---->
-                    <!---->
                     <div class="itinerary-col itinerary-select-btn">
                         <button type="button" class="btn btn-success select-button">
                             <!-- <span>Selected &nbsp;<span class="fa fa-check"></span></span> -->
                             Select
                         </button>
                     </div>
-                    <!---->
-                    <!---->
                 </div>
-                <!---->
-                <!---->
                 <div class="itinerary-row">
-                    <!---->
-                    <!---->
-                    <!---->
                 </div>
-                <!---->
-                <!---->
             </div>
-            <!---->
         </div>
-        <!---->
 
         ';
         echo $output;
