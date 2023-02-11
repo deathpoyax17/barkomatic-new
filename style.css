@@ -608,7 +608,7 @@
     .container {
         padding-left: 15px;
         padding-right: 15px;
-        /* border: 2px solid red; */
+        border: 2px solid red;
     }
     
     .container-tab {

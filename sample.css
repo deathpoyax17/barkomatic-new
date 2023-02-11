@@ -2335,7 +2335,8 @@ a.text-dark:hover {
     margin-right: auto;
     margin-left: auto;
     padding-left: 15px;
-    padding-right: 15px
+    padding-right: 15px;
+    max-width: 1250px;
 }
 
 .container:after,
@@ -7266,6 +7267,10 @@ a.btn-rounded:hover {
     }
 }
 
+.container {
+    width: 80%;
+}
+
 .box-group,
 .itinerary-nav-body {
     -webkit-display: flex;
@@ -7273,7 +7278,8 @@ a.btn-rounded:hover {
     -moz-display: flex;
     -ms-display: flex;
     -o-display: flex;
-    display: flex
+    display: flex;
+    width: 100%;
 }
 
 .box-group {
@@ -7288,14 +7294,14 @@ a.btn-rounded:hover {
     -o-align-items: center;
     align-items: center;
     width: 100%;
-    border-top: 1px solid #e4e4e4;
-    border-left: 1px solid #e4e4e4;
+    border-top: 2px solid #e4e4e4;
+    border-left: 2px solid #e4e4e4;
     text-align: center;
     padding: 10px 5px 10px 0;
 }
 
 .box-group:last-child {
-    border-right: 1px solid #e4e4e4
+    border-right: 2px solid #e4e4e4
 }
 
 .box-group.dest-group {
@@ -7319,16 +7325,19 @@ a.btn-rounded:hover {
     -ms-justify-content: center;
     -o-justify-content: center;
     justify-content: center;
-    width: 100%
+    width: 100%;
 }
 
 .modify-btn {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 400;
-    color: #388192;
+    color: #2b8ea4;
     border: 0;
-    padding: 5px 10px;
     font-weight: 700
+}
+
+.fa-exchange {
+    padding-right: 10px;
 }
 
 .form-label-heading {
