@@ -7273,6 +7273,7 @@ a.btn-rounded:hover {
 
 .box-group,
 .itinerary-nav-body {
+    position: fixed;
     -webkit-display: flex;
     -khtml-display: flex;
     -moz-display: flex;
