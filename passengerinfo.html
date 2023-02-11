@@ -5,30 +5,82 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
     <link rel="icon" type="image/png" href="img/core-img/favicon.png">
-    <link rel="stylesheet" href="assets/vendors/bootstrap/css/bootstrap.min.css" media="all">
-    <link rel="stylesheet" type="text/css" href="assets/vendors/fontawesome/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/vendors/jquery-ui/jquery-ui.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/vendors/modal-video/modal-video.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/vendors/lightbox/dist/css/lightbox.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/vendors/slick/slick.css">
-    <link rel="stylesheet" type="text/css" href="assets/vendors/slick/slick-theme.css">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="stylesheet" href="./assets/css/intlTelInput.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-
-
     <title>Barkomatic - Online Ticketing</title>
+    <!-- Font -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
+
+    <!-- Bootstrap CDN, Custom Css -->
+    <link rel="stylesheet" type="text/css" href="assets/vendors/lightbox/dist/css/lightbox.min.css">
+    <link rel="stylesheet" href="./assets/css/intlTelInput.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendors/jquery-ui/jquery-ui.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        html{
+            box-sizing: border-box;
+        }
+        #ui_01e_body{
+        font-family: Helvetica, Arial, sans-serif;
+        background-image: url(assets/images/passengerinfo-background.png);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        }
+             /* Extra Small Devices, Phones */ 
+        /* @media only screen and (min-width : 480px) {
+            .pg_dd0e1{
+                border: none !important;
+            }
+        } */
+
+        /* Small Devices, Tablets */
+        /* @media only screen and (min-width : 768px) {
+            .pg_dd0e1{
+                border: none !important;
+            }
+        } */
+        /* Medium Devices, Desktops */
+        @media only screen and (min-width : 992px) {
+            .pg_dd0e1{
+                border: 1px solid #fff;
+                border-radius: 5px;
+            }
+            .cg_dd0e1{
+                border: 1px solid #fff;
+                border-radius: 5px;
+            }
+            .nav-item a {
+                font-size: 14px;
+            }
+        }
+
+        /* Large Devices, Wide Screens */
+        @media only screen and (min-width : 1200px) {
+            .pg_dd0e1{
+                border: 1px solid #fff;
+                border-radius: 5px;
+            }
+            .nav-item a {
+                font-size: 16px;
+            }
+        }
+
+        /* Large Devices, Wide Screens */
+        @media only screen and (min-width : 1200px) {
+            .cg_dd0e1{
+                border: 1px solid #fff;
+                border-radius: 5px;
+            }
+            .nav-item a {
+                font-size: 16px;
+            }
+        }
+    </style>
     <script>
         function myFunction1() {
             var checkBox = document.getElementById("myCheck");
@@ -117,16 +169,13 @@
         });
     </script>
 </head>
-
-
-<body class="container-tab3">
-
+<body id="ui_01e_body">
     <!-- div id="siteLoader" class="site-loader">
             <div class="preloader-content">
                 <img src="assets/images/loader1.gif" alt="">
             </div >
         </div -->
-    <div class="top-header-searchtrip">
+    <!-- <div class="top-header-searchtrip">
         <div class="container d-flex justify-content-between align-items-center">
             <div class="site-identity">
                 <h1 class="site-title">
@@ -169,7 +218,51 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
+    <div class="section_menu" style="background-color: #09527F;">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #09527F;">
+                <a class="navbar-brand" href="index.html" style="margin-right: 0px;"><img class="barkomatic-logo" src="assets/images/barkomatic-logo.png" alt="logo" style="max-width:170px;"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item text-white">
+                            <!-- <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> -->
+                            <a class="nav-link text-white" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#">Contact Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#">Manage Booking</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#">Privacy Policy</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-white pg_dd0e1" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Passenger Guidelines</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="#">Booking/Boarding Guide</a>
+                                <a class="dropdown-item" href="#">Rebooking Guidelines</a>
+                                <a class="dropdown-item" href="#">Refund Guidelines</a>
+                            </div>
+                        </li>
+                        &nbsp;
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-white cg_dd0e1" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cargo Guidelines</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="#">Booking/Boarding Guide</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div> <!--section_menu block-->
     <div class="buttom-header-searchtrip">
         <span class="horizontal-lines"></span>
         <div class="margin-moditene">
@@ -204,9 +297,9 @@
                     </div>
                     <span class="vertical-lines5"></span>
                     <div class="col-1-mod7">
-                        <button type="button" class="modifybutton" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-edit" style="color: #000;"></i> MODIFY ITINERARY</button>
+                        <button type="button" class="modifybutton" data-toggle="modal" data-target="#exampleModal" data-backdrop="static" data-keyboard="false"><i class="fas fa-edit" style="color: #000;"></i> MODIFY ITINERARY</button>
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
+                            <div class="modal-dialog"style="max-width:100% !important; margin:0px !important">
                                 <div class="modal-content">
                                     <div class="modal-body">
                                         <div class="searchtrip-tab">
@@ -224,11 +317,11 @@
                                                                         <div class="wrapper">
                                                                             <div class="carousel">
                                                                                 <div class="card card-1">
-
+                    
                                                                                 </div>
-
+                    
                                                                                 <div class="card card-2">
-
+                    
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -247,7 +340,7 @@
                                                                 <span style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-size: 18px;font-weight: bold;color: #0ceafa; margin-left: 3px;"> One Way </span>
                                                             </div>
                                                         </div>
-
+                    
                                                         <div class="form-row">
                                                             <div class="col">
                                                                 <div class="input-group col-mb-3">
@@ -305,13 +398,13 @@
                                                                     </select>
                                                                 </div>
                                                             </div>
-
+                    
                                                             <div class="input-group col-1" style="padding: 7px; padding-left: 33px; margin-bottom: 30px;">
                                                                 <button class="arrow-button">
                                                                     <i class="fa-solid fa-arrow-right-arrow-left"></i>
                                                                     </button>
                                                             </div>
-
+                    
                                                             <div class="col">
                                                                 <div class="input-group col-mb-5">
                                                                     <div class="input-group-prepend">
@@ -383,7 +476,7 @@
                                                                     </span>
                                                                 </div>
                                                             </div>
-
+                    
                                                             <div class="col">
                                                                 <div class="input-group col-mb-3">
                                                                     <div class="input-group-prepend">
@@ -397,7 +490,7 @@
                                                                     </span>
                                                                 </div>
                                                             </div>
-
+                    
                                                             <div class="col">
                                                                 <div class="input-group col-mb-3">
                                                                     <div class="input-group-prepend">
@@ -413,7 +506,7 @@
                                                 </div>
                                                 </form>
                                             </div>
-
+                    
                                             <input type="radio" id="tabvehicle" name="searchtrip-tab">
                                             <label class="vehicle" id="vehicletab" for="tabvehicle"><i class="fa-solid fa-car"></i> Vehicle</label>
                                             <div class="tabsearchtrip2">
@@ -428,11 +521,11 @@
                                                                         <div class="wrapper">
                                                                             <div class="carousel">
                                                                                 <div class="card card-1">
-
+                    
                                                                                 </div>
-
+                    
                                                                                 <div class="card card-2">
-
+                    
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -451,7 +544,7 @@
                                                                 <span style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-size: 18px;font-weight: bold;color: #0ceafa; margin-left: 3px;"> One Way </span>
                                                             </div>
                                                         </div>
-
+                    
                                                         <div class="form-row">
                                                             <div class="col">
                                                                 <div class="input-group col-mb-3">
@@ -509,13 +602,13 @@
                                                                     </select>
                                                                 </div>
                                                             </div>
-
+                    
                                                             <div class="input-group col-1" style="padding: 7px; padding-left: 24px; margin-bottom: 30px;">
                                                                 <button>
                                                                     <i class="fa-solid fa-arrow-right-arrow-left"></i>
                                                                     </button>
                                                             </div>
-
+                    
                                                             <div class="col">
                                                                 <div class="input-group col-mb-5">
                                                                     <div class="input-group-prepend">
@@ -623,7 +716,7 @@
                                                                   <option value="3">10-WHEELER / EMPTY</option>
                                                                 </select>
                                                             </div>
-
+                    
                                                             <div class="form-row">
                                                                 <div class="col">
                                                                     <div class="input-group col-mb-3">
@@ -635,7 +728,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-
+                    
                                                                 <div class="col">
                                                                     <div class="input-group col-mb-3">
                                                                         <div class="input-group-prepend">
@@ -645,7 +738,7 @@
                                                                     </div>
                                                                     <span>(Including Driver)</span>
                                                                 </div>
-
+                    
                                                                 <div class="col">
                                                                     <div class="input-group col-mb-3">
                                                                         <div class="input-group-prepend">
@@ -663,12 +756,12 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> <!--modal form!-->
                     </div>
                     <span class="vertical-lines6"></span>
                 </div>
@@ -896,7 +989,15 @@
     <script>
         var input = document.querySelector("#phone")
         window.intlTelInput(input, {});
-    </script>
-</body>
 
+        $(window).on('load', function(){
+            $('.modal.fade').appendTo('body');
+        })
+    </script>
+    
+    <!-- ꙮꙮꙮꙮꙮꙮ ꙮꙮꙮꙮꙮꙮ ꙮꙮꙮꙮꙮꙮ-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
 </html>
