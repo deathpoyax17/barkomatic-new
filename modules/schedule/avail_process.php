@@ -89,7 +89,7 @@ WHERE s.schedule_id=? AND a.accomodation_id=?");
         echo 'Error retrieving result set: ' . $stmt_ship_s->error;
         return;
     }
-    $routes = array_column($port->fetch_all(MYSQLI_ASSOC),'route_id','routes');
+    $routes = array_column($port->fetch_all(MYSQLI_ASSOC),'route','route_id');
     while ($row1 = $row_ship_s->fetch_assoc()) { 
         $date = $row1["departure_date"];
         $formatted_date = date("F j, Y", strtotime($date));
@@ -172,9 +172,9 @@ WHERE s.schedule_id=? AND a.accomodation_id=?");
                     <div class="depaturedetails">
                         <span style=" font-size:14px; color: #988f90; ">PORT</span>
                         <br>
-                        <span style="color: #657174; ">Port of '.$routes[$row1["route_id_from"]].'(Pier 1)</span>
+                        <span style="color: #657174; ">Port of '.$routes[$row1['route_id_from']].'</span>
                         <span style="color: #657174; "><i class="fa-solid fa-arrow-right"
-                                style="padding-left: 10px; padding-right: 10px;"></i>Port of Tagbilaran</span>
+                                style="padding-left: 10px; padding-right: 10px;"></i>'.$routes[$row1['route_id_to']].'</span>
                     </div>
                     <div class="dashed-line"></div>
                     <div class="depaturedetails">

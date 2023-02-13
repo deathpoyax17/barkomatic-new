@@ -75,18 +75,27 @@ $(document).ready(function() {
         // var startYear = moment(range.start).format('YY');
     }
 
-    $('#dateRange1').on('click', '.cal-cell1[date-id1]', function() {
-        var selectedDate1 = $(this).attr('date-id1');
-        var startDay = parseInt(selectedDate1.slice(6, selectedDate1.length));
-        var startMonth = parseInt(selectedDate1.slice(4, 6));
-        var startYear = parseInt(selectedDate1.slice(0, 4));
 
-        selectedDate1 = new Date(startYear, startMonth - 1, startDay);
-
+    $(document).on('click', '.cal-cell[date-id]', function() {
+        var DateAction = "DateAction";
+        var selectedDate = $(this).attr('date-id');
+        var startDay = parseInt(selectedDate.slice(6, selectedDate.length));
+        var startMonth = parseInt(selectedDate.slice(4, 6));
+        var startYear = parseInt(selectedDate.slice(0, 4));
+        selectedDate = new Date(startYear, startMonth - 1, startDay);
+        SelDate = moment(selectedDate).format('YYYY-MM-DD');
         //var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-        $('#selectedDateRange1').css('display', 'block');
-        $('#selectedDateRange1').find('span').text('Selected Date: ' + moment(selectedDate1).format('DD-MMM-YYYY'));
+        $.ajax({
+            url: 'modules/schedule/avail_process.php',
+            method: 'POST',
+            data: { action: DateAction, getDate: SelDate },
+            success: function(data) {
+                setTimeout(function() {
+                    $('#selectedDateRange').css('display', 'block');
+                    $("#selectedDateForm").html(data);
+                }, 100);
+            }
+        });
 
     });
 

@@ -52,12 +52,15 @@ if(isset($_COOKIE['data'])){
                                            $stmt_ship_sd->bind_param('s',$date);
                                            $stmt_ship_sd->execute();
                                            $row_ship_sd = $stmt_ship_sd->get_result();
-                                           while ($row1 = $row_ship_sd->fetch_assoc()) { ?>
+                                           while ($row1 = $row_ship_sd->fetch_assoc()) { 
+                                            
+                                            
+                                            ?>
                                                           <div radio-group="">
             <form id="selectedDateForm" class="ng-untouched ng-pristine ng-valid">
                 <div formarrayname="voyageAccommodations" class="ng-untouched ng-pristine ng-valid">
                     <div class="itinerary-table booking-table item-selected">
-                        <!-- <input type="radio" hidden="" value="[object Object]" /> -->
+                    <input type="radio" hidden="" id="schedule_id" name="schedule_id" value="<?php echo $row1['schedule_id']?>" />
                         <div class="itinerary-row itinerary-head">
                             <div class="itr-col booking-time-container">
                                 <div>
@@ -87,15 +90,23 @@ if(isset($_COOKIE['data'])){
                             </div>
                             <!---->
                         </div>
-
                         <div class="itinerary-row">
                             <div class="itinerary-col itinerary-select">
                                 <div class="form-select">
-                                    <select formcontrolname="selectedAccommodation"
-                                        class="form-control accommodation border ng-untouched ng-pristine ng-valid">
-                                        <option value="0: Object">Business Class</option>
-                                        <option value="1: Object">Open Air</option>
-                                        <option value="2: Object">Tourist Class</option>
+                                <select name="selectedAccommodation" id="accomodation_form" class="form-control accommodation border ng-untouched ng-pristine ng-valid">';
+                                    <?php
+                                         $ferry = $row1['ferry_id'];
+                                         $stmt = $con->prepare("SELECT * FROM accommodations WHERE ferry_id=?"); 
+                                         $stmt->bind_param('s', $ferry);
+                                         $stmt->execute();
+                                         $result = $stmt->get_result();
+                                         while ($row = $result->fetch_assoc()) {
+                                            $acommodations = $row["acomm_name"];
+                                            $acommodations_id = $row["accomodation_id"];
+                                            echo '<option value="'.$acommodations_id.'">'.$acommodations.'</option>';
+                                       
+                                        }
+                                     ?>
                                         <!---->
                                     </select>
                                 </div>
@@ -103,49 +114,44 @@ if(isset($_COOKIE['data'])){
                             </div>
                             <!---->
                             <div class="itinerary-col itinerary-price" style="position: relative; overflow: hidden">
-                                <div class="booking-td-title text-wrap">
-                                    <div>
-                                        <div class="booking-td-title">
-                                            <!-- <span class="price-value" style="margin-right: 20px"> -->
-                                            ₱1,200.00
-                                            <!-- </span> -->
-                                        </div>
-                                        <div class="booking-type booking-td-title">
-                                            <div class="booking-td-meta" style="margin-right: 5px">
-                                                <!-- <span style="font-weight: 800; color: #ff8c00"> -->
-                                                Ticket Price
-                                                <!-- </span> -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!---->
-                                </div>
-                                <!---->
+                        <div class="booking-td-title text-wrap">
+                        <div>
+                            <div class="booking-td-title">
+                            <span class="price-value" style="margin-right: 20px">
+                            <?php
+                                         $ferry = $row1['ferry_id'];
+                                         $stmt = $con->prepare("SELECT * FROM accommodations WHERE ferry_id=?"); 
+                                         $stmt->bind_param('s', $ferry);
+                                         $stmt->execute();
+                                         $result = $stmt->get_result();
+                                         $row = $result->fetch_assoc();
+                                            $acommodations = $row["acomm_name"];
+                                            $acommodations_id = $row["accomodation_id"];
+                                            echo '₱<span id="price">'.$row["price"].'</span>';
+                                        
+                                     ?>
+                                
+                             </span>
                             </div>
-                            <!---->
-                            <!---->
-                            <div class="itinerary-col itinerary-select-btn">
-                                <button type="button" class="btn btn-success select-button">
-                                    <!-- <span>Selected &nbsp;<span class="fa fa-check"></span></span> -->
-                                    Select
-                                </button>
+                            <div class="booking-type booking-td-title">
+                            <div class="booking-td-meta" style="margin-right: 5px">
+                                <span style="font-weight: 800; color: #ff8c00">
+                                Ticket Price
+                                </span>
                             </div>
-                            <!---->
-                            <!---->
+                            </div>
                         </div>
-                        <!---->
-                        <!---->
-                        <div class="itinerary-row">
-                            <!---->
-                            <!---->
-                            <!---->
                         </div>
-                        <!---->
-                        <!---->
                     </div>
-                    <!---->
+                            <div class="itinerary-col itinerary-select-btn">
+                    <button type="submit" form="itinerary_form_selected" class="btn btn-info select-button">Select</button>
+                  </div>
+                    </div>
+                        </div>
+                        <div class="itinerary-row">
+                        </div>
+                    </div>
                 </div>
-                <!---->
             </form>
         </div>
                                             <?php } } ?>
@@ -242,10 +248,8 @@ if(isset($_COOKIE['data'])){
                                 </div>
                             </div>
                             <div class="itinerary-col itinerary-select-btn">
-                                <button type="button" class="btn btn-success select-button">
-                                    <!-- <span>Selected &nbsp;<span class="fa fa-check"></span></span> -->
-                                    Select
-                                </button>
+                    <button type="submit" form="itinerary_form_selected" class="btn btn-info select-button">Select</button>
+                        </div>
                             </div>
                         </div>
                         <div class="itinerary-row"></div>
@@ -480,9 +484,7 @@ if(isset($_COOKIE['data'])){
       var startYear = parseInt(selectedDate.slice(0, 4));
       
       selectedDate = new Date(startYear, startMonth-1, startDay);
-      
       $('#selectedDateRange').css('display', 'block');
-      $('#selectedDateRange').find('span').text('Selected Date: ' + moment(selectedDate).format('DD-MMM-YYYY'));
       console.log(selectedDate);
     <?php endif; ?>
   });
