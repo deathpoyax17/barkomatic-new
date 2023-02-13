@@ -258,6 +258,7 @@ if(isset($_COOKIE['data'])){
     <div class="container-summarytrip">
         <h4 class="summary-text-roundtrip">Summary</h4>
         <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="ship_departure" id="ship_departure">
             <div class="accordion-item" style="margin-bottom: 25px; border-radius: 10px">
                 <div class="depbackground-color" id="flush-headingOne">
                     <p class="accordion-header">
@@ -341,6 +342,7 @@ if(isset($_COOKIE['data'])){
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
             <div class="accordion-item" style="border-radius: 10px;">
                 <div class="depbackground-color" id="flush-headingTwo">
@@ -488,19 +490,14 @@ if(isset($_COOKIE['data'])){
 <script>
 (function($) {
     $(function() {
-
         //  open and close nav 
         $('#navbar-toggle').click(function() {
             $('nav ul').slideToggle();
         });
-
-
         // Hamburger toggle
         $('#navbar-toggle').on('click', function() {
             this.classList.toggle('active');
         });
-
-
         // If a link has a dropdown, add sub menu toggle.
         $('nav ul li a:not(:only-child)').click(function(e) {
             $(this).siblings('.navbar-dropdown').slideToggle("slow");
@@ -509,8 +506,6 @@ if(isset($_COOKIE['data'])){
             $('.navbar-dropdown').not($(this).siblings()).hide("slow");
             e.stopPropagation();
         });
-
-
         // Click outside the dropdown will remove the dropdown class
         $('html').click(function() {
             $('.navbar-dropdown').hide();

@@ -28,6 +28,166 @@ if(isset($_POST['action']) && $_POST['action'] == 'smmry_dptr_slctd_sched_form')
     session_start();
     reservation($con);
 }
+if(isset($_POST['action']) && $_POST['action'] == 'sched_sel') {
+    sched_sel($con);
+}
+if(isset($_POST['action']) && $_POST['action'] == 'sched_des') {
+        $output= ' <div class="accordion-item" style="margin-bottom: 25px; border-radius: 10px">
+         <div class="depbackground-color" id="flush-headingOne">
+             <p class="accordion-header">
+             <div class="click">
+                 <button class="btn-departure" type="button" data-bs-toggle="collapse"
+                     data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                     <span style="color: #fff;">Depature</span><i style="padding-left: 125px;"
+                         class="fa fa-chevron-circle-down"></i>
+                 </button>
+             </div>
+             </p>
+         </div>
+         <div style="text-align:center;" class="container-form-summary bg-white">
+        <center><span style="top:50%;text-align:center;"> No departure voyage selected yet. </span></center>
+         </div>
+     </div>
+     ';
+     echo $output;
+}
+
+
+function sched_sel($c) {
+    if (isset($_POST['schedule_id'])) {
+      $schedule_id = $_POST['schedule_id'];
+      $accom_selected=$_POST['accommodation_selected'];
+      $stmt_ship_s = $c->prepare("SELECT 
+                                    f.name,
+                                    s.schedule_id,
+                                    f.ferry_id,
+                                    s.departure_date,
+                                    s.arrival_time,
+                                    so.ship_name,
+                                    a.acomm_name,
+                                    a.price,
+                                    a.room_type,
+                                    a.aircon
+                                    from schedules s
+                                    JOIN ferries f ON s.ferry_id = f.ferry_id
+                                    JOIN accommodations a ON f.ferry_id = a.ferry_id
+                                    JOIN ship_owners so ON s.owner_id = so.owner_id
+                                    WHERE s.schedule_id=? AND a.accomodation_id=?"); 
+    if($stmt_ship_s === false){
+        echo 'Error preparing statement: ' . $c->error;
+        return;
+    }
+    $stmt_ship_s->bind_param('ss', $schedule_id,$accom_selected);
+    if($stmt_ship_s->execute() === false){
+        echo 'Error executing statement: ' . $stmt_ship_s->error;
+        return;
+    }
+    $row_ship_s = $stmt_ship_s->get_result();
+    if($row_ship_s === false){
+        echo 'Error retrieving result set: ' . $stmt_ship_s->error;
+        return;
+    }
+    while ($row1 = $row_ship_s->fetch_assoc()) { 
+        $date = $row1["departure_date"];
+        $formatted_date = date("F j, Y", strtotime($date));
+        $time = $row1["arrival_time"];
+        $formatted_time = date("g:i A", strtotime($time));
+        if($row1['aircon']==0){
+                $aircon = "N/A";
+        }else{
+                $aircon = "YES";
+        }
+            $output = '
+            <div class="accordion-item" style="margin-bottom: 25px; border-radius: 10px">
+            <div class="depbackground-color" id="flush-headingOne">
+                <p class="accordion-header">
+                <div class="click">
+                    <button class="btn-departure" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        <span style="color: #fff;">Depature</span><i style="padding-left: 125px;"
+                            class="fa fa-chevron-circle-down"></i>
+                    </button>
+                </div>
+                </p>
+            </div>
+            <div class="container-form-summary bg-white">
+                <div class="contain-shippinglogo">
+                    <div class="shipping-guide" style="margin-left:10px;">
+                        <img src="./assets/images/vgshipping.png" alt="vgshipping"
+                            style="width:50px; border-radius: 50%;">
+                    </div>
+                    <div class="shipping-guide" style="margin-right: 50px;">
+                        <span style="font-size: 12px;">'.$row1["ship_name"].'</span>
+                        <br>
+                        <span style="font-size: 12px;">'.$row1["name"].'</span>
+                    </div>
+                </div>
+                <div class="contain-depretlocation">
+                    <div class="shipping-depret">
+                        <i class="fa-solid fa-circle-dot"
+                            style="display: flex; margin-left: 18px; padding-top: 15px;"></i>
+                        <div class="vertical-dotted-line"></div>
+                        <i class="fa-solid fa-anchor" style="display: flex; margin-left: 18px;"></i>
+                    </div>
+                    <div class="shipping-depret" style="padding-top: 10px; margin-right: 30px;">
+                        <span>Cebu City</span>
+                        <div style="padding-bottom: 12px;">
+                            <br>
+                        </div>
+                        <span>Tagbilaran City, Bohol</span>
+                    </div>
+                </div>
+            </div>
+            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                data-bs-parent="#accordionFlushExample">
+                <div class="container-form-collapse">
+                    <div class="dashed-line"></div>
+                    <div class="depaturedetails">
+                        <span style="font-size:14px; color: #988f90;">DEPARTURE DATE</span>
+                        <br>
+                        <span style="color: #657174;">'.$formatted_date.'&nbsp'.$formatted_time.'</span>
+                    </div>
+                    <div class="dashed-line"></div>
+                    <div class="depaturedetails">
+                        <span style=" font-size:14px; color: #988f90; ">ACCOMODATION</span>
+                        <br>
+                        <span style="color: #657174; ">'.$row1['acomm_name'].'</span>
+                    </div>
+                    <div class="dashed-line"></div>
+                    <div class="depaturedetails">
+                        <span style="font-size:14px; color: #988f90; ">SEAT TYPE</span>
+                        <br>
+                        <span style="color: #657174; ">'.$row1['room_type'].'</span>
+                    </div>
+                    <div class="dashed-line"></div>
+                    <div class="depaturedetails">
+                        <span style="font-size:14px; color: #988f90; ">AIRCON</span>
+                        <br>
+                        <span style="color: #657174; ">'.$aircon.'</span>
+                    </div>
+                    <div class="dashed-line"></div>
+                    <div class="depaturedetails">
+                        <span style=" font-size:14px; color: #988f90; ">PORT</span>
+                        <br>
+                        <span style="color: #657174; ">Port of Cebu Passenger Terminal 1 (Pier 1)</span>
+                        <span style="color: #657174; "><i class="fa-solid fa-arrow-right"
+                                style="padding-left: 10px; padding-right: 10px;"></i>Port of Tagbilaran</span>
+                    </div>
+                    <div class="dashed-line"></div>
+                    <div class="depaturedetails">
+                        <span style="font-size:14px; color: #988f90; ">PRICE</span>
+                        <br>
+                        <span id="price" style="color: #657174; ">₱ '.$row1['price'].'</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+            ';
+            echo $output;
+        }
+    }
+}
+
 
 function selectDate($c){
     $getdate = '';
@@ -36,6 +196,7 @@ function selectDate($c){
     }
     $stmt_ship_sd = $c->prepare("SELECT 
                                     f.name,
+                                    s.schedule_id,
                                     f.ferry_id,
                                     so.ship_name,
                                     a.acomm_name,
@@ -73,8 +234,8 @@ function selectDate($c){
         $output = '
       
         <div formarrayname="voyageAccommodations" class="ng-untouched ng-pristine ng-valid">
-            <div class="itinerary-table booking-table item-selected">
-                <!-- <input type="radio" hidden="" value="[object Object]" /> -->
+            <div class="itinerary-table booking-table">
+                <input type="radio" hidden="" id="schedule_id" name="schedule_id" value="'.$row1['schedule_id'].'" />
                 <div class="itinerary-row itinerary-head">
                     <div class="itr-col booking-time-container">
                         <div>
@@ -105,45 +266,44 @@ function selectDate($c){
                     <!---->
                 </div>
 
-                <div class="itinerary-row">
-                <div class="itinerary-col itinerary-select">
-                    <div class="form-select">
-                        <select formcontrolname="selectedAccommodation" class="form-control accommodation border ng-untouched ng-pristine ng-valid">';
+                     <div class="itinerary-row">
+                            <div class="itinerary-col itinerary-select">
+                                <div class="form-select">
+                                    <select name="selectedAccommodation" id="accomodation_form" class="form-control accommodation border ng-untouched ng-pristine ng-valid">';
 
-                                // loop over the result set to generate options
-                                while ($row = $result->fetch_assoc()) {
-                                $acommodations = $row["acomm_name"];
-                                $output .= '<option value="'.$acommodations.'">'.$acommodations.'</option>';
-                                }
-
-$output .= '							</select>
+                        // loop over the result set to generate options
+                        while ($row = $result->fetch_assoc()) {
+                            $acommodations = $row["acomm_name"];
+                            $acommodations_id = $row["accomodation_id"];
+                            $output .= '<option value="'.$acommodations_id.'">'.$acommodations.'</option>';
+                        }
+                        $output .= '
+                        </select>
+                        </div>
                     </div>
-                </div>
                     <div class="itinerary-col itinerary-price" style="position: relative; overflow: hidden">
                         <div class="booking-td-title text-wrap">
-                            <div>
-                                <div class="booking-td-title">
-                                    <span class="price-value" style="margin-right: 20px">
-                                    ₱'.$row1["price"].'
-                                    </span>
-                                </div>
-                                <div class="booking-type booking-td-title">
-                                    <div class="booking-td-meta" style="margin-right: 5px">
-                                        <span style="font-weight: 800; color: #ff8c00">
-                                        Ticket Price
-                                        </span>
-                                    </div>
-                                </div>
+                        <div>
+                            <div class="booking-td-title">
+                            <span class="price-value" style="margin-right: 20px">
+                                ₱<span id="price">'.$row1["price"].'</span>
+                            </span>
                             </div>
+                            <div class="booking-type booking-td-title">
+                            <div class="booking-td-meta" style="margin-right: 5px">
+                                <span style="font-weight: 800; color: #ff8c00">
+                                Ticket Price
+                                </span>
+                            </div>
+                            </div>
+                        </div>
                         </div>
                     </div>
                     <div class="itinerary-col itinerary-select-btn">
-                        <button type="button" class="btn btn-success select-button">
-                            <!-- <span>Selected &nbsp;<span class="fa fa-check"></span></span> -->
-                            Select
-                        </button>
+                    <button type="submit" form="itinerary_form_selected" class="btn btn-info select-button">Select</button>
+                  </div>
                     </div>
-                </div>
+
                 <div class="itinerary-row">
                 </div>
             </div>

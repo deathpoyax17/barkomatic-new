@@ -6834,11 +6834,12 @@ a.text-danger:hover {
 
 .border,
 .item-selected {
-    border: 1px solid #09527f !important
+    border: 1px solid #09527f !important;
 }
 
 .item-selected {
-    box-shadow: 1px 1px 3px 1px #09527f
+    box-shadow: 1px 1px 3px 1px #09527f;
+    background: #71c6e4;
 }
 
 .navbar-brand>img {
@@ -7526,10 +7527,10 @@ span.close-button:hover {
     width: 26.5% !important
 }
 
-.itinerary-table {
-    background: #fff;
+.itinerary-table-selected {
+    background: #fff2cb!important;
     margin: 15px 0;
-    border: 1px solid #a1d0db;
+    border: 1px solid #0c4461;
     -webkit-animation: itineraryTableSection 1s ease;
     animation: itineraryTableSection 1s ease
 }
