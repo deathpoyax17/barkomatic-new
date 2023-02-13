@@ -52,27 +52,29 @@ if(isset($_POST['action']) && $_POST['action'] == 'sched_des') {
      echo $output;
 }
 
-
 function sched_sel($c) {
     if (isset($_POST['schedule_id'])) {
       $schedule_id = $_POST['schedule_id'];
       $accom_selected=$_POST['accommodation_selected'];
+      $port = $c->query("SELECT route_id, concat(`departure_from`,'[',`departure_port`,']') as `route` FROM routes");
       $stmt_ship_s = $c->prepare("SELECT 
-                                    f.name,
-                                    s.schedule_id,
-                                    f.ferry_id,
-                                    s.departure_date,
-                                    s.arrival_time,
-                                    so.ship_name,
-                                    a.acomm_name,
-                                    a.price,
-                                    a.room_type,
-                                    a.aircon
-                                    from schedules s
-                                    JOIN ferries f ON s.ferry_id = f.ferry_id
-                                    JOIN accommodations a ON f.ferry_id = a.ferry_id
-                                    JOIN ship_owners so ON s.owner_id = so.owner_id
-                                    WHERE s.schedule_id=? AND a.accomodation_id=?"); 
+      f.name,
+      s.schedule_id,
+      f.ferry_id,
+      s.departure_date,
+      s.arrival_time,
+      s.route_id_from,
+      s.route_id_to,
+      so.ship_name,
+      a.acomm_name,
+      a.price,
+      a.room_type,
+      a.aircon 
+FROM schedules s 
+JOIN ferries f ON s.ferry_id = f.ferry_id 
+JOIN accommodations a ON f.ferry_id = a.ferry_id 
+JOIN ship_owners so ON s.owner_id = so.owner_id 
+WHERE s.schedule_id=? AND a.accomodation_id=?");
     if($stmt_ship_s === false){
         echo 'Error preparing statement: ' . $c->error;
         return;
@@ -87,6 +89,7 @@ function sched_sel($c) {
         echo 'Error retrieving result set: ' . $stmt_ship_s->error;
         return;
     }
+    $routes = array_column($port->fetch_all(MYSQLI_ASSOC),'route_id','routes');
     while ($row1 = $row_ship_s->fetch_assoc()) { 
         $date = $row1["departure_date"];
         $formatted_date = date("F j, Y", strtotime($date));
@@ -151,25 +154,25 @@ function sched_sel($c) {
                     <div class="depaturedetails">
                         <span style=" font-size:14px; color: #988f90; ">ACCOMODATION</span>
                         <br>
-                        <span style="color: #657174; ">'.$row1['acomm_name'].'</span>
+                        <span id="acomm" style="color: #657174; ">'.$row1['acomm_name'].'</span>
                     </div>
                     <div class="dashed-line"></div>
                     <div class="depaturedetails">
                         <span style="font-size:14px; color: #988f90; ">SEAT TYPE</span>
                         <br>
-                        <span style="color: #657174; ">'.$row1['room_type'].'</span>
+                        <span id="room_tp" style="color: #657174; ">'.$row1['room_type'].'</span>
                     </div>
                     <div class="dashed-line"></div>
                     <div class="depaturedetails">
                         <span style="font-size:14px; color: #988f90; ">AIRCON</span>
                         <br>
-                        <span style="color: #657174; ">'.$aircon.'</span>
+                        <span id="aircn" style="color: #657174; ">'.$aircon.'</span>
                     </div>
                     <div class="dashed-line"></div>
                     <div class="depaturedetails">
                         <span style=" font-size:14px; color: #988f90; ">PORT</span>
                         <br>
-                        <span style="color: #657174; ">Port of Cebu Passenger Terminal 1 (Pier 1)</span>
+                        <span style="color: #657174; ">Port of '.$routes[$row1["route_id_from"]].'(Pier 1)</span>
                         <span style="color: #657174; "><i class="fa-solid fa-arrow-right"
                                 style="padding-left: 10px; padding-right: 10px;"></i>Port of Tagbilaran</span>
                     </div>
@@ -177,7 +180,7 @@ function sched_sel($c) {
                     <div class="depaturedetails">
                         <span style="font-size:14px; color: #988f90; ">PRICE</span>
                         <br>
-                        <span id="price" style="color: #657174; ">₱ '.$row1['price'].'</span>
+                        <span id="prices" style="color: #657174; ">₱ '.$row1['price'].'</span>
                     </div>
                 </div>
             </div>
@@ -222,8 +225,7 @@ function selectDate($c){
         echo 'Error retrieving result set: ' . $stmt_ship_sd->error;
         return;
     }
-    $num_rows = $row_ship_sd->num_rows;
-    echo "Number of rows: $num_rows\n";
+
     while ($row1 = $row_ship_sd->fetch_assoc()) { 
         $ferry = $row1['ferry_id'];
         $stmt = $c->prepare("SELECT * FROM accommodations WHERE ferry_id=?"); 

@@ -84,12 +84,19 @@ $(document).ready(function() {
           url: './modules/schedule/get_price.php',
           method: 'post',
           data: { selectedAccommodation: selectedAccommodation },
-          success: function(price) {
-            $('#price').text(price);
+          success: function(data) {
+            var parsedData = JSON.parse(data);
+            $('#price').text(parsedData.price);
+            $('#prices').text(parsedData.price);
+            $('#acomm').text(parsedData.accomodation_name);
+            $('#room_tp').text(parsedData.room_type);
+            $('#aircn').text(parsedData.aircon);
+            console.log(parsedData);
           }
         });
-        console.log(selectedAccommodation);
+       
       });
+
 
       $(document).on('click','.select-button',function(){
         var button = $(this);
