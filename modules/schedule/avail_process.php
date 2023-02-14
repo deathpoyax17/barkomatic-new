@@ -15,6 +15,9 @@ if(isset($_POST['action']) && $_POST['action'] == 'search_sched_form') {
 if(isset($_POST['action']) && $_POST['action'] == 'DateAction') {
     selectDate($con);
 }
+if(isset($_POST['action']) && $_POST['action'] == 'returenDateAction') {
+    r_selectDate($con);
+}
 if(isset($_POST['action']) && $_POST['action'] == 'srch_sched_ftr_form') {
     session_start();
     if(isset($_SESSION['first_name']) && $_SESSION['first_name'] != "") {
@@ -30,6 +33,9 @@ if(isset($_POST['action']) && $_POST['action'] == 'smmry_dptr_slctd_sched_form')
 }
 if(isset($_POST['action']) && $_POST['action'] == 'sched_sel') {
     sched_sel($con);
+}
+if(isset($_POST['action']) && $_POST['action'] == 'r_sched_sel') {
+    r_sched_sel($con);
 }
 if(isset($_POST['action']) && $_POST['action'] == 'sched_des') {
         $output= ' <div class="accordion-item" style="margin-bottom: 25px; border-radius: 10px">
@@ -51,6 +57,146 @@ if(isset($_POST['action']) && $_POST['action'] == 'sched_des') {
      ';
      echo $output;
 }
+
+function r_sched_sel($c) {
+    if (isset($_POST['schedule_id'])) {
+      $schedule_id = $_POST['schedule_id'];
+      $accom_selected=$_POST['accommodation_selected'];
+      $port = $c->query("SELECT route_id, concat(`departure_from`,'[',`departure_port`,']') as `route` FROM routes");
+      $stmt_ship_s = $c->prepare("SELECT 
+      f.name,
+      s.schedule_id,
+      f.ferry_id,
+      s.departure_date,
+      s.arrival_time,
+      s.route_id_from,
+      s.route_id_to,
+      so.ship_name,
+      a.acomm_name,
+      a.price,
+      a.room_type,
+      a.aircon 
+FROM schedules s 
+JOIN ferries f ON s.ferry_id = f.ferry_id 
+JOIN accommodations a ON f.ferry_id = a.ferry_id 
+JOIN ship_owners so ON s.owner_id = so.owner_id 
+WHERE s.schedule_id=? AND a.accomodation_id=?");
+    if($stmt_ship_s === false){
+        echo 'Error preparing statement: ' . $c->error;
+        return;
+    }
+    $stmt_ship_s->bind_param('ss', $schedule_id,$accom_selected);
+    if($stmt_ship_s->execute() === false){
+        echo 'Error executing statement: ' . $stmt_ship_s->error;
+        return;
+    }
+    $row_ship_s = $stmt_ship_s->get_result();
+    if($row_ship_s === false){
+        echo 'Error retrieving result set: ' . $stmt_ship_s->error;
+        return;
+    }
+    $routes = array_column($port->fetch_all(MYSQLI_ASSOC),'route','route_id');
+    while ($row1 = $row_ship_s->fetch_assoc()) { 
+        $date = $row1["departure_date"];
+        $formatted_date = date("F j, Y", strtotime($date));
+        $time = $row1["arrival_time"];
+        $formatted_time = date("g:i A", strtotime($time));
+        if($row1['aircon']==0){
+                $aircon = "N/A";
+        }else{
+                $aircon = "YES";
+        }
+            $output = '
+            <div class="accordion-item" style="border-radius: 10px;">
+                <div class="depbackground-color" id="flush-headingTwo">
+                    <p class="accordion-header">
+                    <div class="click">
+                        <button class="btn-departure" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                            <span style="color: #fff;">Return</span><i style="padding-left: 145px;"
+                                class="fa fa-chevron-circle-down"></i>
+                        </button>
+                    </div>
+                    </p>
+                </div>
+                <div class="container-form-summary bg-white">
+                    <div class="contain-shippinglogo">
+                        <div class="shipping-guide" style="margin-left:10px;">
+                            <img src="./assets/images/vgshipping.png" alt="vgshipping"
+                                style="width:50px; border-radius: 50%;">
+                        </div>
+                        <div class="shipping-guide" style="margin-right: 50px;">
+                        <span style="font-size: 12px;">'.$row1["ship_name"].'</span>
+                        <br>
+                        <span style="font-size: 12px;">'.$row1["name"].'</span>
+                    </div>
+                    </div>
+                    <div class="contain-depretlocation">
+                        <div class="shipping-depret">
+                            <i class="fa-solid fa-circle-dot"
+                                style="display: flex; margin-left: 18px; padding-top: 15px;"></i>
+                            <div class="vertical-dotted-line"></div>
+                            <i class="fa-solid fa-anchor" style="display: flex; margin-left: 18px;"></i>
+                        </div>
+                        <div class="shipping-depret" style="padding-top: 10px; margin-right: 30px;">
+                        <span>'.$routes[$row1['route_id_from']].'</span>
+                        <div style="padding-bottom: 12px;">
+                            <br>
+                        </div>
+                        <span>'.$routes[$row1['route_id_to']].'</span>
+                    </div>
+                    </div>
+                </div>
+                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
+                    data-bs-parent="#accordionFlushExample">
+                    <div class="container-form-collapse">
+                        <div class="dashed-line"></div>
+                        <div class="depaturedetails">
+                            <span style="font-size:14px; color: #988f90;">DEPARTURE DATE</span>
+                            <br>
+                            <span style="color: #657174;">'.$formatted_date.'&nbsp'.$formatted_time.'</span>
+                        </div>
+                        <div class="dashed-line"></div>
+                        <div class="depaturedetails">
+                            <span style=" font-size:14px; color: #988f90; ">ACCOMODATION</span>
+                            <br>
+                            <span id="acomm" style="color: #657174; ">'.$row1['acomm_name'].'</span>
+                        </div>
+                        <div class="dashed-line"></div>
+                        <div class="depaturedetails">
+                            <span style="font-size:14px; color: #988f90; ">SEAT TYPE</span>
+                            <br>
+                            <span id="room_tp" style="color: #657174; ">'.$row1['room_type'].'</span>
+                        </div>
+                        <div class="dashed-line"></div>
+                        <div class="depaturedetails">
+                            <span style="font-size:14px; color: #988f90; ">AIRCON</span>
+                            <br>
+                            <span id="aircn" style="color: #657174; ">'.$aircon.'</span>
+                        </div>
+                        <div class="dashed-line"></div>
+                        <div class="depaturedetails">
+                        <span style=" font-size:14px; color: #988f90; ">PORT</span>
+                        <br>
+                        <span style="color: #657174; ">Port of '.$routes[$row1['route_id_from']].'</span>
+                        <span style="color: #657174; "><i class="fa-solid fa-arrow-right"
+                                style="padding-left: 10px; padding-right: 10px;"></i>'.$routes[$row1['route_id_to']].'</span>
+                    </div>
+                        <div class="dashed-line"></div>
+                        <div class="depaturedetails">
+                            <span style="font-size:14px; color: #988f90; ">PRICE</span>
+                            <br>
+                            <span id="r_price" style="color: #657174; ">₱ '.$row1['price'].'</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            ';
+            echo $output;
+        }
+    }
+}
+
 
 function sched_sel($c) {
     if (isset($_POST['schedule_id'])) {
@@ -133,11 +279,11 @@ WHERE s.schedule_id=? AND a.accomodation_id=?");
                         <i class="fa-solid fa-anchor" style="display: flex; margin-left: 18px;"></i>
                     </div>
                     <div class="shipping-depret" style="padding-top: 10px; margin-right: 30px;">
-                        <span>Cebu City</span>
+                        <span>'.$routes[$row1['route_id_from']].'</span>
                         <div style="padding-bottom: 12px;">
                             <br>
                         </div>
-                        <span>Tagbilaran City, Bohol</span>
+                        <span>'.$routes[$row1['route_id_to']].'</span>
                     </div>
                 </div>
             </div>
@@ -317,7 +463,135 @@ function selectDate($c){
    
 
 }
+//reture selected date
 
+
+function r_selectDate($c){
+    $getdate = '';
+    if(isset($_POST["getDate"])){
+        $getdate = htmlentities($_POST["getDate"], ENT_QUOTES, 'UTF-8');
+    }
+    $stmt_ship_sd = $c->prepare("SELECT 
+                                    f.name,
+                                    s.schedule_id,
+                                    f.ferry_id,
+                                    so.ship_name,
+                                    a.acomm_name,
+                                    a.price,
+                                    a.room_type,
+                                    a.aircon
+                                    from schedules s
+                                    JOIN ferries f ON s.ferry_id = f.ferry_id
+                                    JOIN accommodations a ON s.accommodation_id = a.accomodation_id
+                                    JOIN ship_owners so ON s.owner_id = so.owner_id
+                                    WHERE departure_date=?"); 
+    if($stmt_ship_sd === false){
+        echo 'Error preparing statement: ' . $c->error;
+        return;
+    }
+    $stmt_ship_sd->bind_param('s', $getdate);
+    if($stmt_ship_sd->execute() === false){
+        echo 'Error executing statement: ' . $stmt_ship_sd->error;
+        return;
+    }
+    $row_ship_sd = $stmt_ship_sd->get_result();
+    if($row_ship_sd === false){
+        echo 'Error retrieving result set: ' . $stmt_ship_sd->error;
+        return;
+    }
+
+    while ($row1 = $row_ship_sd->fetch_assoc()) { 
+        $ferry = $row1['ferry_id'];
+        $stmt = $c->prepare("SELECT * FROM accommodations WHERE ferry_id=?"); 
+        $stmt->bind_param('s', $ferry);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $output = '
+      
+        <div formarrayname="voyageAccommodations" class="ng-untouched ng-pristine ng-valid">
+            <div class="itinerary-table booking-table">
+                <input type="radio" hidden="" id="schedule_id" name="schedule_id" value="'.$row1['schedule_id'].'" />
+                <div class="itinerary-row itinerary-head">
+                    <div class="itr-col booking-time-container">
+                        <div>
+                            <div class="departure-time">6:00 AM</div>
+                            <!---->
+                            <div class="travel-time">2 hours</div>
+                            <!---->
+                            <!---->
+                        </div>
+                    </div>
+                    <div class="itr-col itinerary-vessel">
+                        <div class="booking-media-left itinerary-shipping-logo">
+                            <img alt=""
+                                src="https://storage.googleapis.com/barkota-reseller-assets/companies/mark-ocean-fast-ferries-inc.png" />
+                            <!---->
+                        </div>
+                        <div class="itinerary-name">
+                            <div class="booking-type booking-td-title">
+                                <div>'.$row1['name'].'</div>
+                                <!---->
+                                <div class="booking-td-meta book-text-muted">
+                                    '.$row1['ship_name'].'
+                                </div>
+                                <!---->
+                            </div>
+                        </div>
+                    </div>
+                    <!---->
+                </div>
+
+                     <div class="itinerary-row">
+                            <div class="itinerary-col itinerary-select">
+                                <div class="form-select">
+                                    <select name="selectedAccommodation" id="accomodation_form" class="form-control accommodation border ng-untouched ng-pristine ng-valid">';
+
+                        // loop over the result set to generate options
+                        while ($row = $result->fetch_assoc()) {
+                            $acommodations = $row["acomm_name"];
+                            $acommodations_id = $row["accomodation_id"];
+                            $output .= '<option value="'.$acommodations_id.'">'.$acommodations.'</option>';
+                        }
+                        $output .= '
+                        </select>
+                        </div>
+                    </div>
+                    <div class="itinerary-col itinerary-price" style="position: relative; overflow: hidden">
+                        <div class="booking-td-title text-wrap">
+                        <div>
+                            <div class="booking-td-title">
+                            <span class="price-value" style="margin-right: 20px">
+                                ₱<span id="r_prices">'.$row1["price"].'</span>
+                            </span>
+                            </div>
+                            <div class="booking-type booking-td-title">
+                            <div class="booking-td-meta" style="margin-right: 5px">
+                                <span style="font-weight: 800; color: #ff8c00">
+                                Ticket Price
+                                </span>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="itinerary-col itinerary-select-btn">
+                    <button type="submit" form="itinerary_form_selected" class="btn btn-info select-buttons">Select</button>
+                  </div>
+                    </div>
+
+                <div class="itinerary-row">
+                </div>
+            </div>
+        </div>
+
+        ';
+        echo $output;
+    }
+   
+
+}
+//end
 
 
 //* search available schedule
@@ -340,6 +614,7 @@ function search_available_schedule($c) {
         s.arrival_time,
         so.ship_name,
         fer.name,
+        fer.ferry_id,
         s.route_id_from,
         s.route_id_to
      FROM schedules s
@@ -357,6 +632,7 @@ function search_available_schedule($c) {
                 "schedule_id" => $row["schedule_id"],
                 "departure_date" => $row["departure_date"],
                 "ship_name" => $row["ship_name"],
+                "ferry_id" => $row["ferry_id"],
                 "name" => $row["name"],
                 "route_id_from" => $routes[$row["route_id_from"]],
                 "route_id_to" => $routes[$row["route_id_to"]]
@@ -376,12 +652,17 @@ function search_available_schedule($c) {
         while($port_row = $port->fetch_assoc()) {
             $routes[$port_row["route_id"]] = $port_row["route"];
         }
-        $sql_slct = "SELECT schedule_id,
-                            departure_date,
-                            route_id_from,
-                            route_id_to
-                     FROM schedules 
-                     WHERE route_id_from=? OR route_id_to=? OR departure_date=?";
+        $sql_slct = "SELECT s.schedule_id,
+                            s.departure_date,
+                            s.route_id_from,
+                            s.route_id_to,
+                            fer.name,
+                            so.owner_id,
+                            so.ship_name
+                     FROM schedules s
+                     JOIN ferries fer ON s.ferry_id = fer.ferry_id
+                     JOIN ship_owners so ON s.owner_id=so.owner_id 
+                     WHERE s.route_id_from=? AND s.route_id_to=? OR s.departure_date=?";
         $stmt = $c->prepare($sql_slct);
         echo $c->error;
         $stmt->bind_param("sss",$sslf,$sslt,$ssld);
@@ -390,6 +671,8 @@ function search_available_schedule($c) {
         $row = $result->fetch_array();
         if(!empty($row)) {
             $data = array(
+                "ship_name" => $row["ship_name"],
+                "name" => $row["name"],
                 "schedule_id" => $row["schedule_id"],
                 "departure_date" => $row["departure_date"],
                 "route_id_from" => $routes[$row["route_id_from"]],

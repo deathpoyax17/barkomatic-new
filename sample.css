@@ -7697,6 +7697,11 @@ span.close-button:hover {
     right: 15px;
     bottom: 20px
 }
+.select-buttons {
+    position: absolute;
+    right: 15px;
+    bottom: 20px
+}
 
 .booking-media-left {
     float: left;
@@ -7833,6 +7838,9 @@ span.close-button:hover {
         border-top: 1px solid rgba(0, 0, 0, .1)
     }
     .select-button {
+        width: 100%
+    }
+    .select-buttons {
         width: 100%
     }
     .itinerary-row {
@@ -8197,15 +8205,22 @@ button.btn.btn-success.select-button {
     border-radius: 2px !important;
     padding: 10px 20px !important
 }
-
+button.btn.btn-success.select-buttons {
+    border-radius: 2px !important;
+    padding: 10px 20px !important;
+}
 a.booking-form:focus,
 button.booking-form:focus,
-button.btn.btn-success.select-button:focus {
+button.btn.btn-success.select-button:focus,button.btn.btn-success.select-buttons:focus {
     box-shadow: none !important
 }
 
 @media (max-width: 767px) {
     .select-button {
+        position: static;
+        width: 100%
+    }
+    .select-buttons {
         position: static;
         width: 100%
     }
