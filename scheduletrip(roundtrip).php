@@ -107,7 +107,7 @@ if(isset($_COOKIE['data'])){
                         <div class="itinerary-row">
                             <div class="itinerary-col itinerary-select">
                                 <div class="form-select">
-                                <select name="selectedAccommodation" id="accomodation_form" class="form-control accommodation border ng-untouched ng-pristine ng-valid">';
+                                <select id="accomodation_form" class="form-control accommodation border ng-untouched ng-pristine ng-valid">';
                                     <?php
                                          $ferry = $row1['ferry_id'];
                                          $stmt = $con->prepare("SELECT * FROM accommodations WHERE ferry_id=?"); 
@@ -260,7 +260,7 @@ if(isset($_COOKIE['data'])){
                         <div class="itinerary-row">
                             <div class="itinerary-col itinerary-select">
                                 <div class="form-select">
-                                <select name="selectedAccommodation" id="r_accomodation_form" class="form-control accommodation border ng-untouched ng-pristine ng-valid">';
+                                <select  id="r_accomodation_form" class="form-control accommodation border ng-untouched ng-pristine ng-valid">';
                                     <?php
                                          $ferry = $row1['ferry_id'];
                                          $stmt = $con->prepare("SELECT * FROM accommodations WHERE ferry_id=?"); 
