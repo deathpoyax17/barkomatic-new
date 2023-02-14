@@ -103,14 +103,14 @@ $(document).ready(function() {
         url: './modules/schedule/get_price.php',
         method: 'post',
         data: { selectedAccommodation: selectedAccommodation },
-        success: function(data) {
-          var parsedData = JSON.parse(data);
-          $('#r_price').text(parsedData.price);
-          $('#r_prices').text(parsedData.price);
-          $('#r_acomm').text(parsedData.accomodation_name);
-          $('#r_room_tp').text(parsedData.room_type);
-          $('#r_aircn').text(parsedData.aircon);
-          console.log(parsedData);
+        success: function(datas) {
+          var r_parsedData = JSON.parse(datas);
+          $('#r_price').text(r_parsedData.price);
+          $('#r_prices').text(r_parsedData.price);
+          $('#r_acomm').text(r_parsedData.accomodation_name);
+          $('#r_room_tp').text(r_parsedData.room_type);
+          $('#r_aircn').text(r_parsedData.aircon);
+          console.log(r_parsedData);
         }
       });
      

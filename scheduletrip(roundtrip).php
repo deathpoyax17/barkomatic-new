@@ -292,7 +292,7 @@ if(isset($_COOKIE['data'])){
                                          $row = $result->fetch_assoc();
                                             $acommodations = $row["acomm_name"];
                                             $acommodations_id = $row["accomodation_id"];
-                                            echo '₱<span id="r_price">'.$row["price"].'</span>';
+                                            echo '₱<span id="r_prices">'.$row["price"].'</span>';
                                         
                                      ?>
                              </span>
@@ -365,7 +365,7 @@ if(isset($_COOKIE['data'])){
             </div>
             </div>
             </div>
-            
+
             <div class="returen_ship_departure" id="returen_ship_departure">
             <div class="accordion-item" style="border-radius: 10px;">
                 <div class="depbackground-color" id="flush-headingTwo">
@@ -373,8 +373,7 @@ if(isset($_COOKIE['data'])){
                     <div class="click">
                         <button class="btn-departure" type="button" data-bs-toggle="collapse"
                             data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                            <span style="color: #fff;">Return</span><i style="padding-left: 145px;"
-                                class="fa fa-chevron-circle-down"></i>
+                            <span style="color: #fff;">Return</span>
                         </button>
                     </div>
                     </p>
@@ -385,10 +384,10 @@ if(isset($_COOKIE['data'])){
                             <img src="./assets/images/vgshipping.png" alt="vgshipping"
                                 style="width:50px; border-radius: 50%;">
                         </div>
-                        <div class="shipping-guide" style="margin-right: 50px;">
-                            <span style="font-size: 12px;">Vg Shipping Lines</span>
+                        <div class="shipping-guide" style="margin-right: 80px;">
+                            <span style="font-size: 12px;"><?php echo $data["name"];?></span>
                             <br>
-                            <span style="font-size: 12px;">(VG-RORO)</span>
+                            <span style="font-size: 12px;"><?php echo $data["ship_name"];?></span>
                         </div>
                     </div>
                     <div class="contain-depretlocation">
@@ -404,50 +403,6 @@ if(isset($_COOKIE['data'])){
                                 <br>
                             </div>
                             <span>Cebu City</span>
-                        </div>
-                    </div>
-                </div>
-                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
-                    data-bs-parent="#accordionFlushExample">
-                    <div class="container-form-collapse">
-                        <div class="dashed-line"></div>
-                        <div class="depaturedetails">
-                            <span style="font-size:14px; color: #988f90;">DEPARTURE DATE</span>
-                            <br>
-                            <span style="color: #657174;">December 23, 2022 10:00PM</span>
-                        </div>
-                        <div class="dashed-line"></div>
-                        <div class="depaturedetails">
-                            <span style=" font-size:14px; color: #988f90; ">ACCOMODATION</span>
-                            <br>
-                            <span style="color: #657174; ">Standard A</span>
-                        </div>
-                        <div class="dashed-line"></div>
-                        <div class="depaturedetails">
-                            <span style="font-size:14px; color: #988f90; ">SEAT TYPE</span>
-                            <br>
-                            <span style="color: #657174; ">Bunk</span>
-                        </div>
-                        <div class="dashed-line"></div>
-                        <div class="depaturedetails">
-                            <span style="font-size:14px; color: #988f90; ">AIRCON</span>
-                            <br>
-                            <span style="color: #657174; ">NO</span>
-                        </div>
-                        <div class="dashed-line"></div>
-                        <div class="depaturedetails">
-                            <span style=" font-size:14px; color: #988f90; ">PORT</span>
-                            <br>
-                            <span style="color: #657174; ">Port of Tagbilaran</span>
-                            <span style="color: #657174;  ;"><i class="fa-solid fa-arrow-right"
-                                    style="padding-left: 10px; padding-right: 10px;"></i>
-                                Port of Cebu Passenger Terminal 1 (Pier 1)</span>
-                        </div>
-                        <div class="dashed-line"></div>
-                        <div class="depaturedetails">
-                            <span style="font-size:14px; color: #988f90; ">PRICE</span>
-                            <br>
-                            <span style="color: #657174; ">₱ 370.00</span>
                         </div>
                     </div>
                 </div>

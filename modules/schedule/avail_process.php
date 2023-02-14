@@ -139,11 +139,11 @@ WHERE s.schedule_id=? AND a.accomodation_id=?");
                             <i class="fa-solid fa-anchor" style="display: flex; margin-left: 18px;"></i>
                         </div>
                         <div class="shipping-depret" style="padding-top: 10px; margin-right: 30px;">
-                        <span>'.$routes[$row1['route_id_from']].'</span>
+                        <span>'.$routes[$row1['route_id_to']].'</span>
                         <div style="padding-bottom: 12px;">
                             <br>
                         </div>
-                        <span>'.$routes[$row1['route_id_to']].'</span>
+                        <span>'.$routes[$row1['route_id_from']].'</span>
                     </div>
                     </div>
                 </div>
@@ -160,27 +160,27 @@ WHERE s.schedule_id=? AND a.accomodation_id=?");
                         <div class="depaturedetails">
                             <span style=" font-size:14px; color: #988f90; ">ACCOMODATION</span>
                             <br>
-                            <span id="acomm" style="color: #657174; ">'.$row1['acomm_name'].'</span>
+                            <span id="r_acomm" style="color: #657174; ">'.$row1['acomm_name'].'</span>
                         </div>
                         <div class="dashed-line"></div>
                         <div class="depaturedetails">
                             <span style="font-size:14px; color: #988f90; ">SEAT TYPE</span>
                             <br>
-                            <span id="room_tp" style="color: #657174; ">'.$row1['room_type'].'</span>
+                            <span id="r_room_tp" style="color: #657174; ">'.$row1['room_type'].'</span>
                         </div>
                         <div class="dashed-line"></div>
                         <div class="depaturedetails">
                             <span style="font-size:14px; color: #988f90; ">AIRCON</span>
                             <br>
-                            <span id="aircn" style="color: #657174; ">'.$aircon.'</span>
+                            <span id="r_aircn" style="color: #657174; ">'.$aircon.'</span>
                         </div>
                         <div class="dashed-line"></div>
                         <div class="depaturedetails">
                         <span style=" font-size:14px; color: #988f90; ">PORT</span>
                         <br>
-                        <span style="color: #657174; ">Port of '.$routes[$row1['route_id_from']].'</span>
+                        <span style="color: #657174; ">Port of '.$routes[$row1['route_id_to']].'</span>
                         <span style="color: #657174; "><i class="fa-solid fa-arrow-right"
-                                style="padding-left: 10px; padding-right: 10px;"></i>'.$routes[$row1['route_id_to']].'</span>
+                                style="padding-left: 10px; padding-right: 10px;"></i>'.$routes[$row1['route_id_from']].'</span>
                     </div>
                         <div class="dashed-line"></div>
                         <div class="depaturedetails">
@@ -545,7 +545,7 @@ function r_selectDate($c){
                      <div class="itinerary-row">
                             <div class="itinerary-col itinerary-select">
                                 <div class="form-select">
-                                    <select name="selectedAccommodation" id="accomodation_form" class="form-control accommodation border ng-untouched ng-pristine ng-valid">';
+                                <select name="selectedAccommodation" id="r_accomodation_form" class="form-control accommodation border ng-untouched ng-pristine ng-valid">';
 
                         // loop over the result set to generate options
                         while ($row = $result->fetch_assoc()) {
