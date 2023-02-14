@@ -397,12 +397,12 @@ if(isset($_COOKIE['data'])){
                             <div class="vertical-dotted-line"></div>
                             <i class="fa-solid fa-anchor" style="display: flex; margin-left: 18px;"></i>
                         </div>
-                        <div class="shipping-depret" style="padding-top: 10px; margin-right: 30px;">
-                            <span>Tagbilaran City, Bohol</span>
+                        <div class="shipping-depret" style="padding-top: 10px; margin-right: 90px;">
+                            <span><?php echo $data["route_id_to"];?></span>
                             <div style="padding-bottom: 12px;">
                                 <br>
                             </div>
-                            <span>Cebu City</span>
+                            <span><?php echo $data["route_id_from"];?></span>
                         </div>
                     </div>
                 </div>
