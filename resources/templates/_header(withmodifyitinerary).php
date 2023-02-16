@@ -476,58 +476,14 @@
 </head>
 
 <body class="container-tab2">
-
-    <!-- div id="siteLoader" class="site-loader">
-            <div class="preloader-content">
-                <img src="assets/images/loader1.gif" alt="">
-            </div >
-        </div -->
-     <!-- Header Area Start -->
-     <!-- <section class="navigation"> 
-      <div class="container">
-  <div class="nav-container">
-    <div class="brand">
-    <a href="index.php">
-              <img src="./img/core-img/logo.png">
-    </a>
-    </div>
-    <nav>
-      <div class="nav-mobile"><a id="navbar-toggle" href="#!"><span></span></a></div>
-      <ul class="nav-list">
-        <li>
-        <a href="index.html">Home</a>
-        </li>
-        <li>
-        <a href="#">How to Book</a>
-          <ul class="navbar-dropdown">
-          <li><a href="passenger.html">- Passenger</a></li>
-          <li><a href="rollings-cargo.html">- Rollings Cargo</a></li>
-          </ul>
-        </li>
-        <li><a href="contact.php">Contact Us</a></li>
-        <li>
-        <a href="#">About Us</a>
-          <ul class="navbar-dropdown">
-          <li><a href="faq.html">- FAQ</a></li>
-            <li><a href="about.html">- About Us</a></li>
-            <li><a href="ticket-agent.html">- Ticket Agent</a></li>
-            <li><a href="blog.html">- Blog</a></li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
-  </div>
-</div>
-</section> -->
-
-<header>
-        <a href="index.html">
+<div class="nav-header" >
+        <a href="index.php">
             <img src="img/core-img/barkomatic-logo.png" alt="barkomatic-logo" class="barkomatic-logo">
         </a>
         <div class="navigation">
             <ul class="menu">
                 <div class="close-btn"></div>
-                <li class="menu-item"><a href="#">Home</a></li>
+                <li class="menu-item"><a href="index.php">Home</a></li>
                 <li class="menu-item"><a href="#">Contact Us</a></li>
                 <li class="menu-item"><a href="#">Tracker</a></li>
                 <li class="menu-item"><a href="#">Privacy Policy</a></li>
@@ -548,13 +504,11 @@
             </ul>
         </div>
         <div class="menu-btn"></div>
-    </header>
-   
-
+    </div>
     <!-- Header Area End -->
 
 <div class="itinerary-nav-bar">
-    <div class="container">
+    <div class="container-modify">
         <div class="itinerary-nav-body">
             <div class="box-group dest-group">
                 <div class="dest-box"><div>
@@ -625,3 +579,7 @@
             header.classList.toggle("sticky", window.scrollY > 0);
         });
     </script>
+
+</body>
+
+</html>

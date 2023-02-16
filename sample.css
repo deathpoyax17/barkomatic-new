@@ -2339,6 +2339,14 @@ a.text-dark:hover {
     max-width: 1250px;
 }
 
+.container-modify {
+    display: block !important;
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
 .container:after,
 .container:before {
     content: " ";
@@ -7268,13 +7276,9 @@ a.btn-rounded:hover {
     }
 }
 
-.container {
-    width: 80%;
-}
-
 .box-group,
 .itinerary-nav-body {
-    position: fixed;
+    position: relative;
     -webkit-display: flex;
     -khtml-display: flex;
     -moz-display: flex;
@@ -7338,6 +7342,34 @@ a.btn-rounded:hover {
     font-weight: 700
 }
 
+@media (max-width: 1180px) {
+    .modify-btn {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 1130px) {
+    .modify-btn {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 1080px) {
+    .modify-btn {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 994px) {
+    .modify-btn {
+        font-size: 10px;
+        font-weight: 400;
+        color: #2b8ea4;
+        border: 0;
+        font-weight: 700
+    }
+}
+
 .fa-exchange {
     padding-right: 10px;
 }
@@ -7390,6 +7422,10 @@ span.close-button:hover {
     .form-label-title {
         font-size: 10px !important
     }
+}
+
+.container-modify {
+    width: 92.5%;
 }
 
 .itinerary-nav-bar {
@@ -7697,6 +7733,7 @@ span.close-button:hover {
     right: 15px;
     bottom: 20px
 }
+
 .select-buttons {
     position: absolute;
     right: 15px;
@@ -8205,13 +8242,16 @@ button.btn.btn-success.select-button {
     border-radius: 2px !important;
     padding: 10px 20px !important
 }
+
 button.btn.btn-success.select-buttons {
     border-radius: 2px !important;
     padding: 10px 20px !important;
 }
+
 a.booking-form:focus,
 button.booking-form:focus,
-button.btn.btn-success.select-button:focus,button.btn.btn-success.select-buttons:focus {
+button.btn.btn-success.select-button:focus,
+button.btn.btn-success.select-buttons:focus {
     box-shadow: none !important
 }
 
