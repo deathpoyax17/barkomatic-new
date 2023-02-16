@@ -15,7 +15,6 @@ if(isset($_COOKIE['data'])){
         <li><em>COMPLETE</em></li>
     </ol>
     <br>
-</div>
 <div class="depature-location">
     <h3 style="color: #ededed;"><?php echo $data["route_id_from"];?></h3><i class="fa-solid fa-arrow-right"
         style="color: #fff; font-size: 28px; padding-left: 10px; padding-right: 10px;"></i>

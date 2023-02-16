@@ -139,7 +139,7 @@
         .progressbar0e1 li.active:before, .progressbar0e1 li.active:after {background: skyblue;}
         /* pop-up notice */
         .fancybox-inner{overflow: hidden !important; width: auto !important; height: auto !important;border-radius: 3px;}
-    </style>
+     </style>  
     <script>
         function myFunction1() {
             var checkBox = document.getElementById("myCheck");
