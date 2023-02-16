@@ -157,7 +157,7 @@ if(isset($_COOKIE['data'])){
                         </div>
                     </div>
                             <div class="itinerary-col itinerary-select-btn">
-                    <button type="submit" form="itinerary_form_selected" class="btn btn-info select-button">Select</button>
+                    <button type="submit" form="selectedDateForm"  class="btn btn-info select-button">Select</button>
                   </div>
                     </div>
                         </div>
@@ -308,7 +308,7 @@ if(isset($_COOKIE['data'])){
                                 </div>
                             </div>
                             <div class="itinerary-col itinerary-select-btn">
-                            <button type="submit" form="itinerary_form_selected" class="btn btn-info select-buttons">Select</button>
+                            <button type="submit" form="r_selectedDateForm" class="btn btn-info select-buttons">Select</button>
                         </div>
                             </div>
                         </div>

@@ -347,16 +347,16 @@ function selectDate($c){
                                     f.name,
                                     s.schedule_id,
                                     f.ferry_id,
-                                    so.ship_name,
                                     a.acomm_name,
                                     a.price,
                                     a.room_type,
-                                    a.aircon
+                                    a.aircon,
+                                    so.ship_name
                                     from schedules s
                                     JOIN ferries f ON s.ferry_id = f.ferry_id
-                                    JOIN accommodations a ON s.accommodation_id = a.accomodation_id
-                                    JOIN ship_owners so ON s.owner_id = so.owner_id
-                                    WHERE departure_date=?"); 
+                                    JOIN accommodations a ON s.ferry_id = a.ferry_id
+                                    LEFT JOIN ship_owners so ON s.owner_id = so.owner_id
+                                    WHERE s.departure_date=? GROUP BY s.ferry_id"); 
     if($stmt_ship_sd === false){
         echo 'Error preparing statement: ' . $c->error;
         return;
@@ -382,43 +382,44 @@ function selectDate($c){
         $output = '
       
         <div formarrayname="voyageAccommodations" class="ng-untouched ng-pristine ng-valid">
-            <div class="itinerary-table booking-table">
-                <input type="radio" hidden="" id="schedule_id" name="schedule_id" value="'.$row1['schedule_id'].'" />
-                <div class="itinerary-row itinerary-head">
-                    <div class="itr-col booking-time-container">
-                        <div>
-                            <div class="departure-time">6:00 AM</div>
-                            <!---->
-                            <div class="travel-time">2 hours</div>
-                            <!---->
-                            <!---->
-                        </div>
+        <div class="itinerary-table booking-table">
+            <input type="radio" style="display:none" id="schedule_id" name="schedule_id" value="'.$row1['schedule_id'].'" data-row-id="row1" />
+            <input type="text" style="display:none" id="schedules_id" name="schedules_id" value="'.$row1['schedule_id'].'">
+            <div class="itinerary-row itinerary-head">
+                <div class="itr-col booking-time-container">
+                    <div>
+                        <div class="departure-time">6:00 AM</div>
+                        <!---->
+                        <div class="travel-time">2 hours</div>
+                        <!---->
+                        <!---->
                     </div>
-                    <div class="itr-col itinerary-vessel">
-                        <div class="booking-media-left itinerary-shipping-logo">
-                            <img alt=""
-                                src="https://storage.googleapis.com/barkota-reseller-assets/companies/mark-ocean-fast-ferries-inc.png" />
-                            <!---->
-                        </div>
-                        <div class="itinerary-name">
-                            <div class="booking-type booking-td-title">
-                                <div>'.$row1['name'].'</div>
-                                <!---->
-                                <div class="booking-td-meta book-text-muted">
-                                    '.$row1['ship_name'].'
-                                </div>
-                                <!---->
-                            </div>
-                        </div>
-                    </div>
-                    <!---->
                 </div>
-
-                     <div class="itinerary-row">
-                            <div class="itinerary-col itinerary-select">
-                                <div class="form-select">
-                                    <select name="selectedAccommodation" id="accomodation_form" class="form-control accommodation border ng-untouched ng-pristine ng-valid">';
-
+                <div class="itr-col itinerary-vessel">
+                    <div class="booking-media-left itinerary-shipping-logo">
+                        <img alt=""
+                            src="https://storage.googleapis.com/barkota-reseller-assets/companies/mark-ocean-fast-ferries-inc.png" />
+                        <!---->
+                    </div>
+                    <div class="itinerary-name">
+                        <div class="booking-type booking-td-title">
+                            <div>'.$row1['name'].'</div>
+                            <!---->
+                            <div class="booking-td-meta book-text-muted">
+                                '.$row1['ship_name'].'
+                            </div>
+                            <!---->
+                        </div>
+                    </div>
+                </div>
+                <!---->
+            </div>
+    
+            <div class="itinerary-row" id="row1">
+                <div class="itinerary-col itinerary-select">
+                    <div class="form-select">
+                        <select name="selectedAccommodation" id="accomodation_form" class="form-control accommodation border ng-untouched ng-pristine ng-valid">';
+    
                         // loop over the result set to generate options
                         while ($row = $result->fetch_assoc()) {
                             $acommodations = $row["acomm_name"];
@@ -427,35 +428,33 @@ function selectDate($c){
                         }
                         $output .= '
                         </select>
-                        </div>
                     </div>
-                    <div class="itinerary-col itinerary-price" style="position: relative; overflow: hidden">
-                        <div class="booking-td-title text-wrap">
-                        <div>
-                            <div class="booking-td-title">
-                            <span class="price-value" style="margin-right: 20px">
-                                ₱<span id="price">'.$row1["price"].'</span>
+                </div>
+                <div class="itinerary-col itinerary-price" style="position: relative; overflow: hidden">
+                    <div class="booking-td-title text-wrap">
+                    <div>
+                        <div class="booking-td-title">
+                        <span class="price-value" style="margin-right: 20px">
+                            ₱<span id="price">'.$row1["price"].'</span>
+                        </span>
+                        </div>
+                        <div class="booking-type booking-td-title">
+                        <div class="booking-td-meta" style="margin-right: 5px">
+                            <span style="font-weight: 800; color: #ff8c00">
+                            Ticket Price
                             </span>
-                            </div>
-                            <div class="booking-type booking-td-title">
-                            <div class="booking-td-meta" style="margin-right: 5px">
-                                <span style="font-weight: 800; color: #ff8c00">
-                                Ticket Price
-                                </span>
-                            </div>
-                            </div>
                         </div>
                         </div>
                     </div>
-                    <div class="itinerary-col itinerary-select-btn">
-                    <button type="submit" form="itinerary_form_selected" class="btn btn-info select-button">Select</button>
-                  </div>
                     </div>
-
-                <div class="itinerary-row">
+                </div>
+                <div class="itinerary-col itinerary-select-btn">
+                    <button type="button" class="btn btn-info select-button">Select</button>
                 </div>
             </div>
         </div>
+    </div>
+    
 
         ';
         echo $output;

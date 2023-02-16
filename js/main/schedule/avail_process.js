@@ -117,63 +117,68 @@ $(document).ready(function() {
     });
 
 //departure
-      $(document).on('click','.select-button',function(){
-        var button = $(this);
-        var sched_id = $('#schedule_id').val();
-        var form_selec = $(this).closest(".itinerary-table"); 
-        var sched_accom = $('#accomodation_form').val();
-        var act = 'sched_sel';
-        var act1 = 'sched_des';
-        if (button.hasClass("btn-success")) {
-            form_selec.addClass("itinerary-table");
-            form_selec.removeClass("itinerary-table-selected");
-            form_selec.removeClass("item-selected");
-            button.removeClass("btn-success");
-            button.addClass("btn-info");
-            button.html("Select");
-            $("#btncontinue").hide();
-            $.ajax({
-                type: 'POST',
-                url: './modules/schedule/avail_process.php',
-                data: {
-                  'action':act1
-                },
-                success: function(response0) {
-                  $("#ship_departure").html(response0);
-                  console.log(response0)
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                  // Handle the error response
-                  console.log(jqXHR, textStatus, errorThrown);
-                }
-              });
-              console.log(act1);
-          } else {
-            form_selec.addClass("itinerary-table-selected");
-            form_selec.addClass("item-selected");
-            button.removeClass("btn-info");
-            button.addClass("btn-success");
-            button.html("<i class='fa fa-check'></i>&nbsp; Selected ");
-            $("#btncontinue").show();
-            $.ajax({
-              type: 'POST',
-              url: './modules/schedule/avail_process.php',
-              data: {
-                'action':act,
-                'schedule_id': sched_id,
-                'accommodation_selected':sched_accom
-              },
-              success: function(response1) {
-                $("#ship_departure").html(response1);
-                console.log(response1)
-              },
-              error: function(jqXHR, textStatus, errorThrown) {
-                // Handle the error response
-                console.log(jqXHR, textStatus, errorThrown);
-              }
-            });
-          }
-      });
+$(document).on('click','.select-button',function(){
+  var form_selec = $(this).closest(".itinerary-table");
+  var sched_id = form_selec.find('input[type="radio"]').val();
+  var sched_accom = form_selec.find('select[name="selectedAccommodation"]').val(); // use the correct selector
+  var act = 'sched_sel';
+  var act1 = 'sched_des';
+  var button = $(this);
+  var radio = form_selec.find('input[type="radio"]');
+  var selectedRow = $('input[name="schedule_id"]:checked').closest('.itinerary-table');
+  
+  if (selectedRow.length > 0 && selectedRow[0] !== form_selec[0]) {
+    // deselect previously selected row
+    selectedRow.removeClass('itinerary-table-selected');
+    selectedRow.find('.select-button').removeClass('btn-success').addClass('btn-info').html('Select');
+    selectedRow.find('input[type="radio"]').prop('checked', false);
+  }
+  if (radio.prop('checked')) {
+    // deselect row
+    form_selec.removeClass('itinerary-table-selected');
+    button.removeClass('btn-success').addClass('btn-info').html('Select');
+    radio.prop('checked', false);
+    $("#btncontinue").hide();
+    $.ajax({
+      type: 'POST',
+      url: './modules/schedule/avail_process.php',
+      data: {
+        'action':act1
+      },
+      success: function(response0) {
+        $("#ship_departure").html(response0);
+        
+      },
+    
+    });
+
+  } else {
+    // select row
+    var sched_id = form_selec.find('input[type="radio"]').val();
+  
+    form_selec.addClass('itinerary-table-selected');
+    button.removeClass('btn-info').addClass('btn-success').html('<i class="fa fa-check"></i>&nbsp; Selected');
+    radio.prop('checked', true);
+    $("#btncontinue").show();
+    $.ajax({
+      type: 'POST',
+      url: './modules/schedule/avail_process.php',
+      data: {
+        'action':act,
+        'schedule_id': sched_id,
+        'accommodation_selected':sched_accom
+      },
+      success: function(response1) {
+        $("#ship_departure").html(response1);
+        console.log(response1)
+      },
+    });
+  }
+  console.log(sched_accom);
+});
+
+
+
 
       //returen
       $(document).on('click','.select-buttons',function(){
@@ -206,7 +211,7 @@ $(document).ready(function() {
                   console.log(jqXHR, textStatus, errorThrown);
                 }
               });
-              console.log(act1);
+              console.log(sched_id);
           } else {
             form_selec.addClass("itinerary-table-selected");
             form_selec.addClass("item-selected");
