@@ -77,6 +77,23 @@ $(document).ready(function() {
             }
         });
     });
+    $('#summary_continue').submit(function(e) {
+      e.preventDefault();
+      // $(':input[type="submit"]').prop('disabled', true);
+      $.ajax({
+          url: './modules/schedule/avail_process.php',
+          method: 'POST',
+          data: $('#summary_continue').serialize() + '&action=smmry_cn',
+          success: function(response) {
+              // setTimeout(function() {
+              //     $(':input[type="submit"]').prop('disabled', false);
+              // }, 100);
+              setTimeout(function() {
+                 alert(response);
+              }, 100);
+          }
+      });
+  });
 
     $(document).on('change','#accomodation_form',function(){
       var selectedAccommodation = $(this).val();

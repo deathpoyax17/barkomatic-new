@@ -11,7 +11,9 @@ use PHPMailer\PHPMailer\Exception;
 if(isset($_POST['action']) && $_POST['action'] == 'search_sched_form') {
     search_available_schedule($con);
 }
-
+if(isset($_POST['action']) && $_POST['action'] == 'smmry_cn') {
+    summarySubmit($con);
+}
 if(isset($_POST['action']) && $_POST['action'] == 'DateAction') {
     selectDate($con);
 }
@@ -57,7 +59,9 @@ if(isset($_POST['action']) && $_POST['action'] == 'sched_des') {
      ';
      echo $output;
 }
-
+function summarySubmit(){
+    echo "submit";
+}
 function r_sched_sel($c) {
     if (isset($_POST['schedule_id'])) {
       $schedule_id = $_POST['schedule_id'];

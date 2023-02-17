@@ -328,7 +328,7 @@ if(isset($_COOKIE['data'])){
     </div>
  </div>
     <div class="container-summarytrip">
-        <form>
+        <form id="summary_continue">
         <h4 class="summary-text-roundtrip">Summary</h4>
         <div class="accordion accordion-flush" id="accordionFlushExample">
             <div class="ship_departure" id="ship_departure">
@@ -419,7 +419,7 @@ if(isset($_COOKIE['data'])){
         </div>
         <br>
         <div class="button-mobile-fixed">
-            <button id="btncontinue" class="btn btn-primary btn-block btn-lg"> Continue </button>
+            <button type="submit" id="btncontinue" class="btn btn-primary btn-block btn-lg"> Continue </button>
         </div>
         </form>
     </div>
