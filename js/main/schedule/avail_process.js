@@ -77,6 +77,7 @@ $(document).ready(function() {
             }
         });
     });
+    ///======================================================== for submitting summary =============
     $('#summary_continue').submit(function(e) {
       e.preventDefault();
       // $(':input[type="submit"]').prop('disabled', true);
@@ -94,6 +95,8 @@ $(document).ready(function() {
           }
       });
   });
+ ///======================================================== end of it ==============================
+
 
     $(document).on('change','#accomodation_form',function(){
       var selectedAccommodation = $(this).val();
