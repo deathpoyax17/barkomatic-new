@@ -60,7 +60,10 @@ if(isset($_POST['action']) && $_POST['action'] == 'sched_des') {
      echo $output;
 }
 function summarySubmit(){
-    echo "submit";
+    $sched_id = $_POST['sched'];
+    $accom_id = $_POST['acom'];
+    $accom_id = $_POST['totalPrice'];
+  
 }
 function r_sched_sel($c) {
     if (isset($_POST['schedule_id'])) {
@@ -324,12 +327,15 @@ WHERE s.schedule_id=? AND a.accomodation_id=?");
                         <br>
                         <span style="color: #657174; ">Port of '.$routes[$row1['route_id_from']].'</span>
                         <span style="color: #657174; "><i class="fa-solid fa-arrow-right"
-                                style="padding-left: 10px; padding-right: 10px;"></i>'.$routes[$row1['route_id_to']].'</span>
+                                style="padding-left: 10px; padding-right: 10px;"></i>'.$routes[$row1['route_id_to']]. '</span>
                     </div>
                     <div class="dashed-line"></div>
                     <div class="depaturedetails">
                         <span style="font-size:14px; color: #988f90; ">PRICE</span>
                         <br>
+                            <input type="text" name="sched" value="'.$schedule_id.'" hidden>
+                            <input type="text" name="acom" value="'.$accom_selected. '" hidden>
+                            <input type="text" id="totalPrice" name="totalPrice" hidden>
                         <span id="prices" style="color: #657174; ">₱ '.$row1['price'].'</span>
                     </div>
                 </div>
