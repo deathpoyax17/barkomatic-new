@@ -38,11 +38,11 @@ function passenger_register($con) {
         exit();
     }else{
         $q1 = $con->prepare("SELECT 
-                                tpd.email,
-                                tpa.username
+                                p.email,
+                                tbl_p.username
                                 FROM tbl_passenger tbl_p
                                 INNER JOIN passengers p ON tbl_p.alt_passenger_id = p.alt_passenger_id 
-                                WHERE tpd.email=? OR tpa.username=?");
+                                WHERE p.email=? OR tbl_p.username=?");
          echo $con -> error;
         $q1->bind_param('ss', $email,$uname);
         $q1->execute();
@@ -54,7 +54,7 @@ function passenger_register($con) {
         else{
             
             $q3 = $con->prepare("INSERT INTO tbl_passenger (username,password) VALUES (?,?)");
-            $q3->bind_param('sss', $uname,$pass);
+            $q3->bind_param('ss', $uname,$pass);
              echo $con -> error;
             $q3->execute();
 

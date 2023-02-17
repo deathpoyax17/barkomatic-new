@@ -33,10 +33,10 @@
                                             <a href="#" id="session_name" class="text-white lead" title="Click to Signout"><?php echo "Welcome, ".$_SESSION['ship_name']; ?></a>
                                         </button>
                                     </form>
-                              <?php } else if (isset($_SESSION['first_name']) && isset($_SESSION['lastname'])) { ?>
+                              <?php } else if (isset($_SESSION['name']) && isset($_SESSION['lastname'])) { ?>
                                     <form id="signout_frm">
                                         <button class="btn btn-success ml-auto" type="button" id="btn-su" title="Click to Signout">
-                                            <a href="#" id="session_name" class="text-white lead" title="Click to Signout"><?php echo "Welcome, ".$_SESSION['first_name']." ".$_SESSION['lastname']."!"; ?></a>
+                                            <a href="#" id="session_name" class="text-white lead" title="Click to Signout"><?php echo "Welcome, ".$_SESSION['name']." ".$_SESSION['lastname']."!"; ?></a>
                                         </button>
                                     </form>
                               <?php } else if(isset($_SESSION['stff_name'])) { ?>

@@ -282,17 +282,18 @@ function staff_session($c, $u_stff) {
 ///PASSENGER SESSION ================================
 function passengerSession($c, $u) {
     $sql = "SELECT 
-            tbl_pd.id,
-            tbl_pd.first_name,
-            tbl_pd.lastname,
-            tbl_pd.gender,
-            tbl_pd.dob,
-            tbl_pd.email,
-            tbl_pa.username,
-            tbl_pa.verified
-            FROM tbl_passenger_detail tbl_pd
-            INNER JOIN tbl_passenger_account tbl_pa ON tbl_pa.id = tbl_pd.id
-            WHERE tbl_pa.username = ? AND tbl_pa.verified = 1";
+            tbl_pa.passenger_id,
+            tbl_pa.name,
+            tbl_pa.lastname,
+            tbl_pa.gender,
+            tbl_pa.address,
+            tbl_pa.contact_info,
+            tbl_pa.email,
+            tbl_pa.dob,
+            tbl_pd.username
+            FROM tbl_passenger tbl_pd
+            INNER JOIN passengers tbl_pa ON tbl_pd.alt_passenger_id = tbl_pa.alt_passenger_id
+            WHERE tbl_pd.username = ?";
             
     if($stmt = mysqli_prepare($c, $sql)) {
         mysqli_stmt_bind_param($stmt, 's', $bind_param_uname);
@@ -300,14 +301,16 @@ function passengerSession($c, $u) {
         if(mysqli_stmt_execute($stmt)) {
             mysqli_stmt_store_result($stmt);
             if(mysqli_stmt_num_rows($stmt) == 1) {
-                mysqli_stmt_bind_result($stmt, $id,$first_name,$lastname,$gender,$dob,$email,$username,$verified);
+                mysqli_stmt_bind_result($stmt, $id,$first_name,$lastname,$gender,$dob,$email,$username,$ci,$address);
                 if(mysqli_stmt_fetch($stmt)) {
-                    if($id != '' && $first_name != '' && $lastname != '' && $gender != '' && $dob != '' && $email != '' && $username != '' && $verified !=NULL) {
-                        $_SESSION['id'] = $id;
-                        $_SESSION['first_name'] = $first_name; 
+                    if($id != '' && $first_name != '' && $lastname != '' && $gender != '' && $dob != '' && $email != '' && $username != '') {
+                        $_SESSION['passenger_id'] = $id;
+                        $_SESSION['name'] = $first_name; 
                         $_SESSION['lastname'] = $lastname;
                         $_SESSION['gender'] = $gender;
-                        $_SESSION['verified'] = $verified;
+                        // $_SESSION['verified'] = $verified;
+                        $_SESSION['address'] = $address;
+                        $_SESSION['contact_info'] = $ci;
                         $_SESSION['dob'] = $dob;
                         $_SESSION['email'] = $email;
                         $_SESSION['username'] = $username;
