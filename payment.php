@@ -64,7 +64,7 @@ require_once("resources/templates/_payment_header.php");
         </div>
     </div>
     <div class="container-form-payment bg-white pt-2 pb-2">
-        <span> <img src="../assets/images/barkomatic-ship-logo.png" alt="barkomatic-ship-logo" class="ship-logo"></span>
+        <span> <img src="assets/images/barkomatic-ship-logo.png" alt="barkomatic-ship-logo" class="ship-logo"></span>
         <span class="word-information2">You're Almost There!</span>
     </div>
     <div class="container-paymentword">
