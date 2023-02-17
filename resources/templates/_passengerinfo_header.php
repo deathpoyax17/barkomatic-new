@@ -274,7 +274,127 @@
             header.classList.toggle("sticky", window.scrollY > 0);
         });
     </script>
+  <!-- ꙮꙮꙮꙮꙮꙮ ꙮꙮꙮꙮꙮꙮ ꙮꙮꙮꙮꙮꙮ-->
+  <script src="./assets/js/intlTelInput.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        var input = document.querySelector("#phone")
+        window.intlTelInput(input, {});
 
-</body>
+        $(window).on('load', function(){
+            $('.modal.fade').appendTo('body');
+        })
+    </script>
 
-</html>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.0/jquery.cookie.js"></script>
+    <!-- pop-up important notice -->
+    <script>
+        jQuery(document).ready(function () {
+          function openFancybox() {
+              setTimeout(function () {
+                  jQuery('#popuplink').trigger('click');
+              }, 500);
+          };
+          var visited = jQuery.cookie('visited');
+          if (visited == 'yes') {
+               // second page load, cookie active
+          } else {
+              openFancybox(); // first page load, launch fancybox
+          }
+        var date = new Date();
+        date.setTime(date.getTime() + (30 * 1000));
+        jQuery.cookie('visited', 'yes', {
+                expires: date // the number of set (days/min/sec cookie) will be effective
+        });
+        jQuery("#popuplink").fancybox({modal:true, overlay : {closeClick : true}});
+      });
+        function myFunction1() {
+            var checkBox = document.getElementById("myCheck");
+            var text = document.getElementById("text");
+            if (checkBox.checked == true) {
+                text.style.display = "block";
+            } else {
+                text.style.display = "none";
+            }
+        }
+
+        function myFunction2() {
+            var checkBox = document.getElementById("myCheck2");
+            var text = document.getElementById("text2");
+            if (checkBox.checked == true) {
+                text.style.display = "block";
+            } else {
+                text.style.display = "none";
+            }
+        }
+
+        // function to adjust minDate +/-
+        function modifyMinMaxDate(date, days) {
+            var tempDate = date;
+            tempDate.setDate(tempDate.getDate() + days);
+            return tempDate;
+        }
+
+        $(function() {
+            var dateFormat = "mm/dd/yy",
+                from = $("#from").datepicker({
+                    defaultDate: "-2w",
+                    changeMonth: true,
+                    changeYear: true,
+                    maxDate: "-1",
+                    onClose: function(selectedDate) {
+                        $("#to").datepicker(
+                            "option",
+                            "minDate",
+                            modifyMinMaxDate(new Date(selectedDate), 1)
+                        );
+                    }
+                }),
+                to = $("#to").datepicker({
+                    defaultDate: "-1w",
+                    changeMonth: true,
+                    changeYear: true,
+                    maxDate: "0",
+                    onClose: function(selectedDate) {
+                        $("#from").datepicker(
+                            "option",
+                            "maxDate",
+                            modifyMinMaxDate(new Date(selectedDate), -1)
+                        );
+                    }
+                });
+        });
+        $(function() {
+            var dateFormat = "mm/dd/yy",
+                from2 = $("#from2").datepicker({
+                    defaultDate: "-2w",
+                    changeMonth: true,
+                    changeYear: true,
+                    maxDate: "-1",
+                    onClose: function(selectedDate) {
+                        $("#to").datepicker(
+                            "option",
+                            "minDate",
+                            modifyMinMaxDate(new Date(selectedDate), 1)
+                        );
+                    }
+                }),
+                to2 = $("#to2").datepicker({
+                    defaultDate: "-1w",
+                    changeMonth: true,
+                    changeYear: true,
+                    maxDate: "0",
+                    onClose: function(selectedDate) {
+                        $("#from").datepicker(
+                            "option",
+                            "maxDate",
+                            modifyMinMaxDate(new Date(selectedDate), -1)
+                        );
+                    }
+                });
+        });
+    </script>

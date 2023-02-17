@@ -26,7 +26,18 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<!-- Font -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
 
+    <!-- Bootstrap CDN, Custom Css -->
+    <link rel="stylesheet" type="text/css" href="assets/vendors/lightbox/dist/css/lightbox.min.css">
+    <link rel="stylesheet" href="./assets/css/intlTelInput.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendors/jquery-ui/jquery-ui.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <title>Barkomatic - Online Ticketing</title>
 
@@ -70,45 +81,6 @@
         <div class="menu-btn"></div>
     </div>
     <!-- Header Area End -->
-
-<div class="itinerary-nav-bar">
-    <div class="container-modify">
-        <div class="itinerary-nav-body">
-            <div class="box-group dest-group">
-                <div class="dest-box"><div>
-                    <div class="form-location-code">CEB</div>
-                    <span class="form-label-heading mb-tab">Cebu</span>
-                </div>
-            </div>
-            <div class="dest-fa">
-                <span class="fa fa-exchange">
-              </span>  
-            </div><div class="dest-box">
-                <div><div class="form-location-code">TAG</div>
-                <span class="form-label-heading mb-tab">Tagbilaran City, Bohol</span>
-            </div></div></div><div class="box-group mb-tab">
-                <div><div class="form-label-title">1</div>
-                <div class="form-label-heading">Passengers</div>
-            </div><!----><!----></div>
-            
-            <div class="box-group mb-tab">
-                <div>
-                    <div class="form-label-title">Mon, 6 Feb 2023</div>
-                    <div class="form-label-heading">Departure</div>
-                </div>
-            </div>
-            <div class="box-group mb-tab">
-                <div>
-                    <div class="form-label-title">Tue, 7 Feb 2023</div>
-                    <div class="form-label-heading">Return</div></div>
-                </div><!----><div class="box-group departure-return d-flex d-lg-none">
-                    <div class="form-label-title p-1 " >Mon, 6 Feb - Tue, 7 Feb</div></div>
-                    <div class="box-group"><span role="button" class="modify-btn">
-                        <span class="fa fa-edit pr-2"></span>MODIFY ITINERARY </span>
-                    </div>
-                </div>
-            </div>
-        </div>
    
         <script type="text/javascript">
         //jquery for toggle dropdown menus
