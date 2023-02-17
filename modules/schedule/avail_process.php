@@ -61,7 +61,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'sched_des') {
 function r_sched_sel($c) {
     if (isset($_POST['schedule_id'])) {
       $schedule_id = $_POST['schedule_id'];
-      $accom_selected=$_POST['accommodation_selected'];
+      $accom_selected=$_POST['accommodation_selecteds'];
       $port = $c->query("SELECT route_id, concat(`departure_from`,'[',`departure_port`,']') as `route` FROM routes");
       $stmt_ship_s = $c->prepare("SELECT 
       f.name,
@@ -78,8 +78,8 @@ function r_sched_sel($c) {
       a.aircon 
 FROM schedules s 
 JOIN ferries f ON s.ferry_id = f.ferry_id 
-JOIN accommodations a ON f.ferry_id = a.ferry_id 
-JOIN ship_owners so ON s.owner_id = so.owner_id 
+JOIN accommodations a ON s.ferry_id = a.ferry_id 
+LEFT JOIN ship_owners so ON s.owner_id = so.owner_id 
 WHERE s.schedule_id=? AND a.accomodation_id=?");
     if($stmt_ship_s === false){
         echo 'Error preparing statement: ' . $c->error;
@@ -186,7 +186,7 @@ WHERE s.schedule_id=? AND a.accomodation_id=?");
                         <div class="depaturedetails">
                             <span style="font-size:14px; color: #988f90; ">PRICE</span>
                             <br>
-                            <span id="r_price" style="color: #657174; ">₱ '.$row1['price'].'</span>
+                            <span id="r_prices" style="color: #657174; ">₱ '.$row1['price'].'</span>
                         </div>
                     </div>
                 </div>
@@ -218,8 +218,8 @@ function sched_sel($c) {
       a.aircon 
 FROM schedules s 
 JOIN ferries f ON s.ferry_id = f.ferry_id 
-JOIN accommodations a ON f.ferry_id = a.ferry_id 
-JOIN ship_owners so ON s.owner_id = so.owner_id 
+JOIN accommodations a ON s.ferry_id = a.ferry_id 
+LEFT JOIN ship_owners so ON s.owner_id = so.owner_id 
 WHERE s.schedule_id=? AND a.accomodation_id=?");
     if($stmt_ship_s === false){
         echo 'Error preparing statement: ' . $c->error;
@@ -415,10 +415,10 @@ function selectDate($c){
                 <!---->
             </div>
     
-            <div class="itinerary-row" id="row1">
+            <div class="itinerary-row" id="row_'.$row1['schedule_id'].'">
                 <div class="itinerary-col itinerary-select">
                     <div class="form-select">
-                        <select name="selectedAccommodation" id="accomodation_form" class="form-control accommodation border ng-untouched ng-pristine ng-valid">';
+                        <select name="selectedAccommodation" id="accomodation_form" class="form-control accommodation border ng-untouched ng-pristine ng-valid" data-row-id="'.$row1['schedule_id'].'">';
     
                         // loop over the result set to generate options
                         while ($row = $result->fetch_assoc()) {
@@ -435,8 +435,9 @@ function selectDate($c){
                     <div>
                         <div class="booking-td-title">
                         <span class="price-value" style="margin-right: 20px">
-                            ₱<span id="price">'.$row1["price"].'</span>
-                        </span>
+                        ₱<span id="price-'.$row1['schedule_id'].'">'. $row1["price"].'</span>
+                      </span>
+                      
                         </div>
                         <div class="booking-type booking-td-title">
                         <div class="booking-td-meta" style="margin-right: 5px">
@@ -474,16 +475,16 @@ function r_selectDate($c){
                                     f.name,
                                     s.schedule_id,
                                     f.ferry_id,
-                                    so.ship_name,
                                     a.acomm_name,
                                     a.price,
                                     a.room_type,
-                                    a.aircon
+                                    a.aircon,
+                                    so.ship_name
                                     from schedules s
                                     JOIN ferries f ON s.ferry_id = f.ferry_id
-                                    JOIN accommodations a ON s.accommodation_id = a.accomodation_id
-                                    JOIN ship_owners so ON s.owner_id = so.owner_id
-                                    WHERE departure_date=?"); 
+                                    JOIN accommodations a ON s.ferry_id = a.ferry_id
+                                    LEFT JOIN ship_owners so ON s.owner_id = so.owner_id
+                                    WHERE s.departure_date=? GROUP BY s.ferry_id"); 
     if($stmt_ship_sd === false){
         echo 'Error preparing statement: ' . $c->error;
         return;
@@ -510,7 +511,7 @@ function r_selectDate($c){
       
         <div formarrayname="voyageAccommodations" class="ng-untouched ng-pristine ng-valid">
             <div class="itinerary-table booking-table">
-                <input type="radio" hidden="" id="schedule_id" name="schedule_id" value="'.$row1['schedule_id'].'" />
+                <input type="radio" hidden="" id="schedule_id" name="r_schedule_id" value="'.$row1['schedule_id'].'" />
                 <div class="itinerary-row itinerary-head">
                     <div class="itr-col booking-time-container">
                         <div>
@@ -541,10 +542,10 @@ function r_selectDate($c){
                     <!---->
                 </div>
 
-                     <div class="itinerary-row">
+                     <div class="itinerary-row" id="row_'.$row1['schedule_id'].'">
                             <div class="itinerary-col itinerary-select">
                                 <div class="form-select">
-                                <select name="selectedAccommodation" id="r_accomodation_form" class="form-control accommodation border ng-untouched ng-pristine ng-valid">';
+                                <select name="r_selectedAccommodation" id="r_accomodation_form" class="form-control accommodation border ng-untouched ng-pristine ng-valid"  data-row-id="'.$row1['schedule_id'].'">';
 
                         // loop over the result set to generate options
                         while ($row = $result->fetch_assoc()) {
@@ -561,7 +562,7 @@ function r_selectDate($c){
                         <div>
                             <div class="booking-td-title">
                             <span class="price-value" style="margin-right: 20px">
-                                ₱<span id="r_prices">'.$row1["price"].'</span>
+                            ₱<span id="r_price-'.$row1['schedule_id'].'">'. $row1["price"].'</span>
                             </span>
                             </div>
                             <div class="booking-type booking-td-title">
@@ -575,8 +576,8 @@ function r_selectDate($c){
                         </div>
                     </div>
                     <div class="itinerary-col itinerary-select-btn">
-                    <button type="submit" form="itinerary_form_selected" class="btn btn-info select-buttons">Select</button>
-                  </div>
+                    <button type="button" class="btn btn-info select-buttons">Select</button>
+                         </div>
                     </div>
 
                 <div class="itinerary-row">

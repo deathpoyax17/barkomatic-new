@@ -23,7 +23,6 @@ if(isset($_COOKIE['data'])){
     </h3>
 </div>
 <div class="calendar-section">
-
     <div class="dateRangeCalendarWrapper">
         <select id="dateRangeMonthPicker">
             <option style="text-align:center ; " value="0">January </option>
@@ -51,15 +50,20 @@ if(isset($_COOKIE['data'])){
                                            f.name,
                                            s.schedule_id,
                                            f.ferry_id,
+                                           a.acomm_name,
+                                           a.price,
+                                           a.room_type,
+                                           a.aircon,
+                                           so.ship_name,
                                            s.departure_date,
                                            s.arrival_time,
                                            s.route_id_from,
-                                           s.route_id_to,
-                                           so.ship_name
-                                     FROM schedules s 
-                                     JOIN ferries f ON s.ferry_id = f.ferry_id 
-                                     JOIN ship_owners so ON s.owner_id = so.owner_id 
-                                     WHERE departure_date=?"); 
+                                           s.route_id_to
+                                           from schedules s
+                                           JOIN ferries f ON s.ferry_id = f.ferry_id
+                                           JOIN accommodations a ON s.ferry_id = a.ferry_id
+                                           LEFT JOIN ship_owners so ON s.owner_id = so.owner_id
+                                           WHERE s.departure_date=? GROUP BY s.ferry_id"); 
                                            $stmt_ship_sd->bind_param('s',$date);
                                            $stmt_ship_sd->execute();
                                            $row_ship_sd = $stmt_ship_sd->get_result();
@@ -103,10 +107,10 @@ if(isset($_COOKIE['data'])){
                             </div>
                             <!---->
                         </div>
-                        <div class="itinerary-row">
+                        <div class="itinerary-row" id="row_'<?php echo $row1['schedule_id'] ?>">
                             <div class="itinerary-col itinerary-select">
                                 <div class="form-select">
-                                <select id="accomodation_form" class="form-control accommodation border ng-untouched ng-pristine ng-valid">';
+                                <select id="accomodation_form" name="selectedAccommodation" class="form-control accommodation border ng-untouched ng-pristine ng-valid" data-row-id="<?php echo $row1['schedule_id']?>">';
                                     <?php
                                          $ferry = $row1['ferry_id'];
                                          $stmt = $con->prepare("SELECT * FROM accommodations WHERE ferry_id=?"); 
@@ -140,7 +144,7 @@ if(isset($_COOKIE['data'])){
                                          $row = $result->fetch_assoc();
                                             $acommodations = $row["acomm_name"];
                                             $acommodations_id = $row["accomodation_id"];
-                                            echo '₱<span id="price">'.$row["price"].'</span>';
+                                            echo '₱<span id="price-'.$row1['schedule_id'].'">'. $row1["price"].'</span>';
                                         
                                      ?>
                              </span>
@@ -155,9 +159,9 @@ if(isset($_COOKIE['data'])){
                         </div>
                         </div>
                     </div>
-                            <div class="itinerary-col itinerary-select-btn">
-                    <button type="submit" form="selectedDateForm"  class="btn btn-info select-button">Select</button>
-                  </div>
+                    <div class="itinerary-col itinerary-select-btn">
+                    <button type="button" class="btn btn-info select-button">Select</button>
+                     </div>
                     </div>
                         </div>
                         <div class="itinerary-row">
@@ -167,13 +171,12 @@ if(isset($_COOKIE['data'])){
             </form>
         </div>
                                             <?php } } ?>
-       
         <!---->
     </div>
-
+ </div>
 <br>
 
-
+<div class="container">
 <div class="depature-location2">
     <h3 style="color: #ededed;"><?php echo $data["route_id_to"];?></h3><i class="fa-solid fa-arrow-right"
         style="color: #fff; font-size: 28px; padding-left: 10px; padding-right: 10px;"></i>
@@ -202,29 +205,34 @@ if(isset($_COOKIE['data'])){
 
     <div class="selected-date-area1" id="selectedDateRange1">
     <?php 
-    if(isset($date)){
-                                           $stmt_ship_sd =$con->prepare("SELECT 
-                                           f.name,
-                                           s.schedule_id,
-                                           f.ferry_id,
-                                           s.departure_date,
-                                           s.arrival_time,
-                                           s.route_id_from,
-                                           s.route_id_to,
-                                           so.ship_name
-                                     FROM schedules s 
-                                     JOIN ferries f ON s.ferry_id = f.ferry_id 
-                                     JOIN ship_owners so ON s.owner_id = so.owner_id 
-                                     WHERE departure_date=?"); 
-                                           $stmt_ship_sd->bind_param('s',$date);
-                                           $stmt_ship_sd->execute();
-                                           $row_ship_sd = $stmt_ship_sd->get_result();
-                                           while ($row1 = $row_ship_sd->fetch_assoc()) { 
-                                            $det = $row1["departure_date"];
-                                            $formatted_dates = date("F j, Y", strtotime($det));
-                                            $time = $row1["arrival_time"];
-                                            $formatted_times = date("g:i A", strtotime($time));
-                                            ?>
+     if(isset($date)){
+        $stmt_ship_sd =$con->prepare("SELECT 
+                                        f.name,
+                                        s.schedule_id,
+                                        f.ferry_id,
+                                        a.acomm_name,
+                                        a.price,
+                                        a.room_type,
+                                        a.aircon,
+                                        so.ship_name,
+                                        s.departure_date,
+                                        s.arrival_time,
+                                        s.route_id_from,
+                                        s.route_id_to
+                                        from schedules s
+                                        JOIN ferries f ON s.ferry_id = f.ferry_id
+                                        JOIN accommodations a ON s.ferry_id = a.ferry_id
+                                        LEFT JOIN ship_owners so ON s.owner_id = so.owner_id
+                                        WHERE s.departure_date=? GROUP BY s.ferry_id"); 
+                                        $stmt_ship_sd->bind_param('s',$date);
+                                        $stmt_ship_sd->execute();
+                                        $row_ship_sd = $stmt_ship_sd->get_result();
+                                        while ($row1 = $row_ship_sd->fetch_assoc()) { 
+                                        $det = $row1["departure_date"];
+                                        $formatted_dates = date("F j, Y", strtotime($det));
+                                        $time = $row1["arrival_time"];
+                                        $formatted_times = date("g:i A", strtotime($time));
+                                        ?>
         <div radio-group="">
             <form id="r_selectedDateForm" class="ng-untouched ng-pristine ng-valid">
                 <div formarrayname="voyageAccommodations" class="ng-untouched ng-pristine ng-valid">
@@ -256,11 +264,11 @@ if(isset($_COOKIE['data'])){
                             </div>
                         </div>
 
-                        <div class="itinerary-row">
+                        <div class="itinerary-row" id="row_'<?php echo $row1['schedule_id'] ?>">
                             <div class="itinerary-col itinerary-select">
                                 <div class="form-select">
-                                <select  id="r_accomodation_form" class="form-control accommodation border ng-untouched ng-pristine ng-valid">';
-                                    <?php
+                                <select  id="r_accomodation_form" name="r_selectedAccommodation" class="form-control accommodation border ng-untouched ng-pristine ng-valid" data-row-id="<?php echo $row1['schedule_id'] ?>">';
+                                <?php
                                          $ferry = $row1['ferry_id'];
                                          $stmt = $con->prepare("SELECT * FROM accommodations WHERE ferry_id=?"); 
                                          $stmt->bind_param('s', $ferry);
@@ -291,7 +299,7 @@ if(isset($_COOKIE['data'])){
                                          $row = $result->fetch_assoc();
                                             $acommodations = $row["acomm_name"];
                                             $acommodations_id = $row["accomodation_id"];
-                                            echo '₱<span id="r_prices">'.$row["price"].'</span>';
+                                            echo ' ₱<span id="r_price-'.$row1['schedule_id'].'">'. $row1["price"].'</span>';
                                         
                                      ?>
                              </span>
@@ -306,9 +314,9 @@ if(isset($_COOKIE['data'])){
                                     </div>
                                 </div>
                             </div>
-                            <div class="itinerary-col itinerary-select-btn">
-                            <button type="submit" form="r_selectedDateForm" class="btn btn-info select-buttons">Select</button>
-                        </div>
+                             <div class="itinerary-col itinerary-select-btn">
+                                  <button type="button" class="btn btn-info select-buttons">Select</button>
+                                 </div>
                             </div>
                         </div>
                         <div class="itinerary-row"></div>
@@ -318,6 +326,7 @@ if(isset($_COOKIE['data'])){
         </div>
 <?php } }?>
     </div>
+ </div>
     <div class="container-summarytrip">
         <h4 class="summary-text-roundtrip">Summary</h4>
         <div class="accordion accordion-flush" id="accordionFlushExample">
