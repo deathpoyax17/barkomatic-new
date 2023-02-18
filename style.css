@@ -606,7 +606,7 @@
 --------------------------------------------------------------*/
     
     .container {
-        max-width: 100%;
+        width: 1280px;
         padding-left: 15px;
         padding-right: 15px;
         /* border: 2px solid red; */

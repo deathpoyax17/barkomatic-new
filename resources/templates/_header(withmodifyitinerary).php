@@ -238,8 +238,7 @@
    
   }
   .depature-location{
-    width:100%;
-    padding-left:22px;
+    max-width:100%;
     font-size:5px;
   }
   .depature-location2::after{
@@ -249,8 +248,7 @@
    
   }
   .depature-location2{
-    width:100%;
-    padding-left:22px;
+    max-width:100%;
     font-size:5px;
   }
 @media only screen and (min-width: 600px) {
@@ -545,7 +543,7 @@
                 </div>
             </div>
         </div>
-   
+        </div>
         <script type="text/javascript">
         //jquery for toggle dropdown menus
         $(document).ready(function() {

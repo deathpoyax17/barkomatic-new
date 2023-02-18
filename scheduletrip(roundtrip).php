@@ -9,9 +9,9 @@ if(isset($_COOKIE['data'])){
 ?>
 <div class="container">
     <ol class="cd-multi-steps text-top">
-        <li class="visited"><a href="#0">SCHEDULE</a></li>
-        <li class="visited"><a href="#0">PASSENGER INFO</a></li>
-        <li class="current"><em>PAYMENT</em></li>
+        <li class="current"><a href="#0">SCHEDULE</a></li>
+        <li class=""><a href="#0">PASSENGER INFO</a></li>
+        <li class=""><em>PAYMENT</em></li>
         <li><em>COMPLETE</em></li>
     </ol>
     <br>
@@ -429,6 +429,7 @@ if(isset($_COOKIE['data'])){
         </div>
         </form>
     </div>
+    
 
 
 

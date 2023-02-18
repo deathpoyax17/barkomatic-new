@@ -1,6 +1,12 @@
 <?php
 require_once("resources/templates/_passengerinfo_header.php");
 ?>
+<ol class="cd-multi-steps text-top">
+        <li class="visited"><a href="#0">SCHEDULE</a></li>
+        <li class="visited"><a href="#0">PASSENGER INFO</a></li>
+        <li class="current"><em>PAYMENT</em></li>
+        <li><em>COMPLETE</em></li>
+    </ol>
      <div class="progressbar-row">
         <div class="col-sm-2"> </div>
         <div class="progressbar col-sm-8" style="font-size: 12px;margin-top: 50px; font-weight: bolder; color: #fff; ">
