@@ -1,47 +1,15 @@
 <?php
 require_once("resources/templates/_passengerinfo_header.php");
 ?>
-<ol class="cd-multi-steps text-top">
+
+<div class="container">
+    <ol class="cd-multi-steps text-top">
         <li class="visited"><a href="#0">SCHEDULE</a></li>
-        <li class="visited"><a href="#0">PASSENGER INFO</a></li>
-        <li class="current"><em>PAYMENT</em></li>
+        <li class="current"><a href="#0">PASSENGER INFO</a></li>
+        <li class=""><em>PAYMENT</em></li>
         <li><em>COMPLETE</em></li>
     </ol>
-     <div class="progressbar-row">
-        <div class="col-sm-2"> </div>
-        <div class="progressbar col-sm-8" style="font-size: 12px;margin-top: 50px; font-weight: bolder; color: #fff; ">
-            <div class="container text-center">
-                <div class="progressbar-text row ">
-                    <div class="col-sm-3 text-center">
-                        SCHEDULE
-                    </div>
-                    <div class="col-sm-3 text-center">
-                        PASSENGER INFO
-                    </div>
-                    <div class="col-sm-3 text-center " style="opacity: 0.6;">
-                        PAYMENT
-                    </div>
-                    <div class="col-sm-3 text-center " style="opacity: 0.6;">
-                        COMPLETE
-                    </div>
-                </div>
-                <div class="row  " style="margin-top: 10px">
-                    <div class="col-md-1 "></div>
-                    <div class="col-md-10 ">
-                        <div class="progress" style="opacity: 0.8; width: 95%;height:10px; margin-left: 2.5%; margin-right: 2.5%;">
-                            <div class="one " style="background-color:#007bff; border-radius: 100%; width: 20px; height: 20px; position: absolute;z-index:1;margin-top: -5px;"><i class="fa fa-calendar" aria-hidden="true"></i></div>
-                            <div class="two " style="background-color:#007bff; border-radius: 100%; width: 20px; height: 20px; position: absolute;z-index:1;margin-top: -5px; left: 34%;"></div>
-                            <div class="three " style=" background-color:#007bff; border-radius: 100%; width: 20px; height: 20px; position: absolute;z-index:1;margin-top: -5px;left: 64%;"></div>
-                            <div class="four " style="background-color:#007bff; border-radius: 100%; width: 20px; height: 20px; position: absolute;z-index:1;margin-top: -5px;left: 94%;"></div>
-
-                            <div class="progress-bar" style="width: 34.5%; "></div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
+</div>
     <div class="container-contactinfo pt-2 pb-2" style="margin-top: 0px;">
         <i class="fa fa-info-circle" style="color: #fff; font-size: 22px;"></i>
         <span class="word-information">Contact Information</span>
