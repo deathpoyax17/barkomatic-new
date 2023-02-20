@@ -32,15 +32,25 @@ $(document).ready(function() {
                     console.log(response);
                     var data = JSON.parse(response);
                     document.cookie = "data=" + encodeURIComponent(JSON.stringify(data));
-                    window.location = "scheduletrip(roundtrip).php";
+                    $("#from").text(data.route_id_from);
+                    $("#to").text(data.route_id_to);
+                    $("#paxCount").text(data.paxCount);
+                    $("#ferryName").text(data.name);
+                    $("#ferryId").text(data.ferry_id);
+                    $("#shipName").text(data.ship_name);
+                    $("#departureDate").text(data.departure_date);
+                    $("#schedId").text(data.schedule_id);
+                    $("#rDate").text(data.return_date);
+                    setTimeout(function() {
+                        window.location = "scheduletrip(roundtrip).php";
+                    }, 100);
+
                 }
             });
         } else {
             e.preventDefault();
         }
     });
-
-
     //* fetch summary selected schedule
     $('#srch_sched_ftr_form').submit(function(e) {
         e.preventDefault();

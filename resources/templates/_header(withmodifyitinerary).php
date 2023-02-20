@@ -309,7 +309,7 @@
   display: inline-block;
   content: '\00bb';
   margin: 0 .6em;
-  color: ##ffffff;
+  color: ##fffff;
 }
 .cd-breadcrumb li:last-of-type::after, .cd-multi-steps li:last-of-type::after {
   /* hide separator after the last item */
@@ -505,14 +505,15 @@
         <div class="menu-btn"></div>
     </div>
     <!-- Header Area End -->
-<?php
- if(isset($_COOKIE['data'])){
+
+    <?php
+require_once("resources/templates/_header(withmodifyitinerary).php");
+if(isset($_COOKIE['data'])){
   $datas=$_COOKIE['data'];
   $data=urldecode($datas);
   $data = json_decode($data, TRUE);
   $date= $data["departure_date"];
   $formatted_date = date("Ymd", strtotime($date));
-
 ?>
 <div class="itinerary-nav-bar">
     <div class="container-modify">
@@ -523,7 +524,7 @@
                 $fromCode=substr($data['route_id_from'], 0, 3);
                   ?>
                     <div class="form-location-code"><?php echo $fromCode; ?></div>
-                    <span class="form-label-heading mb-tab"><?php echo $data['route_id_from']; ?></span>
+                    <span class="form-label-heading mb-tab" id="from"></span>
                 </div>
             </div>
             <div class="dest-fa">
@@ -534,9 +535,9 @@
                 $toCode=substr($data['route_id_to'], 0, 3);
                   ?>
                 <div><div class="form-location-code"><?php echo $toCode; ?></div>
-                <span class="form-label-heading mb-tab"><?php echo $data['route_id_to']; ?></span>
+                <span class="form-label-heading mb-tab" id="to"></span>
             </div></div></div><div class="box-group mb-tab">
-                <div><div class="form-label-title"><?php echo $data['paxCount'];?></div>
+                <div><div class="form-label-title"><span id="paxCount"></span></div>
                 <div class="form-label-heading">Passengers</div>
             </div><!----><!----></div>
             
@@ -571,7 +572,6 @@
         </div>
 
 <?php } ?>
-
         <script type="text/javascript">
         //jquery for toggle dropdown menus
         $(document).ready(function() {
