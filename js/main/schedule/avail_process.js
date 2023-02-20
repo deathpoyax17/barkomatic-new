@@ -80,24 +80,25 @@ $(document).ready(function() {
     ///======================================================== for submitting summary =============
     $('#summary_continue').submit(function(e) {
         e.preventDefault();
-        // $(':input[type="submit"]').prop('disabled', true);
+        $(':input[type="submit"]').prop('disabled', true);
         $.ajax({
             url: './modules/schedule/avail_process.php',
             method: 'POST',
             data: $('#summary_continue').serialize() + '&action=smmry_cn',
             success: function(response) {
-                // setTimeout(function() {
-                //     $(':input[type="submit"]').prop('disabled', false);
-                // }, 100);
                 setTimeout(function() {
-                    alert(response);
+                    $(':input[type="submit"]').prop('disabled', false);
+                }, 100);
+                setTimeout(function() {
+                    var data = JSON.parse(response);
+                    document.cookie = "data=" + encodeURIComponent(JSON.stringify(data));
+                    window.location = "passengerinfo.php";
+                    console.log(response);
                 }, 100);
             }
         });
     });
     ///======================================================== end of it ==============================
-
-
     $(document).on('change', '#accomodation_form', function() {
         var selectedAccommodation = $(this).val();
         var rowId = $(this).data('row-id');
@@ -109,7 +110,7 @@ $(document).ready(function() {
                 var parsedData = JSON.parse(data);
                 $('#totalPrice').val(parsedData.price);
                 $('#price-' + rowId).text(parsedData.price);
-                $('#prices').text('₱_' + parsedData.price);
+                $('#prices').text(parsedData.price);
                 $('#acomm').text(parsedData.accomodation_name);
                 $('#room_tp').text(parsedData.room_type);
                 $('#aircn').text(parsedData.aircon);
@@ -128,8 +129,9 @@ $(document).ready(function() {
             data: { selectedAccommodation: selectedAccommodation },
             success: function(datas) {
                 var r_parsedData = JSON.parse(datas);
+                $('#r_totalPrice').val(r_parsedData.price);
                 $('#r_price-' + rowId).text(r_parsedData.price);
-                $('#r_prices').text('₱_' + r_parsedData.price);
+                $('#r_prices').text(r_parsedData.price);
                 $('#r_acomm').text(r_parsedData.accomodation_name);
                 $('#r_room_tp').text(r_parsedData.room_type);
                 $('#r_aircn').text(r_parsedData.aircon);

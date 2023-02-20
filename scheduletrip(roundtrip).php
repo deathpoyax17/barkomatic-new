@@ -419,12 +419,6 @@ if(isset($_COOKIE['data'])){
         </div>
         <br>
         <div class="button-mobile-fixed">
-           <!-- //===========================================
-            //====================return================= -->
-            <input type="text" name="r_sched" hidden>
-            <input type="text" name="r_acom" hidden>
-            <input type="text" name="r_totalPrice" hidden>
-            <!-- //======================end================== -->
             <button type="submit" id="btncontinue" class="btn btn-primary btn-block btn-lg"> Continue </button>
         </div>
         </form>
