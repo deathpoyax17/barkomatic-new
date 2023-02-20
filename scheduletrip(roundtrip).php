@@ -79,6 +79,7 @@ if(isset($_COOKIE['data'])){
                     <div class="itinerary-table booking-table item-selected">
                     <input type="radio" hidden="" id="schedule_id" name="schedule_id" value="<?php echo $row1['schedule_id']?>" />
                         <div class="itinerary-row itinerary-head">
+                            <input type="text"  hidden=""  id="departureDateInput" value="<?php echo $date; ?>">
                             <div class="itr-col booking-time-container">
                                 <div>
                                     <div class="departure-time"><?php echo $formatted_times; ?></div>
@@ -471,17 +472,21 @@ if(isset($_COOKIE['data'])){
 <script src="js/main/schedule/avail_process.js"></script>
 <script>
   $(document).ready(function() {
+    var selectedDate2 = "<?php echo $date; ?>";
+    var DaterFormat = $.datepicker.formatDate('yymmd', new Date(selectedDate2));
+    var DaterFormat = DaterFormat.replace(/^0+/, '');
     <?php if (isset($formatted_date)): ?>
-      var selectedDate = "<?php echo $formatted_date; ?>";
-      var startDay = parseInt(selectedDate.slice(6, selectedDate.length));
-      var startMonth = parseInt(selectedDate.slice(4, 6));
-      var startYear = parseInt(selectedDate.slice(0, 4));
-      
-      selectedDate = new Date(startYear, startMonth-1, startDay);
-      $('#selectedDateRange').css('display', 'block');
-      $('#selectedDateRange1').css('display', 'block');
-      console.log(selectedDate);
-    <?php endif; ?>
+  var selectedDate = "<?php echo $formatted_date; ?>";
+  var startDay = parseInt(selectedDate.slice(6, selectedDate.length));
+  var startMonth = parseInt(selectedDate.slice(4, 6));
+  var startYear = parseInt(selectedDate.slice(0, 4));
+  
+  selectedDate = new Date(startYear, startMonth-1, startDay);
+  $('#selectedDateRange').css('display', 'block');
+  $('#selectedDateRange1').css('display', 'block');
+  $('[date-id="'+DaterFormat+'"]').addClass('start selected last');
+  console.log(DaterFormat);
+<?php endif; ?>
   });
 </script>
 

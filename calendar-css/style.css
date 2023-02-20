@@ -50,13 +50,13 @@ body {
     margin: 0;
     padding: 0;
     position: relative;
-    width: 99999px;
+    width: 999999px;
 }
 
 .range-calendar .calendar .cell {
     float: left;
-    width: 70px;
-    padding: 25px 20px;
+    width: 80px;
+    padding: 25px 10px;
     margin: 0px;
     border-right: 1px solid rgba(0, 0, 0, 0.03);
     text-align: center;
@@ -76,10 +76,9 @@ body {
 .range-calendar .calendar .cell .day {
     display: block;
     clear: both;
-    text-transform: uppercase;
     width: 100%;
     font-weight: 100;
-    font-size: 12px;
+    font-size: 10px;
     margin-top: 0px;
     z-index: 1;
     position: relative;
@@ -132,6 +131,7 @@ body {
 .calendar .cell.ui-selecting day {
     z-index: 2;
     position: relative;
+    
 }
 
 .range-calendar .calendar .cell.selected .day.ferial,
@@ -260,7 +260,7 @@ body {
 
 .dateRangeCalendarWrapper {
     margin: 0px auto 40px auto;
-    max-width: 771px;
+    max-width: 781px;
     border: 1px solid #eee;
     box-shadow: 0 0 18px rgba(0, 0, 0, 0.1);
     background: #fff;
@@ -379,7 +379,7 @@ body {
     position: absolute;
     height: 4px;
     width: 100%;
-    background: #9b59b6;
+    background: #0c5ec2;
     top: 0;
     left: 0;
 }
