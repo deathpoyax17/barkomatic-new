@@ -151,9 +151,7 @@ require "resources/templates/_search-trip_header.php"; ?>
                                             <div class="input-group-prepend">
                                                 <span  class="input-group-text input-label-w">Return</span>
                                             </div>
-                                            <input id="to2" type="text" bsdatepicker="" formcontrolname="returnDate"
-                                                placement="top"
-                                                class="form-control ng-untouched ng-pristine ng-valid" />
+                                            <input id="to2" type="text" name="returnDate" placement="top" class="form-control ng-untouched ng-pristine ng-valid" />
                                             <!---->
                                             <div class="input-group-append toggle-calendar" aria-expanded="false">
                                                 <span class="input-group-text"><span
@@ -173,8 +171,7 @@ require "resources/templates/_search-trip_header.php"; ?>
                                                 <span class="input-group-text input-label-w"
                                                     style="width: auto">Passengers</span>
                                             </div>
-                                            <input type="number" min="1" formcontrolname="paxCount"
-                                                class="form-control ng-untouched ng-pristine ng-valid" max="10" />
+                                            <input type="number" min="1" name="paxCount" class="form-control ng-untouched ng-pristine ng-valid" max="10" />
                                             <!---->
                                         </div>
                                     </div>
@@ -494,7 +491,7 @@ require "resources/templates/_search-trip_header.php"; ?>
                                                     <span class="input-group-text input-label-w"
                                                         style="width: auto"><small>No. of passengers</small></span>
                                                 </div>
-                                                <input type="number" min="1" formcontrolname="paxCount"
+                                                <input type="number" min="1" name="paxCount"
                                                     class="form-control ng-untouched ng-pristine ng-valid" max="10" />
                                                 <!---->
                                             </div>

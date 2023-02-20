@@ -613,7 +613,9 @@ function search_available_schedule($c) {
         $srch_ss = $_POST['srch_ship_sched'];
         $sslf = $_POST['srch_sched_loc_from'];
         $sslt = $_POST['srch_sched_loc_to'];
+        $pE = $_POST['paxCount'];
         $ssld = date('Y-m-d', strtotime($_POST['srch_sched_loc_depart']));
+        $rdate = date('Y-m-d', strtotime($_POST['returnDate']));
         $port = $c->query("SELECT route_id, `departure_from` as `route` FROM routes");
         $routes = array();
         while($port_row = $port->fetch_assoc()) {
@@ -633,7 +635,7 @@ function search_available_schedule($c) {
      WHERE s.owner_id=? AND s.route_id_from=? AND s.route_id_to=? AND s.departure_date=?";
         $stmt = $c->prepare($sql_slct);
         echo $c -> error;
-        $stmt->bind_param("ssss", $srch_ss,$sslf,$sslt,$ssld);
+        $stmt->bind_param("ssss", $srch_ss,$sslf,$sslt,$ssld,);
         $stmt->execute();
         $result = $stmt->get_result();
         $row = $result->fetch_array();
@@ -641,22 +643,26 @@ function search_available_schedule($c) {
             $data = array(
                 "schedule_id" => $row["schedule_id"],
                 "departure_date" => $row["departure_date"],
+                "return_date" => $rdate,
                 "ship_name" => $row["ship_name"],
                 "ferry_id" => $row["ferry_id"],
                 "name" => $row["name"],
+                "paxCount" =>  $pE,
                 "route_id_from" => $routes[$row["route_id_from"]],
                 "route_id_to" => $routes[$row["route_id_to"]]
             );
             $json = json_encode($data, JSON_PRETTY_PRINT);
             echo $json;
         }else{
-            echo "empty";
+            echo "empty1";
         }
     }
     else {
         $sslf = $_POST['srch_sched_loc_from'];
         $sslt = $_POST['srch_sched_loc_to'];
         $ssld = date('Y-m-d', strtotime($_POST['srch_sched_loc_depart']));
+        $rdate = date('Y-m-d', strtotime($_POST['returnDate']));
+        $pE = $_POST['paxCount'];
         $port = $c->query("SELECT route_id, `departure_from` as `route` FROM routes");
         $routes = array();
         while($port_row = $port->fetch_assoc()) {
@@ -685,13 +691,15 @@ function search_available_schedule($c) {
                 "name" => $row["name"],
                 "schedule_id" => $row["schedule_id"],
                 "departure_date" => $row["departure_date"],
+                "return_date" => $rdate,
+                "paxCount" =>  $pE,
                 "route_id_from" => $routes[$row["route_id_from"]],
                 "route_id_to" => $routes[$row["route_id_to"]]
             );
             $json = json_encode($data, JSON_PRETTY_PRINT);
             echo $json;
         }else{
-          "empty";
+          "empty2";
         }
 }
 }
