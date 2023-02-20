@@ -42,126 +42,198 @@
     <script src="js/script1.js"></script>
     <link rel="stylesheet" href="sample.css">
     <link rel="stylesheet" href="calendar-css/style.css">
-    <style>
-        html{box-sizing: border-box;}
-        #ui_01e_body{
-        font-family: Helvetica, Arial, sans-serif;
-        background-image: url(assets/images/passengerinfo-background.png);
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        }
-        /* Extra Small Devices, Phones */
-        @media only screen and (min-width : 320px) {
-            .progressbar0e1 strong {font-size: 8.25px;}
-        }
-        @media only screen and (min-width : 480px) {
-            .progressbar0e1 strong {font-size: 8.25px;}
-        }
-        @media only screen and (min-width : 768px) {
-            .progressbar0e1 strong {font-size:11px;}
-        } 
+<style>
+html{box-sizing: border-box;}
+  #ui_01e_body{
+  font-family: Helvetica, Arial, sans-serif;
+  background-image: url(assets/images/passengerinfo-background.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.cd-breadcrumb, .cd-multi-steps {
+  max-width: 2150px;
+  padding: 0.5em 1em;
+  margin:5%;
+  background-color: #edeff0;
+  border-radius: .25em;
+  position:relative;
+}
+.cd-breadcrumb::after, .cd-multi-steps::after {
+  clear: both;
+  content: "";
+  display: table;
+}
+.cd-breadcrumb li, .cd-multi-steps li {
+  display: inline-block;
+  float: left;
+  margin: 0.5em 0;
+}
+.cd-breadcrumb li::after, .cd-multi-steps li::after {
+  /* this is the separator between items */
+  display: inline-block;
+  content: '\00bb';
+  margin: 0 .6em;
+  color: ##ffffff;
+}
+.cd-breadcrumb li:last-of-type::after, .cd-multi-steps li:last-of-type::after {
+  /* hide separator after the last item */
+  display: none;
+}
+.cd-breadcrumb li > *, .cd-multi-steps li > * {
+  /* single step */
+  display: inline-block;
+  font-size: 1.4rem;
+  color: #2c3f4c;
+}
+.cd-breadcrumb li.current > *, .cd-multi-steps li.current > * {
+  /* selected step */
+  color:#17a2b8;
+}
+.no-touch .cd-breadcrumb a:hover, .no-touch .cd-multi-steps a:hover {
+  /* steps already visited */
+  color:#17a2b8;
+}
 
-        /* Medium Devices, Desktops */
-        @media only screen and (min-width : 992px) {
-            .pg_dd0e1{
-                border: 1px solid #fff;
-                border-radius: 5px;
-            }
-            .cg_dd0e1{
-                border: 1px solid #fff;
-                border-radius: 5px;
-            }
-            .nav-item a {font-size: 12px;}
-            .progressbar0e1 strong {font-size: 12px;}
-        }
+@media only screen and (min-width: 768px) {
+  .cd-breadcrumb, .cd-multi-steps {
+   
+    padding: 0 1.2em;
+  }
+  .cd-breadcrumb li, .cd-multi-steps li {
+    margin: 1.2em 0;
+  }
+  .cd-breadcrumb li::after, .cd-multi-steps li::after {
+    margin: 0 1em;
+  }
+  .cd-breadcrumb li > *, .cd-multi-steps li > * {
+    font-size: 1.6rem;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .cd-multi-steps {
+    /* reset style */
+    
+    background-color: transparent;
+    padding: 0;
+    text-align: center;
+  }
 
-        /* Large Devices, Wide Screens */
-        @media only screen and (min-width : 1200px) {
-            .pg_dd0e1{
-                border: 1px solid #fff;
-                border-radius: 5px;
-            }
-        }
-        @media only screen and (min-width : 1200px) {
-            .cg_dd0e1{
-                border: 1px solid #fff;
-                border-radius: 5px;
-            }
-            .nav-item a {font-size: 13.5px;}
-        }
-        
-        /*progressbar*/
-        .cardex {
-            background-color: #fff;
-            z-index: 0;
-            border: none;
-            border-radius: 0.5rem;
-            position: relative;
-        }
-        .progressbar0e1 {
-            margin-bottom: 30px;
-            overflow: hidden;
-            color: lightgrey;
-        }
+  .cd-multi-steps li {
+    position: relative;
+    float: none;
+    margin: 0.4em 40px 0.4em 0;
+  }
+  .cd-multi-steps li:last-of-type {
+    margin-right: 0;
+  }
+  .cd-multi-steps li::after {
+    /* this is the line connecting 2 adjacent items */
+    position: absolute;
+    content: '';
+    height: 6px;
+    background: #edeff0;
+    /* reset style */
+    margin: 0;
+  }
+  .cd-multi-steps li.visited::after {
+    background-color:#ffffff;
+    opacity: 0.6;
+  }
+  .cd-multi-steps li > *, .cd-multi-steps li.current > * {
+    position: relative;
+    color: #ffffff;
+    font-weight: bolder;
+    font-size:1.2em;
+    font-family: Montserrat, Helvetica, Arial, sans-serif !important;
 
-        .progressbar0e1 .active {color: #000000;}
+  }
 
-        .progressbar0e1 li {
-            list-style-type: none;
-            width: 25%;
-            float: left;
-            position: relative;
-        }
-        /*Icons in the ProgressBar*/
-        .progressbar0e1 #schedule:before {
-            font-family: FontAwesome;
-            content: "\f073";
-        }
+  .cd-multi-steps.text-top li{
+    width: 223px;
+    text-align: center;
+  }
+  .cd-multi-steps.text-top li::after{
+    /* this is the line connecting 2 adjacent items */
+    position: absolute;
+    left: 50%;
+    /* 40px is the <li> right margin value */
+    width: calc(100% + 40px);
+  }
+  .cd-multi-steps.text-top li > *::before {
+    /* this is the spot indicator */
+    content: '';
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    right: auto;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background-color: #edeff0;
+  }
+  .cd-multi-steps.text-top li.visited > *::before,
+  .cd-multi-steps.text-top li.current > *::before,
+  .cd-multi-steps.text-bottom li.current > *::before {
+    background-color: #17a2b8;
+  }
+  .no-touch .cd-multi-steps.text-top a:hover{
+    color:#17a2b8;
+  }
+  .no-touch .cd-multi-steps.text-top a:hover::before{
+    box-shadow: 0 0 0 3px rgba(150, 192, 61, 0.3);
+  }
 
-        .progressbar0e1 #passengerinfo:before {
-            font-family: FontAwesome;
-            content: "\f007";
-        }
+  .cd-multi-steps.text-top li::after {
+    /* this is the line connecting 2 adjacent items */
+    bottom: 4px;
+  }
+  .cd-multi-steps.text-top li > * {
+    padding-bottom: 20px;
+  }
+  .cd-multi-steps.text-top li > *::before {
+    /* this is the spot indicator */
+    bottom: 0;
+  }
+}
+.cd-multi-steps.count li {
+  counter-increment: steps;
+}
 
-        .progressbar0e1 #payment:before {
-            font-family: FontAwesome;
-            content: "\f09d";
-        }
+.cd-multi-steps.count li > *::before {
+  content: counter(steps) " - ";
+}
 
-        .progressbar0e1 #confirm:before {
-            font-family: FontAwesome;
-            content: "\f00c";
-        }
-        /*ProgressBar before any progress*/
-        .progressbar0e1 li:before {
-            width: 50px;
-            height: 50px;
-            line-height: 45px;
-            display: block;
-            font-size: 18px;
-            color: #ffffff;
-            background: lightgray;
-            border-radius: 50%;
-            margin: 0 auto 10px auto;
-            padding: 2px;
-        }
-        /*ProgressBar connectors*/
-        .progressbar0e1 li:after {
-            content: '';
-            width: 100%;
-            height: 2px;
-            background: lightgray;
-            position: absolute;
-            left: 0;
-            top: 25px;
-            z-index: -1;
-        }
-        /*Color number of the step and the connector before it*/
-        .progressbar0e1 li.active:before, .progressbar0e1 li.active:after {background: skyblue;}
-        /* pop-up notice */
-        .fancybox-inner{overflow: hidden !important; width: auto !important; height: auto !important;border-radius: 3px;}
+@media only screen and (min-width: 768px) {
+  .cd-multi-steps.text-top.count li > *::before {
+    /* this is the spot indicator */
+    content: counter(steps);
+    height: 26px;
+    width: 26px;
+    line-height: 26px;
+    font-size: 1.4rem;
+    color: #ffffff;
+  }
+
+  .cd-multi-steps.text-top.count li:not(.current) em::before {
+    /* steps not visited yet - counter color */
+    color: #2c3f4c;
+  }
+
+  .cd-multi-steps.text-top.count li::after {
+    bottom: 11px;
+  }
+
+  .cd-multi-steps.text-top.count li > * {
+    padding-bottom: 34px;
+  }
+}
      </style>  
   
 </head>

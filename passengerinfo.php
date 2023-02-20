@@ -2,55 +2,55 @@
 session_start();
 require_once("resources/templates/_passengerinfo_header.php");
 ?>
-<div class="progressbar-row">
-    <div class="col-sm-2"> </div>
-    <div class="progressbar col-sm-8" style="font-size: 12px;margin-top: 50px; font-weight: bolder; color: #fff; ">
-        <div class="container text-center">
-            <div class="progressbar-text row ">
-                <div class="col-sm-3 text-center">
-                    SCHEDULE
-                </div>
-                <div class="col-sm-3 text-center">
-                    PASSENGER INFO
-                </div>
-                <div class="col-sm-3 text-center " style="opacity: 0.6;">
-                    PAYMENT
-                </div>
-                <div class="col-sm-3 text-center " style="opacity: 0.6;">
-                    COMPLETE
-                </div>
-            </div>
-            <div class="row  " style="margin-top: 10px">
-                <div class="col-md-1 "></div>
-                <div class="col-md-10 ">
-                    <div class="progress" style="opacity: 0.8; width: 95%;height:10px; margin-left: 2.5%; margin-right: 2.5%;">
-                        <div class="one " style="background-color:#007bff; border-radius: 100%; width: 20px; height: 20px; position: absolute;z-index:1;margin-top: -5px;"><i class="fa fa-calendar" aria-hidden="true"></i></div>
-                        <div class="two " style="background-color:#007bff; border-radius: 100%; width: 20px; height: 20px; position: absolute;z-index:1;margin-top: -5px; left: 34%;"></div>
-                        <div class="three " style=" background-color:#007bff; border-radius: 100%; width: 20px; height: 20px; position: absolute;z-index:1;margin-top: -5px;left: 64%;"></div>
-                        <div class="four " style="background-color:#007bff; border-radius: 100%; width: 20px; height: 20px; position: absolute;z-index:1;margin-top: -5px;left: 94%;"></div>
-
-                        <div class="progress-bar" style="width: 34.5%; "></div>
+     <div class="progressbar-row">
+        <div class="col-sm-2"> </div>
+        <div class="progressbar col-sm-8" style="font-size: 12px;margin-top: 50px; font-weight: bolder; color: #fff; ">
+            <div class="container text-center">
+                <div class="progressbar-text row ">
+                    <div class="col-sm-3 text-center">
+                        SCHEDULE
+                    </div>
+                    <div class="col-sm-3 text-center">
+                        PASSENGER INFO
+                    </div>
+                    <div class="col-sm-3 text-center " style="opacity: 0.6;">
+                        PAYMENT
+                    </div>
+                    <div class="col-sm-3 text-center " style="opacity: 0.6;">
+                        COMPLETE
                     </div>
                 </div>
+                <div class="row  " style="margin-top: 10px">
+                    <div class="col-md-1 "></div>
+                    <div class="col-md-10 ">
+                        <div class="progress" style="opacity: 0.8; width: 95%;height:10px; margin-left: 2.5%; margin-right: 2.5%;">
+                            <div class="one " style="background-color:#007bff; border-radius: 100%; width: 20px; height: 20px; position: absolute;z-index:1;margin-top: -5px;"><i class="fa fa-calendar" aria-hidden="true"></i></div>
+                            <div class="two " style="background-color:#007bff; border-radius: 100%; width: 20px; height: 20px; position: absolute;z-index:1;margin-top: -5px; left: 34%;"></div>
+                            <div class="three " style=" background-color:#007bff; border-radius: 100%; width: 20px; height: 20px; position: absolute;z-index:1;margin-top: -5px;left: 64%;"></div>
+                            <div class="four " style="background-color:#007bff; border-radius: 100%; width: 20px; height: 20px; position: absolute;z-index:1;margin-top: -5px;left: 94%;"></div>
 
+                            <div class="progress-bar" style="width: 34.5%; "></div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
-</div>
+    <div class="container-contactinfo pt-2 pb-2" style="margin-top: 0px;">
+        <i class="fa fa-info-circle" style="color: #fff; font-size: 22px;"></i>
+        <span class="word-information">Contact Information</span>
+    </div>
+    <div class="container-field mb-4 pt-2 pb-2 border border-success">
+        <i class="fa fa-info-circle text-muted font-weight-bold" style="font-size: 20px; font-weight:bold;margin-left: 0px;margin-right: 20px;">
+        </i><span class="field-paragraph">Fields with red asterisk (<a class="text-danger fs-6 ">*</a>) are required </span>
+    </div>
+    <div class="container-form bg-white pt-4 pb-sm-4 mb-4">
+        <form>
+            <div class="form-row">
 
-<div class="container-contactinfo pt-2 pb-2" style="margin-top: 0px;">
-    <i class="fa fa-info-circle" style="color: #fff; font-size: 22px;"></i>
-    <span class="word-information">Contact Information</span>
-</div>
-<div class="container-field mb-4 pt-2 pb-2 border border-success">
-    <i class="fa fa-info-circle text-muted font-weight-bold" style="font-size: 20px; font-weight:bold;margin-left: 0px;margin-right: 20px;">
-    </i><span class="field-paragraph">Fields with red asterisk (<a class="text-danger fs-6 ">*</a>) are required </span>
-</div>
-<div class="container-form bg-white pt-4 pb-sm-4 mb-4">
-    <form name="passengerInfo" id="passengerInfo">
-        <div class="form-row">
-            <div class="col-md-6 mb-3">
-                <span class="labelnameborder">
+                <div class="col-md-6 mb-3">
+                    <span class="labelnameborder">
                     <label for="validationDefault01">Contact Person <a class="text-danger fs-6 ">*</a></label>
                 </span>
                 <input type="text" name="passID" value="<?php echo $_SESSION['passenger_id']; ?>" hidden>

@@ -3,6 +3,7 @@
     require("resources/config.php");
     require (TEMPLATES_PATH . "/_distributable.php");
    
+   
 ?>
 
 <!DOCTYPE html>
@@ -238,8 +239,7 @@
    
   }
   .depature-location{
-    width:100%;
-    padding-left:22px;
+    max-width:100%;
     font-size:5px;
   }
   .depature-location2::after{
@@ -249,8 +249,7 @@
    
   }
   .depature-location2{
-    width:100%;
-    padding-left:22px;
+    max-width:100%;
     font-size:5px;
   }
 @media only screen and (min-width: 600px) {
@@ -506,46 +505,73 @@
         <div class="menu-btn"></div>
     </div>
     <!-- Header Area End -->
+<?php
+ if(isset($_COOKIE['data'])){
+  $datas=$_COOKIE['data'];
+  $data=urldecode($datas);
+  $data = json_decode($data, TRUE);
+  $date= $data["departure_date"];
+  $formatted_date = date("Ymd", strtotime($date));
 
+?>
 <div class="itinerary-nav-bar">
     <div class="container-modify">
         <div class="itinerary-nav-body">
             <div class="box-group dest-group">
                 <div class="dest-box"><div>
-                    <div class="form-location-code">CEB</div>
-                    <span class="form-label-heading mb-tab">Cebu</span>
+                  <?php 
+                $fromCode=substr($data['route_id_from'], 0, 3);
+                  ?>
+                    <div class="form-location-code"><?php echo $fromCode; ?></div>
+                    <span class="form-label-heading mb-tab"><?php echo $data['route_id_from']; ?></span>
                 </div>
             </div>
             <div class="dest-fa">
                 <span class="fa fa-exchange">
               </span>  
             </div><div class="dest-box">
-                <div><div class="form-location-code">TAG</div>
-                <span class="form-label-heading mb-tab">Tagbilaran City, Bohol</span>
+            <?php 
+                $toCode=substr($data['route_id_to'], 0, 3);
+                  ?>
+                <div><div class="form-location-code"><?php echo $toCode; ?></div>
+                <span class="form-label-heading mb-tab"><?php echo $data['route_id_to']; ?></span>
             </div></div></div><div class="box-group mb-tab">
-                <div><div class="form-label-title">1</div>
+                <div><div class="form-label-title"><?php echo $data['paxCount'];?></div>
                 <div class="form-label-heading">Passengers</div>
             </div><!----><!----></div>
             
             <div class="box-group mb-tab">
                 <div>
-                    <div class="form-label-title">Mon, 6 Feb 2023</div>
+                  <?php
+                  $dateConv =$data['departure_date'];
+                  $date = strtotime($dateConv); // convert to a Unix timestamp
+                  $formattedDate = date("D, j M Y", $date);
+                  ?>
+                    <div class="form-label-title"><?php echo  $formattedDate; ?></div>
                     <div class="form-label-heading">Departure</div>
                 </div>
             </div>
             <div class="box-group mb-tab">
                 <div>
-                    <div class="form-label-title">Tue, 7 Feb 2023</div>
+                <?php
+                  $dateConvs =$data['return_date'];
+                  $dates = strtotime($dateConvs); // convert to a Unix timestamp
+                  $formattedDates = date("D, j M Y", $dates);
+                  ?>
+                    <div class="form-label-title"><?php echo  $formattedDates; ?></div>
                     <div class="form-label-heading">Return</div></div>
                 </div><!----><div class="box-group departure-return d-flex d-lg-none">
-                    <div class="form-label-title p-1 " >Mon, 6 Feb - Tue, 7 Feb</div></div>
+                    <div class="form-label-title p-1 " ><?php echo $date.'-'.$dates; ?></div></div>
                     <div class="box-group"><span role="button" class="modify-btn">
                         <span class="fa fa-edit pr-2"></span>MODIFY ITINERARY </span>
                     </div>
                 </div>
             </div>
         </div>
-   
+        </div>
+
+<?php } ?>
+
         <script type="text/javascript">
         //jquery for toggle dropdown menus
         $(document).ready(function() {

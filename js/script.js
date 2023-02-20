@@ -380,9 +380,9 @@ $(document).ready(function() {
                     if (isWeekend && !obj.weekends) { date.add('days', 1); continue }
                     cell = '<div class="cal-cell cell" date-id="' + fullYear + monthNumber + dayNumber + '" month-id="' + fullYear + '' + monthNumber + '" month="' + monthNumber + '">';
                     cell += '<div class="cell-content">';
-                    cell += '<div class="day ' + (isWeekend ? 'ferial' : '') + '">' + day + '</div>';
                     cell += '<div class="day-number">' + dayNumber + '</div>';
-                    cell += '<div class="day ' + (isWeekend ? 'ferial' : '') + '">' + month + '</div>';
+                    cell += '<div class="day ' + (isWeekend ? 'ferial' : '') + '">'+ month + ',' + day + '</div>';
+                    // cell += '<div class="day ' + (isWeekend ? 'ferial' : '') + '">' '</div>';
                     cell += '</div>';
                     cell += '</div>';
                     calendarHtml += cell;

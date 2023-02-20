@@ -9,9 +9,9 @@ if(isset($_COOKIE['data'])){
 ?>
 <div class="container">
     <ol class="cd-multi-steps text-top">
-        <li class="visited"><a href="#0">SCHEDULE</a></li>
-        <li class="visited"><a href="#0">PASSENGER INFO</a></li>
-        <li class="current"><em>PAYMENT</em></li>
+        <li class="current"><a href="#0">SCHEDULE</a></li>
+        <li class=""><a href="#0">PASSENGER INFO</a></li>
+        <li class=""><em>PAYMENT</em></li>
         <li><em>COMPLETE</em></li>
     </ol>
     <br>
@@ -79,6 +79,7 @@ if(isset($_COOKIE['data'])){
                     <div class="itinerary-table booking-table item-selected">
                     <input type="radio" hidden="" id="schedule_id" name="schedule_id" value="<?php echo $row1['schedule_id']?>" />
                         <div class="itinerary-row itinerary-head">
+                            <input type="text"  hidden=""  id="departureDateInput" value="<?php echo $date; ?>">
                             <div class="itr-col booking-time-container">
                                 <div>
                                     <div class="departure-time"><?php echo $formatted_times; ?></div>
@@ -426,39 +427,38 @@ if(isset($_COOKIE['data'])){
 
 
 
-<div class="bottom-header-searchtrip4">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 d-none d-lg-block">
-                <div class="header-contact-info">
-                    <ul>
-                        <li>
-                            <a href="#"><i class="fas fa-phone-alt"></i> +64 (909) 1234 396</a>
-                        </li>
-                        <li>
-                            <a href="mailto:info@Travel.com"><i class="fas fa-envelope"></i>
-                                BarkoamticOnlineTicketing@gmail.com</a>
-                        </li>
-                        <li>
-                            <i class="fas fa-map-marker-alt"></i> 6000 V. Rama Avenue, Englis, Cebu City
-                        </li>
-                    </ul>
+<<div class="bottom-header-searchtrip3">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 d-none d-lg-block">
+                    <div class="header-contact-info">
+                        <ul>
+                            <li>
+                                <a href="#"><i class="fas fa-phone-alt"></i> +64 (909) 1234 396</a>
+                            </li>
+                            <li>
+                                <a href="mailto:info@Travel.com"><i class="fas fa-envelope"></i> BarkoamticOnlineTicketing@gmail.com</a>
+                            </li>
+                            <li>
+                                <i class="fas fa-map-marker-alt"></i> 6000 V. Rama Avenue, Englis, Cebu City
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-4 d-flex justify-content-lg-end justify-content-between">
-                <div class="header-social social-links">
-                    <ul>
-                        <li><a href="#"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
-                        <li><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
-                        <li><a href="#"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
-                        <li><a href="#"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
-                    </ul>
-                </div>
+                <div class="col-lg-4 d-flex justify-content-lg-end justify-content-between">
+                    <div class="header-social social-links">
+                        <ul>
+                            <li><a href="#"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
 
+                </div>
             </div>
         </div>
     </div>
-</div>
 <?php }   ?>
 <script src="js/jquery.validate.min.js"></script>
 <script src="js/wow.min.js"></script>
@@ -466,17 +466,21 @@ if(isset($_COOKIE['data'])){
 <script src="js/main/schedule/avail_process.js"></script>
 <script>
   $(document).ready(function() {
+    var selectedDate2 = "<?php echo $date; ?>";
+    var DaterFormat = $.datepicker.formatDate('yymmd', new Date(selectedDate2));
+    var DaterFormat = DaterFormat.replace(/^0+/, '');
     <?php if (isset($formatted_date)): ?>
-      var selectedDate = "<?php echo $formatted_date; ?>";
-      var startDay = parseInt(selectedDate.slice(6, selectedDate.length));
-      var startMonth = parseInt(selectedDate.slice(4, 6));
-      var startYear = parseInt(selectedDate.slice(0, 4));
-      
-      selectedDate = new Date(startYear, startMonth-1, startDay);
-      $('#selectedDateRange').css('display', 'block');
-      $('#selectedDateRange1').css('display', 'block');
-      console.log(selectedDate);
-    <?php endif; ?>
+  var selectedDate = "<?php echo $formatted_date; ?>";
+  var startDay = parseInt(selectedDate.slice(6, selectedDate.length));
+  var startMonth = parseInt(selectedDate.slice(4, 6));
+  var startYear = parseInt(selectedDate.slice(0, 4));
+  
+  selectedDate = new Date(startYear, startMonth-1, startDay);
+  $('#selectedDateRange').css('display', 'block');
+  $('#selectedDateRange1').css('display', 'block');
+  $('[date-id="'+DaterFormat+'"]').addClass('start selected last');
+  console.log(DaterFormat);
+<?php endif; ?>
   });
 </script>
 
