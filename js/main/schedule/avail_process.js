@@ -1,31 +1,56 @@
-// $(document).ready(function() {
-//     setTimeout(function() {
-//         fetch_all_location();
-//     }, 100);
-
-//     function fetch_all_location() {
-//         var fep_action = "fetch_all_location";
-//         $.ajax({
-//             url: "./modules/profile.php",
-//             method: "POST",
-//             data: { action: fep_action },
-//             success: function(response) {
-//                 $("#from_loc_data").html(response);
-//             }
-//         });
-//     }
-// });
+$(document).ready(function() {
+    $('#passengerinfoSubmit').validate();
+    $('#passengerInfBtn').click(function() {
+      // Get form data for first passenger
+      var formdataAction = "formdataAction";
+      var formData = {
+        // add key-value pairs for each input field
+        inputFirstName0: $('#inputFirstName0').val(),
+        inputMiddleName0: $('#inputMiddleName0').val(),
+        inputLastName0: $('#inputLastName0').val(),
+        inputGender0: $('#inputGender0').val(),
+        inputDateofBirth0: $('#inputDateofBirth0').val(),
+        inputType0: $('#inputType0').val(),
+        inputNationality0: $('#inputNationality0').val(),
+        inputEmail0: $('#inputEmail0').val(),
+        inputDepartureDiscount: $('#inputDepartureDiscount').val(),
+        inputReturnDiscount0: $('#inputReturnDiscount0').val()
+      };
+      // Get the number of additional passengers
+      var numPassengers = parseInt($('#numPassengers').val());
+      // Loop through each additional passenger and add their data to the formData object
+      for (var i = 1; i <= numPassengers; i++) {
+        formData['inputFirstName' + i] = $('#inputFirstName' + i).val();
+        formData['inputMiddleName' + i] = $('#inputMiddleName' + i).val();
+        formData['inputLastName' + i] = $('#inputLastName' + i).val();
+        formData['inputGender' + i] = $('#inputGender' + i).val();
+        formData['inputDateofBirth' + i] = $('#inputDateofBirth' + i).val();
+        formData['inputType' + i] = $('#inputType' + i).val();
+        formData['inputNationality' + i] = $('#inputNationality' + i).val();
+        formData['inputEmail' + i] = $('#inputEmail' + i).val();
+        formData['inputReturnDiscount' + i] = $('#inputReturnDiscount' + i).val();
+      }
+      $.ajax({
+        type: 'POST',
+        url: './modules/schedule/avail_process.php',
+        data: {formData,formdataAc:formdataAction},
+        success: function(data) {
+        },
+        error: function(xhr, status, error) {
+        }
+      });
+      return false;
+    });
+  });
+  
 
 //* search available schedule & filter selected
 $(document).ready(function() {
     //* fetch search schedules
- //* fetch search schedules
  $('#search_sched_form').validate();
  $('#srch_sched_btn').click(function(e) {
      if (document.querySelector('#search_sched_form').checkValidity()) {
          e.preventDefault();
-         // $(':input[type="submit"]').prop('disabled', true);
-         
          // Retrieve min and max values of paxCount input element
          const paxCountInputElement = document.querySelector('input[name="paxCount"]');
          const minValue = parseInt(paxCountInputElement.getAttribute('min'));

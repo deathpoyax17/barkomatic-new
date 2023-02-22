@@ -18,12 +18,13 @@ if(!isset($_SESSION['passenger_id'])){?>
             </i><span class="field-paragraph">Fields with red asterisk (<a class="text-danger fs-6 ">*</a>) are required </span>
         </div>
         <div class="container-form bg-white pt-4 pb-sm-4 mb-4">
-            <form id="passengerinfoSubmit">
+            <form id="passengerinfoSubmit" >
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
                         <span class="labelnameborder">
                             <label for="validationDefault01"> <a class="text-danger fs-6 ">*</a></label>
                         </span>
+                        <input name="numPassengers" id="numPassengers" value="<?php echo $data['paxCount']; ?>">
                         <input type="text" class="form-control" id="validationDefault01" required>
                     </div>
                     <div class="col-md-6 mb-3">
@@ -149,7 +150,7 @@ if(!isset($_SESSION['passenger_id'])){?>
                 <div class="form-group col-md-4 ">
                 </div>
                 <div class="form-group col-md-4" style="padding-left:10%">
-                    <button type="button" class="btn btn-primary btn-lg pt-3 pb-sm-3">Continue</button>
+                    <button type="submit" id="passengerInfBtn" class="passengerInfBtn btn btn-primary btn-lg pt-3 pb-sm-3">Continue</button>
                 </div>
             </div>
         </div>
@@ -259,7 +260,7 @@ if(!isset($_SESSION['passenger_id'])){?>
                 <div class="form-group col-md-4 ">
                 </div>
                 <div class="form-group col-md-4" style="padding-left:10%">
-                    <button type="button" class="btn btn-primary btn-lg pt-3 pb-sm-3">Continue</button>
+                    <button type="submit" id="passengerInfBtn" class="passengerInfBtn btn btn-primary btn-lg pt-3 pb-sm-3">Continue</button>
                 </div>
             </div>
         </div>
