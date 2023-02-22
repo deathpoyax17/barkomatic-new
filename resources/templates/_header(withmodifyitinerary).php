@@ -50,7 +50,16 @@
     <title>Barkomatic - Online Ticketing</title>
 
     <style>
-        
+  .error {
+  background: #e10d0d;
+  color: WHITE;
+  padding: 10px;
+  position:fixed;
+  display:block;
+  z-index: 10;
+  bottom:0;
+  width:100%;
+}      
 .navigation {
      height: 16%;
      background:#09527f;
@@ -524,7 +533,7 @@ if(isset($_COOKIE['data'])){
                 $fromCode=substr($data['route_id_from'], 0, 3);
                   ?>
                     <div class="form-location-code"><?php echo $fromCode; ?></div>
-                    <span class="form-label-heading mb-tab" id="from"></span>
+                    <span class="form-label-heading mb-tab" id="from"><?php echo $data['route_id_from']?></span>
                 </div>
             </div>
             <div class="dest-fa">
@@ -535,9 +544,9 @@ if(isset($_COOKIE['data'])){
                 $toCode=substr($data['route_id_to'], 0, 3);
                   ?>
                 <div><div class="form-location-code"><?php echo $toCode; ?></div>
-                <span class="form-label-heading mb-tab" id="to"></span>
+                <span class="form-label-heading mb-tab" id="to"><?php echo $data['route_id_to'];?></span>
             </div></div></div><div class="box-group mb-tab">
-                <div><div class="form-label-title"><span id="paxCount"></span></div>
+                <div><div class="form-label-title"><span id="paxCount"></span><?php echo $data['paxCount'];?></div>
                 <div class="form-label-heading">Passengers</div>
             </div><!----><!----></div>
             

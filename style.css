@@ -948,8 +948,8 @@ a:visited {
 
 .container-form-summary {
     width: 235px;
-    height: 183px;
     border-radius: 10px;
+    padding:5px;
 }
 
 .container-form-collapse {

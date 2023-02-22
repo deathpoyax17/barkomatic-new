@@ -18,39 +18,37 @@
 
 //* search available schedule & filter selected
 $(document).ready(function() {
-    //* fetch search schedules
-    $('#search_sched_form').validate();
-    $('#srch_sched_btn').click(function(e) {
-        if (document.querySelector('#search_sched_form').checkValidity()) {
-            e.preventDefault();
-            // $(':input[type="submit"]').prop('disabled', true);
-            $.ajax({
-                url: './modules/schedule/avail_process.php',
-                method: 'POST',
-                data: $('#search_sched_form').serialize() + '&action=search_sched_form',
-                success: function(response) {
-                    console.log(response);
-                    var data = JSON.parse(response);
-                    document.cookie = "data=" + encodeURIComponent(JSON.stringify(data));
-                    $("#from").text(data.route_id_from);
-                    $("#to").text(data.route_id_to);
-                    $("#paxCount").text(data.paxCount);
-                    $("#ferryName").text(data.name);
-                    $("#ferryId").text(data.ferry_id);
-                    $("#shipName").text(data.ship_name);
-                    $("#departureDate").text(data.departure_date);
-                    $("#schedId").text(data.schedule_id);
-                    $("#rDate").text(data.return_date);
-                    setTimeout(function() {
-                        window.location = "scheduletrip(roundtrip).php";
-                    }, 100);
+ //* fetch search schedules
+ $('#search_sched_form').validate();
+ $('#srch_sched_btn').click(function(e) {
+     if (document.querySelector('#search_sched_form').checkValidity()) {
+         e.preventDefault();
+         $(':input[type="submit"]').prop('disabled', true);
+         const paxCountInputElement = document.querySelector('input[name="paxCount"]');
+         const minValue = parseInt(paxCountInputElement.getAttribute('min'));
+         const maxValue = parseInt(paxCountInputElement.getAttribute('max'));
+         // Include min and max values in the data object
+         const formData = $('#search_sched_form').serializeArray();
+         formData.push({ name: 'minValue', value: minValue });
+         formData.push({ name: 'maxValue', value: maxValue });
 
-                }
-            });
-        } else {
-            e.preventDefault();
-        }
-    });
+         $.ajax({
+             url: './modules/schedule/avail_process.php',
+             method: 'POST',
+             data: $.param(formData) + '&action=search_sched_form',
+             success: function(response) {
+                 console.log(response);
+                 var data = JSON.parse(response);
+                 document.cookie = "data=" + encodeURIComponent(JSON.stringify(data));
+                 setTimeout(function() {
+                     window.location = "scheduletrip(roundtrip).php";
+                 }, 100);
+             }
+         });
+     } else {
+         e.preventDefault();
+     }
+ });
     //* fetch summary selected schedule
     $('#srch_sched_ftr_form').submit(function(e) {
         e.preventDefault();
@@ -91,22 +89,37 @@ $(document).ready(function() {
     $('#summary_continue').submit(function(e) {
         e.preventDefault();
         $(':input[type="submit"]').prop('disabled', true);
-        $.ajax({
-            url: './modules/schedule/avail_process.php',
-            method: 'POST',
-            data: $('#summary_continue').serialize() + '&action=smmry_cn',
-            success: function(response) {
-                setTimeout(function() {
-                    $(':input[type="submit"]').prop('disabled', false);
-                }, 100);
-                setTimeout(function() {
-                    var data = JSON.parse(response);
-                    document.cookie = "data=" + encodeURIComponent(JSON.stringify(data));
-                    window.location = "passengerinfo.php";
+        var formData = $('#summary_continue').serialize();
+        if ($('#sched').val() === '') {
+            $('.error').text('Please enter a value for "sched"').show();
+        } else {
+            $.ajax({
+                url: './modules/schedule/avail_process.php',
+                method: 'POST',
+                data: formData + '&action=smmry_cn',
+                success: function(response) {
+                    if (response == 'Required inputs are missing.') {
+                        $('.error').show();
+                        setTimeout(function() {
+                            $('.error').fadeOut();
+                            $(':input[type="submit"]').prop('disabled', false);
+                        }, 2000);
+                    } else {
+                        setTimeout(function() {
+                            var data = JSON.parse(response);
+                            
+                        }, 100);
+                        $(".one").fadeOut(function() {
+                            $(".two").fadeIn(20);
+                        });
+                    }
                     console.log(response);
-                }, 100);
-            }
-        });
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    $('.error').text('There was an error processing your request. Please try again later.').show();
+                }
+            });
+        }
     });
     ///======================================================== end of it ==============================
     $(document).on('change', '#accomodation_form', function() {

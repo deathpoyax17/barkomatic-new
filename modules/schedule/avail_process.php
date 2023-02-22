@@ -60,31 +60,40 @@ if(isset($_POST['action']) && $_POST['action'] == 'sched_des') {
      echo $output;
 }
 function summarySubmit(){
-    $sched_id = $_POST['sched'];
-    $accom_id = $_POST['acom'];
-    $totalPrice = $_POST['totalPrice'];
-    if(isset($_POST['r_sched']) && isset($_POST['r_acom']) && isset($_POST['r_totalPrice']) ){
-        $r_sched_id = $_POST['r_sched'];
-        $r_accom_id = $_POST['r_acom'];
-        $r_totalPrice = $_POST['r_totalPrice'];
-        $data1 = array('schedSelected' => $sched_id,
-                      'acomSelected' => $accom_id, 
-                      'totalPrice' =>$totalPrice, 
-                      'r_sched_id' =>$r_sched_id, 
-                      'r_accom_id' => $r_accom_id, 
-                      'r_totalPrice' => $r_totalPrice);
-        $output = json_encode($data1);
-    }else{
-        $sched_id = $_POST['sched'];
-        $accom_id = $_POST['acom'];
-        $totalPrice = $_POST['totalPrice'];
-    $data = array('schedSelected' => $sched_id, 
-                  'acomSelected' => $accom_id, 
-                  'totalPrice' => $totalPrice);
-        $output = json_encode($data);
+    // check if all required inputs are set
+    if(isset($_POST['sched'], $_POST['acom'], $_POST['totalPrice'])){
+        // check if all required inputs are not empty
+        if(!empty($_POST['sched']) && !empty($_POST['acom']) && !empty($_POST['totalPrice'])){
+            $sched_id  = $_POST['sched'];
+            $accom_id  = $_POST['acom'];
+            $totalPrice= $_POST['totalPrice'];
+            $data      = array('schedSelected'=> $sched_id,'acomSelected'=> $accom_id, 'totalPrice'   => $totalPrice); 
+        } else {
+            $error = array('message' => 'Please fill in all required fields.');
+            $output = json_encode($error);
+            echo $output;
+            return;
+        }
+    } else {
+        $output = "Required inputs are missing.";
+        echo $output;
+        return;
     }
+    // check if optional inputs are set
+    if (isset($_POST['r_sched'], $_POST['r_acom'], $_POST['r_totalPrice'])) {
+        // check if optional inputs are not empty
+        if(!empty($_POST['r_sched']) && !empty($_POST['r_acom']) && !empty($_POST['r_totalPrice'])){
+            // Merge two arrays
+            $data = array_merge($data, array('r_sched_id'  => $_POST['r_sched'], 'r_accom_id'=> $_POST['r_acom'], 'r_totalPrice'=> $_POST['r_totalPrice']));
+        }
+    }
+
+    $output = json_encode($data);
     echo $output;
 }
+
+
+
 function r_sched_sel($c) {
     if (isset($_POST['schedule_id'])) {
       $schedule_id = $_POST['schedule_id'];
@@ -213,7 +222,7 @@ WHERE s.schedule_id=? AND a.accomodation_id=?");
                         <div class="depaturedetails">
                             <span style="font-size:14px; color: #988f90; ">PRICE</span>
                             <br>
-                             <input type="text" name="r_sched" value="' . $schedule_id . '" hidden>
+                             <input type="text" id="r_sched" name="r_sched" value="' . $schedule_id . '" hidden>
                             <input type="text" name="r_acom" value="' . $accom_selected . '" hidden>
                             <input type="text" id="r_totalPrice" value="' . $row1['price'] . '" name="r_totalPrice" hidden>
                             <span id="r_prices" style="color: #657174; ">₱ '.$row1['price'].'</span>
@@ -356,7 +365,7 @@ WHERE s.schedule_id=? AND a.accomodation_id=?");
                     <div class="depaturedetails">
                         <span style="font-size:14px; color: #988f90; ">PRICE</span>
                         <br>
-                            <input type="text" name="sched" value="'.$schedule_id.'" hidden>
+                            <input type="text" id="sched" name="sched" value="'.$schedule_id.'" hidden>
                             <input type="text" name="acom" value="'.$accom_selected. '" hidden>
                             <input type="text" id="totalPrice" value="'.$row1['price'].'" name="totalPrice" hidden>
                         <span id="prices" style="color: #657174; ">₱ '.$row1['price'].'</span>

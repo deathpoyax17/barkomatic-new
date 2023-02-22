@@ -719,6 +719,13 @@ const tabWrappers = document.querySelectorAll(".tab-wrapper");
 tabWrappers.forEach((tabWrapper, index) => inittab(tabWrapper));
 
 </script>
+<script>
+$(document).ready(function() {
+const paxCountInputElement = document.querySelector('input[name="paxCount"]');
+const defaultValue = 1;
+paxCountInputElement.defaultValue = defaultValue;
+    });
+</script>
 </body>
 
 <!-- Optional JavaScript -->
