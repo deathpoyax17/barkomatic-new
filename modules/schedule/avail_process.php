@@ -39,6 +39,9 @@ if(isset($_POST['action']) && $_POST['action'] == 'sched_sel') {
 if(isset($_POST['action']) && $_POST['action'] == 'r_sched_sel') {
     r_sched_sel($con);
 }
+if (isset($_POST['formdataAc']) && $_POST['formdataAc'] == 'formdataAction') {
+    passengerInfoSubmitreservation($con);
+}
 if(isset($_POST['action']) && $_POST['action'] == 'sched_des') {
         $output= ' <div class="accordion-item" style="margin-bottom: 25px; border-radius: 10px">
          <div class="depbackground-color" id="flush-headingOne">
@@ -59,6 +62,22 @@ if(isset($_POST['action']) && $_POST['action'] == 'sched_des') {
      ';
      echo $output;
 }
+function passengerInfoSubmitreservation($c){
+  
+    // Get the form data
+    $formData = $_POST['formData'];
+    // Process the form data
+    $passengerCount = count($formData) / 9; // 9 is the number of keys per passenger
+        for ($i = 0; $i <=$passengerCount; $i++) {
+            $firstName = $formData['inputFirstName' . $i];
+            echo $firstName;
+        }
+    // Send a response back to the client
+    echo 'Form data processed successfully.';
+
+
+}
+
 function summarySubmit(){
     // check if all required inputs are set
     if(isset($_POST['sched'], $_POST['acom'], $_POST['totalPrice'])){

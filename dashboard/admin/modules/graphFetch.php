@@ -10,7 +10,7 @@ $data = array();
 foreach ($result as $row) {
  $date = date("m",strtotime($row['date']));
   $data[] = $row;
-  $data[] =
+
 }
 //free memory associated with result
 $result->close();

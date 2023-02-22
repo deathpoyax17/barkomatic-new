@@ -24,7 +24,7 @@ if(!isset($_SESSION['passenger_id'])){?>
                         <span class="labelnameborder">
                             <label for="validationDefault01"> <a class="text-danger fs-6 ">*</a></label>
                         </span>
-                        <input name="numPassengers" id="numPassengers" value="<?php echo $data['paxCount']; ?>">
+                        <input name="numPassengers" hidden="" id="numPassengers" value="<?php echo $data['paxCount']; ?>">
                         <input type="text" class="form-control" id="validationDefault01" required>
                     </div>
                     <div class="col-md-6 mb-3">

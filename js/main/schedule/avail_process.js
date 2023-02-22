@@ -1,84 +1,79 @@
 $(document).ready(function() {
     $('#passengerinfoSubmit').validate();
     $('#passengerInfBtn').click(function() {
-      // Get form data for first passenger
-      var formdataAction = "formdataAction";
-      var formData = {
-        // add key-value pairs for each input field
-        inputFirstName0: $('#inputFirstName0').val(),
-        inputMiddleName0: $('#inputMiddleName0').val(),
-        inputLastName0: $('#inputLastName0').val(),
-        inputGender0: $('#inputGender0').val(),
-        inputDateofBirth0: $('#inputDateofBirth0').val(),
-        inputType0: $('#inputType0').val(),
-        inputNationality0: $('#inputNationality0').val(),
-        inputEmail0: $('#inputEmail0').val(),
-        inputDepartureDiscount: $('#inputDepartureDiscount').val(),
-        inputReturnDiscount0: $('#inputReturnDiscount0').val()
-      };
-      // Get the number of additional passengers
-      var numPassengers = parseInt($('#numPassengers').val());
-      // Loop through each additional passenger and add their data to the formData object
-      for (var i = 1; i <= numPassengers; i++) {
-        formData['inputFirstName' + i] = $('#inputFirstName' + i).val();
-        formData['inputMiddleName' + i] = $('#inputMiddleName' + i).val();
-        formData['inputLastName' + i] = $('#inputLastName' + i).val();
-        formData['inputGender' + i] = $('#inputGender' + i).val();
-        formData['inputDateofBirth' + i] = $('#inputDateofBirth' + i).val();
-        formData['inputType' + i] = $('#inputType' + i).val();
-        formData['inputNationality' + i] = $('#inputNationality' + i).val();
-        formData['inputEmail' + i] = $('#inputEmail' + i).val();
-        formData['inputReturnDiscount' + i] = $('#inputReturnDiscount' + i).val();
-      }
-      $.ajax({
-        type: 'POST',
-        url: './modules/schedule/avail_process.php',
-        data: {formData,formdataAc:formdataAction},
-        success: function(data) {
-        },
-        error: function(xhr, status, error) {
+        // Get the number of passengers
+        var numPassengers = parseInt($('#numPassengers').val());
+
+        // Generate the formData object
+        var formData = {};
+        for (var i = 0; i <= numPassengers; i++) {
+            formData['inputFirstName' + i] = $('#inputFirstName' + i).val();
+            formData['inputMiddleName' + i] = $('#inputMiddleName' + i).val();
+            formData['inputLastName' + i] = $('#inputLastName' + i).val();
+            formData['inputGender' + i] = $('#inputGender' + i).val();
+            formData['inputDateofBirth' + i] = $('#inputDateofBirth' + i).val();
+            formData['inputType' + i] = $('#inputType' + i).val();
+            formData['inputNationality' + i] = $('#inputNationality' + i).val();
+            formData['inputEmail' + i] = $('#inputEmail' + i).val();
+            formData['inputReturnDiscount' + i] = $('#inputReturnDiscount' + i).val();
         }
-      });
-      return false;
+
+        // Add any additional data to the formData object
+        formData['inputDepartureDiscount'] = $('#inputDepartureDiscount').val();
+
+        // Make the AJAX request
+        $.ajax({
+            type: 'POST',
+            url: './modules/schedule/avail_process.php',
+            data: { formData: formData, formdataAc: 'formdataAction' },
+            success: function(data) {
+                console.log(data);
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+        });
+
+        return false;
     });
-  });
-  
+});
+
 
 //* search available schedule & filter selected
 $(document).ready(function() {
     //* fetch search schedules
- $('#search_sched_form').validate();
- $('#srch_sched_btn').click(function(e) {
-     if (document.querySelector('#search_sched_form').checkValidity()) {
-         e.preventDefault();
-         // Retrieve min and max values of paxCount input element
-         const paxCountInputElement = document.querySelector('input[name="paxCount"]');
-         const minValue = parseInt(paxCountInputElement.getAttribute('min'));
-         const maxValue = parseInt(paxCountInputElement.getAttribute('max'));
+    $('#search_sched_form').validate();
+    $('#srch_sched_btn').click(function(e) {
+        if (document.querySelector('#search_sched_form').checkValidity()) {
+            e.preventDefault();
+            // Retrieve min and max values of paxCount input element
+            const paxCountInputElement = document.querySelector('input[name="paxCount"]');
+            const minValue = parseInt(paxCountInputElement.getAttribute('min'));
+            const maxValue = parseInt(paxCountInputElement.getAttribute('max'));
 
-         // Include min and max values in the data object
-         const formData = $('#search_sched_form').serializeArray();
-         formData.push({ name: 'minValue', value: minValue });
-         formData.push({ name: 'maxValue', value: maxValue });
+            // Include min and max values in the data object
+            const formData = $('#search_sched_form').serializeArray();
+            formData.push({ name: 'minValue', value: minValue });
+            formData.push({ name: 'maxValue', value: maxValue });
 
-         $.ajax({
-             url: './modules/schedule/avail_process.php',
-             method: 'POST',
-             data: $.param(formData) + '&action=search_sched_form',
-             success: function(response) {
-                 console.log(response);
-                 var data = JSON.parse(response);
-                 document.cookie = "data=" + encodeURIComponent(JSON.stringify(data));
-                 setTimeout(function() {
-                     window.location = "scheduletrip(roundtrip).php";
-                 }, 100);
+            $.ajax({
+                url: './modules/schedule/avail_process.php',
+                method: 'POST',
+                data: $.param(formData) + '&action=search_sched_form',
+                success: function(response) {
+                    console.log(response);
+                    var data = JSON.parse(response);
+                    document.cookie = "data=" + encodeURIComponent(JSON.stringify(data));
+                    setTimeout(function() {
+                        window.location = "scheduletrip(roundtrip).php";
+                    }, 100);
 
-             }
-         });
-     } else {
-         e.preventDefault();
-     }
- });
+                }
+            });
+        } else {
+            e.preventDefault();
+        }
+    });
     //* fetch summary selected schedule
     $('#srch_sched_ftr_form').submit(function(e) {
         e.preventDefault();
