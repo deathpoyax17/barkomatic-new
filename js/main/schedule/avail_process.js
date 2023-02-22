@@ -18,15 +18,19 @@
 
 //* search available schedule & filter selected
 $(document).ready(function() {
+    //* fetch search schedules
  //* fetch search schedules
  $('#search_sched_form').validate();
  $('#srch_sched_btn').click(function(e) {
      if (document.querySelector('#search_sched_form').checkValidity()) {
          e.preventDefault();
-         $(':input[type="submit"]').prop('disabled', true);
+         // $(':input[type="submit"]').prop('disabled', true);
+         
+         // Retrieve min and max values of paxCount input element
          const paxCountInputElement = document.querySelector('input[name="paxCount"]');
          const minValue = parseInt(paxCountInputElement.getAttribute('min'));
          const maxValue = parseInt(paxCountInputElement.getAttribute('max'));
+
          // Include min and max values in the data object
          const formData = $('#search_sched_form').serializeArray();
          formData.push({ name: 'minValue', value: minValue });
@@ -43,6 +47,7 @@ $(document).ready(function() {
                  setTimeout(function() {
                      window.location = "scheduletrip(roundtrip).php";
                  }, 100);
+
              }
          });
      } else {
@@ -106,8 +111,10 @@ $(document).ready(function() {
                         }, 2000);
                     } else {
                         setTimeout(function() {
-                            var data = JSON.parse(response);
-                            
+                            $(':input[type="submit"]').prop('disabled', false);
+                        }, 100);
+                        setTimeout(function() {
+                            // var data = JSON.parse(response);
                         }, 100);
                         $(".one").fadeOut(function() {
                             $(".two").fadeIn(20);

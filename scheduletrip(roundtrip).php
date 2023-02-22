@@ -468,12 +468,6 @@ if (isset($_COOKIE['data'])) {
 <script>
     $(document).ready(function() {
         $('.error').hide();
-        // $(".continueBtn").on('click', function(e) {
-        //     e.preventDefault();
-        //     $(".one").fadeOut(function() {
-        //         $(".two").fadeIn();
-        //     });
-        // });
         $(".cancelBtn").on('click', function(e) {
             e.preventDefault();
             $(".two").fadeOut(function() {
