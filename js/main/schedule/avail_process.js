@@ -3,6 +3,7 @@ $(document).ready(function() {
     $('#passengerInfBtn').click(function() {
         // Get the number of passengers
         var numPassengers = parseInt($('#numPassengers').val());
+        var numPassengers1 = $('#numPassengers').val();
         var cpvalidationDefault01 = $('#cpvalidationDefault01').val();
         var phone = $('#phone').val();
         var validationDefault01 = $('#validationDefault01').val();
@@ -35,6 +36,7 @@ $(document).ready(function() {
                     action:'formdataAction',
                     cpvalidationDefault01 : cpvalidationDefault01,
                     phone: phone,
+                    numPassengers1: numPassengers1,
                     validationDefault01:validationDefault01,
                     validationDefault02:validationDefault02,
                     validationDefault03:validationDefault03
@@ -47,7 +49,7 @@ $(document).ready(function() {
                 console.log(error);
             }
         });
-        console.log(numPassengers);
+        console.log(formData);
         return false;
     });
 });

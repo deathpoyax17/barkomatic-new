@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 10, 2023 at 10:05 AM
+-- Generation Time: Feb 23, 2023 at 09:02 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -42,7 +42,10 @@ CREATE TABLE `accommodations` (
 --
 
 INSERT INTO `accommodations` (`accomodation_id`, `ferry_id`, `acomm_name`, `room_type`, `aircon`, `price`, `availability`) VALUES
-(30, 1, 'test', 'test', 0, 300, 1);
+(30, 2, 'test', 'test', 0, 8050, 1),
+(31, 2, 'test1', 'test', 1, 10000, 1),
+(32, 1, 'test3', 'test3', 0, 300, 1),
+(33, 1, 'test4', 'test4', 1, 500, 1);
 
 -- --------------------------------------------------------
 
@@ -81,7 +84,8 @@ CREATE TABLE `ferries` (
 --
 
 INSERT INTO `ferries` (`ferry_id`, `name`, `capacity`, `owner_id`) VALUES
-(1, 'Test Vessel', 31, 1);
+(1, 'Test Vessel', 31, 1),
+(2, 'Test Vessel ship Test\r\n', 10, 5);
 
 -- --------------------------------------------------------
 
@@ -96,11 +100,48 @@ CREATE TABLE `passengers` (
   `lastname` varchar(100) NOT NULL,
   `gender` varchar(100) NOT NULL,
   `address` text NOT NULL,
-  `contact_info` int(100) NOT NULL,
+  `contact_info` text NOT NULL,
   `email` varchar(100) NOT NULL,
   `dob` date NOT NULL,
   `token` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `passengers`
+--
+
+INSERT INTO `passengers` (`passenger_id`, `alt_passenger_id`, `name`, `lastname`, `gender`, `address`, `contact_info`, `email`, `dob`, `token`) VALUES
+(3, 1, 'passTest', 'passTest', 'male', 'passTest', '0', 'passTest@gmail.com', '0000-00-00', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `passenger_reservation_details`
+--
+
+CREATE TABLE `passenger_reservation_details` (
+  `id` int(11) NOT NULL,
+  `contact_person` varchar(255) NOT NULL,
+  `phone_number` varchar(20) NOT NULL,
+  `contactperson_email` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `firstname` varchar(50) NOT NULL,
+  `middlename` varchar(50) DEFAULT NULL,
+  `lastname` varchar(50) NOT NULL,
+  `gender` enum('male','female','other') NOT NULL,
+  `dateofbirth` date NOT NULL,
+  `personType` enum('Adult','Minor') NOT NULL,
+  `nationality` varchar(50) NOT NULL,
+  `passenger_email` varchar(255) NOT NULL,
+  `discount` decimal(5,2) NOT NULL DEFAULT 0.00
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `passenger_reservation_details`
+--
+
+INSERT INTO `passenger_reservation_details` (`id`, `contact_person`, `phone_number`, `contactperson_email`, `address`, `firstname`, `middlename`, `lastname`, `gender`, `dateofbirth`, `personType`, `nationality`, `passenger_email`, `discount`) VALUES
+(1, 'erwin', '2342342', 'test@gmail.com', 'erwin', 'erwin', 'b', 'manugas', 'male', '1996-02-29', 'Adult', 'Filipino', 'test@gmail.com', '0.00');
 
 -- --------------------------------------------------------
 
@@ -128,7 +169,7 @@ CREATE TABLE `payments` (
 
 CREATE TABLE `reservations` (
   `id` int(11) NOT NULL,
-  `alt_passenger_id` int(11) NOT NULL,
+  `alt_passenger_id` int(11) DEFAULT NULL,
   `ticket_id` int(11) NOT NULL,
   `date` datetime NOT NULL,
   `status` varchar(255) NOT NULL
@@ -169,15 +210,18 @@ CREATE TABLE `schedules` (
   `accommodation_id` int(100) NOT NULL,
   `owner_id` int(100) NOT NULL,
   `departure_date` date NOT NULL,
-  `arrival_time` time NOT NULL
+  `arrival_time` time NOT NULL,
+  `return_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `schedules`
 --
 
-INSERT INTO `schedules` (`schedule_id`, `route_id_from`, `route_id_to`, `ferry_id`, `accommodation_id`, `owner_id`, `departure_date`, `arrival_time`) VALUES
-(2, 2, 3, 1, 30, 1, '2023-02-07', '10:00:00');
+INSERT INTO `schedules` (`schedule_id`, `route_id_from`, `route_id_to`, `ferry_id`, `accommodation_id`, `owner_id`, `departure_date`, `arrival_time`, `return_date`) VALUES
+(2, 2, 3, 1, 30, 1, '2023-02-06', '10:00:00', '1900-01-19 00:00:00'),
+(3, 3, 2, 1, 30, 1, '2023-02-10', '10:00:00', NULL),
+(4, 3, 2, 2, 30, 2, '2023-02-07', '10:00:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -203,7 +247,8 @@ CREATE TABLE `ship_owners` (
 --
 
 INSERT INTO `ship_owners` (`owner_id`, `ship_name`, `name`, `address`, `email`, `contact_info`, `plan_id`, `alt_owner_id`, `stats`, `ship_logo`) VALUES
-(1, 'TestShip', 0, 'TestShip', 'TestShip@gmail.com', 0, 1, 1, 1, '');
+(1, 'TestShip', 0, 'TestShip', 'TestShip@gmail.com', 0, 1, 1, 1, ''),
+(5, 'ShipTest', 0, 'ShipTest', 'ShipTest@gmail.com', 0, 1, 2, 1, '');
 
 -- --------------------------------------------------------
 
@@ -264,6 +309,13 @@ CREATE TABLE `tbl_passenger` (
   `password` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `tbl_passenger`
+--
+
+INSERT INTO `tbl_passenger` (`alt_passenger_id`, `username`, `password`) VALUES
+(1, 'passTest', '84337c3e236f7fbbf19c2c4a59ad6eb5a44bde5f');
+
 -- --------------------------------------------------------
 
 --
@@ -281,7 +333,8 @@ CREATE TABLE `tbl_ship_onwer_account` (
 --
 
 INSERT INTO `tbl_ship_onwer_account` (`alt_owner_id`, `username`, `password`) VALUES
-(1, 'TestShip', 'a67b688a59622d1d50645bb7f05a30f3243abae9');
+(1, 'TestShip', 'a67b688a59622d1d50645bb7f05a30f3243abae9'),
+(2, 'ShipTest', 'a67b688a59622d1d50645bb7f05a30f3243abae9');
 
 -- --------------------------------------------------------
 
@@ -315,7 +368,7 @@ CREATE TABLE `tickets` (
   `accomodation_id` int(100) NOT NULL,
   `alt_owner_id` int(11) NOT NULL,
   `price` int(100) NOT NULL,
-  `availability` enum('reservation','Not Available','Available') NOT NULL
+  `availability` enum('reservation','Not Available','Available','Purchase') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -347,6 +400,12 @@ ALTER TABLE `ferries`
 ALTER TABLE `passengers`
   ADD PRIMARY KEY (`passenger_id`),
   ADD UNIQUE KEY `alt_passenger_id` (`alt_passenger_id`);
+
+--
+-- Indexes for table `passenger_reservation_details`
+--
+ALTER TABLE `passenger_reservation_details`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `payments`
@@ -383,8 +442,7 @@ ALTER TABLE `schedules`
 --
 ALTER TABLE `ship_owners`
   ADD PRIMARY KEY (`owner_id`),
-  ADD UNIQUE KEY `alt_owner_id` (`alt_owner_id`),
-  ADD UNIQUE KEY `plan_id` (`plan_id`);
+  ADD UNIQUE KEY `alt_owner_id` (`alt_owner_id`);
 
 --
 -- Indexes for table `staff`
@@ -436,7 +494,7 @@ ALTER TABLE `tickets`
 -- AUTO_INCREMENT for table `accommodations`
 --
 ALTER TABLE `accommodations`
-  MODIFY `accomodation_id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `accomodation_id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `admin`
@@ -448,13 +506,19 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `ferries`
 --
 ALTER TABLE `ferries`
-  MODIFY `ferry_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ferry_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `passengers`
 --
 ALTER TABLE `passengers`
-  MODIFY `passenger_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `passenger_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `passenger_reservation_details`
+--
+ALTER TABLE `passenger_reservation_details`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `payments`
@@ -478,13 +542,13 @@ ALTER TABLE `routes`
 -- AUTO_INCREMENT for table `schedules`
 --
 ALTER TABLE `schedules`
-  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `ship_owners`
 --
 ALTER TABLE `ship_owners`
-  MODIFY `owner_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `owner_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `staff`
@@ -496,13 +560,13 @@ ALTER TABLE `staff`
 -- AUTO_INCREMENT for table `tbl_passenger`
 --
 ALTER TABLE `tbl_passenger`
-  MODIFY `alt_passenger_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `alt_passenger_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_ship_onwer_account`
 --
 ALTER TABLE `tbl_ship_onwer_account`
-  MODIFY `alt_owner_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `alt_owner_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_staff_account`
@@ -552,7 +616,6 @@ ALTER TABLE `reservations`
 -- Constraints for table `ship_owners`
 --
 ALTER TABLE `ship_owners`
-  ADD CONSTRAINT `ship_owners_ibfk_1` FOREIGN KEY (`plan_id`) REFERENCES `subscription_plans` (`plan_id`),
   ADD CONSTRAINT `ship_owners_ibfk_2` FOREIGN KEY (`alt_owner_id`) REFERENCES `tbl_ship_onwer_account` (`alt_owner_id`);
 
 --

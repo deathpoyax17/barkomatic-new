@@ -67,10 +67,11 @@ function passengerInfoSubmitreservation($c) {
     $formData = $_POST['formData'];
     $cpvalidationDefault01 =$_POST['cpvalidationDefault01'];
     $phone =$_POST['phone'];
+    $numPassengers1 =$_POST['numPassengers1'];
     $validationDefault01 =$_POST['validationDefault01'];
     $validationDefault03 =$_POST['validationDefault03'];
     // Process the form data
-    for ($i = 0; $i < count($formData); $i++) {
+    for ($i = 0; $i < $numPassengers1; $i++) {
         $fieldName = $formData['inputFirstName'.$i];
         $inputMiddleName = $formData['inputMiddleName'.$i];
         $inputLastName = $formData['inputLastName'.$i];
@@ -95,27 +96,39 @@ function passengerInfoSubmitreservation($c) {
             passenger_email,
             discount
           ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                        $stmt = $c->prepare($sql_rsrtn);
-                        $stmt->bind_param('sssssssssssss',
-                        $cpvalidationDefault01,
-                        $phone,
-                        $validationDefault01,
-                        $validationDefault03,
-                        $fieldName,
-                        $inputMiddleName,
-                        $inputLastName,
-                        $inputGender,
-                        $inputDateofBirth,
-                        $inputType,
-                        $inputNationality,
-                        $inputEmail,
-                        $inputReturnDiscount);
+        $stmt = $c->prepare($sql_rsrtn);
+        $stmt->bind_param('sssssssssssss',
+            $cpvalidationDefault01,
+            $phone,
+            $validationDefault01,
+            $validationDefault03,
+            $fieldName,
+            $inputMiddleName,
+            $inputLastName,
+            $inputGender,
+            $inputDateofBirth,
+            $inputType,
+            $inputNationality,
+            $inputEmail,
+            $inputReturnDiscount
+        );
+        
+        if (!$stmt->execute()) {
+            // If there is an error, handle it appropriately (e.g. log the error, return an error message to the user, etc.)
+            $error = $stmt->error;
+            // For example, you can log the error:
+            error_log('Error executing INSERT query: ' . $error);
+            // And you can return an error message to the user:
+            $response = array('success' => false, 'error' => 'There was an error processing your request. Please try again later.');
+            echo json_encode($response);
+            return;
+        }
     }
-    // Send a response to the client
+    
+    // If everything was successful, return a success message to the user
     $response = array('success' => true);
     echo json_encode($response);
 }
-
 
 function summarySubmit(){
     // check if all required inputs are set
@@ -145,12 +158,9 @@ function summarySubmit(){
             $data = array_merge($data, array('r_sched_id'  => $_POST['r_sched'], 'r_accom_id'=> $_POST['r_acom'], 'r_totalPrice'=> $_POST['r_totalPrice']));
         }
     }
-
     $output = json_encode($data);
     echo $output;
 }
-
-
 
 function r_sched_sel($c) {
     if (isset($_POST['schedule_id'])) {
