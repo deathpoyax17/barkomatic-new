@@ -3,10 +3,14 @@ $(document).ready(function() {
     $('#passengerInfBtn').click(function() {
         // Get the number of passengers
         var numPassengers = parseInt($('#numPassengers').val());
-
+        var cpvalidationDefault01 = $('#cpvalidationDefault01').val();
+        var phone = $('#phone').val();
+        var validationDefault01 = $('#validationDefault01').val();
+        var validationDefault02 = $('#validationDefault02').val();
+        var validationDefault03 = $('#validationDefault03').val();
         // Generate the formData object
         var formData = {};
-        for (var i = 0; i <= numPassengers; i++) {
+        for (var i = 0; i < numPassengers; i++) {
             formData['inputFirstName' + i] = $('#inputFirstName' + i).val();
             formData['inputMiddleName' + i] = $('#inputMiddleName' + i).val();
             formData['inputLastName' + i] = $('#inputLastName' + i).val();
@@ -17,7 +21,9 @@ $(document).ready(function() {
             formData['inputEmail' + i] = $('#inputEmail' + i).val();
             formData['inputReturnDiscount' + i] = $('#inputReturnDiscount' + i).val();
         }
-
+        var serializedFormData = $('#passengerInfoForm').serializeArray();
+        // Merge the serialized form data with the formData object
+        formData = $.extend(formData, serializedFormData);
         // Add any additional data to the formData object
         formData['inputDepartureDiscount'] = $('#inputDepartureDiscount').val();
 
@@ -25,7 +31,15 @@ $(document).ready(function() {
         $.ajax({
             type: 'POST',
             url: './modules/schedule/avail_process.php',
-            data: { formData: formData, formdataAc: 'formdataAction' },
+            data: {formData,
+                    action:'formdataAction',
+                    cpvalidationDefault01 : cpvalidationDefault01,
+                    phone: phone,
+                    validationDefault01:validationDefault01,
+                    validationDefault02:validationDefault02,
+                    validationDefault03:validationDefault03
+                    },
+            contentType: 'application/x-www-form-urlencoded',
             success: function(data) {
                 console.log(data);
             },
@@ -33,7 +47,7 @@ $(document).ready(function() {
                 console.log(error);
             }
         });
-
+        console.log(numPassengers);
         return false;
     });
 });

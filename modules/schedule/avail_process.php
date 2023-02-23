@@ -39,7 +39,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'sched_sel') {
 if(isset($_POST['action']) && $_POST['action'] == 'r_sched_sel') {
     r_sched_sel($con);
 }
-if (isset($_POST['formdataAc']) && $_POST['formdataAc'] == 'formdataAction') {
+if (isset($_POST['action']) && $_POST['action'] == 'formdataAction') {
     passengerInfoSubmitreservation($con);
 }
 if(isset($_POST['action']) && $_POST['action'] == 'sched_des') {
@@ -62,21 +62,60 @@ if(isset($_POST['action']) && $_POST['action'] == 'sched_des') {
      ';
      echo $output;
 }
-function passengerInfoSubmitreservation($c){
-  
+function passengerInfoSubmitreservation($c) {
     // Get the form data
     $formData = $_POST['formData'];
+    $cpvalidationDefault01 =$_POST['cpvalidationDefault01'];
+    $phone =$_POST['phone'];
+    $validationDefault01 =$_POST['validationDefault01'];
+    $validationDefault03 =$_POST['validationDefault03'];
     // Process the form data
-    $passengerCount = count($formData) / 9; // 9 is the number of keys per passenger
-        for ($i = 0; $i <=$passengerCount; $i++) {
-            $firstName = $formData['inputFirstName' . $i];
-            echo $firstName;
-        }
-    // Send a response back to the client
-    echo 'Form data processed successfully.';
-
-
+    for ($i = 0; $i < count($formData); $i++) {
+        $fieldName = $formData['inputFirstName'.$i];
+        $inputMiddleName = $formData['inputMiddleName'.$i];
+        $inputLastName = $formData['inputLastName'.$i];
+        $inputGender = $formData['inputGender'.$i];
+        $inputDateofBirth = $formData['inputDateofBirth'.$i];
+        $inputType = $formData['inputType'.$i];
+        $inputNationality = $formData['inputNationality'.$i];
+        $inputEmail = $formData['inputEmail'.$i];
+        $inputReturnDiscount = $formData['inputReturnDiscount'.$i];
+        $sql_rsrtn = "INSERT INTO passenger_reservation_details (
+            contact_person,
+            phone_number,
+            contactperson_email,
+            address,
+            firstname,
+            middlename,
+            lastname,
+            gender,
+            dateofbirth,
+            personType,
+            nationality,
+            passenger_email,
+            discount
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                        $stmt = $c->prepare($sql_rsrtn);
+                        $stmt->bind_param('sssssssssssss',
+                        $cpvalidationDefault01,
+                        $phone,
+                        $validationDefault01,
+                        $validationDefault03,
+                        $fieldName,
+                        $inputMiddleName,
+                        $inputLastName,
+                        $inputGender,
+                        $inputDateofBirth,
+                        $inputType,
+                        $inputNationality,
+                        $inputEmail,
+                        $inputReturnDiscount);
+    }
+    // Send a response to the client
+    $response = array('success' => true);
+    echo json_encode($response);
 }
+
 
 function summarySubmit(){
     // check if all required inputs are set

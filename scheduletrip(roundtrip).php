@@ -372,7 +372,6 @@ if (isset($_COOKIE['data'])) {
                     <button type="submit" id="btncontinue" class="continueBtn btn btn-primary btn-block btn-lg"> Continue </button>
                 </div>
             </form>
-            
         </div>
     </div>
 <?php }   ?>

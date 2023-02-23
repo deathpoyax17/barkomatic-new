@@ -89,7 +89,7 @@ require "resources/templates/_search-trip_header.php"; ?>
                                     <div class="input-group-prepend">
                                         <label class="input-group-text input-label-w">From</label>
                                     </div>
-                                    <!----><select name="srch_sched_loc_from" required="" class="custom-select ng-untouched ng-pristine ng-valid">
+                                    <!----><select name="srch_sched_loc_from" id="depFrom" required="" class="custom-select ng-untouched ng-pristine ng-valid">
                                     <?php 
                                                     $stmt1 = $con->prepare("SELECT * FROM routes"); 
                                                     $stmt1->execute();
@@ -114,7 +114,7 @@ require "resources/templates/_search-trip_header.php"; ?>
                                         <label class="input-group-text input-label-w">To</label>
                                     </div>
                                     <!----><select name="srch_sched_loc_to"
-                                        class="custom-select ng-untouched ng-pristine ng-valid">
+                                        class="custom-select ng-untouched ng-pristine ng-valid" id="depto">
                                         <?php 
                                                     $stmt1 = $con->prepare("SELECT * FROM routes"); 
                                                     $stmt1->execute();
@@ -725,6 +725,20 @@ const paxCountInputElement = document.querySelector('input[name="paxCount"]');
 const defaultValue = 1;
 paxCountInputElement.defaultValue = defaultValue;
     });
+</script>
+<script>
+$(document).ready(function() {
+// Get the select elements
+var fromSelect = document.getElementById("depFrom");
+var toSelect = document.getElementById("depto");
+// Get the number of options
+var options = Math.max(fromSelect.options.length, toSelect.options.length);
+// Generate a random index between 0 and the number of options
+var randomIndex = Math.floor(Math.random() * options);
+// Set both select elements to the same random option
+fromSelect.selectedIndex = randomIndex;
+
+});
 </script>
 </body>
 

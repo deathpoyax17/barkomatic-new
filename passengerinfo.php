@@ -22,14 +22,14 @@ if(!isset($_SESSION['passenger_id'])){?>
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
                         <span class="labelnameborder">
-                            <label for="validationDefault01"> <a class="text-danger fs-6 ">*</a></label>
+                            <label for="validationDefault01"> <a class="text-danger fs-6 ">Contact Person*</a></label>
                         </span>
-                        <input name="numPassengers" hidden="" id="numPassengers" value="<?php echo $data['paxCount']; ?>">
-                        <input type="text" class="form-control" id="validationDefault01" required>
+                       
+                        <input type="text" class="form-control" id="cpvalidationDefault01" required>
                     </div>
                     <div class="col-md-6 mb-3">
                         <span class="labelnameborder2">
-                            <label for="validationDefault02"><a class="text-danger fs-6 ">*</a></label>
+                            <label for="validationDefault02"><a class="text-danger fs-6 ">Mobile Number (+63 xxxxxxxxxx)*</a></label>
                         </span>
                         <div class="input-group">
                             <input type="tel" id="phone" class="form-control" value="+63" maxlength="13" size="55">
@@ -37,13 +37,13 @@ if(!isset($_SESSION['passenger_id'])){?>
                     </div>
                     <div class="col-md-6 mb-3">
                         <span class="labelnameborder">
-                            <label for="validationDefault01"> <a class="text-danger fs-6 ">*</a></label>
+                            <label for="validationDefault01"> <a class="text-danger fs-6 ">Email Address*</a></label>
                         </span>
                         <input type="text" class="form-control" id="validationDefault01" placeholder="name@email.com" required>
                     </div>
                     <div class="col-md-6 mb-3">
                         <span class="labelnameborder2">
-                            <label for="validationDefault02"><a class="text-danger fs-6 ">*</a></label>
+                            <label for="validationDefault02"><a class="text-danger fs-6 ">Confirm Email Address*</a></label>
                         </span>
                         <input type="text" class="form-control" id="validationDefault02" placeholder="name@email.com" required>
                     </div>
@@ -51,7 +51,7 @@ if(!isset($_SESSION['passenger_id'])){?>
                 <div class="form-row">
                     <div class="col-md-12 mb-3">
                         <span class="labelnameborder3">
-                            <label for="validationDefault03"><a class="text-danger fs-6 ">*</a></label>
+                            <label for="validationDefault03"><a class="text-danger fs-6 ">Address*</a></label>
                         </span>
                         <input type="text" class="form-control" id="validationDefault03" placeholder="e.g. Ozamiz City, Misamis Occidental / APOR" required>
                     </div>
@@ -78,7 +78,7 @@ if(!isset($_SESSION['passenger_id'])){?>
     <div class="form-row">
       <div class="form-group col-md-4">
         <label for="inputFirstName<?php echo $i; ?>">First Name <a class="text-danger fs-6">*</a></label>
-        <input type="text" class="form-control" id="inputFirstName<?php echo $i; ?>" placeholder="First Name">
+        <input type="text" class="form-control" name="inputFirstName" id="inputFirstName<?php echo $i; ?>" placeholder="First Name">
       </div>
       <div class="form-group col-sm-1">
         <label for="inputMiddleName<?php echo $i; ?>">MI <a class="text-danger fs-6"></a></label>
@@ -150,6 +150,7 @@ if(!isset($_SESSION['passenger_id'])){?>
                 <div class="form-group col-md-4 ">
                 </div>
                 <div class="form-group col-md-4" style="padding-left:10%">
+                <input name="numPassengers" hidden="" id="numPassengers" value="<?php echo $data['paxCount']; ?>">
                     <button type="submit" id="passengerInfBtn" class="passengerInfBtn btn btn-primary btn-lg pt-3 pb-sm-3">Continue</button>
                 </div>
             </div>
@@ -260,6 +261,7 @@ if(!isset($_SESSION['passenger_id'])){?>
                 <div class="form-group col-md-4 ">
                 </div>
                 <div class="form-group col-md-4" style="padding-left:10%">
+                 <input name="numPassengers" hidden="" id="numPassengers" value="<?php echo $data['paxCount']; ?>">
                     <button type="submit" id="passengerInfBtn" class="passengerInfBtn btn btn-primary btn-lg pt-3 pb-sm-3">Continue</button>
                 </div>
             </div>
