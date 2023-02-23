@@ -70,6 +70,7 @@ function passengerInfoSubmitreservation($c) {
     $numPassengers1 =$_POST['numPassengers1'];
     $validationDefault01 =$_POST['validationDefault01'];
     $validationDefault03 =$_POST['validationDefault03'];
+   
     // Process the form data
     for ($i = 0; $i < $numPassengers1; $i++) {
         $fieldName = $formData['inputFirstName'.$i];
@@ -122,6 +123,49 @@ function passengerInfoSubmitreservation($c) {
             $response = array('success' => false, 'error' => 'There was an error processing your request. Please try again later.');
             echo json_encode($response);
             return;
+        }else{
+            // for ticket
+            // $sumPrice = $_POST['sumPrice'];
+            $schedSelected = $_POST['schedSelecteds'];
+            $acomSelected = $_POST['acomSelected'];
+            $purchasetk = "Purchase";
+            $rsrvtn_num = rand(1000000, 9999999);
+            // end 
+            $sql_rsrtntbl = "INSERT INTO tickets (
+            tckt_code,
+            schedule_id,
+            email_add,
+            accomodation_id,
+            availability
+          ) VALUES (?, ?, ?, ?, ?)";
+            $stmts = $c->prepare($sql_rsrtntbl);
+            $stmts->bind_param(
+                'sssss',
+                $rsrvtn_num,
+                $schedSelected,
+                $validationDefault01,
+                $acomSelected,
+                $purchasetk
+            );
+            if (!$stmts->execute()) {
+                // If there is an error, handle it appropriately (e.g. log the error, return an error message to the user, etc.)
+                $error = $stmts->error;
+                // For example, you can log the error:
+                error_log('Error executing INSERT query: ' . $error);
+                // And you can return an error message to the user:
+                $responses = array('success' => false, 'error' => 'There was an error processing your request. Please try again later.');
+                echo json_encode($responses);
+                return;
+            }else{
+                if(isset($_POST['r_accom_id_int'])){
+                    $r_accom_id_int = $_POST['r_accom_id_int'];
+                    $r_sched_id_int = $_POST['r_sched_id_int'];
+                    $r_totalPrice_int = $_POST['r_totalPrice_int'];
+                }else{
+                    echo "error";
+                }
+              
+            }
         }
     }
     
@@ -806,108 +850,108 @@ function search_available_schedule($c) {
    
 
 
-//* search available schedule1
-function search_available_schedule1($c) {
-    // error_reporting(E_ALL);
-    // ini_set('display_errors', 1);
-    // $srch_ss = $_POST['srch_ship_sched'];
-    $sslf = $_POST['srch_sched_loc_from'];
-    $sslt = $_POST['srch_sched_loc_to'];
-    $ssld = date('Y-m-d', strtotime($_POST['srch_sched_loc_depart']));
+// //* search available schedule1
+// function search_available_schedule1($c) {
+//     // error_reporting(E_ALL);
+//     // ini_set('display_errors', 1);
+//     // $srch_ss = $_POST['srch_ship_sched'];
+//     $sslf = $_POST['srch_sched_loc_from'];
+//     $sslt = $_POST['srch_sched_loc_to'];
+//     $ssld = date('Y-m-d', strtotime($_POST['srch_sched_loc_depart']));
 
-    $sql_slct = "SELECT 
-                tbl_ship_sd.ship_name,
-                tbl_ship_sd.ship_logo,
-                tbl_ship_sched.depart_date,
-                tbl_ship_sched.depart_time,
-                tbl_ship_sched.location_from,
-                tbl_ship_sched.port_from,
-                tbl_ship_sched.location_to,
-                tbl_ship_sched.port_to,
-                tbl_ship_acctyp.accomodation_name,
-                tbl_ship_acctyp.price,
-                tbl_ship_acctyp.id,
-                tbl_tcket.tckt_promo,
-                tbl_tcket.tckt_stats,
-                tbl_tcket.tckt_dscnt,
-                tbl_tcket.tckt_owner,
-                tbl_tcket.tckt_price
-                FROM tbl_ship_detail tbl_ship_sd
-                JOIN tbl_ship_schedule tbl_ship_sched
-                JOIN tbl_ship_has_accomodation_type tbl_ship_acctyp
-                JOIN tbl_tckt tbl_tcket ON tbl_ship_sd.ship_name = tbl_tcket.tckt_owner
-                WHERE tbl_ship_sched.depart_date=? AND tbl_ship_sched.location_from=? AND tbl_ship_sched.location_to=?";
-    $stmt = $c->prepare($sql_slct);
-    echo $c -> error;
-    $stmt->bind_param("sss",$ssld,$sslf,$sslt);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $row = $result->fetch_array();
-    if(!empty($row)) {
-        echo '
-        <div>
-        <div class="form-group accomm_type" name="sample_list" >
-                <select onchange="selectOnChange(this)" name="srch_sched_accomm_type" id="slct_accomm_type" class="form-control select">
-                <option value="0" data-price="0" data-name="None" >Ordinary</option> 
-         ';
-         $stmt2 = $c->prepare("SELECT * FROM tbl_ship_has_accomodation_type WHERE ship_reside=?"); 
-         $stmt2->bind_param("s", $srch_ss);
-         $stmt2->execute();
-         $result2 = $stmt2->get_result();
-        while($row1 = $result2->fetch_assoc()){
-            echo '<option value="'.$row1["id"].'" data-price="'.$row1["price"].'" data-name="'.$row1["accomodation_name"].'">'.$row1["accomodation_name"].'</option>
-                ';
-        }
-                echo ' 
-                </select>
-                </div>
-       ';
-    $output = '
+//     $sql_slct = "SELECT 
+//                 tbl_ship_sd.ship_name,
+//                 tbl_ship_sd.ship_logo,
+//                 tbl_ship_sched.depart_date,
+//                 tbl_ship_sched.depart_time,
+//                 tbl_ship_sched.location_from,
+//                 tbl_ship_sched.port_from,
+//                 tbl_ship_sched.location_to,
+//                 tbl_ship_sched.port_to,
+//                 tbl_ship_acctyp.accomodation_name,
+//                 tbl_ship_acctyp.price,
+//                 tbl_ship_acctyp.id,
+//                 tbl_tcket.tckt_promo,
+//                 tbl_tcket.tckt_stats,
+//                 tbl_tcket.tckt_dscnt,
+//                 tbl_tcket.tckt_owner,
+//                 tbl_tcket.tckt_price
+//                 FROM tbl_ship_detail tbl_ship_sd
+//                 JOIN tbl_ship_schedule tbl_ship_sched
+//                 JOIN tbl_ship_has_accomodation_type tbl_ship_acctyp
+//                 JOIN tbl_tckt tbl_tcket ON tbl_ship_sd.ship_name = tbl_tcket.tckt_owner
+//                 WHERE tbl_ship_sched.depart_date=? AND tbl_ship_sched.location_from=? AND tbl_ship_sched.location_to=?";
+//     $stmt = $c->prepare($sql_slct);
+//     echo $c -> error;
+//     $stmt->bind_param("sss",$ssld,$sslf,$sslt);
+//     $stmt->execute();
+//     $result = $stmt->get_result();
+//     $row = $result->fetch_array();
+//     if(!empty($row)) {
+//         echo '
+//         <div>
+//         <div class="form-group accomm_type" name="sample_list" >
+//                 <select onchange="selectOnChange(this)" name="srch_sched_accomm_type" id="slct_accomm_type" class="form-control select">
+//                 <option value="0" data-price="0" data-name="None" >Ordinary</option> 
+//          ';
+//          $stmt2 = $c->prepare("SELECT * FROM tbl_ship_has_accomodation_type WHERE ship_reside=?"); 
+//          $stmt2->bind_param("s", $srch_ss);
+//          $stmt2->execute();
+//          $result2 = $stmt2->get_result();
+//         while($row1 = $result2->fetch_assoc()){
+//             echo '<option value="'.$row1["id"].'" data-price="'.$row1["price"].'" data-name="'.$row1["accomodation_name"].'">'.$row1["accomodation_name"].'</option>
+//                 ';
+//         }
+//                 echo ' 
+//                 </select>
+//                 </div>
+//        ';
+//     $output = '
                 
-                <div class="row pl-4 border rounded-fill m-auto">
-                <br>
-                <div class="col-sm-4">
-                    <div class="form-group text-center">
-                        <input type="text" name="srch_sched_time" value="'.$row["depart_time"].'" class="form-control border-top-0 rounded-0 text-center"  readonly>
-                    </div>
-                </div>
-                <div class="col-sm-4 text-center">
-                    <div class="form-group pt-2 text-center">
-                        <img src="data:image/jpeg;base64,'.base64_encode($row["ship_logo"]).'" alt="" width="70">
-                        <input type="text" name="srch_sched_ship_nm" value="'.$row["ship_name"].'" class="bg-light border-0" readonly>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="cost"  name="srch_sched_price_display" value="'.$row["tckt_price"].'" class="form-control border-0 p-0 bg-light text-center" readonly>
-                        <input type="hidden" name="srch_sched_price" value="'.$row["tckt_price"].'" class="form-control border-0 p-0 bg-light text-center" readonly>
-                        <small>Ticket Price</small>
-                        <br>
-                        <br>
-                        <input type="text" id="AcommondationPrice"  name="srch_sched_Accom_price" value="" class="form-control border-0 p-0 bg-light text-center" readonly>
-                        <input type="hidden" id="AcommondationPrice" name="srch_sched_Accom_price" value="" class="form-control border-0 p-0 bg-light text-center" readonly>
-                        <small>Accomodation Price</small>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <input type="text" id="total"  name="srch_sched_price_display" value="P'.$row["tckt_price"].'" class="form-control border-0 p-0 bg-light text-center" readonly>
-                        <input type="hidden" id="total" name="srch_sched_total_price" value="'.$row["tckt_price"].'" class="form-control border-0 p-0 bg-light text-center" readonly>
-                        <small>Total Price</small>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group">
-                    </div>
-                    <div class="form-group text-center">
-                        <input type="submit" id="srch_sched_filter_btn" value="GO" class="btn btn-success">
-                    </div>
-                </div>
-            </div>';
-    echo $output;
-} else {
-    echo '<p class="text-danger text-center lead">No Available Schedules!</p>';
-}
-    $stmt->close();
-}
+//                 <div class="row pl-4 border rounded-fill m-auto">
+//                 <br>
+//                 <div class="col-sm-4">
+//                     <div class="form-group text-center">
+//                         <input type="text" name="srch_sched_time" value="'.$row["depart_time"].'" class="form-control border-top-0 rounded-0 text-center"  readonly>
+//                     </div>
+//                 </div>
+//                 <div class="col-sm-4 text-center">
+//                     <div class="form-group pt-2 text-center">
+//                         <img src="data:image/jpeg;base64,'.base64_encode($row["ship_logo"]).'" alt="" width="70">
+//                         <input type="text" name="srch_sched_ship_nm" value="'.$row["ship_name"].'" class="bg-light border-0" readonly>
+//                     </div>
+//                     <div class="form-group">
+//                         <input type="text" id="cost"  name="srch_sched_price_display" value="'.$row["tckt_price"].'" class="form-control border-0 p-0 bg-light text-center" readonly>
+//                         <input type="hidden" name="srch_sched_price" value="'.$row["tckt_price"].'" class="form-control border-0 p-0 bg-light text-center" readonly>
+//                         <small>Ticket Price</small>
+//                         <br>
+//                         <br>
+//                         <input type="text" id="AcommondationPrice"  name="srch_sched_Accom_price" value="" class="form-control border-0 p-0 bg-light text-center" readonly>
+//                         <input type="hidden" id="AcommondationPrice" name="srch_sched_Accom_price" value="" class="form-control border-0 p-0 bg-light text-center" readonly>
+//                         <small>Accomodation Price</small>
+//                         <br>
+//                         <br>
+//                         <br>
+//                         <br>
+//                         <input type="text" id="total"  name="srch_sched_price_display" value="P'.$row["tckt_price"].'" class="form-control border-0 p-0 bg-light text-center" readonly>
+//                         <input type="hidden" id="total" name="srch_sched_total_price" value="'.$row["tckt_price"].'" class="form-control border-0 p-0 bg-light text-center" readonly>
+//                         <small>Total Price</small>
+//                     </div>
+//                 </div>
+//                 <div class="col-sm-4">
+//                     <div class="form-group">
+//                     </div>
+//                     <div class="form-group text-center">
+//                         <input type="submit" id="srch_sched_filter_btn" value="GO" class="btn btn-success">
+//                     </div>
+//                 </div>
+//             </div>';
+//     echo $output;
+// } else {
+//     echo '<p class="text-danger text-center lead">No Available Schedules!</p>';
+// }
+//     $stmt->close();
+// }
 
 
 //* summary departure

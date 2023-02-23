@@ -2,6 +2,13 @@ $(document).ready(function() {
     $('#passengerinfoSubmit').validate();
     $('#passengerInfBtn').click(function() {
         // Get the number of passengers
+        var sumPrice = $('#validationDefault01').val();
+        var schedSelected = $('#schedSelected').val();
+        var acomSelected = $('#acomSelected').val();
+        var r_accom_id_int = $('#r_accom_id_int').val();
+        var r_sched_id_int = $('#r_sched_id_int').val();
+        var r_totalPrice_int = $('#r_totalPrice_int').val();
+
         var numPassengers = parseInt($('#numPassengers').val());
         var numPassengers1 = $('#numPassengers').val();
         var cpvalidationDefault01 = $('#cpvalidationDefault01').val();
@@ -32,15 +39,22 @@ $(document).ready(function() {
         $.ajax({
             type: 'POST',
             url: './modules/schedule/avail_process.php',
-            data: {formData,
-                    action:'formdataAction',
-                    cpvalidationDefault01 : cpvalidationDefault01,
-                    phone: phone,
-                    numPassengers1: numPassengers1,
-                    validationDefault01:validationDefault01,
-                    validationDefault02:validationDefault02,
-                    validationDefault03:validationDefault03
-                    },
+            data: {
+                formData,
+                action: 'formdataAction',
+                cpvalidationDefault01: cpvalidationDefault01,
+                phone: phone,
+                numPassengers1: numPassengers1,
+                validationDefault01: validationDefault01,
+                validationDefault02: validationDefault02,
+                validationDefault03: validationDefault03,
+                sumPrice: sumPrice,
+                schedSelecteds: schedSelected,
+                acomSelected: acomSelected,
+                r_accom_id_int: r_accom_id_int,
+                r_sched_id_int: r_sched_id_int,
+                r_totalPrice_int: r_totalPrice_int
+            },
             contentType: 'application/x-www-form-urlencoded',
             success: function(data) {
                 console.log(data);
@@ -150,13 +164,20 @@ $(document).ready(function() {
                             $(':input[type="submit"]').prop('disabled', false);
                         }, 100);
                         setTimeout(function() {
-                            // var data = JSON.parse(response);
+                            var data = JSON.parse(response);
+                            $('#schedSelected').val(data.schedSelected);
+                            $('#acomSelected').val(data.acomSelected);
+                            $('#sumPrice').val(data.totalPrice);
+                            $('#r_accom_id_int').val(data.r_accom_id);
+                            $('#r_sched_id_int').val(data.r_sched_id);
+                            $('#r_totalPrice_int').val(data.r_totalPrice);
+                            console.log(data);
                         }, 100);
                         $(".one").fadeOut(function() {
                             $(".two").fadeIn(20);
                         });
                     }
-                    console.log(response);
+
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     $('.error').text('There was an error processing your request. Please try again later.').show();
