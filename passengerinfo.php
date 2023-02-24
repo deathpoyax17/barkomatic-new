@@ -149,6 +149,12 @@ if (!isset($_SESSION['passenger_id'])) { ?>
           <div class="form-group col-md-4 ">
           </div>
           <div class="form-group col-md-4" style="padding-left:10%">
+          <input type="text" id="sumPrice" name="sumPrice" value="" hidden="">
+            <input type="text" id="schedSelected" name="schedSelected" value="" hidden="">
+            <input type="text" id="acomSelected" name="acomSelected" value="" hidden="">
+            <input type="text" id="r_accom_id_int" name="r_accom_id_int" value="" hidden="">
+            <input type="text" id="r_sched_id_int" name="r_sched_id_int" value="" hidden="">
+            <input type="text" id="r_totalPrice_int" name="r_totalPrice_int" value="" hidden="">
             <input name="numPassengers" hidden="" id="numPassengers" value="<?php echo $data['paxCount']; ?>">
             <button type="submit" id="passengerInfBtn" class="passengerInfBtn btn btn-primary btn-lg pt-3 pb-sm-3">Continue</button>
           </div>

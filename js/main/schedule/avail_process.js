@@ -2,7 +2,7 @@ $(document).ready(function() {
     $('#passengerinfoSubmit').validate();
     $('#passengerInfBtn').click(function() {
         // Get the number of passengers
-        var sumPrice = $('#validationDefault01').val();
+        var sumPrice = $('#sumPrice').val();
         var schedSelected = $('#schedSelected').val();
         var acomSelected = $('#acomSelected').val();
         var r_accom_id_int = $('#r_accom_id_int').val();
@@ -63,7 +63,7 @@ $(document).ready(function() {
                 console.log(error);
             }
         });
-        console.log(formData);
+        console.log(schedSelected);
         return false;
     });
 });

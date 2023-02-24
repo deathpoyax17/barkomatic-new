@@ -125,26 +125,31 @@ function passengerInfoSubmitreservation($c) {
             return;
         }else{
             // for ticket
-            // $sumPrice = $_POST['sumPrice'];
+            $sumPrice = $_POST['sumPrice'];
             $schedSelected = $_POST['schedSelecteds'];
             $acomSelected = $_POST['acomSelected'];
             $purchasetk = "Purchase";
             $rsrvtn_num = rand(1000000, 9999999);
+            $r_accom_id_int = $_POST['r_accom_id_int'];
+            $r_sched_id_int = $_POST['r_sched_id_int'];
+            $r_totalPrice_int = $_POST['r_totalPrice_int'];
             // end 
             $sql_rsrtntbl = "INSERT INTO tickets (
             tckt_code,
             schedule_id,
             email_add,
             accomodation_id,
+            price,
             availability
-          ) VALUES (?, ?, ?, ?, ?)";
+          ) VALUES (?, ?, ?, ?, ?,?)";
             $stmts = $c->prepare($sql_rsrtntbl);
             $stmts->bind_param(
-                'sssss',
+                'ssssss',
                 $rsrvtn_num,
                 $schedSelected,
                 $validationDefault01,
                 $acomSelected,
+                $sumPrice,
                 $purchasetk
             );
             if (!$stmts->execute()) {
@@ -157,10 +162,111 @@ function passengerInfoSubmitreservation($c) {
                 echo json_encode($responses);
                 return;
             }else{
-                if(isset($_POST['r_accom_id_int'])){
-                    $r_accom_id_int = $_POST['r_accom_id_int'];
-                    $r_sched_id_int = $_POST['r_sched_id_int'];
-                    $r_totalPrice_int = $_POST['r_totalPrice_int'];
+
+                if($sumPrice = $_POST['sumPrice'];
+  $schedSelected = $_POST['schedSelecteds'];
+  $acomSelected = $_POST['acomSelected'];
+  $purchasetk = "Purchase";
+  $rsrvtn_num = rand(1000000, 9999999);
+  $r_accom_id_int = $_POST['r_accom_id_int'];
+  $r_sched_id_int = $_POST['r_sched_id_int'];
+  $r_totalPrice_int = $_POST['r_totalPrice_int'];
+  $sql_rsrtntbl = "INSERT INTO tickets (
+  tckt_code,
+  schedule_id,
+  email_add,
+  accomodation_id,
+  price,
+  availability
+) VALUES (?, ?, ?, ?, ?,?)";
+  $stmts = $c->prepare($sql_rsrtntbl);
+  $stmts->bind_param(
+      'ssssss',
+      $rsrvtn_num,
+      $schedSelected,
+      $validationDefault01,
+      $acomSelected,
+      $sumPrice,
+      $purchasetk
+  );
+  if (!$stmts->execute()) {
+      // If there is an error, handle it appropriately (e.g. log the error, return an error message to the user, etc.)
+      $error = $stmts->error;
+      // For example, you can log the error:
+      error_log('Error executing INSERT query: ' . $error);
+      // And you can return an error message to the user:
+      $responses = array('success' => false, 'error' => 'There was an error processing your request. Please try again later.');
+      echo json_encode($responses);
+      return;
+  }else{
+
+      if($r_sched_id_int==0){
+          $rsrvtn_num = rand(1000000, 9999999);
+          // end 
+          $sql_rsrtntbll = "INSERT INTO tickets (
+          tckt_code,
+          schedule_id,
+          email_add,
+          accomodation_id,
+          price,
+          availability
+        ) VALUES (?, ?, ?, ?, ?,?)";
+          $stmtss = $c->prepare($sql_rsrtntbll);
+          $stmtss->bind_param(
+              'ssssss',
+              $rsrvtn_num,
+              $r_sched_id_int,
+              $validationDefault01,
+              $r_accom_id_int,
+              $r_totalPrice_int,
+              $purchasetk
+          );
+          if (!$stmtss->execute()) {
+              // If there is an error, handle it appropriately (e.g. log the error, return an error message to the user, etc.)
+              $error = $stmtss->error;
+              // For example, you can log the error:
+              error_log('Error executing INSERT query: ' . $error);
+              // And you can return an error message to the user:
+              $responsess = array('success' => false, 'error' => 'There was an error processing your request. Please try again later.');
+              echo json_encode($responsess);
+              return;
+          }
+      }else{
+          echo "success";
+      }
+    
+  })){
+                 
+                    $rsrvtn_num = rand(1000000, 9999999);
+                    // end 
+                    $sql_rsrtntbll = "INSERT INTO tickets (
+                    tckt_code,
+                    schedule_id,
+                    email_add,
+                    accomodation_id,
+                    price,
+                    availability
+                  ) VALUES (?, ?, ?, ?, ?,?)";
+                    $stmtss = $c->prepare($sql_rsrtntbll);
+                    $stmtss->bind_param(
+                        'ssssss',
+                        $rsrvtn_num,
+                        $r_sched_id_int,
+                        $validationDefault01,
+                        $r_accom_id_int,
+                        $r_totalPrice_int,
+                        $purchasetk
+                    );
+                    if (!$stmtss->execute()) {
+                        // If there is an error, handle it appropriately (e.g. log the error, return an error message to the user, etc.)
+                        $error = $stmtss->error;
+                        // For example, you can log the error:
+                        error_log('Error executing INSERT query: ' . $error);
+                        // And you can return an error message to the user:
+                        $responsess = array('success' => false, 'error' => 'There was an error processing your request. Please try again later.');
+                        echo json_encode($responsess);
+                        return;
+                    }
                 }else{
                     echo "error";
                 }
