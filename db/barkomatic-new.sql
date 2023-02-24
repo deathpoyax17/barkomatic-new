@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 23, 2023 at 09:02 AM
+-- Generation Time: Feb 24, 2023 at 10:39 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -135,13 +135,6 @@ CREATE TABLE `passenger_reservation_details` (
   `passenger_email` varchar(255) NOT NULL,
   `discount` decimal(5,2) NOT NULL DEFAULT 0.00
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `passenger_reservation_details`
---
-
-INSERT INTO `passenger_reservation_details` (`id`, `contact_person`, `phone_number`, `contactperson_email`, `address`, `firstname`, `middlename`, `lastname`, `gender`, `dateofbirth`, `personType`, `nationality`, `passenger_email`, `discount`) VALUES
-(1, 'erwin', '2342342', 'test@gmail.com', 'erwin', 'erwin', 'b', 'manugas', 'male', '1996-02-29', 'Adult', 'Filipino', 'test@gmail.com', '0.00');
 
 -- --------------------------------------------------------
 
@@ -363,10 +356,10 @@ INSERT INTO `tbl_staff_account` (`alt_staff_id`, `username`, `password`) VALUES
 
 CREATE TABLE `tickets` (
   `ticket_id` int(11) NOT NULL,
+  `tckt_code` varchar(100) NOT NULL,
   `schedule_id` int(100) NOT NULL,
-  `passenger_id` int(100) NOT NULL,
+  `email_add` varchar(100) NOT NULL,
   `accomodation_id` int(100) NOT NULL,
-  `alt_owner_id` int(11) NOT NULL,
   `price` int(100) NOT NULL,
   `availability` enum('reservation','Not Available','Available','Purchase') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -480,11 +473,7 @@ ALTER TABLE `tbl_staff_account`
 -- Indexes for table `tickets`
 --
 ALTER TABLE `tickets`
-  ADD PRIMARY KEY (`ticket_id`),
-  ADD UNIQUE KEY `schedule_id` (`schedule_id`),
-  ADD UNIQUE KEY `passenger_id` (`passenger_id`),
-  ADD UNIQUE KEY `accomodation_id` (`accomodation_id`),
-  ADD UNIQUE KEY `alt_owner_id` (`alt_owner_id`);
+  ADD PRIMARY KEY (`ticket_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -518,7 +507,7 @@ ALTER TABLE `passengers`
 -- AUTO_INCREMENT for table `passenger_reservation_details`
 --
 ALTER TABLE `passenger_reservation_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `payments`
@@ -578,7 +567,7 @@ ALTER TABLE `tbl_staff_account`
 -- AUTO_INCREMENT for table `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `ticket_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ticket_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Constraints for dumped tables
@@ -624,15 +613,6 @@ ALTER TABLE `ship_owners`
 ALTER TABLE `staff`
   ADD CONSTRAINT `staff_ibfk_1` FOREIGN KEY (`owner_id`) REFERENCES `ship_owners` (`owner_id`),
   ADD CONSTRAINT `staff_ibfk_2` FOREIGN KEY (`alt_staff_id`) REFERENCES `tbl_staff_account` (`alt_staff_id`);
-
---
--- Constraints for table `tickets`
---
-ALTER TABLE `tickets`
-  ADD CONSTRAINT `tickets_ibfk_1` FOREIGN KEY (`passenger_id`) REFERENCES `passengers` (`passenger_id`),
-  ADD CONSTRAINT `tickets_ibfk_2` FOREIGN KEY (`schedule_id`) REFERENCES `schedules` (`schedule_id`),
-  ADD CONSTRAINT `tickets_ibfk_3` FOREIGN KEY (`accomodation_id`) REFERENCES `accommodations` (`accomodation_id`),
-  ADD CONSTRAINT `tickets_ibfk_4` FOREIGN KEY (`alt_owner_id`) REFERENCES `tbl_ship_onwer_account` (`alt_owner_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
