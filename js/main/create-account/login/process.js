@@ -122,7 +122,7 @@ $(document).ready(function() {
                 method: 'post',
                 data: $('#passenger_reset_request_form').serialize() + '&action=passenger_reset_request_form',
                 success: function(res) {
-                    window.location = 'https://barkomatic.online/login.php';
+                    window.location = "https://barkomatic.online/login.php";
                 }
             });
         }
