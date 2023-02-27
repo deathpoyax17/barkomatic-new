@@ -2,7 +2,7 @@
 if (!isset($_SESSION['passenger_id'])) { ?>
   <div class="container">
     <div class="two" style="display:none;">
-      <ol class="cd-multi-steps text-top">
+      <ol class="cd-multi-steps text-top" style="margin: auto; margin-top: 50px">
         <li class=""><a href="#0">SCHEDULE</a></li>
         <li class="current"><a href="#0">PASSENGER INFO</a></li>
         <li class=""><em>PAYMENT</em></li>
@@ -262,8 +262,6 @@ if (!isset($_SESSION['passenger_id'])) { ?>
         <div class="form-row">
           <div class="form-group col-md-4">
             <button type="button" class="cancelBtn btn btn-light btn-lg pt-3 pb-sm-3">Back</button>
-          </div>
-          <div class="form-group col-md-4 ">
           </div>
           <div class="form-group col-md-4" style="padding-left:10%">
             <input type="text" id="sumPrice" name="sumPrice" value="" hidden="">
