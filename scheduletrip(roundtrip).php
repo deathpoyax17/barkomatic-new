@@ -206,40 +206,41 @@ if (isset($_COOKIE['data'])) {
             </form>
         </div>
     </div>
+    </div>
 <?php }   ?>
 <?php include_once("passengerinfo.php"); ?>
-<div class="bottom-header-searchtrip3">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 d-none d-lg-block">
-                <div class="header-contact-info">
-                    <ul>
-                        <li>
-                            <a href="#"><i class="fas fa-phone-alt"></i> +64 (909) 1234 396</a>
-                        </li>
-                        <li>
-                            <a href="mailto:info@Travel.com"><i class="fas fa-envelope"></i> BarkoamticOnlineTicketing@gmail.com</a>
-                        </li>
-                        <li>
-                            <i class="fas fa-map-marker-alt"></i> 6000 V. Rama Avenue, Englis, Cebu City
-                        </li>
-                    </ul>
+<!-- <div class="bottom-header-searchtrip2"> 
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 d-none d-lg-block">
+                    <div class="header-contact-info">
+                        <ul>
+                            <li>
+                                <a href="#"><i class="fas fa-phone-alt"></i> +64 (909) 1234 396</a>
+                            </li>
+                            <li>
+                                <a href="mailto:info@Travel.com"><i class="fas fa-envelope"></i> BarkoamticOnlineTicketing@gmail.com</a>
+                            </li>
+                            <li>
+                                <i class="fas fa-map-marker-alt"></i> 6000 V. Rama Avenue, Englis, Cebu City
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-4 d-flex justify-content-lg-end justify-content-between">
-                <div class="header-social social-links">
-                    <ul>
-                        <li><a href="#"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
-                        <li><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
-                        <li><a href="#"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
-                        <li><a href="#"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
-                    </ul>
-                </div>
+                <div class="col-lg-4 d-flex justify-content-lg-end justify-content-between">
+                    <div class="header-social social-links">
+                        <ul>
+                            <li><a href="#"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
 
+                </div>
             </div>
         </div>
-    </div>
-</div>
+</div>-->
 <script src="js/jquery.validate.min.js"></script>
 <script src="js/wow.min.js"></script>
 <script src="js/main/active.js"></script>
