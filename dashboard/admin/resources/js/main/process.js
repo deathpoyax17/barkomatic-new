@@ -380,7 +380,7 @@ $(document).ready(function() {
             success: function(data) {
                 alert(data);
                 setTimeout(function() {
-                    window.location = "http://localhost/barkomatic-new/index.php";
+                    window.location = "http://barkomatic.online/barkomatic-new/index.php";
                 }, 1000);
             }
         });
