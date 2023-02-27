@@ -12474,7 +12474,7 @@ section {
 .annual-plan{
     width: 100%;
     background-color: var(--very-pale-blue);
-    padding: 18px 15px;
+    padding: 1px 15px;
     border-radius: 10px;
     margin: 16px 0 20px;
     display: grid;
@@ -12496,13 +12496,17 @@ section {
 }
 
 .plan-price h4{
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 700;
     color:var(--dark-blue);
 }
-
+.plan-price h2{
+    font-size: 12px;
+    font-weight: 800;
+    color:var(--dark-blue);
+}
 .plan-price p{
-    font-size: 14px;
+    font-size: 9px;
     color: var(--desaturated-blue);
 }
 

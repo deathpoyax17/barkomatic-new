@@ -65,7 +65,8 @@ $res = curl_exec($ch);
 $tokens = explode("\r\n\r\n", trim($res)); 
 $res = trim(end($tokens)); 
 if (strcmp($res, "VERIFIED") == 0 || strcasecmp($res, "VERIFIED") == 0) { 
-    if ($_POST['item_name']== "avail") {
+
+    if ($_POST['item_name']== "Purchase") {
     // Retrieve transaction info from PayPal
     $ship_name = $_POST['ship_name'];
     $item_name = $_POST['item_name']; 

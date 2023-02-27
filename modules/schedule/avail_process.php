@@ -181,8 +181,61 @@ function passengerInfoSubmitreservation($c) {
             }
         }
     }
+    // next_id
     // If everything was successful, return a success message to the user
-  echo "passenger_info_submit";
+    $sumPrice = $_POST['sumPrice'];
+    $totalAllPrice = $sumPrice*$numPassengers1;
+    $port = $c->query("SELECT route_id, concat(`departure_from`,'[',`departure_port`,']') as `route` FROM routes");
+    $slc_tkt = "SELECT
+                tkt.pass_id,
+                tkt.schedule_id, 
+                tkt.tckt_code,
+                tkt.email_add,
+                tkt.price,
+                accom.acomm_name,
+                accom.room_type,
+                accom.aircon,
+                sched.route_id_from,
+                sched.route_id_to,
+                sched.departure_date,
+                sched.arrival_time,
+                fer.name,
+                fer.capacity 
+                FROM tickets tkt
+                JOIN schedules sched ON tkt.schedule_id = sched.schedule_id
+                JOIN ferries fer ON sched.ferry_id = fer.ferry_id
+                JOIN accommodations accom ON tkt.accomodation_id = accom.accomodation_id
+                WHERE tkt.pass_id=?";
+    $stmt_tkt = $c->prepare($slc_tkt);
+    echo $c -> error;
+    $stmt_tkt->bind_param("s", $next_id);
+    $stmt_tkt->execute();
+    $result_tkt = $stmt_tkt->get_result();
+    $routes = array_column($port->fetch_all(MYSQLI_ASSOC),'route','route_id');
+    $row_tkt = $result_tkt->fetch_array();
+    if(!empty($row_tkt)) {
+        $data = array(
+            "dep_date" => $row_tkt["departure_date"],
+            "ar_time" => date("h:i A", strtotime($row_tkt["arrival_time"])),
+            "name" => $row_tkt["name"],
+            "r_from" => $routes[$row_tkt["route_id_from"]],
+            "r_to" => $routes[$row_tkt["route_id_to"]],
+            "pax" => $numPassengers1,
+            "ticket_pricing" => $sumPrice,
+            "overAllPrice" => $totalAllPrice,
+            "acomm_name" => $row_tkt["acomm_name"],
+            "acomm_id" => $row_tkt["accomodation_id"],
+            "sched_id" => $row_tkt["schedule_id"],
+            "emailpass" => $row_tkt["email_add"],
+            "ticketCode" => $row_tkt["tckt_code"],
+            "idPass" => $row_tkt["pass_id"],
+        );
+        $json = json_encode($data, JSON_PRETTY_PRINT);
+        echo $json;
+    }else{
+        echo "empty1";
+    }
+//   echo "passenger_info_submit";
 }
 
 function summarySubmit(){

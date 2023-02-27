@@ -56,10 +56,28 @@ $(document).ready(function() {
                 r_totalPrice_int: r_totalPrice_int
             },
             contentType: 'application/x-www-form-urlencoded',
-            success: function(data) {
-                if(data==="passenger_info_submit"){
-                    $('#success_tic').show();
-                }
+            success: function(response) {
+                var data = JSON.parse(response);
+                $("#dateDeparture").text(data.dep_date);
+                $("#timeArrival").text(data.ar_time);
+                $("#nameFerry").text(data.name);
+                $("#routeFrom").text(data.r_from);
+                $("#routeTo").text(data.r_to);
+                $("#PassengersCount").text(data.pax);
+                $("#PriceTicket").text(data.ticket_pricing);
+                $("#totalPrices").text(data.overAllPrice);
+                $("#AccomondationName").text(data.acomm_name);
+                // value
+                $("#AccomondationId").val(data.acomm_id);
+                $("#ScheduleId").val(data.sched_id);
+                $("#paypalAmt").val(data.overAllPrice);
+                $("#emailpass").val(data.emailpass);
+                $("#ticketCode").val(data.ticketCode);
+                $("#idPass").val(data.idPass);
+
+                setTimeout(function() {
+               $('#success_tic').show();
+            }, 100);
             },
             error: function(xhr, status, error) {
                 console.log(error);
