@@ -59,7 +59,7 @@
             <div class="classy-nav-container breakpoint-off">
                 <div class="container">
                     <nav class="classy-navbar justify-content-between" id="robertoNav">
-                        <a class="nav-brand mr-0" href="index.php">
+                        <a class="nav-brand mr-0" href="https://barkomatic.online/login.php">
                             <img src="./img/core-img/logo.png" alt="BarkoMatic">
                         </a>
                         <div class="classy-navbar-toggler">
@@ -113,11 +113,11 @@
                 </p>
                 <?php if(isset($_SESSION['ship_id'])) { ?>
                     <button type="button" class="btn btn-primary btn-lg pushable mt-3">
-                        <a href="http://barkomatic.online/dashboard/ship/index.php?page=dashboard"><span class="front">Go to Dashboard</span></a>
+                        <a href="https://barkomatic.online/dashboard/ship/index.php?page=dashboard"><span class="front">Go to Dashboard</span></a>
                     </button>
                 <?php }else if(isset($_SESSION['stff_id'])) { ?>
                     <button type="button" class="btn btn-primary btn-lg pushable mt-3">
-                        <a href="http://barkomatic.online/dashboard/staff/index.php?page=dashboard"><span class="front">Go to Dashboard</span></a>
+                        <a href="https://barkomatic.online/dashboard/staff/index.php?page=dashboard"><span class="front">Go to Dashboard</span></a>
                     </button>
                 <?php }else { ?>
                     <button type="button" class="btn btn-primary btn-lg pushable mt-3">

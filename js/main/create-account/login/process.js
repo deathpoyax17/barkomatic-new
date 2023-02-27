@@ -79,7 +79,7 @@ $(document).ready(function() {
                     console.log(res);
                     if (res == "Staff Login Successfully!") {
                         setTimeout(function() {
-                            window.location.href = "https://barkomatic.online/ashboard/staff/index.php?page=dashboard";
+                            window.location.href = "https://barkomatic.online/dashboard/staff/index.php?page=dashboard";
                         }, 100);
                     }
                     $(':input[type="submit"]').prop('disabled', false);
