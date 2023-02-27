@@ -423,7 +423,7 @@ $(document).ready(function() {
             success: function(data) {
                 alert(data);
                 setTimeout(function() {
-                    window.location = "https://barkomatic.online/login.php";
+                    window.location = 'https://barkomatic.online/index.php';
                 }, 1000);
             }
         });

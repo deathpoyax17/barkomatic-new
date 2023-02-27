@@ -59,7 +59,7 @@
             <div class="classy-nav-container breakpoint-off">
                 <div class="container">
                     <nav class="classy-navbar justify-content-between" id="robertoNav">
-                        <a class="nav-brand mr-0" href="https://barkomatic.online/login.php">
+                        <a class="nav-brand mr-0" href='https://barkomatic.online/index.php'>
                             <img src="./img/core-img/logo.png" alt="BarkoMatic">
                         </a>
                         <div class="classy-navbar-toggler">

@@ -12,7 +12,7 @@ $(document).ready(function() {
             success: function(response) {
                 alert(response);
                 setTimeout(function() {
-                    window.location = "https://barkomatic.online/login.php";
+                    window.location = 'https://barkomatic.online/index.php';
                 }, 100);
             }
         });
