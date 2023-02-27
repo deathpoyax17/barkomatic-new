@@ -90,17 +90,13 @@ if (strcmp($res, "VERIFIED") == 0 || strcasecmp($res, "VERIFIED") == 0) {
                                                             payer_email,
                                                             currency,
                                                             gross_income,
-                                                            dates,
-                                                            payer_type,
-                                                            ship_name)
+                                                            dates)
                                                              VALUES('".$custom."',
                                                              '".$txn_id."',
                                                              '".$payer_email."',
                                                              '".$currency_code."',
                                                              '".$payment_gross."',
-                                                             NOW(),
-                                                             '".$item_name."',
-                                                             '".$ship_name."')"); 
+                                                             NOW())"); 
     } 
 }
 // else if ($_POST['item_name']== "reserve") {

@@ -319,7 +319,7 @@ if (isset($_COOKIE['data'])) {
                     <!-- <input name="ticketCode" id="ticketCode" hidden=""> -->
                     <input name="idPass" id="idPass" hidden="" value="01">
                     <!-- paypal inputs -->
-                    <input type="hidden" name="typeOfpayment" value="Purchase">
+                    <input type="hidden" name="item_name" value="Purchase">
                     <input type="hidden" name="item_number" id="ticketCode" value="1">
                     <input type="hidden" name="currency_code" value="<?php echo PAYPAL_CURRENCY ?>">
                     <input name="a3" id="paypalAmt" hidden="" value="300">

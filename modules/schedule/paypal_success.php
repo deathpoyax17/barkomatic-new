@@ -10,8 +10,6 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 if (isset($_GET['token'])!=NULL) {
-
-if(isset($_GET['rsrvtn_id'])){
 $item_number = $_GET['item_number'];  
 $txn_id = $_GET['tx']; 
 $payment_gross = $_GET['amt']; 
@@ -103,7 +101,7 @@ if(isset($_GET['item_number'])){
 
 
 // Get product info from the database 
-$productResult = $con->query("SELECT * FROM tbl_passenger_reservation WHERE reservation_number = '.$item_number'"); 
+$productResult = $con->query("SELECT * FROM tickets WHERE tckt_code = '.$item_number'"); 
 $productRow = $productResult->fetch_assoc(); 
 
 // Check if transaction data exists with the same TXN ID. 
@@ -122,7 +120,7 @@ if($prevPaymentResult->num_rows > 0){
 
 
 }
-}
+
 echo ("<script>windows.location.href('https://barkomatic.online/')</script>");
 }
 ?>
