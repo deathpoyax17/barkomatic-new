@@ -27,7 +27,7 @@
                     </div>
                     
                    <div class="field">
-                        <label class="label">Seat Capacity</label>
+                        <label class="label">Seating Capacity</label>
                         <input list="ticket_quantity" name="ticket_quantity" class="form-control">
                         <div class="field-body">
                             <div class="field">
@@ -51,7 +51,7 @@
                                         
                                     </datalist>
                                 </div>
-                                <p class="help">Required. Seat Capacity</p>
+                                <p class="help">Required. Seating Capacity</p>
                             </div>
                         </div>
                     </div>

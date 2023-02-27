@@ -65,8 +65,7 @@ require "resources/templates/_search-trip_header.php"; ?>
                             <div class="col">
                                 <div class="md-radio">
                                     <input id="trip1" type="radio" name="tripDirection" formcontrolname="tripDirection"
-                                        checked="" class="ng-untouched ng-pristine ng-valid" /><label for="trip1">Round
-                                        Trip</label>
+                                        checked="" class="ng-untouched ng-pristine ng-valid" /><label for="trip1">One-Way</label>
                                         <input id="trip2" type="radio" name="tripDirection"
                                         formcontrolname="tripDirection"
                                         class="ng-untouched ng-pristine ng-valid" /><label for="trip2">One Way</label>

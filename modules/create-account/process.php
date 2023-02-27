@@ -17,9 +17,9 @@ if(isset($_POST['action']) && $_POST['action'] == 'shipping_form') {
     ship_register($con);
 }
 
-//* passenger register
+// new code for passenger register with strong password requirements
 function passenger_register($con) {
-     error_reporting(E_ALL);
+    error_reporting(E_ALL);
     ini_set('display_errors', 1);
     $fname = check_input($_POST['fname']);
     $lname = check_input($_POST['lname']);
@@ -30,9 +30,19 @@ function passenger_register($con) {
     $uname = check_input($_POST['uname']);
     $add = check_input($_POST['address']);
     $phone = check_input($_POST['phone']);
-    $pass = sha1($_POST['password']);
-    $cpass = sha1($_POST['confirm_password']);
+    $pass = $_POST['password'];
+    $cpass = $_POST['confirm_password'];
     $timestamp = date("Y-m-d H:i:s");
+    
+    // Enforce password requirements
+    if (strlen($pass) < 8 || !preg_match('/[A-Z]/', $pass) || !preg_match('/[a-z]/', $pass) || !preg_match('/[0-9]/', $pass) || !preg_match('/[\W]/', $pass)) {
+        echo 'Password must be at least 8 characters long and contain at least one upper case letter, one lower case letter, one number, and one special character.';
+        exit();
+    }
+    
+    $pass = sha1($pass);
+    $cpass = sha1($cpass);
+    
     if($pass != $cpass){
         echo 'Password did not match!';
         exit();
@@ -61,7 +71,62 @@ function passenger_register($con) {
             $q2 = $con->prepare("INSERT INTO passengers (name,address,contact_info,email,dob,token) VALUES (?,?,?,?,?,?)");
             $q2->bind_param('ssssss', $fname,$add,$phone,$email,$dob,$token);
              echo $con -> error;
-            $q2->execute();
+            $q2->execute();  
+            echo 'Registered Successfully.';
+           
+            $q1->close();
+            $q2->close();
+            $q3->close();
+        }
+    }
+}
+
+// old code for passenger register //
+//* passenger register
+// function passenger_register($con) {
+    //  error_reporting(E_ALL);
+    // ini_set('display_errors', 1);
+    // $fname = check_input($_POST['fname']);
+    // $lname = check_input($_POST['lname']);
+    // $gender = $_POST['gender'];
+    // $token = bin2hex(random_bytes(50));
+    // $dob = date('Y-m-d',strtotime($_POST['dob']));
+    // $email = check_input($_POST['email']);
+    // $uname = check_input($_POST['uname']);
+    // $add = check_input($_POST['address']);
+    // $phone = check_input($_POST['phone']);
+    // $pass = sha1($_POST['password']);
+    // $cpass = sha1($_POST['confirm_password']);
+    // $timestamp = date("Y-m-d H:i:s");
+    // if($pass != $cpass){
+        // echo 'Password did not match!';
+        // exit();
+    // }else{
+        // $q1 = $con->prepare("SELECT 
+                                // p.email,
+                                // tbl_p.username
+                                // FROM tbl_passenger tbl_p
+                                // INNER JOIN passengers p ON tbl_p.alt_passenger_id = p.alt_passenger_id 
+                                // WHERE p.email=? OR tbl_p.username=?");
+        //  echo $con -> error;
+        // $q1->bind_param('ss', $email,$uname);
+        // $q1->execute();
+        // $result = $q1->get_result();
+        // $row = $result->fetch_array();
+        // if($row!=NULL){
+            // echo 'Error';
+        // }
+        // else{
+            
+            // $q3 = $con->prepare("INSERT INTO tbl_passenger (username,password) VALUES (?,?)");
+            // $q3->bind_param('ss', $uname,$pass);
+            //  echo $con -> error;
+            // $q3->execute();
+
+            // $q2 = $con->prepare("INSERT INTO passengers (name,address,contact_info,email,dob,token) VALUES (?,?,?,?,?,?)");
+            // $q2->bind_param('ssssss', $fname,$add,$phone,$email,$dob,$token);
+            //  echo $con -> error;
+            // $q2->execute();
 
           
             // $q4 = $con->prepare("INSERT INTO tbl_passenger_reset_password (token_expire) VALUES (?)");
@@ -111,7 +176,7 @@ function passenger_register($con) {
         // </body>
         // </html>";
         // $mail->send();
-         echo 'Registered Successfully.';
+        //  echo 'Registered Successfully.';
     // }catch(Exception $e){
         //echo "Reset password link could not be sent. Mailer Error: {$mail->ErrorInfo}";
     //     echo 'Could not sent the reset password request.';
@@ -119,13 +184,13 @@ function passenger_register($con) {
             //===========================================================================end of email=========
            
             // $s1->close();
-            $q1->close();
-            $q2->close();
-            $q3->close();
+            // $q1->close();
+            // $q2->close();
+            // $q3->close();
             // $q4->close();
-        }  ////else
-    }
-}
+        // }  ////else
+    // }
+// }
 
 
 //* ship owner register
