@@ -2,56 +2,56 @@
    session_start(); 
     if(isset($_SESSION['admin_id']) && $_SESSION['admin_id'] != NULL) { 
      
-    //     $query = "SELECT dates,year(dates) as dateYear,SUM(payment_gross) as totalProfit FROM user_subscriptions  WHERE payment_status = 'Completed' ORDER BY dateYear";
-    //     //execute query
-    //     $result = $con->query($query);
-    //     //loop through the returned data
-    //     $data = array();
+        $query = "SELECT dates,year(dates) as dateYear,SUM(payment_gross) as totalProfit FROM user_subscriptions  WHERE payment_status = 'Completed' ORDER BY dateYear";
+        //execute query
+        $result = $con->query($query);
+        //loop through the returned data
+        $data = array();
 
-    //     foreach ($result as $row) {
-    //  $date = date("m",strtotime($row['dates'])??'');
+        foreach ($result as $row) {
+     $date = date("m",strtotime($row['dates'])??'');
 
      
-    // if ($date=="01") {
-    //          $month = "January";
-    //      }
-    // if ($date=="02") {
-    //         $month = "February";
-    //     }
-    // if ($date=="03") {
-    //         $month = "March";
-    //     }
-    // if ($date=="04") {
-    //         $month = "April";
-    //     }
-    // if ($date=="05") {
-    //         $month = "May";
-    //     }
-    // if ($date=="06") {
-    //         $month = "June";
-    //     }
-    // if ($date=="07") {
-    //          $month = "July";
-    //      }
-    // if ($date=="08") {
-    //         $month = "Agaust";
-    //     }
-    //  if ($date=="09") {
-    //         $month = "September";
-    //     }
-    //  if ($date=="10") {
-    //         $month = "October";
-    //     }
-    //  if ($date=="11") {
-    //         $month = "November";
-    //     }
-    // if ($date=="12") {
-    //         $month = "December";
-    //     } 
+    if ($date=="01") {
+             $month = "January";
+         }
+    if ($date=="02") {
+            $month = "February";
+        }
+    if ($date=="03") {
+            $month = "March";
+        }
+    if ($date=="04") {
+            $month = "April";
+        }
+    if ($date=="05") {
+            $month = "May";
+        }
+    if ($date=="06") {
+            $month = "June";
+        }
+    if ($date=="07") {
+             $month = "July";
+         }
+    if ($date=="08") {
+            $month = "Agaust";
+        }
+     if ($date=="09") {
+            $month = "September";
+        }
+     if ($date=="10") {
+            $month = "October";
+        }
+     if ($date=="11") {
+            $month = "November";
+        }
+    if ($date=="12") {
+            $month = "December";
+        } 
 
-    // $productname[] =$month;
-    // $sale[]= $row['totalProfit'];
-    //     }
+    $productname[] =$month;
+    $sale[]= $row['totalProfit'];
+        }
     
           
         ?>

@@ -92,7 +92,7 @@ if (isset($_COOKIE['data'])) {
                                                 </div>
                                                 <div class="itr-col itinerary-vessel">
                                                     <div class="booking-media-left itinerary-shipping-logo">
-                                                        <img alt="" src="https://storage.googleapis.com/barkota-reseller-assets/companies/mark-ocean-fast-ferries-inc.png" />
+                                                        <!-- <img alt="" src="https://storage.googleapis.com/barkota-reseller-assets/companies/mark-ocean-fast-ferries-inc.png" /> -->
                                                         <!---->
                                                     </div>
                                                     <div class="itinerary-name">

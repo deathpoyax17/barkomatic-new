@@ -561,16 +561,7 @@ if(isset($_COOKIE['data'])){
                     <div class="form-label-heading">Departure</div>
                 </div>
             </div>
-            <div class="box-group mb-tab">
-                <div>
-                <?php
-                  $dateConvs =$data['return_date'];
-                  $dates = strtotime($dateConvs); // convert to a Unix timestamp
-                  $formattedDates = date("D, j M Y", $dates);
-                  ?>
-                    <div class="form-label-title"><?php echo  $formattedDates; ?></div>
-                    <div class="form-label-heading">Return</div></div>
-                </div><!----><div class="box-group departure-return d-flex d-lg-none">
+            <div class="box-group departure-return d-flex d-lg-none">
                     <div class="form-label-title p-1 " ><?php echo $date.'-'.$dates; ?></div></div>
                     <div class="box-group"><span role="button" class="modify-btn">
                         <span class="fa fa-edit pr-2"></span>MODIFY ITINERARY </span>

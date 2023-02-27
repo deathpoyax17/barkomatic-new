@@ -40,10 +40,10 @@ if(isset($_POST['action']) && $_POST['action'] == 'num_sched_data') {
     fetch_num_sched($con);
 }
 
-if(isset($_POST['action']) && $_POST['action'] == 'num_port_data') {
-    session_start();
-    fetch_num_port($con);
-}
+// if(isset($_POST['action']) && $_POST['action'] == 'num_port_data') {
+//     session_start();
+//     fetch_num_port($con);
+// }
 
 if(isset($_POST['action']) && $_POST['action'] == 'active_reservation_data') {
     session_start();
@@ -123,10 +123,9 @@ if(isset($_POST["action"]) && $_POST["action"] == "fetch_ticket_detail") {
 
 //* reservation details
 function reservation_data($c) {
-    $stmt = $c->prepare("SELECT * FROM reservations
-                         JOIN tickets ON reservations.ticket_id=tickets.ticket_id
-                         WHERE alt_owner_id=?");
-    $stmt->bind_param('s',$_SESSION['owner_id']);
+    $availability = "reservation";
+    $stmt = $c->prepare("SELECT * FROM tickets t JOIN schedules s ON t.schedule_id = s.schedule_id WHERE t.availability=? AND s.owner_id=?");
+    $stmt->bind_param('ss', $availability,$_SESSION['owner_id']);
     $stmt->execute();
     $result = $stmt->get_result();
     $output = '
@@ -171,11 +170,9 @@ function reservation_data($c) {
 //* fetch total number of schedules
 function fetch_num_sched($c) {
     $counter = 0;
-    $sql_slct = "SELECT * FROM tbl_ship_schedule tbl_schds
-                 INNER JOIN tbl_ship_belong tbl_sb ON tbl_schds.id = tbl_sb.id
-                 WHERE tbl_sb.ship=?";
+    $sql_slct = "SELECT * FROM schedules WHERE owner_id=?";
     $stmt = $c->prepare($sql_slct);
-    $stmt->bind_param('s', $_SESSION['stff_ship_reside']);
+    $stmt->bind_param('s', $_SESSION['owner_id']);
     $stmt->execute();
     $result = $stmt->get_result();
     while($row = $result->fetch_assoc()) {
@@ -194,29 +191,29 @@ function fetch_num_sched($c) {
 }
 
 //* fetch total number of ports
-function fetch_num_port($c) {
-    $counter = 0;
-    $sql_slct = "SELECT * FROM tbl_ship_port tbl_sp
-                 INNER JOIN tbl_ship_belong tbl_sb ON tbl_sp.id = tbl_sb.id
-                 WHERE tbl_sb.ship=?";
-    $stmt = $c->prepare($sql_slct);
-    $stmt->bind_param('s', $_SESSION['stff_ship_reside']);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    while($row = $result->fetch_assoc()) {
-        $counter++;
-    }
-    $output = '
-    <div class="flex items-center justify-between">
-        <div class="widget-label">
-            <h3>No. of Ports</h3>
-            <h1>'.$counter.'</h1>
-        </div>
-        <span class="icon widget-icon text-blue-500"><i class="mdi mdi-anchor mdi-48px"></i></span>
-    </div>';
-    echo $output;
-    $stmt->close();
-}
+// function fetch_num_port($c) {
+//     $counter = 0;
+//     $sql_slct = "SELECT * FROM tbl_ship_port tbl_sp
+//                  INNER JOIN tbl_ship_belong tbl_sb ON tbl_sp.id = tbl_sb.id
+//                  WHERE tbl_sb.ship=?";
+//     $stmt = $c->prepare($sql_slct);
+//     $stmt->bind_param('s', $_SESSION['stff_ship_reside']);
+//     $stmt->execute();
+//     $result = $stmt->get_result();
+//     while($row = $result->fetch_assoc()) {
+//         $counter++;
+//     }
+//     $output = '
+//     <div class="flex items-center justify-between">
+//         <div class="widget-label">
+//             <h3>No. of Ports</h3>
+//             <h1>'.$counter.'</h1>
+//         </div>
+//         <span class="icon widget-icon text-blue-500"><i class="mdi mdi-anchor mdi-48px"></i></span>
+//     </div>';
+//     echo $output;
+//     $stmt->close();
+// }
 
 function fetch_ticket_details($c) {
     $ssr = $_SESSION['owner_id'];
@@ -261,7 +258,7 @@ function fetch_ticket_details($c) {
 //* total active reservation
 function active_reservation($c) {
     $counter = 0;
-    $sql_slct = "SELECT * FROM reservations WHERE ship_name=?";
+    $sql_slct = "SELECT * FROM tickets t JOIN schedules s ON t.schedule_id = s.schedule_id WHERE s.owner_id=?";
     $stmt = $c->prepare($sql_slct);
     $stmt->bind_param('s', $_SESSION['owner_id']);
     $stmt->execute();
@@ -474,6 +471,7 @@ function fetch_accomm_detail($c) {
                     <th>Accomodation Name</th>
                     <th>Seat Type</th>
                     <th>Price</th>
+                    <th>Capacity</th>
                     <th></th>
                 </tr>
             </thead>
@@ -484,7 +482,8 @@ function fetch_accomm_detail($c) {
                 <td>'.$row["name"].'</td>
                 <td>'.$row["acomm_name"].'</td>
                 <td>'.$row["room_type"].'</td>
-                <td>₱ '.$row["price"].'</td>
+                <td>₱ '.$row["price"]. '</td>
+                <td>'. $row["seating_capacity"] . '</td>
                 <td class="text-center">
                     <button type="button" name="update" id="'.$row["accomodation_id"].'" class="button small green update_accom_btn" data-toggle="modal" data-target="#exampleModal">
                         <span class="icon"><i class="mdi mdi-pencil"></i></span>
@@ -509,6 +508,7 @@ function add_accomodation_type($c) {
   $seat_typ = check_input($_POST['accomm_seat_typ']);
   $avail = 1;
   $price = check_input($_POST['accomm_typ_price']);
+  $seat_cap =check_input($_POST['accomm_cot_num']);
   $ship_belong = $_SESSION['owner_id'];
   
 $q1 = $c->prepare("SELECT acomm_name FROM accommodations WHERE acomm_name=?");
@@ -522,8 +522,8 @@ $q1 = $c->prepare("SELECT acomm_name FROM accommodations WHERE acomm_name=?");
       }
 else{
     try{
-        $stmt = $c->prepare("INSERT INTO accommodations (ferry_id,acomm_name,room_type,aircon,price,availability) VALUES (?,?,?,?,?,?)");
-        $stmt->bind_param('ssssss', $vessel,$accomm_name,$seat_typ,$aircon,$price,$avail);
+        $stmt = $c->prepare("INSERT INTO accommodations (ferry_id,acomm_name,room_type,aircon,price,availability,seating_capacity) VALUES (?,?,?,?,?,?,?)");
+        $stmt->bind_param('sssssss', $vessel,$accomm_name,$seat_typ,$aircon,$price,$avail,$seat_cap);
         if($stmt->execute()){
             echo "Added Succesfully";
             $q1->close();
@@ -577,18 +577,14 @@ function port_edit_id_form($con) {
 }
 function delete_location($con) {
     $delete_id = $_POST['delete_loc_id'];
-    $ship_name = $_SESSION['owner_id'];
-    
-    $sql_dlt = "DELETE tbl_ship_port,tbl_add_ship_loc_belong FROM tbl_add_ship_loc_belong 
-                INNER JOIN tbl_ship_port ON tbl_add_ship_loc_belong.id = tbl_ship_port.id
-                WHERE tbl_ship_port.id=? AND tbl_add_ship_loc_belong.ship=?";
-
+    $sql_dlt = "DELETE FROM routes WHERE route_id=?";
     $stmt = $con->prepare($sql_dlt);
-    $stmt->bind_param('is',$delete_id,$ship_name);
+    $stmt->bind_param('i',$delete_id);
     $stmt->execute();
     $stmt->close();
     echo "Deleted Successfully!";
 }
+
 function delete_vessel($con) {
     $delete_id = $_POST['delete_loc_id'];
     $ship_name = $_SESSION['stff_ship_reside'];

@@ -35,26 +35,26 @@ $(document).ready(function() {
                 method: 'post',
                 data: $('#login_showner_form').serialize() + '&action=login_showner_form',
                 success: function(res) {
-                    console.log(res);
+                    alert(res);
                     if (res == "Shipping Owner Login Successfully!") {
                         setTimeout(function() {
-                            window.location = "https://barkomatic.online/dashboard/ship/index.php?page=dashboard";
+                            window.location = "https://localhost/barkomatic-new/dashboard/ship/index.php?page=dashboard";
                         }, 100);
                     } else if (res == "Admin Login Successfully!") {
                         setTimeout(function() {
-                            window.location = "https://barkomatic.online/dashboard/admin/index.php?page=dashboard";
+                            window.location = "https://localhost/barkomatic-new/dashboard/admin/index.php?page=dashboard";
                         }, 100);
                     } else if (res == "Please subscribe first.") {
                         setTimeout(function() {
-                            window.location = "https://barkomatic.online/paypal/subForm.php";
+                            window.location = "https://localhost/barkomatic-new/paypal/subForm.php";
                         }, 100);
                     } else if (res == "Sign in Successfully!") {
                         setTimeout(function() {
-                            window.location = 'https://barkomatic.online/index.php';
+                            window.location = 'https://localhost/barkomatic-new/index.php';
                         }, 100);
                     } else if (res == "Staff Login Successfully!") {
                         setTimeout(function() {
-                            window.location = "https://barkomatic.online/dashboard/staff/index.php?page=dashboard";
+                            window.location = "https://localhost/barkomatic-new/dashboard/staff/index.php?page=dashboard";
                         }, 100);
                     }
                     $(':input[type="submit"]').prop('disabled', false);

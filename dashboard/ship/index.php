@@ -4,57 +4,56 @@ require_once "./resources/config.php";
     session_start(); 
     if(isset($_SESSION['alt_owner_id']) && $_SESSION['plan_id'] = 1) { 
        
-        $ship_name = $_SESSION['ship_name'];
-        // $query = "SELECT dates,year(dates) as dateYear,SUM(gross_income) as totalProfit FROM tbl_psnger_pymnt WHERE ship_name = '$ship_name'";
-        //execute query
-        // $result = $con->query($query);
-        //loop through the returned data
-        // $data = array();
-        // if (is_array($result) || is_object($result))
-        // {
-        //     foreach ($result as $row)
-        //     {
-        //         $date = date("m",strtotime($row['dates']));
-        //         if ($date=="01") {
-        //                  $month = "January";
-        //              }
-        //         if ($date=="02") {
-        //                 $month = "February";
-        //             }
-        //         if ($date=="03") {
-        //                 $month = "March";
-        //             }
-        //         if ($date=="04") {
-        //                 $month = "April";
-        //             }
-        //         if ($date=="05") {
-        //                 $month = "May";
-        //             }
-        //         if ($date=="06") {
-        //                 $month = "June";
-        //             }
-        //         if ($date=="07") {
-        //                  $month = "July";
-        //              }
-        //         if ($date=="08") {
-        //                 $month = "Agaust";
-        //             }
-        //          if ($date=="09") {
-        //                 $month = "September";
-        //             }
-        //          if ($date=="10") {
-        //                 $month = "October";
-        //             }
-        //          if ($date=="11") {
-        //                 $month = "November";
-        //             }
-        //         if ($date=="12") {
-        //                 $month = "December";
-        //             } 
-        //         $productname[] = $month;
-        //         $sale[]= $row['totalProfit'];
-        //     }
-        // }
+        $ship_name = $_SESSION['alt_owner_id'];
+        $query = "SELECT dates,year(dates) as dateYear,SUM(gross_income) as totalProfit FROM tbl_psnger_pymnt WHERE ship_id = '$ship_name'";
+        $result = $con->query($query);
+ 
+        $data = array();
+        if (is_array($result) || is_object($result))
+        {
+            foreach ($result as $row)
+            {
+                $date = date("m",strtotime($row['dates']));
+                if ($date=="01") {
+                         $month = "January";
+                     }
+                if ($date=="02") {
+                        $month = "February";
+                    }
+                if ($date=="03") {
+                        $month = "March";
+                    }
+                if ($date=="04") {
+                        $month = "April";
+                    }
+                if ($date=="05") {
+                        $month = "May";
+                    }
+                if ($date=="06") {
+                        $month = "June";
+                    }
+                if ($date=="07") {
+                         $month = "July";
+                     }
+                if ($date=="08") {
+                        $month = "Agaust";
+                    }
+                 if ($date=="09") {
+                        $month = "September";
+                    }
+                 if ($date=="10") {
+                        $month = "October";
+                    }
+                 if ($date=="11") {
+                        $month = "November";
+                    }
+                if ($date=="12") {
+                        $month = "December";
+                    } 
+                $productname[] = $month;
+                $sale[]= $row['totalProfit'];
+            }
+        }
     
         ?>
         <!DOCTYPE html>

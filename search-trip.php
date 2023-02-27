@@ -1,4 +1,6 @@
-<?php require "resources/templates/_search-trip_header.php"; ?>
+<?php
+header('Access-Control-Allow-Origin: *');
+require "resources/templates/_search-trip_header.php"; ?>
 
 
 <!-- div id="siteLoader" class="site-loader">
@@ -8,581 +10,382 @@
     </div -->
 <div class="mobile-menu-container"></div>
 </header>
+
 <div class="searchtripmargin">
-    <div class="searchtrip-tab">
-        <input type="radio" id="tabpassenger" name="searchtrip-tab" checked="checked">
-        <label class="passenger" id="passengertab" for="tabpassenger"><i class="fa-solid fa-user"></i> Passenger</label>
-        <div class="tabsearchtrip">
-            <div id="passengertab">
-                <form class="container-search-trip">
-                    <div class="mt-2">
-                        <input class="hasprefchk" type="checkbox" id="myCheck" onclick="myFunction1()">
-                        <span class="haspref">Has Preffered Shipping Lines</span>
-                        <div class="rowhas">
-                            <div id="text" style="display:none">
-                                <div class="col-md-search">
-                                    <div class="wrapper">
-                                        <br>
-                                        <?php 
-                                                $stmt_ship_sd = $con->prepare("SELECT DISTINCT
-                                                tsd.owner_id,
-                                                tsd.ship_name,
-                                                tsd.ship_logo
-                                                FROM ship_owners tsd
-                                                JOIN schedules tss ON tsd.owner_id=tss.owner_id"); 
-                                                $stmt_ship_sd->execute();
-                                                $row_ship_sd = $stmt_ship_sd->get_result();
-                                                while ($row1 = $row_ship_sd->fetch_assoc()) { ?>
-                                                
-                                                          <div class="ship-button">
-                                                          <input type="radio" id="b<?php echo $row1['owner_id']?>" name="srch_ship_sched" id="srch_ship_sched" value="<?php echo $row1['ship_name']; ?>" />
-                                                          <label  for="b<?php echo $row1['owner_id']?>">
-                                                          <img src="data:image/jpeg;base64,<?php echo base64_encode($row1['ship_logo']); ?>" alt="<?php echo $row1['ship_name']; ?>">
-                                                          </label>
-                                                          </div>
-                                            <?php } ?>
-                                        <!-- <div class="carousel">
-                                            <div class="card card-1"> </div>
 
-                                            <div class="card card-2">
-
-                                            </div>
-                                        </div> -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                            <div class="col-md-12">
-                                <div class="border-0" id="barkomatic-passenger-vehicle">
-                                    <div id="answering" class="answer col-md-12">
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    <!-- Preferred Shipping Lines Section End -->
-                    <div class="row ml-check mt-4">
-                        <input type="radio" name="tab" value="igotnone" onclick="show1();" class="roundtrip" checked style="width:25px;height: 20px; display: block;" />
-                        <span style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-size: 18px;font-weight: bold;color: #0ceafa; margin-right: 10px; margin-left: 3px;"> Round Trip </span>
-                        <input type="radio" name="tab" value="igottwo" onclick="show2();" style="width:25px;height: 20px; display: block; " />
-                        <span style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-size: 18px;font-weight: bold;color: #0ceafa; margin-left: 3px;"> One Way </span>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="col">
-                            <div class="input-group col-mb-3">
-                                <div class="input-group-prepend">
-                                    <!-- <label class="input-group-text" for="inputGroupSelect01">From</label> -->
-                                    <label class="input-group-text" for="srch_trp_loc_from">From</label>
-                                </div>
-                                <!-- <select class="custom-select" id="inputGroupSelect01"> -->
-                                <select class="custom-select" name="srch_sched_loc_from" id="srch_sched_loc_from"> 
-                                  <option selected>Choose Location</option>
-                                  <?php 
-                                                    $stmt2 = $con->prepare("SELECT * FROM routes"); 
-                                                    $stmt2->execute();
-                                                    $result2 = $stmt2->get_result();
-                                                    while ($row2 = $result2->fetch_assoc()) { ?>
-                                                        <option value="<?php echo $row2['departure_from']; ?>"><?php echo $row2['departure_from']; ?>(<?php echo $row2['departure_port']; ?>)</option>
-                                  <?php } ?>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="input-group col-1" style="padding: 7px; padding-left: 33px; margin-bottom: 30px;">
-                            <button class="arrow-button">
-                                <i class="fa-solid fa-arrow-right-arrow-left"></i>
-                                </button>
-                        </div>
-
-                        <div class="col">
-                            <div class="input-group col-mb-5">
-                                <div class="input-group-prepend">
-                                    <!-- <label class="input-group-text" for="inputGroupSelect01">To</label> -->
-                                    <label class="input-group-text" for="srch_trp_loc_to">To</label>
-                                </div>
-                                <select class="form-control" name="srch_sched_loc_to" id="srch_sched_loc_to" required>
-                                <!-- <select class="custom-select" id="inputGroupSelect01"> -->
-                                  <option selected>Choose Location</option>
-                                                <?php 
-                                                    $stmt2 = $con->prepare("SELECT * FROM routes"); 
-                                                    $stmt2->execute();
-                                                    $result2 = $stmt2->get_result();
-                                                    while ($row2 = $result2->fetch_assoc()) { ?>
-                                                        <option value="<?php echo $row2['departure_from']; ?>"><?php echo $row2['departure_from']; ?>(<?php echo $row2['departure_port']; ?>)</option>
-                                                <?php } ?>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col">
-                            <div class="input-group col-mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Depart</span>
-                                </div>
-                                <input type="text" id="from">
-                                <span class="input-group-append">
-                                        <span class="input-group-text bg-white">
-                                            <i class="fa fa-calendar"></i>
-                                        </span>
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="input-group col-mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1">Return</span>
-                                </div>
-                                <input type="text" id="to">
-                                <span class="input-group-append">
-                                                <span class="input-group-text bg-white">
-                                                    <i class="fa fa-calendar"></i>
-                                                </span>
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="input-group col-mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Passenger</span>
-                                </div>
-                                <input type="text">
-                            </div>
-                        </div>
-                    </div>
-                   
-                    <button class="designbutton" type="submit" name="srch_sched_btn" id="srch_sched_btn">
-                        <i class="fa-solid fa-magnifying-glass"> Search Trip</i>
+    <div class="container">
+        <div class="col">
+            <div class="tab-wrapper">
+                <div class="tab-header">
+                    <button class="tab-btn">
+                        <i class="fas fa-user"></i>
+                        Passenger
                     </button>
-            </div>
-            </form>
-        </div>
-
-        <input type="radio" id="tabvehicle" name="searchtrip-tab">
-        <label class="vehicle" id="vehicletab" for="tabvehicle"><i class="fa-solid fa-car"></i> Vehicle</label>
-        <div class="tabsearchtrip2">
-            <div id="vehicletab">
-                <form class="container-search-trip">
-
-                    <div class="mt-2">
-
-                        <input class="hasprefchk" type="checkbox" id="myCheck2" onclick="myFunction2()">
-                        <span class="haspref">Has Preffered Shipping Lines</span>
-                        <div class="rowhas">
-                            <div id="text2" style="display: none;">
-                                <div class="col-md-search">
-                                    <div class="wrapper">
-                                      <br>
-                                      <?php 
-                                                $stmt_ship_sd =$con->prepare("SELECT DISTINCT
-                                                tsd.owner_id,
-                                                tsd.ship_name,
-                                                tsd.ship_logo
-                                                FROM ship_owners tsd
-                                                JOIN schedules tss ON tsd.owner_id=tss.owner_id"); 
-                                                $stmt_ship_sd->execute();
-                                                $row_ship_sd = $stmt_ship_sd->get_result();
-                                                while ($row1 = $row_ship_sd->fetch_assoc()) { ?>
-                                                
-                                                          <div class="ship-button">
-                                                          <input type="radio" id="a<?php echo $row1['owner_id']?>" name="srch_ship_sched" value="<?php echo $row1['ship_name']; ?>" />
-                                                          <label  for="a<?php echo $row1['owner_id']?>">
-                                                          <img src="data:image/jpeg;base64,<?php echo base64_encode($row1['ship_logo']); ?>" alt="<?php echo $row1['ship_name']; ?>">
-                                                          </label>
-                                                          </div>
+                </div>
+                <div class="tab-body">
+                    <form id="search_sched_form" class="ng-untouched ng-pristine ng-invalid">
+                        <div class="search-form-box">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="check-box-mv mg-t-10">
+                                        <input class="coupon_question" type="checkbox" id="check-email" /><label for="check-email" class="text-normal">Has Preferred Shipping Lines</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row answer">
+                                <div class="col">
+                                    <div class="shipping-lines-company mt-2">
+                                        <?php
+                                        $stmt_ship_sd = $con->prepare("SELECT DISTINCT
+                                           tsd.owner_id,
+                                           tsd.ship_name,
+                                           tsd.ship_logo
+                                           FROM ship_owners tsd
+                                           JOIN schedules tss ON tsd.owner_id=tss.owner_id");
+                                        $stmt_ship_sd->execute();
+                                        $row_ship_sd = $stmt_ship_sd->get_result();
+                                        while ($row1 = $row_ship_sd->fetch_assoc()) { ?>
+                                            <div class="ship-radio">
+                                                <input type="radio" data-type="radio" name="srch_ship_sched" style="display: none" id="<?php echo $row1['owner_id']; ?>" value="<?php echo $row1['owner_id']; ?>" class="ng-untouched ng-pristine ng-invalid" />
+                                                <label class="company radio-label" for="<?php echo $row1['owner_id']; ?>" data-id="srch_ship_sched">
+                                                    <div class="company-img">
+                                                        <img width="150" alt="" class="company-logo" src="data:image/jpeg;base64,<?php echo base64_encode($row1['ship_logo']); ?>" alt="<?php echo $row1['ship_name']; ?>" />
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        <?php } ?>
+                                        <!---->
+                                    </div>
+                                </div>
+                            </div>
+                            <!---->
+                            <div class="row">
+                                <div class="col">
+                                    <div class="md-radio">
+                                        <input id="trip1" type="radio" name="tripDirection" formcontrolname="tripDirection" checked="" class="ng-untouched ng-pristine ng-valid" /><label for="trip1">One-Way</label>
+                                        <input id="trip2" type="radio" name="tripDirection" formcontrolname="tripDirection" class="ng-untouched ng-pristine ng-valid" /><label for="trip2">One Way</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!---->
+                            <!---->
+                            <div class="row mt-2">
+                                <div class="col-md">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <label class="input-group-text input-label-w">From</label>
+                                        </div>
+                                        <!----><select name="srch_sched_loc_from" id="depFrom" required="" class="custom-select ng-untouched ng-pristine ng-valid">
+                                            <?php
+                                            $stmt1 = $con->prepare("SELECT * FROM routes");
+                                            $stmt1->execute();
+                                            $result1 = $stmt1->get_result();
+                                            while ($row1 = $result1->fetch_assoc()) { ?>
+                                                <option value="<?php echo $row1['route_id']; ?>"><?php echo $row1['departure_from']; ?></option>
                                             <?php } ?>
+                                            <!---->
+                                        </select>
+                                        <!---->
+                                        <!---->
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Preferred Shipping Lines Section End -->
-                    <div class="row ml-check mt-4">
-
-                        <input type="radio" name="tab" value="igotnone" onclick="show1();" class="roundtrip" checked style="width:25px;height: 20px; display: block;" />
-                        <span style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-size: 18px;font-weight: bold;color: #0ceafa; margin-right: 10px; margin-left: 3px;"> Round Trip </span>
-                        <input type="radio" name="tab" value="igottwo" onclick="show2();" style="width:25px;height: 20px; display: block; " />
-                        <span style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-size: 18px;font-weight: bold;color: #0ceafa; margin-left: 3px;"> One Way </span>
-                    </div>
-
-                    <div class="form-row">
-
-                        <div class="col">
-                            <div class="input-group col-mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text" for="inputGroupSelect01">From</label>
-                                </div>
-                                <select class="custom-select" name="srch_sched_loc_from" id="srch_sched_loc_from"> 
-                                  <option selected>Choose Location</option>
-                                  <?php 
-                                                    $stmt2 = $con->prepare("SELECT * FROM routes"); 
-                                                    $stmt2->execute();
-                                                    $result2 = $stmt2->get_result();
-                                                    while ($row2 = $result2->fetch_assoc()) { ?>
-                                                        <option value="<?php echo $row2['location_from']; ?>"><?php echo $row2['location_from']; ?>(<?php echo $row2['port_from']; ?>)</option>
-                                  <?php } ?>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="input-group col-1" style="padding: 7px; padding-left: 24px; margin-bottom: 30px;">
-                            <button>
-                                <i class="fa-solid fa-arrow-right-arrow-left"></i>
-                                </button>
-                        </div>
-
-                        <div class="col">
-                            <div class="input-group col-mb-5">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text" for="inputGroupSelect01">To</label>
-                                </div>
-                                <select class="form-control" name="srch_sched_loc_to" id="srch_sched_loc_to" required>
-                                <!-- <select class="custom-select" id="inputGroupSelect01"> -->
-                                  <option selected>Choose Location</option>
-                                                <?php 
-                                                    $stmt2 = $con->prepare("SELECT * FROM tbl_ship_port"); 
-                                                    $stmt2->execute();
-                                                    $result2 = $stmt2->get_result();
-                                                    while ($row2 = $result2->fetch_assoc()) { ?>
-                                                        <option value="<?php echo $row2['location_to']; ?>"><?php echo $row2['location_to']; ?>(<?php echo $row2['port_to']; ?>)</option>
-                                                <?php } ?>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-
-                        <div class="col-depart">
-                            <div class="input-group col-mb-10">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1">Depart</span>
-                                </div>
-                                <input type="text" id="from2">
-                                <span class="input-group-append">
-                                                <span class="input-group-text bg-white">
-                                                    <i class="fa fa-calendar"></i>
-                                                </span>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="col-return">
-                            <div class="input-group col-mb-5">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1">Return</span>
-                                </div>
-                                <input type="text" id="to2">
-                                <span class="input-group-append">
-                                                    <span class="input-group-text bg-white">
-                                                        <i class="fa fa-calendar"></i>
-                                                    </span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="category">
-
-                        <div class="row ml-check mt-4">
-                            <input type="radio" name="tab" value="igotnone" class="roundtrip" checked style="width:25px;height: 20px; display: block;" />
-                            <span style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-size: 15px;font-weight: bold;color: #000; margin-right: 10px; margin-left: 3px;"> Category </span>
-                            <input type="radio" name="tab" value="igottwo" style="width:25px;height: 20px; display: block; " />
-                            <span style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-size: 15px;font-weight: bold;color: #000; margin-left: 3px;"> Brand </span>
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <label class="input-group-text" for="inputGroupSelect01">Category</label>
-                            </div>
-                            <select class="custom-select" id="inputGroupSelect01">
-                              <option selected>PICK-UP</option>
-                              <option value="1">AUV</option>
-                              <option value="2">SUV</option>
-                              <option value="3">10-WHEELER / EMPTY</option>
-                            </select>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="col">
-                                <div class="input-group col-mb-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="gridCheck1" checked style="width:20px;height: 20px; display: block;">
-                                        <label class="form-check-label" for="gridCheck1" style="padding-left: 10px; font-size: 19px;">
-                                              With Driver
-                                    </label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col">
-                                <div class="input-group col-mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Passenger</span>
-                                    </div>
-                                    <input type="text">
-                                </div>
-                                <span>(Including Driver)</span>
-                            </div>
-
-                            <div class="col">
-                                <div class="input-group col-mb-3">
-                                    <div class="input-group-prepend">
-                                    </div>
-                                    <button type="submit" name="srch_sched_btn" id="srch_sched_btn" class="designbutton2 barkomatic-btn-search-trip">
-                                        <i class="fa-solid fa-magnifying-glass"> Cargo Trip</i>
+                                <div class="col-ms switch-icon">
+                                    <button type="button" class="btn btn-transparent">
+                                        <span class="fa fa-exchange"></span>
                                     </button>
                                 </div>
+                                <div class="col-md">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <label class="input-group-text input-label-w">To</label>
+                                        </div>
+                                        <!----><select name="srch_sched_loc_to" class="custom-select ng-untouched ng-pristine ng-valid" id="depto">
+                                            <?php
+                                            $stmt1 = $con->prepare("SELECT * FROM routes");
+                                            $stmt1->execute();
+                                            $result1 = $stmt1->get_result();
+                                            while ($row1 = $result1->fetch_assoc()) { ?>
+                                                <option value="<?php echo $row1['route_id']; ?>"><?php echo $row1['departure_from']; ?></option>
+                                            <?php } ?>
+                                            <!---->
+                                        </select>
+                                        <!---->
+                                        <!---->
+                                    </div>
+                                </div>
                             </div>
+                            <div class="row">
+                                <div class="col-lg-7">
+                                    <div class="row">
+                                        <div class="col-md">
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text input-label-w">Depart</span>
+                                                </div>
+                                                <input id="from2" type="text" name="srch_sched_loc_depart" bsdatepicker="" placement="top" class="form-control ng-untouched ng-pristine ng-valid" />
+                                                <!---->
+                                                <div class="input-group-append toggle-calendar" aria-expanded="false">
+                                                    <span class="input-group-text"><span class="far fa-calendar-alt"></span></span>
+                                                </div>
+                                                <!---->
+                                            </div>
+                                        </div>
+                                        <div class="col-md">
+                                            <div class="input-group mb-3" style="visibility: visible">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text input-label-w">Return</span>
+                                                </div>
+                                                <input id="to2" type="text" name="returnDate" placement="top" class="form-control ng-untouched ng-pristine ng-valid" />
+                                                <!---->
+                                                <div class="input-group-append toggle-calendar" aria-expanded="false">
+                                                    <span class="input-group-text"><span class="far fa-calendar-alt"></span></span>
+                                                </div>
+                                                <!---->
+                                            </div>
+                                        </div>
+                                        <!---->
+                                    </div>
+                                </div>
+                                <div class="col-lg">
+                                    <div class="row">
+                                        <div class="col-md">
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text input-label-w" style="width: auto">Passengers</span>
+                                                </div>
+                                                <input type="number" min="1" name="paxCount" class="form-control ng-untouched ng-pristine ng-valid" max="10" />
+                                                <!---->
+                                            </div>
+                                        </div>
+                                        <div class="col-md">
+                                            <button type="submit" name="srch_sched_btn" id="srch_sched_btn" class="btn btn-primary btn-block">
+                                                <span class="mr-2"><span class="svg-icon svg-icon-white svg-icon-2x"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" viewBox="0 0 24 24" version="1.1">
+                                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                <rect x="0" y="0" width="24" height="24"></rect>
+                                                                <path d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"></path>
+                                                                <path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z" fill="#000000" fill-rule="nonzero"></path>
+                                                            </g>
+                                                        </svg></span></span><span>Search Trips</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!---->
+                                    <!---->
+                                    <!---->
+                                </div>
+                                <!---->
+                            </div>
+                            <!---->
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-<footer class="footer-area section-padding-80-0">
-        <!-- Main Footer Area -->
-        <div class="main-footer-area">
-            <div class="container">
-                <div class="row align-items-baseline ">
-                    <!-- Single Footer Widget Area -->
-                    <div class="col-12 col-sm-6 col-lg-3">
-                        <div class="single-footer-widget mb-80">
-                            <!-- Footer Logo -->
-                            <a href="#" class="footer-logo"><img src="img/core-img/logo.png" alt=""></a>
-                            <p class="footprag">Call Us</p>
-                            <h4>+12 345-678-9999</h4>
-                            <p>Email Us</p>
-                            <h4>barkomatic2021@gmail.com
-                                <h4>
-
-                        </div>
-                    </div>
-
-                    <!-- Single Footer Widget Area -->
-                    <div class="col-12 col-sm-2 col-lg-4">
-                        <div class="single-footer-widget mb-80">
-                            <!-- Widget Title -->
-                            <h5 class="widget-title">MANUALS</h5>
-
-                            <!-- Single Blog Area -->
-                            <div class="latest-blog-area">
-                                <a href="#" class="post-title">Boarding Guidelines</a>
-                                <a href="#" class="post-title">Payment Option</a>
-                                <a href="#" class="post-title">Passenger Ticket Booking Manual</a>
-                                <a href="#" class="post-title">Rolling Cargo Booking Manual</a>
-                            </div>
-
-                            <!-- Single Blog Area -->
-                        </div>
-                    </div>
-
-                    <!-- Single Footer Widget Area -->
-                    <div class="col-12 col-sm-2 col-lg-4">
-                        <div class="single-footer-widget mb-80">
-                            <!-- Widget Title -->
-                            <h5 class="widget-title">POLICY</h5>
-
-                            <!-- Single Blog Area -->
-                            <div class="latest-blog-area">
-                                <a href="#" class="post-title">Refund Policy</a>
-                                <a href="#" class="post-title">Rebooking Policy</a>
-                                <a href="#" class="post-title">Barkomatic Terms & Conditions</a>
-                                <a href="#" class="post-title">Privacy Policy</a>
-                            </div>
-                            <!-- Single Blog Area -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Copywrite Area -->
-        <div class="container">
-            <div class="copywrite-content">
-                <div class="row align-items-center">
-                    <div class="col-12 col-md-8">
-                        <!-- Copywrite Text -->
-                        <div class="copywrite-text">
-                            <p>
-                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                Copyright &copy;
-                                <script>
-                                    document.write(new Date().getFullYear());
-                                </script> All rights reserved | Barkomatic</a>
-                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4">
-                        <!-- Social Info -->
-                        <div class="social-info">
-                            <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
 <script src="js/jquery.validate.min.js"></script>
 <script src="js/wow.min.js"></script>
 <script src="js/main/active.js"></script>
-<script src="js/main/schedule/process.js"></script>
+<script src="js/main/schedule/avail_process.js"></script>
 <script>
-function selectOnChange(obj) {
-         var price =  $(obj).find(':selected').data('price');
-         var cost = document.getElementById("cost").value;
-         
-         var priceInt = parseInt(price);
-         var costInt= parseInt(cost);
+    function selectOnChange(obj) {
+        var price = $(obj).find(':selected').data('price');
+        var cost = document.getElementById("cost").value;
 
-         var total = parseInt(priceInt + costInt);
-         document.getElementById("AcommondationPrice").value = priceInt;
-         document.getElementById("total").value = total;
+        var priceInt = parseInt(price);
+        var costInt = parseInt(cost);
 
-         
-         if (price == 0) {
+        var total = parseInt(priceInt + costInt);
+        document.getElementById("AcommondationPrice").value = priceInt;
+        document.getElementById("total").value = total;
+
+
+        if (price == 0) {
             document.getElementById("AcommondationPrice").value = "";
-         }
-    
-	  }
+        }
+
+    }
 
 
-function check(input)
-    {
-    	
-    	var checkboxes = document.getElementsByClassName("radioCheck");
-    	
-    	for(var i = 0; i < checkboxes.length; i++)
-    	{
-    		//uncheck all
-    		if(checkboxes[i].checked == true)
-    		{
+    function check(input) {
+
+        var checkboxes = document.getElementsByClassName("radioCheck");
+
+        for (var i = 0; i < checkboxes.length; i++) {
+            //uncheck all
+            if (checkboxes[i].checked == true) {
                 // checkboxes[i].disabled = 'false';
-    			checkboxes[i].checked = false;
+                checkboxes[i].checked = false;
                 checkboxes[i].disabled = 'false';
-    		}
-            else if(checkboxes[i].checked != true)
-    		{  
-    			checkboxes[i].disabled = 'true';
-    		}  
-    	}
-    	//set checked of clicked object
-    	if(input.checked == true)
-    	{
-    		input.checked = false;
-    	}
-    	else
-    	{   
-    		input.checked = true;
-    	}	
+            } else if (checkboxes[i].checked != true) {
+                checkboxes[i].disabled = 'true';
+            }
+        }
+        //set checked of clicked object
+        if (input.checked == true) {
+            input.checked = false;
+        } else {
+            input.checked = true;
+        }
     }
 
-// for (i=0; i<document.creditCheck.length; i++){
-// if (document.creditCheck[i].checked !=true)
-//   document.creditCheck[i].disabled='true';
-// }
-    </script>
-<script>
-$(document).ready(function(){
-$(".answer").hide();
-$(".coupon_question").click(function() {
-    if($(this).is(":checked")) {
-        $(".answer").show();
-    } else {
-        $(".answer").hide();
-    }
-});;
-});
+    // for (i=0; i<document.creditCheck.length; i++){
+    // if (document.creditCheck[i].checked !=true)
+    //   document.creditCheck[i].disabled='true';
+    // }
 </script>
- <script src="js/jquery/datepicker/wow.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $(".answer").hide();
+        $(".coupon_question").click(function() {
+            if ($(this).is(":checked")) {
+                $(".answer").show();
+            } else {
+                setTimeout(function() {
+                    $(".answer").hide();
+                }, 100);
+            }
+        });;
+    });
+</script>
+<script src="js/jquery/datepicker/wow.min.js"></script>
 <!-- <link rel="stylesheet" href="css/jquery-ui.css" /> -->
-	<script>
-		 new WOW().init();
-	</script>
+<script>
+    new WOW().init();
+</script>
 <!-- <script src="js/jquery-1.10.2.js"></script> -->
 <script src="js/jquery/datepicker/jquery-ui1.js"></script>
-    <script>
-   
+<script>
     // var badDates = new Array("23-04-2022","24-04-2022","19-04-2022","20-04-2022");
-	// $.getJSON('getDates.php, function(json){badDates=json;});
-   $(document).ready(function(){
-		var badDates;
-		$.getJSON('sched_date.php', function(json) { 
-		badDates = json;
-		console.log(badDates);
-        $( "#srch_sched_loc_depart").datepicker({
-			dateFormat: 'dd-mm-yy',
-			minDate: 0,
-			firstDay: 1,
-            beforeShowDay: function(date) {
-                if($.inArray($.datepicker.formatDate('yy-mm-dd', date), badDates) >= 0)
-                {
-                      return [true, "av", "available"];
-                }
-                else
-                {
-                    return [false, "notav", 'Not Available'];
-                   
-                   
-                }
-            }
-		});
-	});
-    });
+    // $.getJSON('getDates.php, function(json){badDates=json;});
+    $(document).ready(function() {
+        var badDates;
+        $.getJSON('sched_date.php', function(json) {
+            badDates = json;
+            console.log(badDates);
+            $("#srch_sched_loc_depart").datepicker({
+                dateFormat: 'dd-mm-yy',
+                minDate: 0,
+                firstDay: 1,
+                beforeShowDay: function(date) {
+                    if ($.inArray($.datepicker.formatDate('yy-mm-dd', date),
+                            badDates) >= 0) {
+                        return [true, "av", "available"];
+                    } else {
+                        return [false, "notav", 'Not Available'];
 
-</script>
-<script>
-$(document).ready(function(){
-    $('input[type=radio]').click(function(e) {
-        var gender = $(this).val();
-        var act = "getShipsched";
-       $.ajax({
-        url : "getShipsched.php",
-        type : "POST",
-        data: {action:act,shipname:gender},
-        success : function(data) {
-          setTimeout(function() {
-                        $("#answering").html(data);
-            }, 100);
-        console.log(data);
-           }
+
+                    }
+                }
+            });
         });
-		
     });
-});
+</script>
+<script>
+    $(document).ready(function() {
+        $('input[data-type=radio]').click(function(e) {
+            var gender = $(this).val();
+            var act = "getShipsched";
+            $.ajax({
+                url: "getShipsched.php",
+                type: "POST",
+                data: {
+                    action: act,
+                    shipname: gender
+                },
+                success: function(data) {
+                    setTimeout(function() {
+                        $("#answering").html(data);
+                    }, 100);
+                    console.log(data);
+                }
+            });
+
+        });
+    });
 </script>
 
 <script>
-$(document).ready(function(){
-    $('.carousel[data-type="multi"] .item').each(function() {
-	var next = $(this).next();
-	if (!next.length) {
-		next = $(this).siblings(':first');
-	}
-	next.children(':first-child').clone().appendTo($(this));
+    $(document).ready(function() {
+        $('.carousel[data-type="multi"] .item').each(function() {
+            var next = $(this).next();
+            if (!next.length) {
+                next = $(this).siblings(':first');
+            }
+            next.children(':first-child').clone().appendTo($(this));
 
-	for (var i = 0; i < 2; i++) {
-		next = next.next();
-		if (!next.length) {
-			next = $(this).siblings(':first');
-		}
+            for (var i = 0; i < 2; i++) {
+                next = next.next();
+                if (!next.length) {
+                    next = $(this).siblings(':first');
+                }
 
-		next.children(':first-child').clone().appendTo($(this));
-	}
-});
-});
+                next.children(':first-child').clone().appendTo($(this));
+            }
+        });
+    });
+</script>
+<script>
+    function inittab(tabWrapper, activeTab = 1) {
+        const tabBtns = tabWrapper.querySelectorAll(".tab-btn");
+        const underline = tabWrapper.querySelector(".underline");
+        const tabContents = tabWrapper.querySelectorAll(".tab-content");
+
+        activeTab = activeTab - 1;
+        tabBtns[activeTab].classList.add("active");
+        underline.style.width = `${tabBtns[activeTab].offsetWidth}px`;
+        underline.style.left = `${tabBtns[activeTab].offsetLeft}px`;
+        tabContents.forEach((content) => {
+            content.style.transform = `translateX(-${activeTab * 100}%)`;
+        });
+
+        tabBtns.forEach((btn, index) => {
+            btn.addEventListener("click", () => {
+                tabBtns.forEach((btn) => btn.classList.remove("active"));
+                btn.classList.add("active");
+                underline.style.width = `${btn.offsetWidth}px`;
+                underline.style.left = `${btn.offsetLeft}px`;
+                tabContents.forEach((content) => {
+                    content.style.transform = `translateX(-${index * 100}%)`;
+                });
+            });
+
+            //same effect as on click when button in focus
+            btn.addEventListener("focus", () => {
+                tabBtns.forEach((btn) => btn.classList.remove("active"));
+                btn.classList.add("active");
+                underline.style.width = `${btn.offsetWidth}px`;
+                underline.style.left = `${btn.offsetLeft}px`;
+                tabContents.forEach((content) => {
+                    content.style.transform = `translateX(-${index * 100}%)`;
+                });
+            });
+        });
+    }
+
+    const tabWrappers = document.querySelectorAll(".tab-wrapper");
+    tabWrappers.forEach((tabWrapper, index) => inittab(tabWrapper));
+</script>
+<script>
+    $(document).ready(function() {
+        const paxCountInputElement = document.querySelector('input[name="paxCount"]');
+        const defaultValue = 1;
+        paxCountInputElement.defaultValue = defaultValue;
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        // Get the select elements
+        var fromSelect = document.getElementById("depFrom");
+        var toSelect = document.getElementById("depto");
+        // Get the number of options
+        var options = Math.max(fromSelect.options.length, toSelect.options.length);
+        // Generate a random index between 0 and the number of options
+        var randomIndex = Math.floor(Math.random() * options);
+        // Set both select elements to the same random option
+        fromSelect.selectedIndex = randomIndex;
+
+    });
 </script>
 </body>
 

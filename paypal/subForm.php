@@ -3,7 +3,7 @@
 include_once 'config.php'; 
 // Start session
 
-if(isset($_SESSION['ship_id']) && $_SESSION['ship_id'] != NULL){
+if(isset($_SESSION['ship_name']) && $_SESSION['ship_name'] != NULL){
 ?>
 <!DOCTYPE html>
 <html lang="en">

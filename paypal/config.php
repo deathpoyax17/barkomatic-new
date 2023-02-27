@@ -5,17 +5,17 @@
    $itemNumber = 'MS123456';
    session_start();
 
-   $ship_id = $_SESSION['ship_id'];
+   $ship_id = $_SESSION['ship_name'];
    // Subscription price for one month
    $itemPrice = 1500.00;
      
    // PayPal configuration 
-   define('PAYPAL_ID', 'williamdoe@shiplines.com'); 
+   define('PAYPAL_ID', 'christiangartin@shiplines.com'); 
    define('PAYPAL_SANDBOX', TRUE); //TRUE or FALSE 
     
-   define('PAYPAL_RETURN_URL', 'http://barkomatic.xyz/modules/schedule/paypal_success.php'); 
-   define('PAYPAL_CANCEL_URL', 'http://barkomatic.xyz/paypal/cancel.php'); 
-   define('PAYPAL_NOTIFY_URL', 'http://barkomatic.xyz/modules/schedule/paypal_ipn.php'); 
+   define('PAYPAL_RETURN_URL', 'http://barkomatic.online/modules/schedule/paypal_success.php'); 
+   define('PAYPAL_CANCEL_URL', 'http://barkomatic.online/paypal/cancel.php'); 
+   define('PAYPAL_NOTIFY_URL', 'http://barkomatic.online/modules/schedule/paypal_ipn.php'); 
    define('PAYPAL_CURRENCY', 'PHP'); 
     
    

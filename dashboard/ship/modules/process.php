@@ -240,11 +240,10 @@ function reservation_data($c) {
 
 //* summary reservation list in dashboard landing page
 function summ_reservation_data($c) {
-    $stmt = $c->prepare("SELECT *
-                         FROM reservations r
-                         INNER JOIN tickets t ON r.ticket_id=t.ticket_id
-                         INNER JOIN tbl_ship_onwer_account soa ON t.alt_owner_id=soa.alt_owner_id
-                         WHERE soa.alt_owner_id=?");
+    $stmt = $c->prepare("SELECT * 
+                        from tickets
+                        JOIN schedules ON tickets.schedule_id = schedules.schedule_id 
+                        WHERE schedules.owner_id=? ");
     $stmt->bind_param('s', $_SESSION['alt_owner_id']);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -541,10 +540,7 @@ function total_number_of_staff($c) {
 function active_reservation($c) {
     $counter = 0;
     $sql_slct = "SELECT * 
-    FROM reservations r
-    INNER JOIN tickets t ON r.ticket_id = t.ticket_id
-    INNER JOIN tbl_ship_onwer_account soa ON t.alt_owner_id = soa.alt_owner_id
-    WHERE t.alt_owner_id=?";
+    FROM schedules WHERE owner_id=?";
     $stmt = $c->prepare($sql_slct);
     $stmt->bind_param('s', $_SESSION['alt_owner_id']);
     $stmt->execute();
