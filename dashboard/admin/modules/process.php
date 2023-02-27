@@ -293,7 +293,7 @@ function all_staff_data($c) {
             <td>'.$row['password'].'</td>
             <td class="text-center">
                 <button type="button" name="edit_role_btn" class="button small green update_role_btn" id="'.$row["id"].'" data-toggle="modal" data-target="#exampleModal">
-                    <span class="icon"><i class="mdi mdi-pencil"></i></span>
+                    <span class="icon"><i class="fa-solid fa-check"></i></span>
                 </button>
                 <button type="button" name="rl_btn_delete" class="button small red delete_role_btn" id="'.$row["id"].'">
                     <span class="icon"><i class="mdi mdi-trash-can"></i></span>

@@ -64,6 +64,17 @@
                         </div>
                     </div>
                     <div class="field">
+                        <label class="label">Cot Numbers</label>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    <input type="number" autocomplete="on" name="accomm_cot_num" id="accomm_cot_num" class="input" required>
+                                </div>
+                                <p class="help">Required. Cot Numbers</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
                         <label class="label">Aircon</label>
                         <div class="field-body">
                             <div class="field">
@@ -127,6 +138,10 @@
             <div class="form-group">
                 <label for="edit_accom_name">Accomodation Name</label>
                 <input type="text" class="form-control form-control-sm" name="edit_accom_name" id="edit_accom_name" required>
+            </div>
+            <div class="form-group">
+                <label for="edit_accom_st">Seat Type</label>
+                <input type="text" class="form-control form-control-sm" name="edit_accom_st" id="edit_accom_st" required>
             </div>
             <div class="form-group">
                 <label for="edit_accom_st">Seat Type</label>

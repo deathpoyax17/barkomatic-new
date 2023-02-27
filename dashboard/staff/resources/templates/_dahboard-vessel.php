@@ -106,6 +106,10 @@
                 <input type="text" class="form-control form-control-sm" name="edit_accom_st" id="edit_accom_st" required>
             </div>
             <div class="form-group">
+                <label for="edit_accom_cotnum">Cot Numbers</label>
+                <input type="number" class="form-control form-control-sm" name="edit_accom_cotnum" id="edit_accom_cotnum" required>
+            </div>
+            <div class="form-group">
                 <label for="edit_accom_aircon">Aircon</label>
                 <select name="edit_accom_aircon" id="edit_accom_aircon" class="form-control-sm form-control">
                     <option value="YES">YES</option>
