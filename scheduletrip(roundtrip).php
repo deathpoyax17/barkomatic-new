@@ -177,8 +177,8 @@ if (isset($_COOKIE['data'])) {
         </div>
         <br>
         <div class='error'>
-        No departure accommodation selected.
-                </div>
+            No departure accommodation selected.
+        </div>
 
         <div class="container-summarytrip">
             <form id="summary_continue">
@@ -196,7 +196,7 @@ if (isset($_COOKIE['data'])) {
                                 </p>
                             </div>
                             <div class="container-form-summary bg-white">
-                            No departure voyage selected yet.
+                                No departure voyage selected yet.
                             </div>
                         </div>
                     </div>
@@ -211,130 +211,130 @@ if (isset($_COOKIE['data'])) {
 <?php }   ?>
 <?php include_once("passengerinfo.php"); ?>
 <div id="success_tic" class="modal" title="Success">
-  <h2>Passenger info submitted successfully.</h2>
-  <div class="container">
-  <div class="component">
-        <div class="hero-image">
-          <img src="img/barkomatic-payment.jpg" alt="barkomatic Boat">
-        </div>
-        <div class="component-info">
-            <div class="order-summary"> 
-                <h2>Summary</h2>
+    <h2>Passenger info submitted successfully.</h2>
+    <div class="container">
+        <div class="component">
+            <div class="hero-image">
+                <img src="img/barkomatic-payment.jpg" alt="barkomatic Boat">
             </div>
-            <div class="annual-plan">
-              <div class="plan-price">
-                <h4>DEPARTURE DATE</h4>
-                <p><span id="dateDeparture"></span></p>
-              </div>
-              <div class="change">
-                <!-- <a></a> -->
-              </div>
-            </div>
-            <div class="annual-plan">
-              <div class="plan-price">
-                <h4>ARRIVAL TIME</h4>
-                <p><span id="timeArrival"></span></p>
-              </div>
-              <div class="change">
-               
-              </div>
-            </div>
-            <div class="annual-plan">
-              <div class="plan-price">
-                <h4>FERRY NAME</h4>
-                <p><span id="nameFerry"></span></p>
-              </div>
-              <div class="change">
-              </div>
-            </div>
-            <div class="annual-plan">
-              <div class="plan-price">
-                <h4>ROUTE FROM</h4>
-                <p><span id="routeFrom"></span></p>
-              </div>
-              <div class="change">
-              </div>
-            </div>
-            <div class="annual-plan">
-             
-              <div class="plan-price">
-                <h4>ROUTE TO</h4>
-                <p><span id="routeTo"></span></p>
-              </div>
-              <div class="change">
-              
-              </div>
-            </div>
-            <div class="annual-plan">
-             
-             <div class="plan-price">
-               <h4>Accomodation</h4>
-               <p><span id="AccomondationName"></span></p>
-             </div>
-             <div class="change">
-             
-             </div>
-           </div>
-            <div class="annual-plan">
-             
-             <div class="plan-price">
-               <h4>Ticket Price</h4>
-             </div>
-             <div class="change">
-             <a><span id="PriceTicket"></span></a>
-             </div>
-           </div>
-            <div class="annual-plan">
-             
-             <div class="plan-price">
-               <h4>Passengers</h4>
-             
-             </div>
-             <div class="change">
-             <a><span id="PassengersCount"></span></a>
-             </div>
-           </div>
-           <hr>
-           <div class="annual-plan">
-             
-             <div class="plan-price">
-               <h2>Total</h2>
-             </div>
-             <div class="change">
-             <a><span id="totalPrices"></span></a>
-             </div>
-           </div>
-           <form action="<?php echo PAYPAL_URL; ?>" method="post" >
-           <input type="hidden" name="business" value="<?php echo PAYPAL_ID ?>">
-        
-        <!-- Specify a subscriptions button. -->
+            <div class="component-info">
+                <div class="order-summary">
+                    <h2>Summary</h2>
+                </div>
+                <div class="annual-plan">
+                    <div class="plan-price">
+                        <h4>DEPARTURE DATE</h4>
+                        <p><span id="dateDeparture"></span></p>
+                    </div>
+                    <div class="change">
+                        <!-- <a></a> -->
+                    </div>
+                </div>
+                <div class="annual-plan">
+                    <div class="plan-price">
+                        <h4>ARRIVAL TIME</h4>
+                        <p><span id="timeArrival"></span></p>
+                    </div>
+                    <div class="change">
 
-            <input type="hidden" name="cmd" value="_xclick-subscriptions">
-            <!-- for paypal -->
-            <button class="btn-payment">Proceed to Payment</button>
-            <input name="AccomondationId" id="AccomondationId" hidden="">
-            <input name="ScheduleId" id="ScheduleId" hidden="">
-            <input name="emailpass" id="emailpass" hidden="">
-            <input name="ticketCode" id="ticketCode" hidden="">
-            <!-- <input name="ticketCode" id="ticketCode" hidden=""> -->
-            <!-- <input name="idPass" id="idPass" hidden=""> -->
-            <!-- paypal inputs -->
-            <input type="hidden" name="typeOfpayment" value="Purchase">
-            <input type="hidden" name="item_number" id="ticketCode" value="">
-            <input type="hidden" name="currency_code" value="<?php echo PAYPAL_CURRENCY ?>">
-            <input name="a3" id="paypalAmt" hidden="" value="">
-            <input type="hidden" name="p3" id="paypalValid" value="1">
-            <input type="hidden" name="t3" value="M">
-            <!-- paypal buttons -->
-            <input type="hidden" name="custom" value="" id="idPass">
-            <input type="hidden" name="cancel_return" value="<?php echo PAYPAL_CANCEL_URL?>">
-            <input type="hidden" name="return" value="<?php echo PAYPAL_RETURN_URL.'?payer_email='.$_SESSION['email'].'&rsrvtn_id='.$row['reservation_number'].'&pyrtype='.$typofpayment; ?>">
-            <input type="hidden" name="notify_url" value="'.PAYPAL_NOTIFY_URL.'">
-            <a href="avail_search-trip.php" class="btn-cancel">Cancel</a>
-          </form>
+                    </div>
+                </div>
+                <div class="annual-plan">
+                    <div class="plan-price">
+                        <h4>FERRY NAME</h4>
+                        <p><span id="nameFerry"></span></p>
+                    </div>
+                    <div class="change">
+                    </div>
+                </div>
+                <div class="annual-plan">
+                    <div class="plan-price">
+                        <h4>ROUTE FROM</h4>
+                        <p><span id="routeFrom"></span></p>
+                    </div>
+                    <div class="change">
+                    </div>
+                </div>
+                <div class="annual-plan">
+
+                    <div class="plan-price">
+                        <h4>ROUTE TO</h4>
+                        <p><span id="routeTo"></span></p>
+                    </div>
+                    <div class="change">
+
+                    </div>
+                </div>
+                <div class="annual-plan">
+
+                    <div class="plan-price">
+                        <h4>Accomodation</h4>
+                        <p><span id="AccomondationName"></span></p>
+                    </div>
+                    <div class="change">
+
+                    </div>
+                </div>
+                <div class="annual-plan">
+
+                    <div class="plan-price">
+                        <h4>Ticket Price</h4>
+                    </div>
+                    <div class="change">
+                        <a><span id="PriceTicket"></span></a>
+                    </div>
+                </div>
+                <div class="annual-plan">
+
+                    <div class="plan-price">
+                        <h4>Passengers</h4>
+
+                    </div>
+                    <div class="change">
+                        <a><span id="PassengersCount"></span></a>
+                    </div>
+                </div>
+                <hr>
+                <div class="annual-plan">
+
+                    <div class="plan-price">
+                        <h2>Total</h2>
+                    </div>
+                    <div class="change">
+                        <a><span id="totalPrices"></span></a>
+                    </div>
+                </div>
+                <form action="<?php echo PAYPAL_URL; ?>" method="post">
+                    <input type="hidden" name="business" value="<?php echo PAYPAL_ID ?>">
+
+                    <!-- Specify a subscriptions button. -->
+
+                    <input type="hidden" name="cmd" value="_xclick-subscriptions">
+                    <!-- for paypal -->
+                    <button class="btn-payment">Proceed to Payment</button>
+                    <input name="AccomondationId" id="AccomondationId" hidden="">
+                    <input name="ScheduleId" id="ScheduleId" hidden="">
+                    <input name="emailpass" id="emailpass" hidden="">
+                    <!-- <input name="ticketCode" id="ticketCode" hidden=""> -->
+                    <!-- <input name="ticketCode" id="ticketCode" hidden=""> -->
+                    <input name="idPass" id="idPass" hidden="" value="">
+                    <!-- paypal inputs -->
+                    <input type="hidden" name="typeOfpayment" value="Purchase">
+                    <input type="hidden" name="item_number" id="ticketCode" value="">
+                    <input type="hidden" name="currency_code" value="<?php echo PAYPAL_CURRENCY ?>">
+                    <input name="a3" id="paypalAmt" hidden="" value="">
+                    <input type="hidden" name="p3" id="paypalValid" value="1">
+                    <input type="hidden" name="t3" value="M">
+                    <!-- paypal buttons -->
+                    <input type="hidden" name="custom" value="" id="ticketCode">
+                    <input type="hidden" name="cancel_return" value="<?php echo PAYPAL_CANCEL_URL ?>">
+                    <input type="hidden" name="return" value="<?php echo PAYPAL_RETURN_URL . '?payer_email=' . $_SESSION['email'] . '&rsrvtn_id=' . $row['reservation_number'] . '&pyrtype=' . $typofpayment; ?>">
+                    <input type="hidden" name="notify_url" value="'.PAYPAL_NOTIFY_URL.'">
+                    <a href="avail_search-trip.php" class="btn-cancel">Cancel</a>
+                </form>
+            </div>
         </div>
-      </div>
-</div>
+    </div>
 </div>
 <script src="js/jquery.validate.min.js"></script>
 <script src="js/wow.min.js"></script>
@@ -404,10 +404,10 @@ if (isset($_COOKIE['data'])) {
     });
 </script>
 <script>
-    $(document).ready(function(){
-    $('.close').click(function() {
-  $('#myModal').hide();
-});
+    $(document).ready(function() {
+        $('.close').click(function() {
+            $('#myModal').hide();
+        });
     });
 </script>
 </body>

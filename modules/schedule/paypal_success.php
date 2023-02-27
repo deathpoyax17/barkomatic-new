@@ -123,7 +123,7 @@ if($prevPaymentResult->num_rows > 0){
 
 }
 }
-echo ("<script>windows.location.href('https://barkomatic.xyz/')</script>");
+echo ("<script>windows.location.href('https://barkomatic.online/')</script>");
 }
 ?>
 
