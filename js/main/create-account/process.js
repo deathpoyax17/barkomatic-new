@@ -54,9 +54,9 @@ $(document).ready(function() {
                             $('#password').val('');
                             $('#confirm_password').val('');
                         }, 100);
-                        // setTimeout(function() {
-                        //     window.location = "http://localhost/barkomatic-new/login.php";
-                        // }, 100);
+                        setTimeout(function() {
+                            window.location = "https://barkomatic.online/login.php";
+                        }, 100);
                     }
                     $('#passenger_submit').attr('disabled', false);
                 }
@@ -113,7 +113,7 @@ $(document).ready(function() {
                             $('#cpass').val('');
                         }, 100);
                         setTimeout(function() {
-                            window.location = "http:/localhost/barkomatic-new/login.php";
+                            window.location = "https://barkomatic.online/login.php";
                         }, 100);
                     }
                     console.log(res);

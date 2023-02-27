@@ -13,7 +13,7 @@ $(document).ready(function() {
                     $('#passenger-btn').attr('disabled', false);
                     if (res == "Sign in Successfully!") {
                         setTimeout(function() {
-                            window.location = 'http://localhost/barkomatic-new/index.php';
+                            window.location = 'https://barkomatic.online/index.php';
                         }, 100);
                     }
                     $(':input[type="submit"]').prop('disabled', false);
@@ -38,24 +38,23 @@ $(document).ready(function() {
                     console.log(res);
                     if (res == "Shipping Owner Login Successfully!") {
                         setTimeout(function() {
-                            window.location = "http://localhost/barkomatic-new/dashboard/ship/index.php?page=dashboard";
+                            window.location = "https://barkomatic.online/dashboard/ship/index.php?page=dashboard";
                         }, 100);
                     } else if (res == "Admin Login Successfully!") {
                         setTimeout(function() {
-                            window.location = "http://localhost/barkomatic-new/dashboard/admin/index.php?page=dashboard";
+                            window.location = "https://barkomatic.online/dashboard/admin/index.php?page=dashboard";
                         }, 100);
                     } else if (res == "Please subscribe first.") {
                         setTimeout(function() {
-                            window.location = "http://barkomatic.xyz/paypal/subForm.php";
+                            window.location = "https://barkomatic.online/paypal/subForm.php";
                         }, 100);
                     } else if (res == "Sign in Successfully!") {
                         setTimeout(function() {
-                            window.location = 'http://localhost/barkomatic-new/index.php';
+                            window.location = 'https://barkomatic.online/index.php';
                         }, 100);
-                    }
-                     else if (res == "Staff Login Successfully!") {
+                    } else if (res == "Staff Login Successfully!") {
                         setTimeout(function() {
-                            window.location = "http://localhost/barkomatic-new/dashboard/staff/index.php?page=dashboard";
+                            window.location = "https://barkomatic.online/dashboard/staff/index.php?page=dashboard";
                         }, 100);
                     }
                     $(':input[type="submit"]').prop('disabled', false);
@@ -78,11 +77,11 @@ $(document).ready(function() {
                 data: $('#staff_login_form').serialize() + '&action=staff_login_form',
                 success: function(res) {
                     console.log(res);
-                    // if (res == "Staff Login Successfully!") {
-                    //     setTimeout(function() {
-                    //         window.location.href = "http://localhost/barkomatic-new/dashboard/staff/index.php?page=dashboard";
-                    //     }, 100);
-                    // }
+                    if (res == "Staff Login Successfully!") {
+                        setTimeout(function() {
+                            window.location.href = "http://localhost/barkomatic-new/dashboard/staff/index.php?page=dashboard";
+                        }, 100);
+                    }
                     $(':input[type="submit"]').prop('disabled', false);
                 }
             });
@@ -123,7 +122,7 @@ $(document).ready(function() {
                 method: 'post',
                 data: $('#passenger_reset_request_form').serialize() + '&action=passenger_reset_request_form',
                 success: function(res) {
-                    window.location = "http://localhost/barkomatic-new/login.php";
+                    window.location = "https://barkomatic.online/login.php";
                 }
             });
         }
@@ -145,7 +144,7 @@ $(document).ready(function() {
                     alert(res);
                     if (res == "Email Sent.") {
                         $(':input[type="submit"]').prop('disabled', false);
-                        window.location = "http://localhost/barkomatic-new//login.php";
+                        window.location = "https://barkomatic.online/login.php";
                     }
                 }
             });
@@ -168,7 +167,7 @@ $(document).ready(function() {
                     alert(res);
                     if (res == "Email Sent.") {
                         $(':input[type="submit"]').prop('disabled', false);
-                        window.location = "http://localhost/barkomatic-new//login.php";
+                        window.location = "https://barkomatic.online/login.php";
                     }
 
 
