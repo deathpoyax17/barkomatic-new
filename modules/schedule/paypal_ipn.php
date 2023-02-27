@@ -66,19 +66,93 @@ $tokens = explode("\r\n\r\n", trim($res));
 $res = trim(end($tokens)); 
 if (strcmp($res, "VERIFIED") == 0 || strcasecmp($res, "VERIFIED") == 0) { 
 
-    if ($_POST['item_name'] == "Purchase") {
-        
-        // Retrieve the a3 variable
-        $a3 = $_POST['a3'];
-        
+    if ($_POST['item_name']== "Purchase") {
+    // Retrieve transaction info from PayPal
+    $ship_name = $_POST['ScheduleId'];
+    $item_name = $_POST['item_name'];
+    $accomodation_id = $_POST['AccomondationId']; 
+    $ticketCode= $_POST['ticketCode']; 
+    $txn_id= $_POST['txn_id'];
+    $custom = $_POST['custom'];
+    $payment_gross = $_POST['mc_gross']; 
+    $currency_code = $_POST['mc_currency']; 
+    $payment_status = $_POST['payment_status']; 
+    $payer_email = $_POST['emailpass'];
+    // Check if transaction data exists with the same TXN ID 
+    $prevPayment = $con->query("SELECT id FROM tbl_psnger_pymnt WHERE txn_id = '".$txn_id."'"); 
+    if($prevPayment->num_rows > 0){ 
+        exit(); 
+    }else{ 
         // Insert transaction data into the database 
-        $insert = $con->query("INSERT INTO tbl_psnger_pymnt (id, reservation_number, a3) 
-                               VALUES ('".$custom."', '".$txn_id."', '".$a3."')"); 
-        
-    } else {
-        
-        echo "Something went wrong.";
-        
+        $insert = $con->query("INSERT INTO tbl_psnger_pymnt(id,
+                                                            reservation_number,
+                                                            txn_id,
+                                                            payer_email,
+                                                            currency,
+                                                            gross_income,
+                                                            dates)
+                                                             VALUES('".$custom."',
+                                                             '".$txn_id."',
+                                                             '".$payer_email."',
+                                                             '".$currency_code."',
+                                                             '".$payment_gross."',
+                                                             NOW())"); 
     } 
+}
+// else if ($_POST['item_name']== "reserve") {
+//     // Retrieve transaction info from PayPal
+//     $ship_name = $_POST['ship_name'];
+//     $item_name = $_POST['item_name']; 
+//     $item_number    = $_POST['item_number']; 
+//     $txn_id         = $_POST['txn_id']; 
+//     $custom = $_POST['custom'];
+//     $payment_gross     = $_POST['mc_gross']; 
+//     $currency_code     = $_POST['mc_currency']; 
+//     $payment_status = $_POST['payment_status']; 
+//     $payer_email = $_POST['payer_email'];
+//     // Check if transaction data exists with the same TXN ID 
+//     $prevPayment = $con->query("SELECT id FROM tbl_psnger_pymnt WHERE txn_id = '".$txn_id."'"); 
+//     if($prevPayment->num_rows > 0){ 
+//         exit(); 
+//     }else{ 
+//         // Insert transaction data into the database 
+//         $insert = $con->query("INSERT INTO tbl_psnger_pymnt(id,reservation_number,txn_id,payer_email,currency,gross_income,payment_status,dates,payer_type,ship_name) VALUES('".$custom."','".$item_number."','".$txn_id."','".$payer_email."','".$currency_code."','".$payment_gross."','".$payment_status."',NOW()'".$item_name."','".$ship_name."')"); 
+//     } 
+// }
+// else if(isset($_POST['item_name'])=="Membership_subscription"){
+//     $unitPrice = 25;
+    
+//     //Payment data
+//     $subscr_id = $_POST['subscr_id'];
+//     $payer_email = $_POST['payer_email'];
+//     $item_number = $_POST['item_number'];
+//     $txn_id = $_POST['txn_id'];
+//     $payment_gross = $_POST['mc_gross'];
+//     $currency_code = $_POST['mc_currency'];
+//     $payment_status = $_POST['payment_status'];
+//     $custom = $_POST['custom'];
+//     $subscr_month = ($payment_gross/$unitPrice);
+//     $subscr_days = ($subscr_month*30);
+//     $subscr_date_from = date("Y-m-d H:i:s");
+//     $subscr_date_to = date("Y-m-d H:i:s", strtotime($subscr_date_from. ' + '.$subscr_days.' days'));
+
+//     if(!empty($txn_id)){
+//         //Check if subscription data exists with the same TXN ID.
+//         $prevPayment = $con->query("SELECT id FROM user_subscriptions WHERE txn_id = '".$txn_id."'");
+//         if($prevPayment->num_rows > 0){
+//             exit();
+//         }else{
+//             //Insert tansaction data into the database
+//             $insert = $con->query("INSERT INTO user_subscriptions(id,payment_method,validity,valid_from,valid_to,item_number,txn_id,payment_gross,currency_code,subscr_id,payment_status,payer_email) VALUES('".$custom."','paypal','".$subscr_month."','".$subscr_date_from."','".$subscr_date_to."','".$item_number."','".$txn_id."','".$payment_gross."','".$currency_code."','". $subscr_id."','".$payment_status."','".$payer_email."')");
+//               //Update subscription id in users table
+//             $update = $con->query("UPDATE tbl_ship_detail SET subscription_id = 1 WHERE id = '".$custom."'");
+//         }
+//      }
+
+//     }
+        else {
+             echo "something went wrong";
+} 
  
 }
+?>
