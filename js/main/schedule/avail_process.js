@@ -57,7 +57,9 @@ $(document).ready(function() {
             },
             contentType: 'application/x-www-form-urlencoded',
             success: function(data) {
-                console.log(data);
+                if(data==="passenger_info_submit"){
+                    $('#success_tic').show();
+                }
             },
             error: function(xhr, status, error) {
                 console.log(error);

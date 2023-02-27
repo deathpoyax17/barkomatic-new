@@ -182,8 +182,7 @@ function passengerInfoSubmitreservation($c) {
         }
     }
     // If everything was successful, return a success message to the user
-    $response = array('success' => true);
-    echo json_encode($response);
+  echo "passenger_info_submit";
 }
 
 function summarySubmit(){
