@@ -315,16 +315,18 @@ if (isset($_COOKIE['data'])) {
             <input name="AccomondationId" id="AccomondationId" hidden="">
             <input name="ScheduleId" id="ScheduleId" hidden="">
             <input name="emailpass" id="emailpass" hidden="">
+            <input name="ticketCode" id="ticketCode" hidden="">
             <!-- <input name="ticketCode" id="ticketCode" hidden=""> -->
-            <input name="idPass" id="idPass" hidden="">
+            <!-- <input name="idPass" id="idPass" hidden=""> -->
             <!-- paypal inputs -->
             <input type="hidden" name="typeOfpayment" value="Purchase">
             <input type="hidden" name="item_number" id="ticketCode" value="">
             <input type="hidden" name="currency_code" value="<?php echo PAYPAL_CURRENCY ?>">
-            <input name="a3" id="paypalAmt" hidden="">
+            <input name="a3" id="paypalAmt" hidden="" value="">
             <input type="hidden" name="p3" id="paypalValid" value="1">
             <input type="hidden" name="t3" value="M">
             <!-- paypal buttons -->
+            <input type="hidden" name="custom" value="" id="idPass">
             <input type="hidden" name="cancel_return" value="<?php echo PAYPAL_CANCEL_URL?>">
             <input type="hidden" name="return" value="<?php echo PAYPAL_RETURN_URL.'?payer_email='.$_SESSION['email'].'&rsrvtn_id='.$row['reservation_number'].'&pyrtype='.$typofpayment; ?>">
             <input type="hidden" name="notify_url" value="'.PAYPAL_NOTIFY_URL.'">

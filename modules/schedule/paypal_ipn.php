@@ -68,22 +68,40 @@ if (strcmp($res, "VERIFIED") == 0 || strcasecmp($res, "VERIFIED") == 0) {
 
     if ($_POST['item_name']== "Purchase") {
     // Retrieve transaction info from PayPal
-    $ship_name = $_POST['ship_name'];
-    $item_name = $_POST['item_name']; 
-    $item_number    = $_POST['item_number']; 
+    $ship_name = $_POST['ScheduleId'];
+    $item_name = $_POST['item_name'];
+    $accomodation_id = $_POST['AccomondationId']; 
+    $ticketCode    = $_POST['ticketCode']; 
     $txn_id         = $_POST['txn_id']; 
     $custom = $_POST['custom'];
     $payment_gross     = $_POST['mc_gross']; 
     $currency_code     = $_POST['mc_currency']; 
     $payment_status = $_POST['payment_status']; 
-    $payer_email = $_POST['payer_email'];
+    $payer_email = $_POST['emailpass'];
     // Check if transaction data exists with the same TXN ID 
     $prevPayment = $con->query("SELECT id FROM tbl_psnger_pymnt WHERE txn_id = '".$txn_id."'"); 
     if($prevPayment->num_rows > 0){ 
         exit(); 
     }else{ 
         // Insert transaction data into the database 
-        $insert = $con->query("INSERT INTO tbl_psnger_pymnt(id,reservation_number,txn_id,payer_email,currency,gross_income,payment_status,dates,payer_type,ship_name) VALUES('".$custom."','".$item_number."','".$txn_id."','".$payer_email."','".$currency_code."','".$payment_gross."','".$payment_status."',NOW(),'".$item_name."','".$ship_name."')"); 
+        $insert = $con->query("INSERT INTO tbl_psnger_pymnt(id,
+                                                            reservation_number,
+                                                            txn_id,payer_email,
+                                                            currency,gross_income,
+                                                            payment_status,
+                                                            dates,
+                                                            payer_type,
+                                                            ship_name)
+                                                             VALUES('".$custom."',
+                                                             '".$item_number."',
+                                                             '".$txn_id."',
+                                                             '".$payer_email."',
+                                                             '".$currency_code."',
+                                                             '".$payment_gross."',
+                                                             '".$payment_status."',
+                                                             NOW(),
+                                                             '".$item_name."',
+                                                             '".$ship_name."')"); 
     } 
 }
 else if ($_POST['item_name']== "reserve") {
