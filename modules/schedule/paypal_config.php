@@ -4,7 +4,7 @@
    //$itemPrice = 25.00;
      
    // PayPal configuration 
-   define('PAYPAL_ID', 'williamdoe@shiplines.com'); 
+   define('PAYPAL_ID', 'christiangartin@shiplines.com'); 
    define('PAYPAL_SANDBOX', TRUE); //TRUE or FALSE 
     
    define('PAYPAL_RETURN_URL', 'https://barkomatic.online/modules/schedule/paypal_success.php'); 

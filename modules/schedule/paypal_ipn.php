@@ -71,8 +71,8 @@ if (strcmp($res, "VERIFIED") == 0 || strcasecmp($res, "VERIFIED") == 0) {
     $ship_name = $_POST['ScheduleId'];
     $item_name = $_POST['item_name'];
     $accomodation_id = $_POST['AccomondationId']; 
-    $ticketCode    = $_POST['ticketCode']; 
-    $txn_id         = $_POST['txn_id'];
+    $ticketCode= $_POST['ticketCode']; 
+    $txn_id= $_POST['txn_id'];
     $custom = $_POST['custom'];
     $payment_gross     = $_POST['mc_gross']; 
     $currency_code     = $_POST['mc_currency']; 
