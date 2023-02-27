@@ -201,6 +201,7 @@ if (isset($_COOKIE['data'])) {
                         </div>
                     </div>
                 </div>
+               
                 <div class="button-mobile-fixed">
                     <button type="submit" id="btncontinue" class="continueBtn btn btn-primary btn-block btn-lg"> Continue </button>
                 </div>
@@ -312,21 +313,21 @@ if (isset($_COOKIE['data'])) {
                     <input type="hidden" name="cmd" value="_xclick">
                     <!-- for paypal -->
                     <button class="btn-payment">Proceed to Payment</button>
-                    <input name="AccomondationId" id="AccomondationId" hidden="34">
+                    <input name="AccomondationId" id="AccomondationId" hidden="">
                     <input name="ScheduleId" id="ScheduleId" hidden="">
-                    <input name="emailpass" id="emailpass" hidden="erwinjames@gmail.com">
+                    <input name="emailpass" id="emailpass" hidden="">
                     <!-- <input name="ticketCode" id="ticketCode" hidden=""> -->
                     <!-- <input name="ticketCode" id="ticketCode" hidden=""> -->
-                    <input name="idPass" id="idPass" hidden="" value="01">
+                    <input name="idPass" id="idPass" hidden="" value="">
                     <!-- paypal inputs -->
                     <input type="hidden" name="item_name" value="Purchase">
-                    <input type="hidden" name="item_number" id="ticketCode" value="1">
+                    <input type="hidden" name="item_number" id="ticketCode" value="">
                     <input type="hidden" name="currency_code" value="<?php echo PAYPAL_CURRENCY ?>">
-                    <input name="amount" id="paypalAmt" hidden="" value="300">
-                    <input type="hidden" name="p3" id="paypalValid" value="1">
+                    <input name="amount" id="paypalAmt" hidden="" value="">
+                    <input type="hidden" name="p3" id="paypalValid" value="">
                     <input type="hidden" name="t3" value="M">
                     <!-- paypal buttons -->
-                    <input type="hidden" name="custom" value="01" id="ticketCode">
+                    <input type="hidden" name="custom" value="" id="ticketCode">
                     <input type="hidden" name="cancel_return" value="<?php echo PAYPAL_CANCEL_URL ?>">
                     <input type="hidden" name="return" value="<?php echo PAYPAL_RETURN_URL ?>">
                     <input type="hidden" name="notify_url" value="<?php echo PAYPAL_NOTIFY_URL ?>">

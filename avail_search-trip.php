@@ -148,10 +148,8 @@ require "resources/templates/_search-trip_header.php"; ?>
                                                 <span class="input-group-text"><span
                                                         class="far fa-calendar-alt"></span></span>
                                             </div>
-                                            <!---->
                                         </div>
                                     </div>
-                                    <!---->
                                 </div>
                             </div>
                             <div class="col-lg">

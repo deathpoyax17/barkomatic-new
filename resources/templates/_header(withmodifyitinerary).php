@@ -564,7 +564,7 @@ if(isset($_COOKIE['data'])){
             <div class="box-group departure-return d-flex d-lg-none">
                     <div class="form-label-title p-1 " ><?php echo $date.'-'.$dates; ?></div></div>
                     <div class="box-group"><span role="button" class="modify-btn">
-                        <span class="fa fa-edit pr-2"></span>MODIFY ITINERARY </span>
+                        <span class="fa fa-edit pr-2"></span><a href="avail_search-trip.php">MODIFY ITINERARY</a></span>
                     </div>
                 </div>
             </div>
