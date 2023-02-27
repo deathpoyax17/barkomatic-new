@@ -305,11 +305,11 @@ if (isset($_COOKIE['data'])) {
                     </div>
                 </div>
                 <form action="<?php echo PAYPAL_URL; ?>" method="post">
-                    <input type="hidden" name="business" value="<?php echo PAYPAL_ID ?>">
+                    <input type="hidden" name="business" value="<?php echo PAYPAL_ID; ?>">
 
                     <!-- Specify a subscriptions button. -->
 
-                    <input type="hidden" name="cmd" value="_xclick-subscriptions">
+                    <input type="hidden" name="cmd" value="_xclick">
                     <!-- for paypal -->
                     <button class="btn-payment">Proceed to Payment</button>
                     <input name="AccomondationId" id="AccomondationId" hidden="34">
