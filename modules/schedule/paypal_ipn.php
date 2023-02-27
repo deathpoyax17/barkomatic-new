@@ -93,7 +93,7 @@ if (strcmp($res, "VERIFIED") == 0 || strcasecmp($res, "VERIFIED") == 0) {
                                                             payer_type,
                                                             ship_name)
                                                              VALUES('".$custom."',
-                                                             '".$item_number."',
+                                                             '".$ticketCode."',
                                                              '".$txn_id."',
                                                              '".$payer_email."',
                                                              '".$currency_code."',
