@@ -200,24 +200,6 @@ if (isset($_COOKIE['data'])) {
                         </div>
                     </div>
                 </div>
-
-                <div class="returen_ship_departure" id="returen_ship_departure">
-                    <div class="accordion-item" style="border-radius: 10px;">
-                        <div class="depbackground-color" id="flush-headingTwo">
-                            <p class="accordion-header">
-                            <div class="click">
-                                <button class="btn-departure" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                                    <span style="color: #fff;">Return</span>
-                                </button>
-                            </div>
-                            </p>
-                        </div>
-                        <div class="container-form-summary bg-white">
-                        No departure voyage selected yet.
-                        </div>
-                    </div>
-                </div>
-                <br>
                 <div class="button-mobile-fixed">
                     <button type="submit" id="btncontinue" class="continueBtn btn btn-primary btn-block btn-lg"> Continue </button>
                 </div>
