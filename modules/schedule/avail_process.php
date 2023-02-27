@@ -96,6 +96,7 @@ function passengerInfoSubmitreservation($c) {
         $inputEmail = $formData['inputEmail'.$i];
         $inputReturnDiscount = $formData['inputReturnDiscount'.$i];
         $sql_rsrtn = "INSERT INTO passenger_reservation_details (
+            Temp_id,
             contact_person,
             phone_number,
             contactperson_email,
@@ -109,9 +110,10 @@ function passengerInfoSubmitreservation($c) {
             nationality,
             passenger_email,
             discount
-          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $c->prepare($sql_rsrtn);
-        $stmt->bind_param('sssssssssssss',
+        $stmt->bind_param('ssssssssssssss',
+            $next_id,
             $cpvalidationDefault01,
             $phone,
             $validationDefault01,
@@ -179,7 +181,6 @@ function passengerInfoSubmitreservation($c) {
             }
         }
     }
-    
     // If everything was successful, return a success message to the user
     $response = array('success' => true);
     echo json_encode($response);
