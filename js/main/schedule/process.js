@@ -115,7 +115,7 @@ $(document).ready(function() {
                     var data = JSON.parse(response);
                     document.cookie = "data=" + encodeURIComponent(JSON.stringify(data));
                     setTimeout(function() {
-                        window.location = "scheduletrip(roundtrip).php";
+                        window.location = "scheduletrip(reservation).php";
                     }, 100);
 
                 }
