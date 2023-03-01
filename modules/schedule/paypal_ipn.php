@@ -3,7 +3,7 @@
 Author: Javed Ur Rehman
 Website: https://www.allphptricks.com
 */
-require_once('./config.php');
+require_once('../config.php');
 require_once('paypal_config.php');
 /*
 Read POST data
