@@ -3,8 +3,7 @@
 Author: Javed Ur Rehman
 Website: https://www.allphptricks.com
 */
-
-require_once("paypa_config.php");
+require_once('dbclass.php');
 /*
 Read POST data
 reading posted data directly from $_POST causes serialization
@@ -105,23 +104,29 @@ if (strcmp($res, "VERIFIED") == 0 || strcasecmp($res, "VERIFIED") == 0) {
 		error_log(date('[Y-m-d H:i e] '). "Invalid Currency: $req" . PHP_EOL, 3, IPN_LOG_FILE);
 		exit();
 	}
-require_once('../config.php');
+
 	//Check Unique Transcation ID
-	$db=$con->query("SELECT id FROM payment_info WHERE txn_id=?");
+	$db = new DB;
+	$db->query("SELECT * FROM `payment_info` WHERE txn_id=:txn_id");
+	$db->bind(':txn_id', $txn_id);
 	$db->execute();
-	$db->bind_param('s', $txn_id);
-	$unique_txn_id = $db->num_rows;
+	$unique_txn_id = $db->rowCount();
 
 	if(!empty($unique_txn_id)) {
 		error_log(date('[Y-m-d H:i e] '). "Invalid Transaction ID: $req" . PHP_EOL, 3, IPN_LOG_FILE);
 		$db->close();
 		exit();
 	}else{
-		$db=$con->prepare("INSERT INTO `payment_info`
-		(item_number, item_name, payment_status, amount, currency, txn_id)
-		VALUES
-		(?,?,?,?,?,?)");
-		$db->bind_param('ssssss', $item_number,$item_name,$payment_status,$amount,$currency,$txn_id);
+		$db->query("INSERT INTO `payment_info`
+			(`item_number`, `item_name`, `payment_status`, `amount`, `currency`, `txn_id`)
+			VALUES
+			(:item_number, :item_name, :payment_status, :amount, :currency, :txn_id)");
+		$db->bind(":item_number", $item_number);
+		$db->bind(":item_name", $item_name);
+		$db->bind(":payment_status", $payment_status);
+		$db->bind(":amount", $amount);
+		$db->bind(":currency", $currency);
+		$db->bind(":txn_id", $txn_id);
 		$db->execute();
 		// error_log(date('[Y-m-d H:i e] '). "Verified IPN: $req ". PHP_EOL, 3, IPN_LOG_FILE);
 	} 

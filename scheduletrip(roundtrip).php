@@ -305,21 +305,25 @@ if (isset($_COOKIE['data'])) {
                         <a><span id="totalPrices"></span></a>
                     </div>
                 </div>
-                <form action="<?php echo PAYPAL_URL; ?>" method="post">
-                    <input type="hidden" name="business" value="<?php echo PAYPAL_ID; ?>">
-                    <input type="hidden" name="item_name" value='Purchase'>
-                    <input type="hidden" name="item_number" value='01'>
+                <form method='post' action='<?php echo PAYPAL_URL; ?>'>
+                    <!-- PayPal business email to collect payments -->
+                    <input type='hidden' name='business' value='<?php echo PAYPAL_EMAIL; ?>'>
+                    <!-- Details of item that customers will purchase -->
+                    <input type='hidden' name='item_number' value='Purchase'>
+                    <input type='hidden' name='item_name' value='01'>
+                    <input type='hidden' name='amount' value='300'>
+                    <input type='hidden' name='currency_code' value='<?php echo CURRENCY; ?>'>
                     <input type='hidden' name='no_shipping' value='1'>
-                    <input type="hidden" name="currency_code" value='<?php echo PAYPAL_CURRENCY ?>'">
-                    <input type="hidden" name="amount" value='300'>
-                    <!-- paypal buttons -->
-                    <input type="hidden" name="cancel_return" value='<?php echo PAYPAL_CANCEL_URL ?>'>
-                    <input type="hidden" name="return" value='<?php echo PAYPAL_RETURN_URL ?>'>
-                    <input type="hidden" name="notify_url" value='<?php echo PAYPAL_NOTIFY_URL ?>'>
-                    <input type="hidden" name="cmd" value='_xclick'>
-                    <!-- for paypal -->
+                    
+                    <!-- PayPal return, cancel & IPN URLs -->
+                    <input type='hidden' name='return' value='<?php echo RETURN_URL; ?>'>
+                    <input type='hidden' name='cancel_return' value='<?php echo CANCEL_URL; ?>'>
+                    <input type='hidden' name='notify_url' value='<?php echo NOTIFY_URL; ?>'>
+
+                    <!-- Specify a Pay Now button. -->
+                    <input type="hidden" name="cmd" value="_xclick">
                     <button type="submit" class="pay btn-payment">Proceed to Payment</button>
-                </form>
+                    </form>
                 <a href="avail_search-trip.php" class="btn-cancel">Cancel</a>
             </div>
         </div>
