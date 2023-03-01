@@ -205,6 +205,14 @@ function summarySubmit(){
         echo $output;
         return;
     }
+    // check if optional inputs are set
+    if (isset($_POST['r_sched'], $_POST['r_acom'], $_POST['r_totalPrice'])) {
+        // check if optional inputs are not empty
+        if(!empty($_POST['r_sched']) && !empty($_POST['r_acom']) && !empty($_POST['r_totalPrice'])){
+            // Merge two arrays
+            $data = array_merge($data, array('r_sched_id'  => $_POST['r_sched'], 'r_accom_id'=> $_POST['r_acom'], 'r_totalPrice'=> $_POST['r_totalPrice']));
+        }
+    }
     $output = json_encode($data);
     echo $output;
 }
