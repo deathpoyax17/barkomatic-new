@@ -5,10 +5,15 @@ Website: https://www.allphptricks.com
 */
 
 // Database Configuration 
-define('DB_HOST', 'localhost'); 
-define('DB_NAME', 'payment'); 
-define('DB_USERNAME', 'root'); 
-define('DB_PASSWORD', ''); 
+define("DB_HOST", "localhost");
+define("DB_ROOT", "u846678508_barkomatic");
+define("DB_PASS", "Deathpoyax9876");
+define("DB_NAME", "u846678508_barkomatic");
+   
+    $con = mysqli_connect(DB_HOST, DB_ROOT, DB_PASS, DB_NAME);
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
 
 // PayPal Configuration
 define('PAYPAL_EMAIL', 'geraldliam@businesstesting.com'); 
