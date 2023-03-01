@@ -310,29 +310,31 @@ if (isset($_COOKIE['data'])) {
 
                     <!-- Specify a subscriptions button. -->
 
-                    <input type="hidden" name="cmd" value="_xclick">
-                    <!-- for paypal -->
-                    <button class="btn-payment">Proceed to Payment</button>
-                    <input name="AccomondationId" id="AccomondationId" hidden="">
-                    <input name="ScheduleId" id="ScheduleId" hidden="">
-                    <input name="emailpass" id="emailpass" hidden="">
+                 
+                    <!-- <input name="AccomondationId" id="AccomondationId" hidden=""> -->
+                    <!-- <input name="ScheduleId" id="ScheduleId" hidden="">
+                    <input name="emailpass" id="emailpass" hidden=""> -->
                     <!-- <input name="ticketCode" id="ticketCode" hidden=""> -->
                     <!-- <input name="ticketCode" id="ticketCode" hidden=""> -->
-                    <input name="idPass" id="idPass" hidden="" value="">
+                    <!-- <input name="idPass" id="idPass" hidden="" value=""> -->
                     <!-- paypal inputs -->
+                    <!-- <input name="amount" id="paypalAmt" hidden="" value="">
+                    <input type="hidden" name="p3" id="paypalValid" value=""> -->
+
                     <input type="hidden" name="item_name" value="Purchase">
-                    <input type="hidden" name="item_number" id="ticketCode" value="">
-                    <input type="hidden" name="currency_code" value="<?php echo PAYPAL_CURRENCY ?>">
-                    <input name="amount" id="paypalAmt" hidden="" value="">
-                    <input type="hidden" name="p3" id="paypalValid" value="">
-                    <input type="hidden" name="t3" value="M">
+                    <input type="hidden" name="item_number" id="idPass" value="">
+                    <input type='hidden' name='no_shipping' value='1'>
+                    <input type="hidden" name="amount" value="" id="ticketCode">
                     <!-- paypal buttons -->
-                    <input type="hidden" name="custom" value="" id="ticketCode">
+                    <input type="hidden" name="currency_code" value="<?php echo PAYPAL_CURRENCY ?>">
                     <input type="hidden" name="cancel_return" value="<?php echo PAYPAL_CANCEL_URL ?>">
                     <input type="hidden" name="return" value="<?php echo PAYPAL_RETURN_URL ?>">
                     <input type="hidden" name="notify_url" value="<?php echo PAYPAL_NOTIFY_URL ?>">
-                    <a href="avail_search-trip.php" class="btn-cancel">Cancel</a>
+                    <input type="hidden" name="cmd" value="_xclick">
+                    <!-- for paypal -->
+                    <button class="btn-payment">Proceed to Payment</button>
                 </form>
+                <a href="avail_search-trip.php" class="btn-cancel">Cancel</a>
             </div>
         </div>
     </div>

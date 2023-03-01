@@ -11,14 +11,14 @@
    define('PAYPAL_CANCEL_URL', 'https://barkomatic.online/modules/schedule/paypal_cancel.php'); 
    define('PAYPAL_NOTIFY_URL', 'https://barkomatic.online/modules/schedule/paypal_ipn.php'); 
    define('PAYPAL_CURRENCY', 'PHP'); 
+   define('SANDBOX', TRUE); // TRUE or FALSE 
+   define('LOCAL_CERTIFICATE', FALSE); // TRUE or FALSE
    
-      
-    //   define("DB_HOST", "localhost");
-    //   define("DB_ROOT", "root");
-    //   define("DB_PASS", "");
-    //   define("DB_NAME", "barkomatic");
-   
-    define('PAYPAL_URL', (PAYPAL_SANDBOX == true)?"https://www.sandbox.paypal.com/cgi-bin/webscr":"https://www.paypal.com/cgi-bin/webscr");
-
-
+   if (SANDBOX === TRUE){
+       $paypal_url = "https://www.sandbox.paypal.com/cgi-bin/webscr";
+   }else{
+       $paypal_url = "https://www.paypal.com/cgi-bin/webscr";
+   }
+   // PayPal IPN Data Validate URL
+   define('PAYPAL_URL', $paypal_url);
 ?>

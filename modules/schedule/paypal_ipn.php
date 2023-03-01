@@ -1,158 +1,133 @@
-<?php 
-// Include configuration file 
-include_once 'paypal_config.php'; 
- 
-// Include database connection file 
-require "../../resources/config.php";
+<?php
+/*
+Author: Javed Ur Rehman
+Website: https://www.allphptricks.com
+*/
+require_once('config.php');
+/*
+Read POST data
+reading posted data directly from $_POST causes serialization
+issues with array data in POST.
+Reading raw POST data from input stream instead.
+*/
+define("IPN_LOG_FILE", "ipn.log");
+$raw_post_data = file_get_contents('php://input');
+$raw_post_array = explode('&', $raw_post_data);
+$myPost = array();
+foreach ($raw_post_array as $keyval) {
+	$keyval = explode ('=', $keyval);
+	if (count($keyval) == 2)
+		$myPost[$keyval[0]] = urldecode($keyval[1]);
+}
 
+// Build the body of the verification post request, adding the _notify-validate command.
+$req = 'cmd=_notify-validate';
+if(function_exists('get_magic_quotes_gpc')) {
+	$get_magic_quotes_exists = true;
+}
+foreach ($myPost as $key => $value) {
+	if($get_magic_quotes_exists == true && get_magic_quotes_gpc() == 1) {
+		$value = urlencode(stripslashes($value));
+	} else {
+		$value = urlencode($value);
+	}
+	$req .= "&$key=$value";
+}
 
-/* 
- * Read POST data 
- * reading posted data directly from $_POST causes serialization 
- * issues with array data in POST. 
- * Reading raw POST data from input stream instead. 
- */         
-$raw_post_data = file_get_contents('php://input'); 
-$raw_post_array = explode('&', $raw_post_data); 
-$myPost = array(); 
-foreach ($raw_post_array as $keyval) { 
-    $keyval = explode ('=', $keyval); 
-    if (count($keyval) == 2) 
-        $myPost[$keyval[0]] = urldecode($keyval[1]); 
-} 
- 
-// Read the post from PayPal system and add 'cmd' 
-$req = 'cmd=_notify-validate'; 
-if(function_exists('get_magic_quotes_gpc')) { 
-    $get_magic_quotes_exists = true; 
-} 
-foreach ($myPost as $key => $value) { 
-    if($get_magic_quotes_exists == true && get_magic_quotes_gpc() == 1) { 
-        $value = urlencode(stripslashes($value)); 
-    } else { 
-        $value = urlencode($value); 
-    } 
-    $req .= "&$key=$value"; 
-} 
- 
-/* 
- * Post IPN data back to PayPal to validate the IPN data is genuine 
- * Without this step anyone can fake IPN data 
- */ 
-$paypalURL = PAYPAL_URL; 
-$ch = curl_init($paypalURL); 
-if ($ch == FALSE) { 
-    return FALSE; 
-} 
-curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1); 
-curl_setopt($ch, CURLOPT_POST, 1); 
-curl_setopt($ch, CURLOPT_RETURNTRANSFER,1); 
-curl_setopt($ch, CURLOPT_POSTFIELDS, $req); 
-curl_setopt($ch, CURLOPT_SSLVERSION, 6); 
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1); 
-curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2); 
-curl_setopt($ch, CURLOPT_FORBID_REUSE, 1); 
- 
-// Set TCP timeout to 30 seconds 
-curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30); 
-curl_setopt($ch, CURLOPT_HTTPHEADER, array('Connection: Close', 'User-Agent: company-name')); 
-$res = curl_exec($ch); 
- 
+/*
+Post IPN data back to PayPal using curl to validate the IPN data is genuine
+Without this step anyone can fake IPN data
+*/
+$ch = curl_init(PAYPAL_URL);
+if ($ch == FALSE) {
+	return FALSE;
+}
+curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $req);
+curl_setopt($ch, CURLOPT_SSLVERSION, 6);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
+curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+curl_setopt($ch, CURLOPT_FORBID_REUSE, 1);
+
+/*
+This is often required if the server is missing a global cert bundle, or is using an outdated one.
+Please download the latest 'cacert.pem' from http://curl.haxx.se/docs/caextract.html
+*/
+if (LOCAL_CERTIFICATE == TRUE) {
+	curl_setopt($ch, CURLOPT_CAINFO, __DIR__ . "/cert/cacert.pem");
+}
+
+// Set TCP timeout to 30 seconds
+curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+	'Connection: Close',
+	'User-Agent: PHP-IPN-Verification-Script'
+));
+
+$res = curl_exec($ch);
+
+// cURL error
+if (curl_errno($ch) != 0){
+	curl_close($ch);
+	exit;
+} else {
+	curl_close($ch);
+}
+
 /* 
  * Inspect IPN validation result and act accordingly 
  * Split response headers and payload, a better way for strcmp 
- */  
-$tokens = explode("\r\n\r\n", trim($res)); 
-$res = trim(end($tokens)); 
-if (strcmp($res, "VERIFIED") == 0 || strcasecmp($res, "VERIFIED") == 0) { 
+ */
+$tokens = explode("\r\n\r\n", trim($res));
+$res = trim(end($tokens));
+if (strcmp($res, "VERIFIED") == 0 || strcasecmp($res, "VERIFIED") == 0) { 	
+	// assign posted variables to local variables
+	$item_number = $_POST['item_number'];
+	$item_name = $_POST['item_name'];
+	$payment_status = $_POST['payment_status'];
+	$amount = $_POST['mc_gross'];
+	$currency = $_POST['mc_currency'];
+	$txn_id = $_POST['txn_id'];
+	$receiver_email = $_POST['receiver_email'];
+	// $payer_email = $_POST['payer_email'];
 
-    if ($_POST['item_name']== "Purchase") {
-    // Retrieve transaction info from PayPal
-    $ship_name = $_POST['ScheduleId'];
-    $item_name = $_POST['item_name'];
-    $accomodation_id = $_POST['AccomondationId']; 
-    $ticketCode= $_POST['ticketCode']; 
-    $txn_id= $_POST['txn_id'];
-    $custom = $_POST['custom'];
-    $payment_gross = $_POST['amount']; 
-    $currency_code = $_POST['mc_currency']; 
-    $payment_status = $_POST['payment_status']; 
-    $payer_email = $_POST['emailpass'];
-    // Check if transaction data exists with the same TXN ID 
-    $prevPayment = $con->query("SELECT id FROM tbl_psnger_pymnt WHERE txn_id = '".$txn_id."'"); 
-    if($prevPayment->num_rows > 0){ 
-        exit(); 
-    }else{ 
-        // Insert transaction data into the database 
-        $insert = $con->query("INSERT INTO tbl_psnger_pymnt(id,
-                                                            reservation_number,
-                                                            txn_id,
-                                                            payer_email,
-                                                            currency,
-                                                            gross_income,
-                                                            dates)
-                                                             VALUES('".$custom."',
-                                                             '".$txn_id."',
-                                                             '".$payer_email."',
-                                                             '".$currency_code."',
-                                                             '".$payment_gross."',
-                                                             NOW())"); 
-    } 
-}
-// else if ($_POST['item_name']== "reserve") {
-//     // Retrieve transaction info from PayPal
-//     $ship_name = $_POST['ship_name'];
-//     $item_name = $_POST['item_name']; 
-//     $item_number    = $_POST['item_number']; 
-//     $txn_id         = $_POST['txn_id']; 
-//     $custom = $_POST['custom'];
-//     $payment_gross     = $_POST['mc_gross']; 
-//     $currency_code     = $_POST['mc_currency']; 
-//     $payment_status = $_POST['payment_status']; 
-//     $payer_email = $_POST['payer_email'];
-//     // Check if transaction data exists with the same TXN ID 
-//     $prevPayment = $con->query("SELECT id FROM tbl_psnger_pymnt WHERE txn_id = '".$txn_id."'"); 
-//     if($prevPayment->num_rows > 0){ 
-//         exit(); 
-//     }else{ 
-//         // Insert transaction data into the database 
-//         $insert = $con->query("INSERT INTO tbl_psnger_pymnt(id,reservation_number,txn_id,payer_email,currency,gross_income,payment_status,dates,payer_type,ship_name) VALUES('".$custom."','".$item_number."','".$txn_id."','".$payer_email."','".$currency_code."','".$payment_gross."','".$payment_status."',NOW()'".$item_name."','".$ship_name."')"); 
-//     } 
-// }
-// else if(isset($_POST['item_name'])=="Membership_subscription"){
-//     $unitPrice = 25;
-    
-//     //Payment data
-//     $subscr_id = $_POST['subscr_id'];
-//     $payer_email = $_POST['payer_email'];
-//     $item_number = $_POST['item_number'];
-//     $txn_id = $_POST['txn_id'];
-//     $payment_gross = $_POST['mc_gross'];
-//     $currency_code = $_POST['mc_currency'];
-//     $payment_status = $_POST['payment_status'];
-//     $custom = $_POST['custom'];
-//     $subscr_month = ($payment_gross/$unitPrice);
-//     $subscr_days = ($subscr_month*30);
-//     $subscr_date_from = date("Y-m-d H:i:s");
-//     $subscr_date_to = date("Y-m-d H:i:s", strtotime($subscr_date_from. ' + '.$subscr_days.' days'));
+	// check that receiver_email is your PayPal business email
+	if (strtolower($receiver_email) != strtolower(PAYPAL_EMAIL)) {
+		error_log(date('[Y-m-d H:i e] '). "Invalid Business Email: $req" . PHP_EOL, 3, IPN_LOG_FILE);
+		exit();
+	}
 
-//     if(!empty($txn_id)){
-//         //Check if subscription data exists with the same TXN ID.
-//         $prevPayment = $con->query("SELECT id FROM user_subscriptions WHERE txn_id = '".$txn_id."'");
-//         if($prevPayment->num_rows > 0){
-//             exit();
-//         }else{
-//             //Insert tansaction data into the database
-//             $insert = $con->query("INSERT INTO user_subscriptions(id,payment_method,validity,valid_from,valid_to,item_number,txn_id,payment_gross,currency_code,subscr_id,payment_status,payer_email) VALUES('".$custom."','paypal','".$subscr_month."','".$subscr_date_from."','".$subscr_date_to."','".$item_number."','".$txn_id."','".$payment_gross."','".$currency_code."','". $subscr_id."','".$payment_status."','".$payer_email."')");
-//               //Update subscription id in users table
-//             $update = $con->query("UPDATE tbl_ship_detail SET subscription_id = 1 WHERE id = '".$custom."'");
-//         }
-//      }
+	// check that payment currency is correct
+	if (strtolower($currency) != strtolower(CURRENCY)) {
+		error_log(date('[Y-m-d H:i e] '). "Invalid Currency: $req" . PHP_EOL, 3, IPN_LOG_FILE);
+		exit();
+	}
 
-//     }
-        else {
-             echo "something went wrong";
-} 
- 
+	//Check Unique Transcation ID
+	$db=$con->query("SELECT id FROM payment_info WHERE txn_id=?");
+	$db->bind_param('s', $txn_id);
+	$db->execute();
+	$unique_txn_id = $db->rowCount();
+
+	if(!empty($unique_txn_id)) {
+		error_log(date('[Y-m-d H:i e] '). "Invalid Transaction ID: $req" . PHP_EOL, 3, IPN_LOG_FILE);
+		$db->close();
+		exit();
+	}else{
+		$db=$con->prepare->query("INSERT INTO `payment_info`
+			(`item_number`, `item_name`, `payment_status`, `amount`, `currency`, `txn_id`)
+			VALUES
+			(?,?,?,?,?,?");
+		$db->bind_param('ssssss', $item_number,$item_name,$payment_status,$amount,$currency,$txn_id);
+		$db->execute();
+		// error_log(date('[Y-m-d H:i e] '). "Verified IPN: $req ". PHP_EOL, 3, IPN_LOG_FILE);
+	} 
+	$db->close();
+	
+} else if (strcmp($res, "INVALID") == 0) {
+	//Log invalid IPN messages for investigation
+	error_log(date('[Y-m-d H:i e] '). "Invalid IPN: $req" . PHP_EOL, 3, IPN_LOG_FILE);
 }
 ?>

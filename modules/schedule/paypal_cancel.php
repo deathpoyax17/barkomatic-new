@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-<title>PayPal Subscription Transaction Cancel - CodexWorld</title>
+<title></title>
 <meta charset="utf-8">
 
 <!-- Stylesheet file -->
