@@ -57,6 +57,7 @@ $(document).ready(function() {
             },
             contentType: 'application/x-www-form-urlencoded',
             success: function(response) {
+                console.log(response);
                 var data = JSON.parse(response);
                 $("#dateDeparture").text(data.dep_date);
                 $("#timeArrival").text(data.ar_time);
@@ -83,7 +84,6 @@ $(document).ready(function() {
                 console.log(error);
             }
         });
-        console.log(schedSelected);
         return false;
     });
 });
