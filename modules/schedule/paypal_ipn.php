@@ -118,7 +118,7 @@ require_once('../config.php');
 		exit();
 	}else{
 		$db=$con->prepare("INSERT INTO `payment_info`
-		(`item_number`, `item_name`, `payment_status`, `amount`, `currency`, `txn_id`)
+		(item_number, item_name, payment_status, amount, currency, txn_id)
 		VALUES
 		(?,?,?,?,?,?)");
 		$db->bind_param('ssssss', $item_number,$item_name,$payment_status,$amount,$currency,$txn_id);
