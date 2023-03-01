@@ -117,10 +117,10 @@ if (strcmp($res, "VERIFIED") == 0 || strcasecmp($res, "VERIFIED") == 0) {
 		$db->close();
 		exit();
 	}else{
-		$db=$con->prepare->query("INSERT INTO `payment_info`
-			(`item_number`, `item_name`, `payment_status`, `amount`, `currency`, `txn_id`)
-			VALUES
-			(?,?,?,?,?,?");
+		$db=$con->prepare("INSERT INTO `payment_info`
+		(`item_number`, `item_name`, `payment_status`, `amount`, `currency`, `txn_id`)
+		VALUES
+		(?,?,?,?,?,?)");
 		$db->bind_param('ssssss', $item_number,$item_name,$payment_status,$amount,$currency,$txn_id);
 		$db->execute();
 		// error_log(date('[Y-m-d H:i e] '). "Verified IPN: $req ". PHP_EOL, 3, IPN_LOG_FILE);
