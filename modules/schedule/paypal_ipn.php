@@ -105,12 +105,12 @@ if (strcmp($res, "VERIFIED") == 0 || strcasecmp($res, "VERIFIED") == 0) {
 		error_log(date('[Y-m-d H:i e] '). "Invalid Currency: $req" . PHP_EOL, 3, IPN_LOG_FILE);
 		exit();
 	}
-	require_once('../config.php');
+require_once('../config.php');
 	//Check Unique Transcation ID
 	$db=$con->query("SELECT id FROM payment_info WHERE txn_id=?");
-	$db->bind_param('s', $txn_id);
 	$db->execute();
-	$unique_txn_id = $db->rowCount();
+	$db->bind_param('s', $txn_id);
+	$unique_txn_id = $db->num_rows;
 
 	if(!empty($unique_txn_id)) {
 		error_log(date('[Y-m-d H:i e] '). "Invalid Transaction ID: $req" . PHP_EOL, 3, IPN_LOG_FILE);
