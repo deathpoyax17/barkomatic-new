@@ -1,5 +1,5 @@
 <?php
-include_once 'modules/schedule/paypal_config.php';
+include_once("modules/schedule/paypal_config.php");
 require_once("resources/templates/_header(withmodifyitinerary).php");
 if (isset($_COOKIE['data'])) {
     $datas = $_COOKIE['data'];
