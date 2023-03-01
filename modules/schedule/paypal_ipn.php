@@ -4,7 +4,7 @@ Author: Javed Ur Rehman
 Website: https://www.allphptricks.com
 */
 require_once('../config.php');
-require_once('paypal_config.php');
+require_once("paypa_config.php");
 /*
 Read POST data
 reading posted data directly from $_POST causes serialization

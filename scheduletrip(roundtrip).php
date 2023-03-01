@@ -307,20 +307,6 @@ if (isset($_COOKIE['data'])) {
                 </div>
                 <form action="<?php echo PAYPAL_URL; ?>" method="post">
                     <input type="hidden" name="business" value="<?php echo PAYPAL_ID; ?>">
-
-                    <!-- Specify a subscriptions button. -->
-
-                 
-                    <!-- <input name="AccomondationId" id="AccomondationId" hidden=""> -->
-                    <!-- <input name="ScheduleId" id="ScheduleId" hidden="">
-                    <input name="emailpass" id="emailpass" hidden=""> -->
-                    <!-- <input name="ticketCode" id="ticketCode" hidden=""> -->
-                    <!-- <input name="ticketCode" id="ticketCode" hidden=""> -->
-                    <!-- <input name="idPass" id="idPass" hidden="" value=""> -->
-                    <!-- paypal inputs -->
-                    <!-- <input name="amount" id="paypalAmt" hidden="" value="">
-                    <input type="hidden" name="p3" id="paypalValid" value=""> -->
-
                     <input type="hidden" name="item_name" value='Purchase'>
                     <input type="hidden" name="item_number" value='01'>
                     <input type='hidden' name='no_shipping' value='1'>
