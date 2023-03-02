@@ -83,54 +83,7 @@ if (curl_errno($ch) != 0){
 $tokens = explode("\r\n\r\n", trim($res));
 $res = trim(end($tokens));
 if (strcmp($res, "VERIFIED") == 0 || strcasecmp($res, "VERIFIED") == 0) { 	
-	// assign posted variables to local variables
-	$item_number = $_POST['item_number'];
-	$item_name = $_POST['item_name'];
-	$payment_status = $_POST['payment_status'];
-	$amount = $_POST['mc_gross'];
-	$currency = $_POST['mc_currency'];
-	$txn_id = $_POST['txn_id'];
-	$receiver_email = $_POST['receiver_email'];
-	// $payer_email = $_POST['payer_email'];
-
-	// check that receiver_email is your PayPal business email
-	if (strtolower($receiver_email) != strtolower(PAYPAL_EMAIL)) {
-		error_log(date('[Y-m-d H:i e] '). "Invalid Business Email: $req" . PHP_EOL, 3, IPN_LOG_FILE);
-		exit();
-	}
-
-	// check that payment currency is correct
-	if (strtolower($currency) != strtolower(CURRENCY)) {
-		error_log(date('[Y-m-d H:i e] '). "Invalid Currency: $req" . PHP_EOL, 3, IPN_LOG_FILE);
-		exit();
-	}
-
-	//Check Unique Transcation ID
-GLOBAL $con;
-$stmt = $con->prepare("SELECT * FROM `payment_info` WHERE txn_id=:txn_id");
-$stmt->bindParam(':txn_id', $txn_id);
-$stmt->execute();
-$unique_txn_id = $stmt->rowCount();
-
-if (!empty($unique_txn_id)) {
-    error_log(date('[Y-m-d H:i e] '). "Invalid Transaction ID: $req" . PHP_EOL, 3, IPN_LOG_FILE);
-    $con->close();
-    exit();
-} else {
-    $stmt = $con->prepare("INSERT INTO `payment_info`
-        (`item_number`, `item_name`, `payment_status`, `amount`, `currency`, `txn_id`)
-        VALUES
-        (:item_number, :item_name, :payment_status, :amount, :currency, :txn_id)");
-    $stmt->bindParam(":item_number", $item_number);
-    $stmt->bindParam(":item_name", $item_name);
-    $stmt->bindParam(":payment_status", $payment_status);
-    $stmt->bindParam(":amount", $amount);
-    $stmt->bindParam(":currency", $currency);
-    $stmt->bindParam(":txn_id", $txn_id);
-    $stmt->execute();
-}
-		// error_log(date('[Y-m-d H:i e] '). "Verified IPN: $req ". PHP_EOL, 3, IPN_LOG_FILE);
-	$con->close();
+	
 	
 } else if (strcmp($res, "INVALID") == 0) {
 	//Log invalid IPN messages for investigation
