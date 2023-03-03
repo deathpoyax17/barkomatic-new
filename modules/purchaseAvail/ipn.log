@@ -37,3 +37,5 @@ Vary: Accept-Encoding
 Set-Cookie: x-cdn=fastly:QPG; Domain=paypal.com; Path=/; Secure
 
 VERIFIED
+[2023-03-03 02:01 Europe/Berlin] Invalid IPN: cmd=_notify-validate
+[2023-03-03 06:42 Europe/Berlin] Invalid IPN: cmd=_notify-validate
