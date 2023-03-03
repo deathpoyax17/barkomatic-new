@@ -8,9 +8,9 @@ Website: https://www.allphptricks.com
 
 // PayPal Configuration
 define('PAYPAL_EMAIL', 'christiangartin@shiplines.com'); 
-define('RETURN_URL', 'https://3e42-202-175-242-179.ap.ngrok.io/barkomatic-new/modules/purchaseAvail/return.php'); 
-define('CANCEL_URL', 'https://3e42-202-175-242-179.ap.ngrok.io/barkomatic-new/modules/purchaseAvail/cancel.php'); 
-define('NOTIFY_URL', 'https://3e42-202-175-242-179.ap.ngrok.io/barkomatic-new/modules/purchaseAvail/notify.php'); 
+define('RETURN_URL', 'https://barkomatic.online/modules/purchaseAvail/return.php'); 
+define('CANCEL_URL', 'https://barkomatic.online/modules/purchaseAvail/cancel.php'); 
+define('NOTIFY_URL', 'https://barkomatic.online/modules/purchaseAvail/notify.php'); 
 define('CURRENCY', 'PHP'); 
 define('SANDBOX', TRUE); // TRUE or FALSE 
 define('LOCAL_CERTIFICATE', FALSE); // TRUE or FALSE
