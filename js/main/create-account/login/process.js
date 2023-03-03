@@ -46,7 +46,7 @@ $(document).ready(function() {
                         }, 100);
                     } else if (res == "Please subscribe first.") {
                         setTimeout(function() {
-                            window.location = "https://barkomatic.online/paypal/subForm.php";
+                            window.location = "https://3e42-202-175-242-179.ap.ngrok.io/barkomatic-new/subscription/subForm.php";
                         }, 100);
                     } else if (res == "Sign in Successfully!") {
                         setTimeout(function() {

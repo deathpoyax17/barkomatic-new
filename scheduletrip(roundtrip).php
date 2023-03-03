@@ -1,5 +1,5 @@
 <?php
-include_once 'modules/schedule/paypal_config.php';
+include_once("modules/purchaseAvail/paypal_config.php");
 require_once("resources/templates/_header(withmodifyitinerary).php");
 if (isset($_COOKIE['data'])) {
     $datas = $_COOKIE['data'];
@@ -305,34 +305,26 @@ if (isset($_COOKIE['data'])) {
                         <a><span id="totalPrices"></span></a>
                     </div>
                 </div>
-                <form action="<?php echo PAYPAL_URL; ?>" method="post">
-                    <input type="hidden" name="business" value="<?php echo PAYPAL_ID; ?>">
+                <form method='post' action='<?php echo PAYPAL_URL; ?>'>
+                    <!-- PayPal business email to collect payments -->
+                    <input type='hidden' name='business' value='<?php echo PAYPAL_EMAIL; ?>'>
+                    <!-- Details of item that customers will purchase -->
+                    <input type='hidden' name='item_number' value='Purchase'>
+                    <input type='hidden' name='item_name' value='01'>
+                    <input type='hidden' name='amount' value='300'>
+                    <input type='hidden' name='currency_code' value='<?php echo CURRENCY; ?>'>
+                    <input type='hidden' name='no_shipping' value='1'>
+                    
+                    <!-- PayPal return, cancel & IPN URLs -->
+                    <input type='hidden' name='return' value='<?php echo RETURN_URL; ?>'>
+                    <input type='hidden' name='cancel_return' value='<?php echo CANCEL_URL; ?>'>
+                    <input type='hidden' name='notify_url' value='<?php echo NOTIFY_URL; ?>'>
 
-                    <!-- Specify a subscriptions button. -->
-
+                    <!-- Specify a Pay Now button. -->
                     <input type="hidden" name="cmd" value="_xclick">
-                    <!-- for paypal -->
-                    <button class="btn-payment">Proceed to Payment</button>
-                    <input name="AccomondationId" id="AccomondationId" hidden="">
-                    <input name="ScheduleId" id="ScheduleId" hidden="">
-                    <input name="emailpass" id="emailpass" hidden="">
-                    <!-- <input name="ticketCode" id="ticketCode" hidden=""> -->
-                    <!-- <input name="ticketCode" id="ticketCode" hidden=""> -->
-                    <input name="idPass" id="idPass" hidden="" value="">
-                    <!-- paypal inputs -->
-                    <input type="hidden" name="item_name" value="Purchase">
-                    <input type="hidden" name="item_number" id="ticketCode" value="">
-                    <input type="hidden" name="currency_code" value="<?php echo PAYPAL_CURRENCY ?>">
-                    <input name="amount" id="paypalAmt" hidden="" value="">
-                    <input type="hidden" name="p3" id="paypalValid" value="">
-                    <input type="hidden" name="t3" value="M">
-                    <!-- paypal buttons -->
-                    <input type="hidden" name="custom" value="" id="ticketCode">
-                    <input type="hidden" name="cancel_return" value="<?php echo PAYPAL_CANCEL_URL ?>">
-                    <input type="hidden" name="return" value="<?php echo PAYPAL_RETURN_URL ?>">
-                    <input type="hidden" name="notify_url" value="<?php echo PAYPAL_NOTIFY_URL ?>">
-                    <a href="avail_search-trip.php" class="btn-cancel">Cancel</a>
-                </form>
+                    <button type="submit" class="pay btn-payment">Proceed to Payment</button>
+                    </form>
+                <a href="avail_search-trip.php" class="btn-cancel">Cancel</a>
             </div>
         </div>
     </div>

@@ -1,6 +1,7 @@
 <?php
 // Include configuration file 
 include_once 'config.php'; 
+session_start();
 // Start session
 
 if(isset($_SESSION['ship_name']) && $_SESSION['ship_name'] != NULL){
@@ -104,28 +105,30 @@ if(isset($_SESSION['ship_name']) && $_SESSION['ship_name'] != NULL){
 				
 				<!--<a href="#" class="pricing-action">Proceed</a>-->
 				
-				
-			<form action="<?php echo PAYPAL_URL; ?>" method="post">
-			<!-- Identify your business so that you can collect the payments -->
-			<input type="hidden" name="business" value="<?php echo PAYPAL_ID; ?>">
-			<!-- Specify a subscriptions button. -->
-			<input type="hidden" name="cmd" value="_xclick">
-			<!-- Specify details about the subscription that buyers will purchase -->
-			<input type="hidden" name="item_name" value="Membership_subscription">
-			<input type="hidden" name="item_number" value="Subs001">
-			<input type="hidden" name="currency_code" value="<?php echo PAYPAL_CURRENCY; ?>">
-			<input type="hidden" name="amount" id="paypalAmt" value="2000">
-			<!--<input type="hidden" name="p3" id="paypalValid" value="1">-->
-			<!--<input type="hidden" name="t3" value="M">-->
-			<!-- Custom variable user ID -->
-			<input type="hidden" name="custom" value="<?php echo $ship_id; ?>">
-			<!-- Specify urls -->
-			<input type="hidden" name="cancel_return" value="<?php echo PAYPAL_CANCEL_URL; ?>">
-		<input type="hidden" name="return" value="<?php echo PAYPAL_RETURN_URL; ?>?rsrvtn_id=Subs001&pyrtypes=Membership_subscription">
-			<input type="hidden" name="notify_url" value="<?php echo PAYPAL_NOTIFY_URL; ?>">
-			<!-- Display the payment button -->
-			<input class="pricing-action" type="submit" value="Buy Subscription">
-		</form>
+							
+				<form action="<?php echo PAYPAL_URL; ?>" method="post">
+				<!-- Identify your business so that you can collect the payments -->
+				<input type="hidden" name="business" value="<?php echo PAYPAL_EMAIL; ?>">
+				<!-- Specify a subscriptions button. -->
+				<input type="hidden" name="cmd" value="_xclick-subscriptions">
+				<!-- Specify details about the subscription that buyers will purchase -->
+				<input type="hidden" name="item_name" id="item_name" value="Premium Subscription">
+				<input type="hidden" name="item_number" id="item_number" value="PREM001">
+				<input type="hidden" name="currency_code" value="PHP">
+				<input type="hidden" name="a3" id="item_price" value="9.99">
+				<input type="hidden" name="p3" id="interval_count" value="1">
+				<input type="hidden" name="t3" id="interval" value="M">
+				<input type="hidden" name="src" value="1">
+				<input type="hidden" name="srt" value="52">
+				<!-- Custom variable user ID -->
+				<input type="hidden" name="custom" value="1">
+				<!-- Specify urls -->
+				<input type="hidden" name="cancel_return" value="<?php echo CANCEL_URL; ?>">
+				<input type="hidden" name="return" value="<?php echo RETURN_URL; ?>">
+				<input type="hidden" name="notify_url" value="<?php echo NOTIFY_URL; ?>">
+				<!-- Display the payment button -->
+				<input class="pricing-action" type="submit" value="Buy Subscription">
+			</form>
 			</div>
 		</div>
 		
@@ -145,28 +148,29 @@ if(isset($_SESSION['ship_name']) && $_SESSION['ship_name'] != NULL){
 			<div class="table-buy">
 				<p>P 3,000<sup>/ Month</sup></p>
 				<!--<a href="#" class="pricing-action">Proceed</a>-->
-						
-			<form action="<?php echo PAYPAL_URL; ?>" method="post">
-			<!-- Identify your business so that you can collect the payments -->
-			<input type="hidden" name="business" value="<?php echo PAYPAL_ID; ?>">
-			<!-- Specify a subscriptions button. -->
-			<input type="hidden" name="cmd" value="_xclick">
-			<!-- Specify details about the subscription that buyers will purchase -->
-			<input type="hidden" name="item_name" value="Membership_subscription">
-			<input type="hidden" name="item_number" value="Subs002">
-			<input type="hidden" name="currency_code" value="<?php echo PAYPAL_CURRENCY; ?>">
-			<input type="hidden" name="amount" id="paypalAmt" value="3000">
-			<!--<input type="hidden" name="p3" id="paypalValid" value="1">-->
-			<!--<input type="hidden" name="t3" value="M">-->
-			<!-- Custom variable user ID -->
-			<input type="hidden" name="custom" value="<?php echo $ship_id; ?>">
-			<!-- Specify urls -->
-			<input type="hidden" name="cancel_return" value="<?php echo PAYPAL_CANCEL_URL; ?>">
-		<input type="hidden" name="return" value="<?php echo PAYPAL_RETURN_URL; ?>?rsrvtn_id=Subs002&pyrtypes=Membership_subscription">
-			<input type="hidden" name="notify_url" value="<?php echo PAYPAL_NOTIFY_URL; ?>">
-			<!-- Display the payment button -->
-			<input class="pricing-action" type="submit" value="Buy Subscription">
-		</form>
+				<form action="<?php echo PAYPAL_URL; ?>" method="post">
+    <!-- Identify your business so that you can collect the payments -->
+    <input type="hidden" name="business" value="<?php echo PAYPAL_EMAIL; ?>">
+    <!-- Specify a subscriptions button. -->
+    <input type="hidden" name="cmd" value="_xclick-subscriptions">
+    <!-- Specify details about the subscription that buyers will purchase -->
+	<input type="hidden" name="item_name" id="item_name" value="Premium Subscription">
+    <input type="hidden" name="item_number" id="item_number" value="PREM002">
+    <input type="hidden" name="currency_code" value="PHP">
+    <input type="hidden" name="a3" id="item_price" value="100">
+    <input type="hidden" name="p3" id="interval_count" value="1">
+    <input type="hidden" name="t3" id="interval" value="M">
+    <input type="hidden" name="src" value="1">
+    <input type="hidden" name="srt" value="52">
+    <!-- Custom variable user ID -->
+    <input type="hidden" name="custom" value="1">
+    <!-- Specify urls -->
+    <input type="hidden" name="cancel_return" value="<?php echo CANCEL_URL; ?>">
+    <input type="hidden" name="return" value="<?php echo RETURN_URL; ?>">
+    <input type="hidden" name="notify_url" value="<?php echo NOTIFY_URL; ?>">
+    <!-- Display the payment button -->
+	<input class="pricing-action" type="submit" value="Buy Subscription">
+</form>
 			</div>
 		</div>
 	
@@ -189,27 +193,29 @@ if(isset($_SESSION['ship_name']) && $_SESSION['ship_name'] != NULL){
 				<p>P 5,000<sup>/ Month</sup></p>
 				<!--<a href="#" class="pricing-action">Proceed</a>-->
 						
-			<form action="<?php echo PAYPAL_URL; ?>" method="post">
-			<!-- Identify your business so that you can collect the payments -->
-			<input type="hidden" name="business" value="<?php echo PAYPAL_ID; ?>">
-			<!-- Specify a subscriptions button. -->
-			<input type="hidden" name="cmd" value="_xclick">
-			<!-- Specify details about the subscription that buyers will purchase -->
-			<input type="hidden" name="item_name" value="Membership_subscription">
-			<input type="hidden" name="item_number" value="Subs003">
-			<input type="hidden" name="currency_code" value="<?php echo PAYPAL_CURRENCY; ?>">
-			<input type="hidden" name="amount" id="paypalAmt" value="5000">
-			<!--<input type="hidden" name="p3" id="paypalValid" value="1">-->
-			<!--<input type="hidden" name="t3" value="M">-->
-			<!-- Custom variable user ID -->
-			<input type="hidden" name="custom" value="<?php echo $ship_id; ?>">
-			<!-- Specify urls -->
-			<input type="hidden" name="cancel_return" value="<?php echo PAYPAL_CANCEL_URL; ?>">
-		<input type="hidden" name="return" value="<?php echo PAYPAL_RETURN_URL; ?>?rsrvtn_id=Subs003&pyrtypes=Membership_subscription">
-			<input type="hidden" name="notify_url" value="<?php echo PAYPAL_NOTIFY_URL; ?>">
-			<!-- Display the payment button -->
-			<input class="pricing-action" type="submit" value="Buy Subscription">
-		</form>
+				<form action="<?php echo PAYPAL_URL; ?>" method="post">
+    <!-- Identify your business so that you can collect the payments -->
+    <input type="hidden" name="business" value="<?php echo PAYPAL_EMAIL; ?>">
+    <!-- Specify a subscriptions button. -->
+    <input type="hidden" name="cmd" value="_xclick-subscriptions">
+    <!-- Specify details about the subscription that buyers will purchase -->
+	<input type="hidden" name="item_name" id="item_name" value="Premium Subscription">
+    <input type="hidden" name="item_number" id="item_number" value="PREM003">
+    <input type="hidden" name="currency_code" value="PHP">
+    <input type="hidden" name="a3" id="item_price" value="800">
+    <input type="hidden" name="p3" id="interval_count" value="1">
+    <input type="hidden" name="t3" id="interval" value="M">
+    <input type="hidden" name="src" value="1">
+    <input type="hidden" name="srt" value="52">
+    <!-- Custom variable user ID -->
+    <input type="hidden" name="custom" value="1">
+    <!-- Specify urls -->
+    <input type="hidden" name="cancel_return" value="<?php echo CANCEL_URL; ?>">
+    <input type="hidden" name="return" value="<?php echo RETURN_URL; ?>">
+    <input type="hidden" name="notify_url" value="<?php echo NOTIFY_URL; ?>">
+    <!-- Display the payment button -->
+	<input class="pricing-action" type="submit" value="Buy Subscription">
+</form>
 			</div>
 		</div>
 	

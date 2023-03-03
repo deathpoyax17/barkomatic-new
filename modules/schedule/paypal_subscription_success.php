@@ -148,7 +148,7 @@ echo ("<script>windows.location.href('https://barkomatic.online/')</script>");
                 <div class="row">
                     <div class="col-6">
                         <div class="top-header-content">
-                            <a href="#"><i class="icon_mail"></i> <span>barkomatic@barkomatic.xyz</span></a>
+                            <a href="#"><i class="icon_mail"></i> <span>support@barkomatic.online</span></a>
                         </div>
                     </div>
                 </div>
@@ -158,7 +158,7 @@ echo ("<script>windows.location.href('https://barkomatic.online/')</script>");
             <div class="classy-nav-container breakpoint-off">
                 <div class="container">
                     <nav class="classy-navbar justify-content-between" id="robertoNav">
-                        <a class="nav-brand mr-0" href="http://barkomatic.xyz">
+                        <a class="nav-brand mr-0" href="http://barkomatic.online">
                             <img src="../../img/core-img/logo.png" alt="BarkoMatic">
                         </a>
                         <div class="classy-navbar-toggler">
@@ -206,13 +206,17 @@ echo ("<script>windows.location.href('https://barkomatic.online/')</script>");
     <section class="welcome-section">
         <div class="banner-content">
             <div class="intro text-center container">
-                <h1 class="text-white display-3">THANK YOU FOR CHOOSING US!</h1>
+                <h1 class="text-white display-3">THANK YOU FOR CHOOSING TO SUBSCRIBE TO OUR SERVICES!</h1>
                 <?php 
                 if (isset($_GET['pyrtype'])=='avail') {
                 ?>
-                <p class="text-white">PLEASE CHECK YOUR EMAIL TO PRINT YOUR TICKET</p>
+                <p class="text-white">PLEASE CLICK THE DASHBOARD BUTTON</p>
+                <br>
+                    <button type="button" class="btn btn-primary btn-lg pushable mt-3">
+                        <a href="https://barkomatic.online/dashboard/ship/index.php?page=dashboard"><span class="front">Go to Dashboard</span></a>
+                    </button>
                 <?php   } else {?>
-                    <p class="text-white">PLEASE CHECK YOUR EMAIL FOR YOUR RESERVATION INFORMATION</p>
+                    <p class="text-white">IF YOU HAVE ALREADY SUBSCRIBED, PLEASE VERIFY YOUR EMAIL BY CHECKING YOUR INBOX.</p>
                 <?php } ?>
             </div>
         </div>
