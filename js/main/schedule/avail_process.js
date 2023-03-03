@@ -77,8 +77,8 @@ $(document).ready(function() {
                 $("#idPass").val(data.idPass);
 
                 setTimeout(function() {
-               $('#success_tic').show();
-            }, 100);
+                    $('#success_tic').show();
+                }, 100);
             },
             error: function(xhr, status, error) {
                 console.log(error);

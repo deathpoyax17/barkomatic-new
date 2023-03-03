@@ -310,8 +310,8 @@ if (isset($_COOKIE['data'])) {
                     <input type='hidden' name='business' value='<?php echo PAYPAL_EMAIL; ?>'>
                     <!-- Details of item that customers will purchase -->
                     <input type='hidden' name='item_number' value='Purchase'>
-                    <input type='hidden' name='item_name' value='01'>
-                    <input type='hidden' name='amount' value='300'>
+                    <input type='hidden' name='item_name' id="idPass" value=''>
+                    <input type='hidden' name='amount' id="paypalAmt" value=''>
                     <input type='hidden' name='currency_code' value='<?php echo CURRENCY; ?>'>
                     <input type='hidden' name='no_shipping' value='1'>
                     
