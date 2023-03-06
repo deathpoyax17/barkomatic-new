@@ -125,7 +125,6 @@ if (strcmp($res, "VERIFIED") == 0 || strcasecmp($res, "VERIFIED") == 0) {
                 $sql = "UPDATE user_subscriptions SET txn_id = '".$txn_id."', payment_status = '".$payment_status."' WHERE ipn_track_id = '".$ipn_track_id."'";
                 $update = $con->query($sql);
             }
-    
             // Update subscription id in the ship_owners table
             if ($update) {
                 $updating = $con->query("UPDATE `ship_owners` SET `subscription_id` = $subscription_id WHERE `owner_id` = $ship_owner_id");
