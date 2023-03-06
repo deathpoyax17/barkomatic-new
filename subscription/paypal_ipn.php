@@ -126,13 +126,12 @@ if (strcmp($res, "VERIFIED") == 0 || strcasecmp($res, "VERIFIED") == 0) {
                 // Insert transaction data into the database 
                 $sql = "INSERT INTO user_subscriptions(user_id,plan_id,paypal_subscr_id,txn_id,subscr_interval,subscr_interval_count,valid_from,valid_to,paid_amount,currency_code,payer_name,payer_email,payment_status,ipn_track_id) VALUES('".$custom."','".$item_number."','".$subscr_id."','".$txn_id."','".$interval."','".$interval_count."','".$subscr_date."','".$subscr_date_valid_to."','".$paid_amount."','".$currency_code."','".$payer_name."','".$payer_email."','".$payment_status."','".$ipn_track_id."')"; 
                 $insert = $con->query($sql); 
+                 
                 // Update subscription id in the users table 
-               
+                if($insert && !empty($custom)){ 
                     $subscription_id = $con->insert_id; 
-
-                    $updateOwner = "UPDATE ship_owners SET subscription_id = '".$subscription_id."' WHERE owner_id='".$custom."'"; 
-                    $updating = $con->query($updateOwner); 
-                
+                    $update = $con->query("UPDATE ship_owners SET subscription_id = $subscription_id WHERE owner_id = $custom"); 
+                } 
             } 
         } 
     } 
