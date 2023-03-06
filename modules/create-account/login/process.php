@@ -169,7 +169,7 @@ function shipSession($c, $u_ownr) {
                     
                             $_SESSION['alt_owner_id'] = $id_ownr;
                             $_SESSION['name'] = $sn; 
-                            $_SESSION['subscription_id'] = $sub_id ?: null;
+                            $_SESSION['subscription_id'] = $sub_id;
                             $_SESSION['stats'] = $stats;
                             $_SESSION['ship_name']=$o_name;
                             $_SESSION['address']=$o_address;
