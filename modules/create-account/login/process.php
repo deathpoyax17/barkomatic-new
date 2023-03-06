@@ -145,6 +145,7 @@ function shipSession($c, $u_ownr) {
                         tbl_soa.alt_owner_id,
                         tbl_soa.username,
                         tbl_o.name,
+                        tbl_o.plan_id,
                         tbl_o.stats,
                         tbl_o.ship_name,
                         tbl_o.address,
@@ -162,9 +163,9 @@ function shipSession($c, $u_ownr) {
         if(mysqli_stmt_execute($stmt_onwr)) {
             mysqli_stmt_store_result($stmt_onwr);
             if(mysqli_stmt_num_rows($stmt_onwr) == 1) {
-                mysqli_stmt_bind_result($stmt_onwr, $id_ownr,$sn,$em_ownr,$shpl,$stats,$sub_id,$o_name,$o_address);
+                mysqli_stmt_bind_result($stmt_onwr, $id_ownr,$sn,$em_ownr,$shpl,$username_ownr,$stats,$sub_id,$o_name,$o_address);
                 if(mysqli_stmt_fetch($stmt_onwr)) {
-                    if($id_ownr != '' && $sn != '' && $o_name !='') {
+                    if($id_ownr != '' && $sn != '' && $username_ownr != '' && $o_name !='') {
                     
                             $_SESSION['alt_owner_id'] = $id_ownr;
                             $_SESSION['name'] = $sn; 
@@ -179,13 +180,19 @@ function shipSession($c, $u_ownr) {
                         } else {
                             echo "Please subscribe first.";
                         }
-                              
+                          
+                          
+                               
                     }
-                     
+                   
+                    
                 }
               
+                
+             
             }
       
+           
         }
         mysqli_stmt_close($stmt_onwr);
     } 
