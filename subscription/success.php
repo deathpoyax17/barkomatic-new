@@ -1,11 +1,11 @@
 <?php
 include_once 'config.php'; 
-
+ 
 // Include database connection file 
 include_once '../modules/config.php'; 
 $payment_id = $statusMsg = ''; 
 $status = 'error'; 
-
+ 
 if(!empty($_GET['item_number']) && !empty($_GET['tx']) && !empty($_GET['amt'])){ //$_GET['st'] == 'Completed' 
     // Get transaction information from URL  
     $item_number = $_GET['item_number'];   
@@ -48,23 +48,39 @@ if(!empty($_GET['item_number']) && !empty($_GET['tx']) && !empty($_GET['amt'])){
          
         $status = 'success'; 
         $statusMsg = 'Your Subscription Payment has been Successful!'; 
-        $updating = $con->query("UPDATE `ship_owners` SET `subscription_id`=$ref_id WHERE `owner_id`=$usrid"); 
-        $response = array('status' => $status, 'message' => $statusMsg);
-        header('Content-Type: application/json');
-        echo json_encode($response);
-    } else { 
-        $statusMsg = "Transaction has been
-
-failed";
-$response = array('status' => $status, 'message' => $statusMsg);
-header('Content-Type: application/json');
-echo json_encode($response);
-}
-} else {
-$statusMsg = "Transaction has been failed";
-$response = array('status' => $status, 'message' => $statusMsg);
-header('Content-Type: application/json');
-echo json_encode($response);
-}
-
+        $updating = $con->query("UPDATE `ship_owners` SET `subscr`=$ref_id WHERE `subscription_id`=$usrid"); 
+    }else{ 
+        $statusMsg = "Transaction has been failed! If you got success response from PayPal, please refresh this page after sometime."; 
+        header("Refresh: 10"); // reload page after 10 seconds
+         exit; // exit script after redirect
+    } 
+}else{ 
+    header("Location: ../../../index.php"); 
+    exit; 
+} 
 ?>
+
+<?php if(!empty($subscrData)){ ?>
+    <h1 class="<?php echo $status; ?>"><?php echo $statusMsg; ?></h1>
+    
+    <h4>Payment Information</h4>
+    <p><b>Reference Number:</b> #<?php echo $ref_id; ?></p>
+    <p><b>Subscription ID:</b> <?php echo $paypal_subscr_id; ?></p>
+    <p><b>TXN ID:</b> <?php echo $txn_id; ?></p>
+    <p><b>Paid Amount:</b> <?php echo $paid_amount.' '.$currency_code; ?></p>
+    <p><b>Status:</b> <?php echo $payment_status; ?></p>
+    
+    <h4>Subscription Information</h4>
+    <p><b>Plan Name:</b> <?php echo $plan_name; ?></p>
+    <p><b>Amount:</b> <?php echo $plan_amount.' '.CURRENCY; ?></p>
+    <p><b>Plan Interval:</b> <?php echo $interval_count.$interval; ?></p>
+    <p><b>Period Start:</b> <?php echo $valid_from; ?></p>
+    <p><b>Period End:</b> <?php echo $valid_to; ?></p>
+    
+    <h4>Payer Information</h4>
+    <p><b>Name:</b> <?php echo $payer_name; ?></p>
+    <p><b>Email:</b> <?php echo $payer_email; ?></p>
+<?php }else{ ?>
+    <h1 class="error">Subscription Payment Failed!</h1>
+    <p class="error"><?php echo $statusMsg; ?></p>
+<?php } ?>
