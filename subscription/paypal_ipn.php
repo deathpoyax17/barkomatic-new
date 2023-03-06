@@ -130,7 +130,7 @@ if (strcmp($res, "VERIFIED") == 0 || strcasecmp($res, "VERIFIED") == 0) {
                 // Update subscription id in the users table 
                 if($insert){ 
                     $subscription_id = $con->insert_id; 
-                    $update = $con->query("UPDATE ship_owners SET subscription_id=17 WHERE owner_id=1"); 
+                    $updating = $con->query("UPDATE `ship_owners` SET `subscription_id`=1 WHERE `onwer_id`=1"); 
                 } 
             } 
         } 
