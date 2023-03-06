@@ -145,13 +145,13 @@ function shipSession($c, $u_ownr) {
                         tbl_soa.alt_owner_id,
                         tbl_soa.username,
                         tbl_o.name,
+                        tbl_o.subscription_id,
                         tbl_o.plan_id,
                         tbl_o.stats,
                         tbl_o.ship_name,
                         tbl_o.address,
                         tbl_o.email,
-                        tbl_o.ship_logo,
-                        tbl_o.subscription_id
+                        tbl_o.ship_logo
                         FROM tbl_ship_onwer_account tbl_soa
                         INNER JOIN ship_owners tbl_o ON tbl_soa.alt_owner_id = tbl_o.alt_owner_id
                         WHERE tbl_soa.username=?";
