@@ -51,6 +51,8 @@ if(!empty($_GET['item_number']) && !empty($_GET['tx']) && !empty($_GET['amt'])){
         $updating = $con->query("UPDATE `ship_owners` SET `plan_id`=$ref_id WHERE `owner_id`=$usrid"); 
     }else{ 
         $statusMsg = "Transaction has been failed! If you got success response from PayPal, please refresh this page after sometime."; 
+        header("Refresh: 10"); // reload page after 10 seconds
+         exit;
     } 
 }else{ 
     header("Location: index.php"); 
