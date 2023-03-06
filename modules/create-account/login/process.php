@@ -149,7 +149,7 @@ function shipSession($c, $u_ownr) {
                         tbl_o.ship_name,
                         tbl_o.address,
                         tbl_o.email,
-                        tbl_o.ship_logo
+                        tbl_o.ship_logo,
                         tbl_o.subscription_id
                         FROM tbl_ship_onwer_account tbl_soa
                         INNER JOIN ship_owners tbl_o ON tbl_soa.alt_owner_id = tbl_o.alt_owner_id
@@ -179,19 +179,13 @@ function shipSession($c, $u_ownr) {
                         } else {
                             echo "Please subscribe first.";
                         }
-                          
-                          
-                               
+                              
                     }
-                   
-                    
+                     
                 }
               
-                
-             
             }
       
-           
         }
         mysqli_stmt_close($stmt_onwr);
     } 
