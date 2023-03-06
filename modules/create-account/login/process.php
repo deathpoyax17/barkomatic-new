@@ -145,7 +145,6 @@ function shipSession($c, $u_ownr) {
                         tbl_soa.alt_owner_id,
                         tbl_soa.username,
                         tbl_o.name,
-                        tbl_o.plan_id,
                         tbl_o.stats,
                         tbl_o.ship_name,
                         tbl_o.address,
