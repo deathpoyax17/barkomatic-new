@@ -145,7 +145,6 @@ function shipSession($c, $u_ownr) {
                         tbl_soa.alt_owner_id,
                         tbl_soa.username,
                         tbl_o.name,
-                        tbl_o.subscription_id,
                         tbl_o.plan_id,
                         tbl_o.stats,
                         tbl_o.ship_name,
@@ -169,13 +168,13 @@ function shipSession($c, $u_ownr) {
                     
                             $_SESSION['alt_owner_id'] = $id_ownr;
                             $_SESSION['name'] = $sn; 
-                            $_SESSION['subscription_id'] = $sub_id;
+                            $_SESSION['plan_id'] = $sub_id;
                             $_SESSION['stats'] = $stats;
                             $_SESSION['ship_name']=$o_name;
                             $_SESSION['address']=$o_address;
                             $_SESSION['email'] = $em_ownr;
                             $_SESSION['ship_logo'] = $shpl;
-                        if ($sub_id != NULL) {
+                        if ($sub_id == 1) {
                             echo "Shipping Owner Login Successfully!";
                         } else {
                             echo "Please subscribe first.";
