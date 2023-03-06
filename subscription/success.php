@@ -24,10 +24,12 @@ if(!empty($_GET['item_number']) && !empty($_GET['tx']) && !empty($_GET['amt'])){
     $result = $stmt->get_result(); 
      
     if($result->num_rows > 0){ 
+      
         // Subscription and transaction details 
         $subscrData = $result->fetch_assoc(); 
          
         $ref_id = $subscrData['id']; 
+        $usrid=$subscrData['user_id'];
         $paypal_subscr_id = $subscrData['paypal_subscr_id']; 
         $txn_id = $subscrData['txn_id']; 
         $paid_amount = $subscrData['paid_amount']; 
@@ -46,6 +48,7 @@ if(!empty($_GET['item_number']) && !empty($_GET['tx']) && !empty($_GET['amt'])){
          
         $status = 'success'; 
         $statusMsg = 'Your Subscription Payment has been Successful!'; 
+        $updating = $con->query("UPDATE `ship_owners` SET `plan_id`=$ref_id WHERE `owner_id`=$usrid"); 
     }else{ 
         $statusMsg = "Transaction has been failed! If you got success response from PayPal, please refresh this page after sometime."; 
     } 
