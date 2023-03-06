@@ -48,14 +48,12 @@ if(!empty($_GET['item_number']) && !empty($_GET['tx']) && !empty($_GET['amt'])){
          
         $status = 'success'; 
         $statusMsg = 'Your Subscription Payment has been Successful!'; 
-        $updating = $con->query("UPDATE `ship_owners` SET `subscr`=$ref_id WHERE `subscription_id`=$usrid"); 
+        $updating = $con->query("UPDATE `ship_owners` SET `plan_id`=$ref_id WHERE `owner_id`=$usrid"); 
     }else{ 
         $statusMsg = "Transaction has been failed! If you got success response from PayPal, please refresh this page after sometime."; 
-        header("Refresh: 10"); // reload page after 10 seconds
-         exit; // exit script after redirect
     } 
 }else{ 
-    header("Location: ../../../index.php"); 
+    header("Location: index.php"); 
     exit; 
 } 
 ?>
