@@ -109,32 +109,42 @@ if (strcmp($res, "VERIFIED") == 0 || strcasecmp($res, "VERIFIED") == 0) {
         $subscr_date_valid_to = ''; 
     } 
      
-    if(!empty($ipn_track_id)){ 
+    if (!empty($ipn_track_id)) {
         // Check if transaction data exists with the same TXN ID 
-        $prevPayment = $con->query("SELECT id FROM user_subscriptions WHERE ipn_track_id = '".$ipn_track_id."'"); 
-         
-        if($prevPayment->num_rows > 0){ 
-            if($txn_type == 'subscr_signup'){ 
-                $sql = "UPDATE user_subscriptions SET paypal_subscr_id = '".$subscr_id."', subscr_interval = '".$interval."', subscr_interval_count = '".$interval_count."', valid_from = '".$subscr_date."', valid_to = '".$subscr_date_valid_to."' WHERE ipn_track_id = '".$ipn_track_id."'"; 
-                $update = $con->query($sql); 
-            }elseif($txn_type == 'subscr_payment'){ 
-                $sql = "UPDATE user_subscriptions SET txn_id = '".$txn_id."', payment_status = '".$payment_status."' WHERE ipn_track_id = '".$ipn_track_id."'"; 
-                $update = $con->query($sql); 
-            } 
-        }else{ 
-            if($txn_type == 'subscr_payment' || $txn_type == 'subscr_signup'){ 
-                // Insert transaction data into the database 
-                $sql = "INSERT INTO user_subscriptions(user_id,plan_id,paypal_subscr_id,txn_id,subscr_interval,subscr_interval_count,valid_from,valid_to,paid_amount,currency_code,payer_name,payer_email,payment_status,ipn_track_id) VALUES('".$custom."','".$item_number."','".$subscr_id."','".$txn_id."','".$interval."','".$interval_count."','".$subscr_date."','".$subscr_date_valid_to."','".$paid_amount."','".$currency_code."','".$payer_name."','".$payer_email."','".$payment_status."','".$ipn_track_id."')"; 
-                $insert = $con->query($sql); 
-                 
-                // Update subscription id in the users table 
-                if($insert){ 
-                    $subscription_id = $con->insert_id; 
-                    $updating = $con->query("UPDATE `ship_owners` SET `subscription_id`=1 WHERE `owner_id`=1"); 
-                } 
-            } 
-        } 
-    } 
+        $prevPayment = $con->query("SELECT id, user_id FROM user_subscriptions WHERE ipn_track_id = '".$ipn_track_id."'");
+    
+        if ($prevPayment->num_rows > 0) {
+            $row = $prevPayment->fetch_assoc();
+            $subscription_id = $row['id'];
+            $ship_owner_id = $row['user_id'];
+    
+            if ($txn_type == 'subscr_signup') {
+                $sql = "UPDATE user_subscriptions SET paypal_subscr_id = '".$subscr_id."', subscr_interval = '".$interval."', subscr_interval_count = '".$interval_count."', valid_from = '".$subscr_date."', valid_to = '".$subscr_date_valid_to."' WHERE ipn_track_id = '".$ipn_track_id."'";
+                $update = $con->query($sql);
+            } elseif ($txn_type == 'subscr_payment') {
+                $sql = "UPDATE user_subscriptions SET txn_id = '".$txn_id."', payment_status = '".$payment_status."' WHERE ipn_track_id = '".$ipn_track_id."'";
+                $update = $con->query($sql);
+            }
+    
+            // Update subscription id in the ship_owners table
+            if ($update) {
+                $updating = $con->query("UPDATE `ship_owners` SET `subscription_id` = $subscription_id WHERE `owner_id` = $ship_owner_id");
+            }
+        } else {
+            if ($txn_type == 'subscr_payment' || $txn_type == 'subscr_signup') {
+                // Insert transaction data into the database
+                $sql = "INSERT INTO user_subscriptions(user_id,plan_id,paypal_subscr_id,txn_id,subscr_interval,subscr_interval_count,valid_from,valid_to,paid_amount,currency_code,payer_name,payer_email,payment_status,ipn_track_id) VALUES('".$custom."','".$item_number."','".$subscr_id."','".$txn_id."','".$interval."','".$interval_count."','".$subscr_date."','".$subscr_date_valid_to."','".$paid_amount."','".$currency_code."','".$payer_name."','".$payer_email."','".$payment_status."','".$ipn_track_id."')";
+                $insert = $con->query($sql);
+    
+                // Update subscription id in the ship_owners table
+                if ($insert) {
+                    $subscription_id = $con->insert_id;
+                    $updating = $con->query("UPDATE `ship_owners` SET `subscription_id` = $subscription_id WHERE `owner_id` = 1");
+                }
+            }
+        }
+    }
+    
 } 
-die;
+
 ?>
