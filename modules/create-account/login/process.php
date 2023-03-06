@@ -174,7 +174,7 @@ function shipSession($c, $u_ownr) {
                             $_SESSION['address']=$o_address;
                             $_SESSION['email'] = $em_ownr;
                             $_SESSION['ship_logo'] = $shpl;
-                        if(!$_SESSION['subscription_id']==NULL ) {
+                        if ($sub_id >= 1) {
                             echo "Shipping Owner Login Successfully!";
                         } else {
                             echo "Please subscribe first.";
