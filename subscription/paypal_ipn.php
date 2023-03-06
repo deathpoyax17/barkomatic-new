@@ -121,14 +121,18 @@ if (strcmp($res, "VERIFIED") == 0 || strcasecmp($res, "VERIFIED") == 0) {
             if ($txn_type == 'subscr_signup') {
                 $sql = "UPDATE user_subscriptions SET paypal_subscr_id = '".$subscr_id."', subscr_interval = '".$interval."', subscr_interval_count = '".$interval_count."', valid_from = '".$subscr_date."', valid_to = '".$subscr_date_valid_to."' WHERE ipn_track_id = '".$ipn_track_id."'";
                 $update = $con->query($sql);
+                if ($update) {
+                    $updating = $con->query("UPDATE `ship_owners` SET `subscription_id` = $subscription_id WHERE `owner_id` = $ship_owner_id");
+                }
             } elseif ($txn_type == 'subscr_payment') {
                 $sql = "UPDATE user_subscriptions SET txn_id = '".$txn_id."', payment_status = '".$payment_status."' WHERE ipn_track_id = '".$ipn_track_id."'";
                 $update = $con->query($sql);
+                if ($update) {
+                    $updating = $con->query("UPDATE `ship_owners` SET `subscription_id` = $subscription_id WHERE `owner_id` = $ship_owner_id");
+                }
             }
             // Update subscription id in the ship_owners table
-            if ($update) {
-                $updating = $con->query("UPDATE `ship_owners` SET `subscription_id` = $subscription_id WHERE `owner_id` = $ship_owner_id");
-            }
+           
         } 
     }
     
