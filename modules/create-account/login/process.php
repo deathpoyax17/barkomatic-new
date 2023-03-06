@@ -141,60 +141,61 @@ function shipLogin($con) {
 
 }
 function shipSession($c, $u_ownr) {
-    $sql_slct_ownr = "SELECT 
-                        tbl_soa.alt_owner_id,
-                        tbl_soa.username,
-                        tbl_o.name,
-                        tbl_o.subscription_id,
-                        tbl_o.stats,
-                        tbl_o.ship_name,
-                        tbl_o.address,
-                        tbl_o.email,
-                        tbl_o.ship_logo
-                        FROM tbl_ship_onwer_account tbl_soa
-                        INNER JOIN ship_owners tbl_o ON tbl_soa.alt_owner_id = tbl_o.alt_owner_id
-                        WHERE tbl_soa.username=?";
+    // Updated SQL statement with reorganized fields
+    $sql = "SELECT tbl_soa.alt_owner_id, tbl_soa.username, tbl_o.subscription_id, tbl_o.stats, tbl_o.ship_name, tbl_o.address, tbl_o.email, tbl_o.ship_logo 
+            FROM tbl_ship_onwer_account tbl_soa 
+            INNER JOIN ship_owners tbl_o ON tbl_soa.alt_owner_id = tbl_o.alt_owner_id 
+            WHERE tbl_soa.username = ?";
     
-    if($stmt_onwr = mysqli_prepare($c, $sql_slct_ownr)) {
-        echo $c->error;
-        mysqli_stmt_bind_param($stmt_onwr, 's', $bpn_onwr);
-        $bpn_onwr = $u_ownr;
-        if(mysqli_stmt_execute($stmt_onwr)) {
-            mysqli_stmt_store_result($stmt_onwr);
-            if(mysqli_stmt_num_rows($stmt_onwr) == 1) {
-                mysqli_stmt_bind_result($stmt_onwr, $id_ownr,$sn,$em_ownr,$shpl,$username_ownr,$stats,$sub_id,$o_name,$o_address);
-                if(mysqli_stmt_fetch($stmt_onwr)) {
-                    if($sub_id != NULL && $sub_id != 0) {
-                    
-                            $_SESSION['alt_owner_id'] = $id_ownr;
-                            $_SESSION['name'] = $sn; 
-                            $_SESSION['subscription_id'] = $sub_id;
-                            $_SESSION['stats'] = $stats;
-                            $_SESSION['ship_name']=$o_name;
-                            $_SESSION['address']=$o_address;
-                            $_SESSION['email'] = $em_ownr;
-                            $_SESSION['ship_logo'] = $shpl;
-                            echo "Shipping Owner Login Successfully!";   
-                               
-                    }
-                    else{
-                    echo "Please subscribe first.";
-                    }
-                }
-              
-                
-             
-            }
-      
-           
-        }
-        mysqli_stmt_close($stmt_onwr);
-    } 
-    else{
-        echo "something went wrong";
+    // Declare prepared statement once
+    $stmt_onwr = mysqli_prepare($c, $sql);
+    
+    // Proper error handling for prepare statement failure
+    if (!$stmt_onwr) {
+        throw new Exception("Prepare statement failed!");
     }
- 
+    
+    // Bind parameter and execute statement for given user
+    mysqli_stmt_bind_param($stmt_onwr, 's', $bpn_onwr);
+    $bpn_onwr = $u_ownr;
+    
+    if(!mysqli_stmt_execute($stmt_onwr)) {
+        // Proper error handling for query execution failure
+        throw new Exception("Statement execution failed!");
+    }
+
+    // Bind result variables in order 
+    mysqli_stmt_bind_result($stmt_onwr, $id_ownr, $username_ownr, $sub_id, $stats, $o_name, $o_address, $em_ownr, $shpl);
+  
+    // Check if there is only one row returned
+    if(mysqli_stmt_fetch($stmt_onwr)) {
+
+        // If they have subscribed
+        if($sub_id != NULL && $sub_id != 0) {
+            // Assign values to session variables
+            $_SESSION['alt_owner_id'] = $id_ownr;
+            $_SESSION['name'] = $username_ownr; 
+            $_SESSION['subscription_id'] = $sub_id;
+            $_SESSION['stats'] = $stats;
+            $_SESSION['ship_name'] = $o_name;
+            $_SESSION['address'] = $o_address;
+            $_SESSION['email'] = $em_ownr;
+            $_SESSION['ship_logo'] = $shpl;
+
+            echo "Shipping Owner Login Successfully!";   
+        } else {
+            // If they haven't subscribed
+            echo "Please subscribe first.";
+        }
+    } else {
+        // If no rows were returned
+        echo "No row returned!";
+    }
+
+    // Properly close statement to release resources
+    mysqli_stmt_close($stmt_onwr);
 }
+
 // admin session
 function adminSession($c, $u_admin) {
     $sql_slct_admin = "SELECT tbl_ad.admin_id,
