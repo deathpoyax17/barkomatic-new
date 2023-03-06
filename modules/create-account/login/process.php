@@ -164,7 +164,7 @@ function shipSession($c, $u_ownr) {
             if(mysqli_stmt_num_rows($stmt_onwr) == 1) {
                 mysqli_stmt_bind_result($stmt_onwr, $id_ownr,$sn,$em_ownr,$shpl,$username_ownr,$stats,$sub_id,$o_name,$o_address);
                 if(mysqli_stmt_fetch($stmt_onwr)) {
-                    if($sub_id != NULL) {
+                    if($sub_id != NULL && $sub_id != 0) {
                     
                             $_SESSION['alt_owner_id'] = $id_ownr;
                             $_SESSION['name'] = $sn; 
@@ -174,8 +174,7 @@ function shipSession($c, $u_ownr) {
                             $_SESSION['address']=$o_address;
                             $_SESSION['email'] = $em_ownr;
                             $_SESSION['ship_logo'] = $shpl;
-                            echo "Shipping Owner Login Successfully!";
-                       
+                            echo "Shipping Owner Login Successfully!";   
                                
                     }
                     else{
