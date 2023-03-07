@@ -429,7 +429,7 @@
         </li>
       </ol>
     </li>
-    <li class="row row--10">
+    <li class="row--10">
       <ol class="seats" type="A">
         <li class="seat">
           <input type="checkbox" id="10A" />
