@@ -68,3 +68,13 @@ $('.select1, .select2').on('change',
 );
 });
 </script>
+<script>
+ $(document).ready(function(){
+    $('a[data-modal]').on('click', function() {
+      $($(this).data('modal')).modal({
+    fadeDuration: 250
+  });
+      return false;
+    });
+  });
+</script>

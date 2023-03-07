@@ -157,3 +157,7 @@
     </div>
   </div>
 </div>
+
+<div id="login-modal" class="modal">
+  ...
+</div>
