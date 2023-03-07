@@ -478,7 +478,20 @@ $(document).ready(function() {
         // $(".modalId").prop("disabled", true);
         var modal_fetch_id = $(this).attr("id");
         var capacity = $(this).data("capacity");
-      console.log(capacity);
+        var fetcSeat = "fetchingSeat";
+        $.ajax({
+            url: "./modules/main/process.php",
+            method: "POST",
+            data: { action: fetcSeat, 
+                    accom_id: modal_fetch_id,
+                    cap: capacity },
+            success: function(response) {
+                alert(response);
+                setTimeout(function() {
+                    $("#cabin").html(response);
+                }, 100);
+            }
+        });
     });
 
     $(document).on('click', '.delete_accom_btn', function(e) {

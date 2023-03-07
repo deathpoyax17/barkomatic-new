@@ -120,6 +120,46 @@ if(isset($_POST["action"]) && $_POST["action"] == "fetch_ticket_detail") {
     session_start();
     fetch_ticket_details($con);
 }
+if(isset($_POST["action"]) && $_POST["action"] == "fetchingSeat") {
+    fetchSeat($con);
+}
+function fetchSeat(){
+    $capacity = $_POST["capacity"]; // Set the capacity here
+    $accomm_id = $_POST["modal_fetch_id"];
+    // Connect to the database
+    $rows = ceil($capacity / 6); // Calculate the number of rows needed
+    for ($i = 1; $i <= $rows; $i++) {
+      echo '<li class="row--' . $i . '">';
+      echo '<ol class="seats" type="A">';
+      for ($j = 1; $j <= 6; $j++) {
+        $seatNumber = ($i - 1) * 6 + $j;
+        if ($seatNumber > $capacity) {
+          echo '<li class="seat hidden"></li>';
+        } else {
+          // Check if the seat is reserved in the database
+          $sql = "SELECT * FROM tickets WHERE accomodation_id = $seatNumber AND availability = 'reservation'";
+          $result = $con->query($sql);
+          if ($result->num_rows > 0) {
+            // Seat is reserved, disable the checkbox
+            echo '<li class="seat">';
+            echo '<input type="checkbox" id="' . $seatNumber . '" class="disabled-checkbox" disabled/>';
+            echo '<label for="' . $seatNumber . '">' . $seatNumber . '</label>';
+            echo '</li>';
+          } else {
+            // Seat is available, display the checkbox
+            echo '<li class="seat">';
+            echo '<input type="checkbox" id="' . $seatNumber . '" class="available-checkbox"/>';
+            echo '<label for="' . $seatNumber . '">' . $seatNumber . '</label>';
+            echo '</li>';
+          }
+        }
+      }
+      echo '</ol>';
+      echo '</li>';
+    }
+    // Close the database connection
+    $conn->close();
+}
 
 //* reservation details
 function reservation_data($c) {
