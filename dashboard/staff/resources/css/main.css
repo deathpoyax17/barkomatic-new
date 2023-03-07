@@ -1868,17 +1868,13 @@ footer {
 }
 #seatsDiagram td,
 #displaySeats td{
-    padding: 1rem;
     text-align: center;
-    margin: 0.3rem;
     width: 60px;
     border: 3px solid transparent;
     display: inline-block;
     background-color: #efefef;
     border-radius: 5px;
 }
-
-
 
 #seatsDiagram{
     width: 100%;
