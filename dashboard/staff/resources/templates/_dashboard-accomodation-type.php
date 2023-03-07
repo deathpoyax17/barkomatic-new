@@ -179,8 +179,6 @@
         $seat_id = 'seat-' . $seat_num;
         if ($seat_num <= $capacity) {
           echo '<td id="' . $seat_id . '" data-name="' . $seat_num . '">' . $seat_num . '</td>';
-        } else {
-          echo '<td class="space">&nbsp;</td>'; // Add a space if the seat doesn't exist
         }
         $seat_num++;
       }
