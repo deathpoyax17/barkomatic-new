@@ -157,7 +157,19 @@
     </div>
   </div>
 </div>
-
-<div id="login-modal" class="modal">
-  ...
+<!-- seat modal -->
+<div class="modal fade" id="SeatModal" tabindex="-1" role="dialog" aria-labelledby="port_locationLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Seat</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+     seat
+      </div>
+    </div>
+  </div>
 </div>

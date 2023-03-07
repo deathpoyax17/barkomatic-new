@@ -479,7 +479,7 @@ function fetch_accomm_detail($c) {
     while ($row = $result->fetch_assoc()) {
         $output .= '
             <tr>
-                <td><a href="" data-modal="#login-modal">'.$row["name"].'</a></td>
+                <td><a href="" data-toggle="modal" data-target="#SeatModal">'.$row["name"].'</a></td>
                 <td>'.$row["acomm_name"].'</td>
                 <td>'.$row["room_type"].'</td>
                 <td>₱ '.$row["price"]. '</td>
