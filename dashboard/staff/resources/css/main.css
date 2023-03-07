@@ -1888,29 +1888,6 @@ footer {
   .screen-side .select-text {
     color: #969696;
   }
-  .exit {
-    position: relative;
-    height: 50px;
-  }
-  .exit:before, .exit:after {
-    content: "EXIT";
-    font-size: 14px;
-    line-height: 18px;
-    padding: 0px 5px;
-    font-family: "Arial Narrow", Arial, sans-serif;
-    display: block;
-    position: absolute;
-    background: #81c784;
-    color: white;
-    top: 50%;
-    transform: translate(0, -50%);
-  }
-  .exit:before {
-    left: 0;
-  }
-  .exit:after {
-    right: 0;
-  }
   ol {
     list-style: none;
     padding: 0;
