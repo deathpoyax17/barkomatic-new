@@ -486,7 +486,7 @@ $(document).ready(function() {
                     accom_id: modal_fetch_id,
                     cap: capacity },
             success: function(response) {
-                alert(response);
+                console.log(response);
                 // setTimeout(function() {
                 //     $("#cabin").html(response);
                 // }, 100);
