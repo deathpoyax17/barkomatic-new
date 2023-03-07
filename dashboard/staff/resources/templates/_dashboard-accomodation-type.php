@@ -173,13 +173,13 @@
     $capacity = 38; // Set the total capacity here
     $seat_num = 1; // Initialize the seat number
     for ($i = 1; $i <= $capacity; $i++) {
-      if ($i % 10 == 1) {
+      if ($i % 12 == 1) {
         echo '<tr>';
       }
       $seat_id = 'seat-' . $seat_num;
       echo '<td id="' . $seat_id . '" data-name="' . $seat_num . '">' . $seat_num . '</td>';
       $seat_num++;
-      if ($i % 10 == 0 || $i == $capacity) {
+      if ($i % 12 == 0 || $i == $capacity) {
         echo '</tr>';
       }
     }
