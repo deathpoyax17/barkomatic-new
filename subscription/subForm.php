@@ -4,7 +4,7 @@ include_once 'config.php';
 session_start();
 // Start session
 
-if(isset($_SESSION['ship_name']) && $_SESSION['ship_name'] != NULL){
+if(isset($_SESSION['alt_owner_id']) && $_SESSION['alt_owner_id'] != NULL){
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -121,7 +121,7 @@ if(isset($_SESSION['ship_name']) && $_SESSION['ship_name'] != NULL){
 				<input type="hidden" name="src" value="1">
 				<input type="hidden" name="srt" value="52">
 				<!-- Custom variable user ID -->
-				<input type="hidden" name="custom" value="1">
+				<input type="hidden" name="custom" value="<?php echo $_SESSION['alt_owner_id']; ?>">
 				<!-- Specify urls -->
 				<input type="hidden" name="cancel_return" value="<?php echo CANCEL_URL; ?>">
 				<input type="hidden" name="return" value="<?php echo RETURN_URL; ?>">
@@ -163,7 +163,7 @@ if(isset($_SESSION['ship_name']) && $_SESSION['ship_name'] != NULL){
     <input type="hidden" name="src" value="1">
     <input type="hidden" name="srt" value="52">
     <!-- Custom variable user ID -->
-    <input type="hidden" name="custom" value="1">
+    <input type="hidden" name="custom" value="<?php echo $_SESSION['alt_owner_id']; ?>">
     <!-- Specify urls -->
     <input type="hidden" name="cancel_return" value="<?php echo CANCEL_URL; ?>">
     <input type="hidden" name="return" value="<?php echo RETURN_URL; ?>">
@@ -208,7 +208,7 @@ if(isset($_SESSION['ship_name']) && $_SESSION['ship_name'] != NULL){
     <input type="hidden" name="src" value="1">
     <input type="hidden" name="srt" value="52">
     <!-- Custom variable user ID -->
-    <input type="hidden" name="custom" value="1">
+    <input type="hidden" name="custom" value="<?php echo $_SESSION['alt_owner_id']; ?>">
     <!-- Specify urls -->
     <input type="hidden" name="cancel_return" value="<?php echo CANCEL_URL; ?>">
     <input type="hidden" name="return" value="<?php echo RETURN_URL; ?>">
@@ -219,23 +219,6 @@ if(isset($_SESSION['ship_name']) && $_SESSION['ship_name'] != NULL){
 			</div>
 		</div>
 	
-	
-	<!--<div class="subs-box">-->
-	<!--	<div class="form-group">-->
-	<!--		<label>Subscription Validity:</label>-->
-	<!--		<select name="validity" onchange="getSubsPrice(this);">-->
-	<!--			<option value="1" selected="selected">1 Month</option>-->
-	<!--			<option value="3">3 Month</option>-->
-	<!--			<option value="6">6 Month</option>-->
-	<!--			<option value="9">9 Month</option>-->
-	<!--			<option value="12">12 Month</option>-->
-	<!--		</select>-->
-	<!--	</div>-->
-	<!--	<div class="form-group">-->
-	<!--		<p><b>Total Price:</b> <span id="subPrice"><?php echo 'P '.$itemPrice.' PHP'; ?></span></p>-->
-	<!--	</div>-->
-		
-		<!-- Buy button -->
 	
 	</div>
 </div>
