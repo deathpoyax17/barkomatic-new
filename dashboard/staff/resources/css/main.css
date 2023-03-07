@@ -1877,6 +1877,9 @@ footer {
     background-color: #efefef;
     border-radius: 5px;
 }
+#displaySeats tr{
+    padding-right: 2rem;
+}
 
 #seatsDiagram{
     width: 100%;
