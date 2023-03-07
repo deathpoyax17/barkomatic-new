@@ -168,15 +168,13 @@
         </button>
       </div>
       <div class="modal-body">
+      <div class="theatre">
+    <div class="exit exit--front"></div>
+    <ol class="cabin">
       <?php
 $capacity = 20; // Set the capacity here
 
 $rows = ceil($capacity / 6); // Calculate the number of rows needed
-
-echo '<div class="theatre">';
-echo '<div class="exit exit--front"></div>';
-echo '<ol class="cabin">';
-
 for ($i = 1; $i <= $rows; $i++) {
   echo '<li class="row--' . $i . '">';
   echo '<ol class="seats" type="A">';
@@ -195,10 +193,10 @@ for ($i = 1; $i <= $rows; $i++) {
   echo '</li>';
 }
 
-echo '</ol>';
-echo '</div>';
-?>
 
+?>
+</ol>
+</div>
       </div>
     </div>
   </div>
