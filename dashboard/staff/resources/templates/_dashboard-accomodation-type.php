@@ -168,7 +168,7 @@
         </button>
       </div>
       <div class="modal-body">
-      <table id="displaySeats" data-seats="<?php echo $booked_seats; ?>">
+      <table id="displaySeats" data-seats="<?php echo $booked_seats; ?>" style="margin-left:20px;">
      <?php
     $capacity = 38; // Set the total capacity here
     $num_rows = ceil($capacity / 12); // Calculate the number of rows based on capacity
