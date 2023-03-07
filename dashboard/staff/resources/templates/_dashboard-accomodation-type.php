@@ -168,30 +168,40 @@
         </button>
       </div>
       <div class="modal-body">
-      <table id="displaySeats" data-seats="<?php echo $booked_seats; ?>" style="margin-left:20px;">
-  <?php
-    $capacity = 38; // Set the total capacity here
-    $num_rows = ceil($capacity / 12); // Calculate the number of rows based on capacity
-    $seat_num = 1; // Initialize the seat number
-    for ($i = 0; $i < $num_rows; $i++) {
-      echo '<tr>';
-      for ($j = 0; $j < 12; $j++) {
-        $seat_id = 'seat-' . $seat_num;
-        $is_reserved = in_array($seat_num, explode(',', $booked_seats));
-        if ($seat_num <= $capacity) {
-          if ($is_reserved) {
-            echo '<td id="' . $seat_id . '" data-name="' . $seat_num . '" class="notAvailable">' . $seat_num . '</td>';
-          } else {
-            echo '<td id="' . $seat_id . '" data-name="' . $seat_num . '">' . $seat_num . '</td>';
-          }
-        } else {
-          echo '</tr>'; // Add a space if the seat doesn't exist
-        }
-        $seat_num++;
-      }
-    }
-  ?>
-</table>
+ <?php
+                // Retrieve the reserved seats from the database
+                $sql = "SELECT seat_num FROM seats 
+                        LEFT JOIN tickets ON seats.accomodation_id = tickets.accomodation_id 
+                        WHERE tickets.accomodation_id = $accommodation_id";
+                $result = mysqli_query($conn, $sql);
+
+                $reserved_seats = array();
+
+                if (mysqli_num_rows($result) > 0) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $reserved_seats[] = $row['seat_num'];
+                }
+                }
+                // Generate the seating chart
+                echo '<table id="displaySeats" data-seats="<?php echo $booked_seats; ?>" style="margin-left:20px;">';
+                for ($i = 0; $i < $num_rows; $i++) {
+                echo '<tr>';
+                for ($j = 0; $j < $num_cols; $j++) {
+                    $seat_num = $i * $num_cols + $j + 1;
+                    $seat_id = 'seat-' . $seat_num;
+                    // Check if seat is reserved
+                    $reserved = in_array($seat_num, $reserved_seats);
+                    // Output the seat
+                    if ($reserved) {
+                    echo '<td id="' . $seat_id . '" class="reserved">' . $seat_num . '</td>';
+                    } else {
+                    echo '<td id="' . $seat_id . '">' . $seat_num . '</td>';
+                    }
+                }
+                echo '</tr>';
+                }
+                echo '</table>';
+ ?>
       </div>
     </div>
   </div>
