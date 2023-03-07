@@ -171,7 +171,7 @@
  <?php
                 // Retrieve the reserved seats from the database
                 $sql = "SELECT * tickets WHERE accomodation_id = $accommodation_id AND availability = 'Purchase'";
-                $result = mysqli_query($conn, $sql);
+                $result = mysqli_query($con, $sql);
 
                 $reserved_seats = array();
 
