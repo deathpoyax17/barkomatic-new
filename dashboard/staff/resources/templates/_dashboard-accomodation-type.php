@@ -168,7 +168,29 @@
         </button>
       </div>
       <div class="modal-body">
-     seat
+      <table id="displaySeats" data-seats="<?php echo $booked_seats; ?>">
+     <?php
+    $capacity = 38; // Set the total capacity here
+    $num_rows = ceil($capacity / 10); // Calculate the number of rows based on capacity
+    $seat_num = 1; // Initialize the seat number
+    for ($i = 0; $i < $num_rows; $i++) {
+      echo '<tr>';
+      for ($j = 0; $j < 10; $j++) {
+        $seat_id = 'seat-' . $seat_num;
+        if ($seat_num <= $capacity) {
+          echo '<td id="' . $seat_id . '" data-name="' . $seat_num . '">' . $seat_num . '</td>';
+        } else {
+          echo '<td class="space">&nbsp;</td>'; // Add a space if the seat doesn't exist
+        }
+        $seat_num++;
+      }
+      echo '</tr>';
+    }
+  ?>
+  <tr>
+    <td class="shipping-seat" colspan="10">Shipping Seat</td> <!-- Add a shipping seat at the bottom -->
+  </tr>
+</table>
       </div>
     </div>
   </div>

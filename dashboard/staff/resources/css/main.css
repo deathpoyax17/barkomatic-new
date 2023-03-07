@@ -1866,3 +1866,25 @@ footer {
     top: 0;
     transition: ease-in !important;
 }
+#displaySeats {
+    border-collapse: collapse;
+    margin: 20px;
+  }
+  
+  #displaySeats td {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  #displaySeats td.space {
+    border: none;
+  }
+  
+  #displaySeats td.selected {
+    background-color: #ccc;
+    color: #fff;
+  }
