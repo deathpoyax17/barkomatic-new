@@ -124,8 +124,8 @@ if(isset($_POST["action"]) && $_POST["action"] == "fetchingSeat") {
     fetchSeat($con);
 }
 function fetchSeat(){
-    $capacity = $_POST["capacity"]; // Set the capacity here
-    $accomm_id = $_POST["modal_fetch_id"];
+    $capacity = $_POST["cap"]; // Set the capacity here
+    $accomm_id = $_POST["accom_id"];
     // Connect to the database
     // $rows = ceil($capacity / 6); // Calculate the number of rows needed
     // for ($i = 1; $i <= $rows; $i++) {
