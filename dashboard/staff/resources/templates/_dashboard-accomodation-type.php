@@ -174,10 +174,6 @@ $capacity = 20; // Set the capacity here
 $rows = ceil($capacity / 6); // Calculate the number of rows needed
 
 echo '<div class="theatre">';
-echo '<div class="screen-side">';
-echo '<div class="screen">Screen</div>';
-echo '<h3 class="select-text">Please select a seat</h3>';
-echo '</div>';
 echo '<div class="exit exit--front"></div>';
 echo '<ol class="cabin">';
 
