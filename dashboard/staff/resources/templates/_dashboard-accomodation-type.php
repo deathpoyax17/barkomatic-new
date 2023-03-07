@@ -117,9 +117,9 @@
                     <span class="icon"><i class="mdi mdi-account-multiple"></i></span> Details
                 </p>
             </header>
-            <div id="ship_accomm_data" class="card-content">
+            <!-- <div id="ship_accomm_data" class="card-content">
                 <img class="text-center" src="./resources/img/loading.gif" alt="Loading" style="text-align:center;width:48px;height:48px;">
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
