@@ -187,10 +187,10 @@
       echo '</tr>';
     }
   ?>
- <div>
-    <td class="shipping-seat" colspan="10">Shipping Seat</td> <!-- Add a shipping seat at the bottom -->
-</div>
 </table>
+<div>
+    <td class="shipping-seat" colspan="10">Shipping Seat</td> 
+</div>
       </div>
     </div>
   </div>
