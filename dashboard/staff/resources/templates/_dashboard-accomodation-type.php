@@ -177,7 +177,7 @@
   <div class="exit exit--front">
   </div>
   <ol class="cabin">
-    <li class="row row--1">
+    <li class="row--1">
       <ol class="seats" type="A">
         <li class="seat">
           <input type="checkbox" id="1A" />
@@ -205,7 +205,7 @@
         </li>
       </ol>
     </li>
-    <li class="row row--2">
+    <li class="row--2">
       <ol class="seats" type="A">
         <li class="seat">
           <input type="checkbox" id="2A" />
@@ -233,7 +233,7 @@
         </li>
       </ol>
     </li>
-    <li class="row row--3">
+    <li class="row--3">
       <ol class="seats" type="A">
         <li class="seat">
           <input type="checkbox" id="3A" />
@@ -261,7 +261,7 @@
         </li>
       </ol>
     </li>
-    <li class="row row--4">
+    <li class="row--4">
       <ol class="seats" type="A">
         <li class="seat">
           <input type="checkbox" id="4A" />
@@ -289,7 +289,7 @@
         </li>
       </ol>
     </li>
-    <li class="row row--5">
+    <li class="row--5">
       <ol class="seats" type="A">
         <li class="seat">
           <input type="checkbox" id="5A" />
@@ -317,7 +317,7 @@
         </li>
       </ol>
     </li>
-    <li class="row row--6">
+    <li class="row--6">
       <ol class="seats" type="A">
         <li class="seat">
           <input type="checkbox" id="6A" />
@@ -345,7 +345,7 @@
         </li>
       </ol>
     </li>
-    <li class="row row--7">
+    <li class="row--7">
       <ol class="seats" type="A">
         <li class="seat">
           <input type="checkbox" id="7A" />
@@ -373,7 +373,7 @@
         </li>
       </ol>
     </li>
-    <li class="row row--8">
+    <li class="row--8">
       <ol class="seats" type="A">
         <li class="seat">
           <input type="checkbox" id="8A" />
@@ -401,7 +401,7 @@
         </li>
       </ol>
     </li>
-    <li class="row row--9">
+    <li class="row--9">
       <ol class="seats" type="A">
         <li class="seat">
           <input type="checkbox" id="9A" />
