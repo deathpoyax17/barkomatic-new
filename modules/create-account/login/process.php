@@ -185,6 +185,7 @@ function shipSession($c, $u_ownr) {
             echo "Shipping Owner Login Successfully!";   
         } else {
             // If they haven't subscribed
+            $_SESSION['alt_owner_id'] = $id_ownr;
             echo "Please subscribe first.";
         }
     } else {
