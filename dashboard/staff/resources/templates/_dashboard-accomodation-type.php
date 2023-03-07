@@ -171,11 +171,11 @@
       <table id="displaySeats" data-seats="<?php echo $booked_seats; ?>">
      <?php
     $capacity = 38; // Set the total capacity here
-    $num_rows = ceil($capacity / 10); // Calculate the number of rows based on capacity
+    $num_rows = ceil($capacity / 12); // Calculate the number of rows based on capacity
     $seat_num = 1; // Initialize the seat number
     for ($i = 0; $i < $num_rows; $i++) {
       echo '<tr>';
-      for ($j = 0; $j < 10; $j++) {
+      for ($j = 0; $j < 12; $j++) {
         $seat_id = 'seat-' . $seat_num;
         if ($seat_num <= $capacity) {
           echo '<td id="' . $seat_id . '" data-name="' . $seat_num . '">' . $seat_num . '</td>';
