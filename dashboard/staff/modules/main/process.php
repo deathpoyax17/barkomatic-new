@@ -123,7 +123,7 @@ if(isset($_POST["action"]) && $_POST["action"] == "fetch_ticket_detail") {
 if(isset($_POST["action"]) && $_POST["action"] == "fetchingSeat") {
     fetchSeat($con);
 }
-function fetchSeat(){
+function fetchSeat($c){
     $capacity = $_POST["cap"]; // Set the capacity here
     // $accomm_id = $_POST["accom_id"];
     // Connect to the database
@@ -138,7 +138,7 @@ function fetchSeat(){
         } else {
           // Check if the seat is reserved in the database
           $sql = "SELECT * FROM tickets WHERE accomodation_id = $seatNumber";
-          $result = $con->query($sql);
+          $result = $c->query($sql);
           if ($result->num_rows > 0) {
             // Seat is reserved, disable the checkbox
             echo '<li class="seat">';
