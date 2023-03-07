@@ -184,7 +184,7 @@ for ($i = 1; $i <= $rows; $i++) {
       echo '<li class="seat hidden"></li>';
     } else {
       echo '<li class="seat">';
-      echo '<input type="checkbox" id="' . $seatNumber . '"/>';
+      echo '<input class="disabled-checkbox" type="checkbox" id="' . $seatNumber . '"/>';
       echo '<label for="' . $seatNumber . '">' . $seatNumber . '</label>';
       echo '</li>';
     }
@@ -192,8 +192,6 @@ for ($i = 1; $i <= $rows; $i++) {
   echo '</ol>';
   echo '</li>';
 }
-
-
 ?>
 </ol>
 </div>

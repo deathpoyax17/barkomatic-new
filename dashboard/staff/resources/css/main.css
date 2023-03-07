@@ -2018,3 +2018,8 @@ footer {
     -webkit-animation-name: rubberBand;
     animation-name: rubberBand;
   }
+  .disabled-checkbox {
+    opacity: 0.5; /* Make the checkbox appear grayed out */
+    cursor: not-allowed; /* Change the cursor to indicate it is disabled */
+    pointer-events: none; /* Disable all pointer events */
+  }
