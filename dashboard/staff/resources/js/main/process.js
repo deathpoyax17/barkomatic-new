@@ -475,7 +475,7 @@ $(document).ready(function() {
     });
     //* delete accom
     $(document).on('click', '.modalId', function() {
-        $(".modalId").prop("disabled", true);
+        // $(".modalId").prop("disabled", true);
         var modal_fetch_id = $(this).attr("id");
       console.log(modal_fetch_id);
     });
