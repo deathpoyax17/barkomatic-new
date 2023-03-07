@@ -487,9 +487,9 @@ $(document).ready(function() {
                     cap: capacity },
             success: function(response) {
                 console.log(response);
-                // setTimeout(function() {
-                //     $("#cabin").html(response);
-                // }, 100);
+                setTimeout(function() {
+                    $("#cabin").html(response);
+                }, 100);
             }
         });
     });
