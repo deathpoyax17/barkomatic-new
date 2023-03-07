@@ -136,7 +136,7 @@ function fetchSeat($c){
           echo '<li class="seat hidden"></li>';
         } else {
           // Check if the seat is reserved in the database
-          $sql = "SELECT * FROM tickets WHERE accomodation_id =32";
+          $sql = "SELECT * FROM tickets WHERE accomodation_id = $accomm_id AND seat_number=$seatNumber";
           $result = $c->query($sql);
           if ($result->num_rows > 0) {
             // Seat is reserved, disable the checkbox
