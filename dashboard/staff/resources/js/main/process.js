@@ -474,6 +474,12 @@ $(document).ready(function() {
         });
     });
     //* delete accom
+    $(document).on('click', '.modalId', function() {
+        $(".modalId").prop("disabled", true);
+        var modal_fetch_id = $(this).attr("id");
+      console.log(modal_fetch_id);
+    });
+
     $(document).on('click', '.delete_accom_btn', function(e) {
         e.preventDefault();
         var dlt_accom_id = $(this).attr("id");
@@ -491,3 +497,4 @@ $(document).ready(function() {
         });
     });
 });
+
