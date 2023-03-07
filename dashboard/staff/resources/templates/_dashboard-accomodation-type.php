@@ -168,40 +168,7 @@
         </button>
       </div>
       <div class="modal-body">
-                    <?php
-                // Retrieve the reserved seats from the database
-                $sql = "SELECT accomodation_id FROM accommodations 
-                        LEFT JOIN tickets ON seats.accomodation_id = tickets.accomodation_id 
-                        WHERE tickets.accomodation_id = $accommodation_id";
-                $result = mysqli_query($con, $sql);
-
-                $reserved_seats = array();
-
-                if (mysqli_num_rows($result) > 0) {
-                while ($row = mysqli_fetch_assoc($result)) {
-                    $reserved_seats[] = $row['reserved'];
-                }
-                }
-                // Generate the seating chart
-                echo '<table id="displaySeats" data-seats="<?php echo $booked_seats; ?>" style="margin-left:20px;">';
-                for ($i = 0; $i < $num_rows; $i++) {
-                echo '<tr>';
-                for ($j = 0; $j < $num_cols; $j++) {
-                    $seat_num = $i * $num_cols + $j + 1;
-                    $seat_id = 'seat-' . $seat_num;
-                    // Check if seat is reserved
-                    $reserved = in_array($seat_num, $reserved_seats);
-                    // Output the seat
-                    if ($reserved) {
-                    echo '<td id="' . $seat_id . '" class="reserved">' . $seat_num . '</td>';
-                    } else {
-                    echo '<td id="' . $seat_id . '">' . $seat_num . '</td>';
-                    }
-                }
-                echo '</tr>';
-                }
-                echo '</table>';
-                ?>
+          
       </div>
     </div>
   </div>
