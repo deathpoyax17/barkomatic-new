@@ -169,25 +169,25 @@
       </div>
       <div class="modal-body">
       <table id="displaySeats" data-seats="<?php echo $booked_seats; ?>">
-      <?php
+     <?php
     $capacity = 38; // Set the total capacity here
+    $num_rows = ceil($capacity / 10); // Calculate the number of rows based on capacity
     $seat_num = 1; // Initialize the seat number
-    for ($i = 1; $i <= $capacity; $i++) {
-      if ($i % 12 == 1) {
-        echo '<tr>';
-      }
-      $seat_id = 'seat-' . $seat_num;
-      echo '<td id="' . $seat_id . '" data-name="' . $seat_num . '">' . $seat_num . '</td>';
-      $seat_num++;
-      if ($i % 12 == 0 || $i == $capacity) {
-        echo '</tr>';
+    for ($i = 0; $i < $num_rows; $i++) {
+      echo '<tr>';
+      for ($j = 0; $j < 10; $j++) {
+        $seat_id = 'seat-' . $seat_num;
+        if ($seat_num <= $capacity) {
+          echo '<td id="' . $seat_id . '" data-name="' . $seat_num . '">' . $seat_num . '</td>';
+        } else {
+            echo '</tr>'; // Add a space if the seat doesn't exist
+        }
+        $seat_num++;
       }
     }
-  
-?>
+  ?>
 
 </table>
-
       </div>
     </div>
   </div>
