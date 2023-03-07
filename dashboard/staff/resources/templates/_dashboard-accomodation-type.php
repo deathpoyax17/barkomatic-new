@@ -182,7 +182,7 @@ echo '<div class="exit exit--front"></div>';
 echo '<ol class="cabin">';
 
 for ($i = 1; $i <= $rows; $i++) {
-  echo '<li class="row row--' . $i . '">';
+  echo '<li class="row--' . $i . '">';
   echo '<ol class="seats" type="A">';
   for ($j = 1; $j <= 6; $j++) {
     $seatNumber = ($i - 1) * 6 + $j;
