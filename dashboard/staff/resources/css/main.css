@@ -1866,24 +1866,134 @@ footer {
     top: 0;
     transition: ease-in !important;
 }
-#displaySeats {
-    border-collapse: collapse;
-  }
-  
-  #displaySeats td {
-    width: 30px;
-    height: 30px;
+#seatsDiagram td,
+#displaySeats td{
+    padding: 1rem;
     text-align: center;
-    border: 1px solid #ccc;
-    font-size: 16px;
+    margin: 0.3rem;
+    width: 60px;
+    border: 3px solid transparent;
+    display: inline-block;
+    background-color: #efefef;
+    border-radius: 5px;
+}
+
+#displaySeats{
+    margin: 3rem auto 1rem auto;
+}
+
+
+#seatsDiagram{
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+#seatsDiagram  td.selected{
+    background-color: greenyellow;
+    -webkit-animation-name: rubberBand;
+    animation-name: rubberBand;
+    animation-duration: 300ms;
+    animation-fill-mode: both;
+}
+
+#seatsDiagram td.notAvailable,
+#displaySeats td.notAvailable
+{
+    color: white;
+    background-color: #db2619;
+}
+
+#seatsDiagram td:not(.space,.notAvailable):hover{
     cursor: pointer;
-  }
-  
-  #displaySeats td.space {
+    border-color:greenyellow;
+}
+
+#seatsDiagram .space,
+#displaySeats .space{
+    background-color: white;
     border: none;
-  }
-  
-  #displaySeats td.selected {
-    background-color: #ccc;
-    color: #fff;
-  }
+}
+
+#routeSugg{
+    display: flex;
+    justify-content: space-between;
+}
+
+@-webkit-keyframes rubberBand {
+    0% {
+        -webkit-transform: scale3d(1, 1, 1);
+                transform: scale3d(1, 1, 1);
+    }
+
+    30% {
+        -webkit-transform: scale3d(1.25, 0.75, 1);
+                transform: scale3d(1.25, 0.75, 1);
+    }
+
+    40% {
+        -webkit-transform: scale3d(0.75, 1.25, 1);
+                transform: scale3d(0.75, 1.25, 1);
+    }
+
+    50% {
+        -webkit-transform: scale3d(1.15, 0.85, 1);
+                transform: scale3d(1.15, 0.85, 1);
+    }
+
+    65% {
+        -webkit-transform: scale3d(.95, 1.05, 1);
+                transform: scale3d(.95, 1.05, 1);
+    }
+
+    75% {
+        -webkit-transform: scale3d(1.05, .95, 1);
+                transform: scale3d(1.05, .95, 1);
+    }
+
+    100% {
+        -webkit-transform: scale3d(1, 1, 1);
+                transform: scale3d(1, 1, 1);
+    }
+    }
+
+    @keyframes rubberBand {
+    0% {
+        -webkit-transform: scale3d(1, 1, 1);
+                transform: scale3d(1, 1, 1);
+    }
+
+    30% {
+        -webkit-transform: scale3d(1.25, 0.75, 1);
+                transform: scale3d(1.25, 0.75, 1);
+    }
+
+    40% {
+        -webkit-transform: scale3d(0.75, 1.25, 1);
+                transform: scale3d(0.75, 1.25, 1);
+    }
+
+    50% {
+        -webkit-transform: scale3d(1.15, 0.85, 1);
+                transform: scale3d(1.15, 0.85, 1);
+    }
+
+    65% {
+        -webkit-transform: scale3d(.95, 1.05, 1);
+                transform: scale3d(.95, 1.05, 1);
+    }
+
+    75% {
+        -webkit-transform: scale3d(1.05, .95, 1);
+                transform: scale3d(1.05, .95, 1);
+    }
+
+    100% {
+        -webkit-transform: scale3d(1, 1, 1);
+                transform: scale3d(1, 1, 1);
+    }
+    }
+
+    .rubberBand {
+    -webkit-animation-name: rubberBand;
+            animation-name: rubberBand;
+    }
