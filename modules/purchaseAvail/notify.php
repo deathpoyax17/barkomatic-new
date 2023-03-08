@@ -153,13 +153,13 @@ if (!empty($unique_txn_id)) {
                 $mail->SMTPAuth = false;
                 $mail->SMTPAutoTLS = false;
                 $mail->Host = "localhost";
-                $mail->Username = 'barkomatic@barkomatic.xyz';
-                $mail->Password = 'barkomatic@barkomatic';
+                $mail->Username = 'support@barkomatic.online';
+                $mail->Password = 'Deathpoyax@9876';
                 $mail->Port = 25;
-                $mail->setFrom('barkomatic@barkomatic.xyz', 'Reservation');
+                $mail->setFrom('support@barkomatic.online', 'Confirmation');
                 $mail->addAddress($_SESSION['email']);
                 $mail->isHTML(true);
-                $mail->Subject = 'Reservation Confirmation';
+                $mail->Subject = 'Confirmation';
                 $mail->Body = "
                 <!DOCTYPE html>
                 <head>
@@ -173,10 +173,10 @@ if (!empty($unique_txn_id)) {
                     <div class='container m-auto'>
                         <div class='row'>
                             <div class='col-sm-12'>
-                                <h4>$ship_name</h4><br>
-                                <p>Hello $pssngr_fname, Thank you for making your reservation in our shipping line. <br>Your <b>Payment</b> will be handled in the ticket office.</p>
-                                <p>Your ticket reservation is valid until: <b>$exp</b></p>
-                                <p>If you find it necessary to cancel or change plans, please inform us by email <span style='color:#007bff;font-weight:700;'>$ship_email<span></p>
+                                <h4></h4><br>
+                                <p>Hello Thank you for making your reservation in our shipping line. <br>Your <b>Payment</b> will be handled in the ticket office.</p>
+                                <p>Your ticket reservation is valid until: <b></b></p>
+                                <p>If you find it necessary to cancel or change plans, please inform us by email <span style='color:#007bff;font-weight:700;'><span></p>
                                 <br><br>
                                 <p>Again, thank you for choosing us. We look forward to having you as our guest.</p>
                                 <p>Best regards,<br><span>Reservation Office</span></p>
