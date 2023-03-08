@@ -12,12 +12,12 @@ try {
     $mail->SMTPDebug = SMTP::DEBUG_SERVER;
     $mail->SMTPDebug = 3;
     $mail->isSMTP();
-    $mail->SMTPAuth = false;
+    $mail->SMTPAuth = true;
     $mail->SMTPAutoTLS = false;
-    $mail->Host = "localhost";
+    $mail->Host = "smtp.hostinger.com";
     $mail->Username = 'support@barkomatic.online';
     $mail->Password = 'Deathpoyax@9876';
-    $mail->Port = 25;
+    $mail->Port = 587; // or 465
     $mail->setFrom('support@barkomatic.online', 'Confirmation');
     $mail->addAddress("manugasewinjames@gmail.com");
     $mail->isHTML(true);
@@ -51,9 +51,9 @@ try {
     echo "Your reservation is submitted, In a while you will recieve an email confirmation for your reservation.";
 }catch(Exception $e){
     echo "Could not sent the reservation confirmation. Mailer Error: {$mail->ErrorInfo}";
-    // echo 'Could not sent the reservation confirmation.{$mail->ErrorInfo}';
 }
 ?>
+
 <html>
 <head>
 <title>Payment Confirmed</title>
