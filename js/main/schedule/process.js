@@ -294,7 +294,7 @@ $(document).ready(function() {
             $("#btncontinue").show();
             $.ajax({
                 type: 'POST',
-                url: './modules/schedule/avail_process.php',
+                url: './modules/schedule/process.php',
                 data: {
                     'action': act,
                     'schedule_id': sched_id,

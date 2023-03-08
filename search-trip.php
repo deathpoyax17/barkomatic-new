@@ -186,7 +186,7 @@ require "resources/templates/_search-trip_header.php"; ?>
 <script src="js/jquery.validate.min.js"></script>
 <script src="js/wow.min.js"></script>
 <script src="js/main/active.js"></script>
-<script src="js/main/schedule/avail_process.js"></script>
+<script src="js/main/schedule/process.js"></script>
 <script>
     function selectOnChange(obj) {
         var price = $(obj).find(':selected').data('price');
