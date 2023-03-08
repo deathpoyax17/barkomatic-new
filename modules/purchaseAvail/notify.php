@@ -88,7 +88,7 @@ $tokens = explode("\r\n\r\n", trim($res));
 $res = trim(end($tokens));
 if (strcmp($res, "VERIFIED") == 0 || strcasecmp($res, "VERIFIED") == 0) { 	
 	// assign posted variables to local variables
-	if($_POST['item_number']=="Purchase"  || $_POST['item_number']=="Reserve"){
+	if($_POST['item_number']=="Purchase"  || $_POST['item_number']=="Reservation"){
 	$item_number = $_POST['item_number'];
 	$item_name = $_POST['item_name'];
 	$payment_status = $_POST['payment_status'];
