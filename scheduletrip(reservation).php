@@ -309,7 +309,7 @@ if (isset($_COOKIE['data'])) {
                     <!-- PayPal business email to collect payments -->
                     <input type='hidden' name='business' value='<?php echo PAYPAL_EMAIL; ?>'>
                     <!-- Details of item that customers will purchase -->
-                    <input type='hidden' name='item_number' value='Purchase'>
+                    <input type='hidden' name='item_number' value='Reservation'>
                     <input type='hidden' name='item_name' id="idPass" value=''>
                     <input type='hidden' name='amount' id="paypalAmt" value=''>
                     <input type='hidden' name='currency_code' value='<?php echo CURRENCY; ?>'>
