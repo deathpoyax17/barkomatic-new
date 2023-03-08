@@ -6,8 +6,6 @@ require "../library/PHPMailer/src/SMTP.php";
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
 try {
     $mail = new PHPMailer();
