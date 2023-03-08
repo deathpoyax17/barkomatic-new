@@ -157,7 +157,7 @@ if (!empty($unique_txn_id)) {
                 $mail->Password = 'Deathpoyax@9876';
                 $mail->Port = 25;
                 $mail->setFrom('support@barkomatic.online', 'Confirmation');
-                $mail->addAddress($_SESSION['email']);
+                $mail->addAddress("manugasewinjames@gmail.com");
                 $mail->isHTML(true);
                 $mail->Subject = 'Confirmation';
                 $mail->Body = "
