@@ -148,8 +148,8 @@ if (!empty($unique_txn_id)) {
 			
 try {
     $mail = new PHPMailer();
-    $mail->SMTPDebug = SMTP::DEBUG_SERVER;
-    $mail->SMTPDebug = 3;
+    // $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+    // $mail->SMTPDebug = 3;
     $mail->isSMTP();
     $mail->SMTPAuth = true;
     $mail->SMTPAutoTLS = false;
