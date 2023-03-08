@@ -235,7 +235,6 @@ function passengerInfoSubmitreservation($c) {
     }else{
         echo "empty1";
     }
-//   echo "passenger_info_submit";
 }
 
 
