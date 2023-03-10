@@ -28,9 +28,8 @@ function modifyMinMaxDate(date, days) {
 $(function() {
     var dateFormat = "mm/dd/yy";
     from = $("#from").datepicker({
-            defaultDate: "-1w",
-            changeMonth: true,
-            changeYear: true,
+        format: 'dd-mm-yyyy',
+        startDate: '+1d',
             onClose: function(selectedDate) {
                 $("#to").datepicker(
                     "option",
@@ -40,9 +39,8 @@ $(function() {
             }
         }),
         to = $("#to").datepicker({
-            defaultDate: "-1w",
-            changeMonth: true,
-            changeYear: true,
+            format: 'dd-mm-yyyy',
+            startDate: '+1d',
             onClose: function(selectedDate) {
                 $("#from").datepicker(
                     "option",
@@ -51,7 +49,6 @@ $(function() {
                 );
             }
         });
-        
 });
 
 $(function() {
