@@ -12233,7 +12233,7 @@ section {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #ffffff;
+  background: rgba(255, 165, 0, 0.73);
   border-radius: 5px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
   padding: 30px;
@@ -12434,7 +12434,7 @@ section {
 
 
 .component{
-    background-color: rgba(255, 165, 0, 0.73);
+  
     border-radius: 20px;
     box-shadow:
     0.6px 5.3px 6.6px rgba(0, 0, 0, 0.025),
