@@ -212,7 +212,6 @@ if (isset($_COOKIE['data'])) {
 <?php }   ?>
 <?php include_once("passengerinfo.php"); ?>
 <div id="success_tic" class="modal" title="Success">
-    <h2>Passenger info submitted successfully.</h2>
     <div class="container">
         <div class="component">
             <div class="component-info">
