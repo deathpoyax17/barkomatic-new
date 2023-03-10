@@ -12234,7 +12234,6 @@ section {
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #ffffff;
-  max-width: 600px;
   border-radius: 5px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
   padding: 30px;
