@@ -12434,7 +12434,7 @@ section {
 
 
 .component{
-    background-color: #fff;
+    /* background-color: #fff; */
     border-radius: 20px;
     box-shadow:
     0.6px 5.3px 6.6px rgba(0, 0, 0, 0.025),
@@ -12446,7 +12446,7 @@ section {
 }
 
 .component-info{
-    width: 80%;
+    width: 50%;
     margin: 30px auto;
 }
 
