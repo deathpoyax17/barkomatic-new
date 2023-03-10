@@ -215,9 +215,6 @@ if (isset($_COOKIE['data'])) {
     <h2>Passenger info submitted successfully.</h2>
     <div class="container">
         <div class="component">
-            <div class="hero-image">
-                <img src="img/barkomatic-payment.jpg" alt="barkomatic Boat">
-            </div>
             <div class="component-info">
                 <div class="order-summary">
                     <h2>Summary</h2>
