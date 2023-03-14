@@ -1,0 +1,257 @@
+[05-Apr-2022 04:15:33 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:533
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(10): create_ticket()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 533
+[05-Apr-2022 04:42:43 America/New_York] PHP Warning:  Undefined array key "tckt_promo" in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 236
+[05-Apr-2022 04:42:43 America/New_York] PHP Warning:  Undefined array key "tckt_dscnt" in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 237
+[05-Apr-2022 04:42:43 America/New_York] PHP Warning:  Undefined array key "tckt_promo" in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 236
+[05-Apr-2022 04:42:43 America/New_York] PHP Warning:  Undefined array key "tckt_dscnt" in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 237
+[05-Apr-2022 04:45:00 America/New_York] PHP Warning:  Undefined array key "vessel_name" in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 234
+[05-Apr-2022 04:45:00 America/New_York] PHP Warning:  Undefined array key "tckt_price" in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 237
+[05-Apr-2022 04:45:00 America/New_York] PHP Warning:  Undefined array key "vessel_name" in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 234
+[05-Apr-2022 04:45:00 America/New_York] PHP Warning:  Undefined array key "tckt_price" in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 237
+[18-Apr-2022 11:52:53 America/New_York] PHP Warning:  Undefined variable $accom_name in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 469
+[18-Apr-2022 11:53:43 America/New_York] PHP Warning:  Undefined variable $accom_name in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 469
+[18-Apr-2022 12:06:33 America/New_York] PHP Fatal error:  Uncaught Error: Cannot use object of type mysqli_result as array in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:469
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(20): add_accomodation_type()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 469
+[18-Apr-2022 12:23:50 America/New_York] PHP Warning:  Undefined variable $_SESSION in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 420
+[18-Apr-2022 12:23:50 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 420
+[18-Apr-2022 12:23:50 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:422
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(32): fetch_accomm_detail()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 422
+[18-Apr-2022 12:25:29 America/New_York] PHP Warning:  Undefined variable $_SESSION in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 420
+[18-Apr-2022 12:25:29 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 420
+[18-Apr-2022 12:25:29 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:422
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(32): fetch_accomm_detail()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 422
+[18-Apr-2022 12:26:04 America/New_York] PHP Warning:  Undefined variable $_SESSION in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 420
+[18-Apr-2022 12:26:04 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 420
+[18-Apr-2022 12:26:04 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:422
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(32): fetch_accomm_detail()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 422
+[18-Apr-2022 12:27:12 America/New_York] PHP Warning:  Undefined variable $_SESSION in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 420
+[18-Apr-2022 12:27:12 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 420
+[18-Apr-2022 12:31:27 America/New_York] PHP Warning:  Undefined variable $_SESSION in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 421
+[18-Apr-2022 12:31:27 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 421
+[25-Apr-2022 03:12:46 America/New_York] PHP Fatal error:  Uncaught ArgumentCountError: The number of variables must match the number of parameters in the prepared statement in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:470
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(470): mysqli_stmt->bind_param()
+#1 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(20): add_accomodation_type()
+#2 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 470
+[25-Apr-2022 03:20:13 America/New_York] PHP Fatal error:  Uncaught Error: Undefined constant "row" in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:475
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(20): add_accomodation_type()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 475
+[25-Apr-2022 03:47:56 America/New_York] PHP Warning:  Undefined variable $con in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 470
+[25-Apr-2022 03:47:56 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:470
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(20): add_accomodation_type()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 470
+[25-Apr-2022 04:06:58 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined method mysqli_stmt::fetch_ALL() in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:473
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(20): add_accomodation_type()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 473
+[25-Apr-2022 04:16:20 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 476
+[25-Apr-2022 04:16:54 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 476
+[25-Apr-2022 04:18:34 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 475
+[25-Apr-2022 04:21:21 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 475
+[25-Apr-2022 04:21:36 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 475
+[25-Apr-2022 04:22:37 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 476
+[30-Apr-2022 00:55:55 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:648
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(101): edit_accom_form()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 648
+[30-Apr-2022 00:57:57 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:648
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(101): edit_accom_form()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 648
+[04-May-2022 05:29:26 America/New_York] PHP Warning:  Undefined variable $_SESSION in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 318
+[04-May-2022 05:29:26 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 318
+[04-May-2022 05:30:13 America/New_York] PHP Warning:  Undefined array key "id" in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 352
+[04-May-2022 05:30:13 America/New_York] PHP Warning:  Undefined array key "id" in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 355
+[13-May-2022 03:23:36 America/New_York] PHP Warning:  Undefined variable $c in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 684
+[13-May-2022 03:23:36 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:684
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(106): accom_edit_id_form()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 684
+[13-May-2022 03:24:30 America/New_York] PHP Warning:  Undefined variable $c in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 685
+[13-May-2022 03:24:30 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:685
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(106): accom_edit_id_form()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 685
+[13-May-2022 03:25:43 America/New_York] PHP Warning:  Undefined variable $c in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 685
+[13-May-2022 03:25:43 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:685
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(106): accom_edit_id_form()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 685
+[13-May-2022 03:26:37 America/New_York] PHP Warning:  Undefined variable $c in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 684
+[13-May-2022 03:26:37 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:684
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(106): accom_edit_id_form()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 684
+[13-May-2022 03:29:04 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on string in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:685
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(106): accom_edit_id_form()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 685
+[13-May-2022 03:30:01 America/New_York] PHP Warning:  Undefined variable $c in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 685
+[13-May-2022 03:30:01 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:685
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(106): accom_edit_id_form()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 685
+[13-May-2022 03:30:43 America/New_York] PHP Warning:  Undefined variable $q1 in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 688
+[13-May-2022 03:30:43 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function get_result() on null in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:688
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(106): accom_edit_id_form()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 688
+[14-May-2022 01:57:39 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:224
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(114): fetch_ticket_details()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 224
+[14-May-2022 01:59:48 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:225
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(114): fetch_ticket_details()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 225
+[14-May-2022 04:04:36 America/New_York] PHP Warning:  Undefined array key "event-start-date" in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 429
+[14-May-2022 05:18:16 America/New_York] PHP Fatal error:  Uncaught ArgumentCountError: The number of variables must match the number of parameters in the prepared statement in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:312
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(312): mysqli_stmt->bind_param()
+#1 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(6): add_port_location()
+#2 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 312
+[14-May-2022 05:19:27 America/New_York] PHP Fatal error:  Uncaught ArgumentCountError: The number of variables must match the number of parameters in the prepared statement in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:312
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(312): mysqli_stmt->bind_param()
+#1 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(6): add_port_location()
+#2 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 312
+[14-May-2022 05:26:28 America/New_York] PHP Warning:  Undefined array key "event-start-date" in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 447
+[14-May-2022 23:29:44 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:709
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(107): edit_accom_form()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 709
+[14-May-2022 23:29:48 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:709
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(107): edit_accom_form()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 709
+[14-May-2022 23:30:19 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:709
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(107): edit_accom_form()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 709
+[17-May-2022 04:02:06 America/New_York] PHP Warning:  Undefined variable $c in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 670
+[17-May-2022 04:02:06 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:670
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(10): create_ticket()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 670
+[17-May-2022 04:02:55 America/New_York] PHP Fatal error:  Uncaught TypeError: Unsupported operand types: string + string in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:677
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(10): create_ticket()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 677
+[17-May-2022 04:14:43 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:718
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(107): edit_accom_form()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 718
+[17-May-2022 04:15:38 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:718
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(107): edit_accom_form()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 718
+[17-May-2022 04:15:45 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:718
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(107): edit_accom_form()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 718
+[17-May-2022 04:19:55 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:718
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(107): edit_accom_form()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 718
+[17-May-2022 04:32:47 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:718
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(107): edit_accom_form()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 718
+[17-May-2022 04:36:21 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:718
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(107): edit_accom_form()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 718
+[17-May-2022 04:36:45 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:719
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(107): edit_accom_form()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 719
+[17-May-2022 04:37:49 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:719
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(107): edit_accom_form()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 719
+[23-May-2022 20:45:17 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:590
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(78): delete_location()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 590
+[23-May-2022 20:45:54 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:590
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(78): delete_location()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 590
+[23-May-2022 21:53:38 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:469
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(15): add_schedule()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 469
+[23-May-2022 21:54:32 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:469
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(15): add_schedule()
+#1 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 469
+[23-May-2022 21:55:29 America/New_York] PHP Fatal error:  Uncaught ArgumentCountError: The number of variables must match the number of parameters in the prepared statement in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:469
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(469): mysqli_stmt->bind_param()
+#1 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(15): add_schedule()
+#2 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 469
+[31-May-2022 23:37:08 America/New_York] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:491
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(491): mysqli_stmt->bind_param()
+#1 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(15): add_schedule()
+#2 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 491
+[31-May-2022 23:52:46 America/New_York] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in /home/barkicek/public_html/dashboard/staff/modules/main/process.php:491
+Stack trace:
+#0 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(491): mysqli_stmt->bind_param()
+#1 /home/barkicek/public_html/dashboard/staff/modules/main/process.php(15): add_schedule()
+#2 {main}
+  thrown in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 491
+[09-Jun-2022 04:25:26 America/New_York] PHP Warning:  Undefined array key "sched_port_from" in /home/barkicek/public_html/dashboard/staff/modules/main/process.php on line 451
