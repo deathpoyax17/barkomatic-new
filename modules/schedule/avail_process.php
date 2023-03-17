@@ -9,6 +9,7 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 if(isset($_POST['action']) && $_POST['action'] == 'search_sched_form') {
+    session_start();
     search_available_schedule($con);
 }
 if(isset($_POST['action']) && $_POST['action'] == 'smmry_cn') {
@@ -25,7 +26,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'srch_sched_ftr_form') {
     if(isset($_SESSION['first_name']) && $_SESSION['first_name'] != "") {
         go_schedule($con);
     } else {
-        echo '<p class="text-center text-danger">Sorry, you need to <a href="http://barkomatic.xyz/signup.php">create an account</a first and sign in as passenger.</p>';
+        echo '<p class="text-center text-danger">Sorry, you need to <a href="http://barkomatic.online/signup.php">create an account</a first and sign in as passenger.</p>';
     } 
 }
 
@@ -40,6 +41,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'r_sched_sel') {
     r_sched_sel($con);
 }
 if (isset($_POST['action']) && $_POST['action'] == 'formdataAction') {
+    session_start();
     passengerInfoSubmitreservation($con);
 }
 if(isset($_POST['action']) && $_POST['action'] == 'sched_des') {
@@ -65,12 +67,19 @@ if(isset($_POST['action']) && $_POST['action'] == 'sched_des') {
 function passengerInfoSubmitreservation($c) {
     // Get the form data
     $formData = $_POST['formData'];
-    $cpvalidationDefault01 =$_POST['cpvalidationDefault01'];
-    $phone =$_POST['phone'];
+     if(isset($_SESSION["passenger_id"])){
+    $cpvalidationDefault01 = $_SESSION["username"];
+    $phone =$_SESSION["contact_info"];
     $numPassengers1 =$_POST['numPassengers1'];
-    $validationDefault01 =$_POST['validationDefault01'];
-    $validationDefault03 =$_POST['validationDefault03'];
-
+    $validationDefault01 =$_SESSION['email'];
+    $validationDefault03 =$_SESSION['address'];
+     }else{
+    $cpvalidationDefault01 = $_POST['cpvalidationDefault01'];
+    $phone = $_POST['phone'];
+    $numPassengers1 = 1;
+    $validationDefault01 = $_POST['validationDefault01'];
+    $validationDefault03 = $_POST['validationDefault03'];
+     }
 
     $sql = "SELECT MAX(Temp_id) as max_id FROM passenger_reservation_details";
     $result = mysqli_query($c, $sql);
@@ -78,12 +87,18 @@ function passengerInfoSubmitreservation($c) {
     $max_id = $row['max_id'];
 
     // If no existing rows, start at 1
+    if(isset($_SESSION["passenger_id"])){
+        $next_id = $_SESSION["passenger_id"];
+    }else{
     if (is_null($max_id)) {
         $next_id = '01';
     } else {
         // Increment the highest existing ID value by 1
         $next_id = sprintf("%02d", intval($max_id) + 1);
     }
+    }
+    
+     $insertedIds = array();
     // Process the form data
     for ($i = 0; $i < $numPassengers1; $i++) {
         $fieldName = $formData['inputFirstName'.$i];
@@ -139,13 +154,22 @@ function passengerInfoSubmitreservation($c) {
             echo json_encode($response);
             return;
         }else{
+            
             $last_id = mysqli_insert_id($c);
+            $insertedIds[] = $last_id;
+            
             // for ticket
             $sumPrice = $_POST['sumPrice'];
             $schedSelected = $_POST['schedSelecteds'];
             $acomSelected = $_POST['acomSelected'];
             $purchasetk = "Purchase";
             $rsrvtn_num = rand(1000000, 9999999);
+            
+            // accommodation
+            $sql1 = "SELECT * FROM accommodations WHERE accomodation_id=$acomSelected";
+            $result1 = mysqli_query($c, $sql1);
+            $row1 = mysqli_fetch_assoc($result1);
+            $random_number = rand(1, intval($row1["seating_capacity"]));
             // end 
             $sql_rsrtntbl = "INSERT INTO tickets (
             pr_id,
@@ -155,11 +179,12 @@ function passengerInfoSubmitreservation($c) {
             email_add,
             accomodation_id,
             price,
-            availability
-          ) VALUES (?,?,?, ?, ?, ?, ?,?)";
+            availability,
+            seat_number
+          ) VALUES (?,?,?,?, ?, ?, ?, ?,?)";
             $stmts = $c->prepare($sql_rsrtntbl);
             $stmts->bind_param(
-                'ssssssss',
+                'sssssssss',
                 $last_id,
                 $next_id,
                 $rsrvtn_num,
@@ -167,7 +192,8 @@ function passengerInfoSubmitreservation($c) {
                 $validationDefault01,
                 $acomSelected,
                 $sumPrice,
-                $purchasetk
+                $purchasetk,
+                $random_number
             );
             if (!$stmts->execute()) {
                 // If there is an error, handle it appropriately (e.g. log the error, return an error message to the user, etc.)
@@ -187,6 +213,7 @@ function passengerInfoSubmitreservation($c) {
     $totalAllPrice = $sumPrice*$numPassengers1;
     $port = $c->query("SELECT route_id, concat(`departure_from`,'[',`departure_port`,']') as `route` FROM routes");
     $slc_tkt = "SELECT
+                tkt.ticket_id,
                 tkt.pass_id,
                 tkt.schedule_id, 
                 tkt.tckt_code,
@@ -215,6 +242,7 @@ function passengerInfoSubmitreservation($c) {
     $row_tkt = $result_tkt->fetch_array();
     if(!empty($row_tkt)) {
         $data = array(
+            "ticket_id" => $row_tkt["ticket_id"],
             "dep_date" => $row_tkt["departure_date"],
             "ar_time" => date("h:i A", strtotime($row_tkt["arrival_time"])),
             "name" => $row_tkt["name"],
@@ -236,6 +264,7 @@ function passengerInfoSubmitreservation($c) {
         echo "empty1";
     }
 //   echo "passenger_info_submit";
+
 }
 
 
@@ -815,16 +844,15 @@ function r_selectDate($c){
 
 //* search available schedule
 function search_available_schedule($c) {
-    session_start();
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
     if(isset($_POST['srch_ship_sched'])){
         $srch_ss = $_POST['srch_ship_sched'];
         $sslf = $_POST['srch_sched_loc_from'];
         $sslt = $_POST['srch_sched_loc_to'];
-        $pE = $_POST['paxCount'];
+        $pE = 1;
         $ssld = date('Y-m-d', strtotime($_POST['srch_sched_loc_depart']));
-        $rdate = date('Y-m-d', strtotime($_POST['returnDate']));
+        // $rdate = date('Y-m-d', strtotime($_POST['returnDate']));
         $port = $c->query("SELECT route_id, `departure_from` as `route` FROM routes");
         $routes = array();
         while($port_row = $port->fetch_assoc()) {
@@ -852,7 +880,7 @@ function search_available_schedule($c) {
             $data = array(
                 "schedule_id" => $row["schedule_id"],
                 "departure_date" => $row["departure_date"],
-                "return_date" => $rdate,
+                // "return_date" => $rdate,
                 "ship_name" => $row["ship_name"],
                 "ferry_id" => $row["ferry_id"],
                 "name" => $row["name"],
@@ -870,8 +898,8 @@ function search_available_schedule($c) {
         $sslf = $_POST['srch_sched_loc_from'];
         $sslt = $_POST['srch_sched_loc_to'];
         $ssld = date('Y-m-d', strtotime($_POST['srch_sched_loc_depart']));
-        $rdate = date('Y-m-d', strtotime($_POST['returnDate']));
-        $pE = $_POST['paxCount'];
+        // $rdate = date('Y-m-d', strtotime($_POST['returnDate']));
+        $pE = 1;
         $port = $c->query("SELECT route_id, `departure_from` as `route` FROM routes");
         $routes = array();
         while($port_row = $port->fetch_assoc()) {
@@ -900,7 +928,7 @@ function search_available_schedule($c) {
                 "name" => $row["name"],
                 "schedule_id" => $row["schedule_id"],
                 "departure_date" => $row["departure_date"],
-                "return_date" => $rdate,
+                // "return_date" => $rdate,
                 "paxCount" =>  $pE,
                 "route_id_from" => $routes[$row["route_id_from"]],
                 "route_id_to" => $routes[$row["route_id_to"]]

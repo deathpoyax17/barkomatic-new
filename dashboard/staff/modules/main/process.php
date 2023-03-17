@@ -161,10 +161,25 @@ function fetchSeat($c){
 //* reservation details
 function reservation_data($c) {
     $availability = "reservation";
-    $stmt = $c->prepare("SELECT * FROM tickets t JOIN schedules s ON t.schedule_id = s.schedule_id WHERE t.availability=? AND s.owner_id=?");
-    $stmt->bind_param('ss', $availability,$_SESSION['owner_id']);
+     $port = $c->query("SELECT route_id, concat(`departure_from`,'[',`departure_port`,']') as `route` FROM routes");
+    $stmt = $c->prepare("SELECT  t.tckt_code,
+                                 prd.contact_person,
+                                 s.route_id_from,
+                                 s.route_id_to,
+                                 s.departure_date,
+                                 s.arrival_time,
+                                 accom.acomm_name,
+                                 t.availability
+                                 FROM tickets t 
+                                 JOIN schedules s ON t.schedule_id = s.schedule_id
+                                 JOIN passenger_reservation_details prd ON t.pr_id = prd.id
+                                 JOIN accommodations accom ON t.accomodation_id = accom.accomodation_id
+                                 WHERE s.owner_id=?");
+                         
+    $stmt->bind_param('s',$_SESSION['owner_id']);
     $stmt->execute();
     $result = $stmt->get_result();
+    $routes = array_column($port->fetch_all(MYSQLI_ASSOC),'route','route_id');
     $output = '
         <table class="table table-bordered table-sm mb-0">
             <thead>
@@ -174,8 +189,6 @@ function reservation_data($c) {
                     <th>Route</th>
                     <th>Date/Time</th>
                     <th>Accomodation</th>
-                    <th>Reservation Date</th>
-                    <th>Expiration</th>
                     <th>Status</th>
                     <th></th>
                 </tr>
@@ -184,14 +197,12 @@ function reservation_data($c) {
     while ($row = $result->fetch_assoc()) {
         $output .= '
             <tr>
-                <td>'.$row["reservation_number"].'</td>
-                <td>'.$row["passenger_name"].'</td>
-                <td>'.$row["location_from"].' to '.$row["location_to"].'</td>
-                <td>'.$row["depart_date"].' '.$row["depart_time"].'</td>
-                <td>'.$row["accomodation"].'</td>
-                <td>'.$row["reservation_date"].'</td>
-                <td>'.$row["expiration"].'</td>
-                <td>'.$row["status"].'</td>
+                <td>'.$row["tckt_code"].'</td>
+                <td>'.$row["contact_person"].'</td>
+                <td>'.$routes[$row["route_id_from"]].' <b>=></b> '.$routes[$row["route_id_to"]].'</td>
+                <td>'.$row["departure_date"].' '.$row["arrival_time"].'</td>
+                <td>'.$row["acomm_name"].'</td>
+                <td>'.$row["availability"].'</td>
                 <td class="text-center">
                     <button type="button" name="delete" id="'.$row["id"].'" class="button small red delete_reservation_btn">
                         <span class="icon"><i class="mdi mdi-trash-can"></i></span>
@@ -480,8 +491,8 @@ function add_schedule($c) {
             echo "Vessel is on sheduled";
         }
         else{
-    $stmt = $c->prepare("INSERT INTO schedules (route_id_from,route_id_to,ferry_id,accommodation_id,owner_id,departure_date,arrival_time) VALUES (?,?,?,?,?,?,?)");
-    $stmt->bind_param('sssssss', $slf,$slt,$vessel,$av,$ship_belong,$d,$t);
+    $stmt = $c->prepare("INSERT INTO schedules (route_id_from,route_id_to,ferry_id,owner_id,departure_date,arrival_time) VALUES (?,?,?,?,?,?)");
+    $stmt->bind_param('ssssss', $slf,$slt,$vessel,$ship_belong,$d,$t);
     if($stmt->execute()){
     echo 'Schedule added successfully!';
         }
@@ -538,43 +549,55 @@ function fetch_accomm_detail($c) {
 
 //* add ship accommodation type
 function add_accomodation_type($c) {
-    $accomm_names = $_POST['accomodation_name'];
-  $vessel = check_input($_POST['vessel']);
-  $accomm_name = check_input($_POST['accomodation_name']);
-  $aircon = check_input($_POST['accomm_aircon']);
-  $seat_typ = check_input($_POST['accomm_seat_typ']);
-  $avail = 1;
-  $price = check_input($_POST['accomm_typ_price']);
-  $seat_cap =check_input($_POST['accomm_cot_num']);
-  $ship_belong = $_SESSION['owner_id'];
-  
-$q1 = $c->prepare("SELECT acomm_name FROM accommodations WHERE acomm_name=?");
-      $q1->bind_param('s', $accomm_names);
-      $q1->execute();
-      $result = $q1->get_result();
-      $row = $result->fetch_array(MYSQLI_ASSOC);
-      
-      if(isset($row['accomodation_name']) == $accomm_names){
-          echo "Accomodation Name Already Exist!";
-      }
-else{
-    try{
-        $stmt = $c->prepare("INSERT INTO accommodations (ferry_id,acomm_name,room_type,aircon,price,availability,seating_capacity) VALUES (?,?,?,?,?,?,?)");
-        $stmt->bind_param('sssssss', $vessel,$accomm_name,$seat_typ,$aircon,$price,$avail,$seat_cap);
-        if($stmt->execute()){
-            echo "Added Succesfully";
-            $q1->close();
-          } 
-    }catch (mysqli_sql_exception $e) {
-        if ($e->getCode() == 1062) {
-            echo "Duplicate Ferry";
-        } else {
-            throw $e;// in case it's any other error
-        }
+    $accomm_names = check_input($_POST['accomodation_name']);
+    $vessel = check_input($_POST['vessel']);
+    $aircon = check_input($_POST['accomm_aircon']);
+    $seat_typ = check_input($_POST['accomm_seat_typ']);
+    $price = check_input($_POST['accomm_typ_price']);
+    $seat_cap = check_input($_POST['accomm_cot_num']);
+    $ship_belong = $_SESSION['owner_id'];
+    $avail = 1;
+    
+    // Get ferry capacity
+    $q4 = $c->prepare("SELECT capacity FROM ferries WHERE ferry_id=?");
+    $q4->bind_param('s', $vessel);
+    $q4->execute();
+    $result4 = $q4->get_result();
+    $row4 = $result4->fetch_array(MYSQLI_ASSOC);
+    $ferry_capacity = $row4['capacity'];
 
-}
-$stmt->close();
-}
+    // Check if ferry is already at max capacity
+    $q3 = $c->prepare("SELECT SUM(seating_capacity) AS total_seating_capacity FROM accommodations WHERE ferry_id=?");
+    $q3->bind_param('s', $vessel);
+    $q3->execute();
+    $result3 = $q3->get_result();
+    $row3 = $result3->fetch_array(MYSQLI_ASSOC);
+    $total_seating_capacity = $row3['total_seating_capacity'];
+    if(($total_seating_capacity + $seat_cap) > $ferry_capacity) {
+        echo "Already at max capacity";
+    } else {
+        // Check if accommodation name already exists
+        $q1 = $c->prepare("SELECT acomm_name FROM accommodations WHERE acomm_name=?");
+        $q1->bind_param('s', $accomm_names);
+        $q1->execute();
+        $result1 = $q1->get_result();
+        $row1 = $result1->fetch_array(MYSQLI_ASSOC);
+        
+        if(isset($row1['accomm_name']) && $row1['accomm_name'] == $accomm_names){
+            echo "Accommodation Name Already Exists!";
+        } else {
+            // Insert new accommodation type
+            $stmt = $c->prepare("INSERT INTO accommodations (ferry_id, acomm_name, room_type, aircon, price, availability, seating_capacity) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param('sssssss', $vessel, $accomm_names, $seat_typ, $aircon, $price, $avail, $seat_cap);
+            if($stmt->execute()){
+                echo "Added Successfully";
+                $q1->close();
+            } else {
+                echo "Error adding accommodation type";
+            }
+            $stmt->close();
+        }
+    }
 }
 
 

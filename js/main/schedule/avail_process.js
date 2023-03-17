@@ -1,4 +1,13 @@
 $(document).ready(function() {
+$("#exchange").click(function() {
+  // Swap the values of the two input fields
+  const temp = $("#depFrom").val();
+  $("#depFrom").val($("#depto").val());
+  $("#depto").val(temp);
+});
+});
+
+$(document).ready(function() {
     $('#passengerinfoSubmit').validate();
     $('#passengerInfBtn').click(function() {
         // Get the number of passengers
@@ -75,6 +84,7 @@ $(document).ready(function() {
                 $("#emailpass").val(data.emailpass);
                 $("#ticketCode").val(data.ticketCode);
                 $("#idPass").val(data.idPass);
+                $("#idTicket").val(data.ticket_id);
 
                 setTimeout(function() {
                     $('#success_tic').show();

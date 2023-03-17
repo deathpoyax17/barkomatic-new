@@ -1,8 +1,0 @@
-[01-Apr-2022 23:32:43 America/New_York] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/barkicek/public_html/paypal/subForm.php on line 37
-[01-Apr-2022 23:33:07 America/New_York] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/barkicek/public_html/paypal/subForm.php on line 37
-[02-Apr-2022 00:59:12 America/New_York] PHP Warning:  Undefined array key "ship_id" in /home/barkicek/public_html/paypal/config.php on line 8
-[02-Apr-2022 01:00:54 America/New_York] PHP Warning:  Undefined array key "ship_id" in /home/barkicek/public_html/paypal/config.php on line 8
-[02-Apr-2022 01:01:42 America/New_York] PHP Warning:  Undefined array key "ship_id" in /home/barkicek/public_html/paypal/config.php on line 8
-[02-Apr-2022 01:02:44 America/New_York] PHP Warning:  Undefined array key "ship_id" in /home/barkicek/public_html/paypal/config.php on line 8
-[02-Apr-2022 04:46:49 America/New_York] PHP Warning:  Undefined array key "ship_id" in /home/barkicek/public_html/paypal/config.php on line 8
-[02-Apr-2022 04:46:50 America/New_York] PHP Warning:  Undefined array key "ship_id" in /home/barkicek/public_html/paypal/config.php on line 8

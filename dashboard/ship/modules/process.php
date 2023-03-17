@@ -197,14 +197,25 @@ function mail_reservation_status($c) {
 
 //* reservation details
 function reservation_data($c) {
-    $stmt = $c->prepare("SELECT * 
-                         FROM reservations r 
-                         JOIN tickets t ON r.ticket_id= t.ticket_id
-                         JOIN tbl_ship_onwer_account tbl_soa ON t.alt_owner_id=tbl_soa.alt_owner_id
-                         WHERE tbl_soa.alt_owner_id=?");
-    $stmt->bind_param('s', $_SESSION['alt_owner_id']);
+  $port = $c->query("SELECT route_id, concat(`departure_from`,'[',`departure_port`,']') as `route` FROM routes");
+    $stmt = $c->prepare("SELECT  t.tckt_code,
+                                 prd.contact_person,
+                                 s.route_id_from,
+                                 s.route_id_to,
+                                 s.departure_date,
+                                 s.arrival_time,
+                                 accom.acomm_name,
+                                 t.availability
+                                 FROM tickets t 
+                                 JOIN schedules s ON t.schedule_id = s.schedule_id
+                                 JOIN passenger_reservation_details prd ON t.pr_id = prd.id
+                                 JOIN accommodations accom ON t.accomodation_id = accom.accomodation_id
+                                 WHERE s.owner_id=?");
+                         
+    $stmt->bind_param('s',$_SESSION['alt_owner_id']);
     $stmt->execute();
     $result = $stmt->get_result();
+    $routes = array_column($port->fetch_all(MYSQLI_ASSOC),'route','route_id');
     $output = '
         <table class="table table-bordered table-sm mb-0">
             <thead>
@@ -213,24 +224,26 @@ function reservation_data($c) {
                     <th>Passenger Name</th>
                     <th>Route</th>
                     <th>Date/Time</th>
-                    <th>Accomodatin</th>
-                    <th>Reservation Date</th>
-                    <th>Expiration</th>
+                    <th>Accomodation</th>
                     <th>Status</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody id="port-location-data-content">';
     while ($row = $result->fetch_assoc()) {
         $output .= '
             <tr>
-                <td>'.$row["reservation_number"].'</td>
-                <td>'.$row["passenger_name"].'</td>
-                <td>'.$row["location_from"].' to '.$row["location_to"].'</td>
-                <td>'.$row["depart_date"].' '.$row["depart_time"].'</td>
-                <td>'.$row["accomodation"].'</td>
-                <td>'.$row["reservation_date"].'</td>
-                <td>'.$row["expiration"].'</td>
-                <td>'.$row["status"].'</td>
+                <td>'.$row["tckt_code"].'</td>
+                <td>'.$row["contact_person"].'</td>
+                <td>'.$routes[$row["route_id_from"]].' <b>=></b> '.$routes[$row["route_id_to"]].'</td>
+                <td>'.$row["departure_date"].' '.$row["arrival_time"].'</td>
+                <td>'.$row["acomm_name"].'</td>
+                <td>'.$row["availability"].'</td>
+                <td class="text-center">
+                    <button type="button" name="delete" id="'.$row["id"].'" class="button small red delete_reservation_btn">
+                        <span class="icon"><i class="mdi mdi-trash-can"></i></span>
+                    </button>
+                </td>
             </tr>';
     }
     $output .= '</tbody>';
@@ -561,6 +574,7 @@ function active_reservation($c) {
 }
 
 //* create account - assign role
+//* create account - assign role
 function create_account_assign_role($con) {
 $ship_comp = check_input($_POST['ship_comp']);
     $m_name = check_input($_POST['m_name']);
@@ -595,68 +609,62 @@ $ship_comp = check_input($_POST['ship_comp']);
         $stmt_insrt_sa = $con->prepare("INSERT INTO tbl_staff_account (username,password) VALUES (?,?)");
         $stmt_insrt_sa->bind_param('ss', $uname,$pass);
         $stmt_insrt_sa->execute();
-        $stmt_insrt_sa->close();
 
-        $owner_id = mysqli_insert_id($con);
+        
+        $staff_id = $stmt_insrt_sa->insert_id;
         $own_id=$_SESSION['alt_owner_id'];
         $stmt_insrt_sd = $con->prepare("INSERT INTO staff(alt_staff_id,name,mid_name,last_name,age,gender,address,email,contact_info,owner_id) VALUES (?,?,?,?,?,?,?,?,?,?)");
-        $stmt_insrt_sd->bind_param('ssssssssss',$owner_id,$name,$m_name,$l_name,$age,$gender,$add,$email,$c_num,$own_id);
+        $stmt_insrt_sd->bind_param('ssssssssss',$staff_id,$name,$m_name,$l_name,$age,$gender,$add,$email,$c_num,$own_id);
         $stmt_insrt_sd->execute();
         $stmt_insrt_sd->close();
-        echo 'Successfully created an account.';
-
-        // $stmt_insrt_rp = $con->prepare("INSERT INTO tbl_staff_reset_password (token_expire) VALUES (?)");
-        // $stmt_insrt_rp->bind_param('s', $timestamp);
-        // $stmt_insrt_rp->execute();
-        // $stmt_insrt_rp->close();
         
-        //  try {
-        //          $mail = new PHPMailer();
-                // $mail->SMTPDebug = SMTP::DEBUG_SERVER;
-                // $mail->SMTPDebug = 3;
-        //         $mail->isSMTP();
-        //         $mail->SMTPAuth = false;
-        //         $mail->SMTPAutoTLS = false;
-        //         $mail->Host = "localhost";
-        //         $mail->Username = 'barkomatic@barkomatic.xyz';
-        //         $mail->Password = 'barkomatic@barkomatic';
-        //         $mail->Port = 25;
-        //         $mail->setFrom('barkomatic@barkomatic.xyz', 'New Hired Staff');
-        //         $mail->addAddress($email);
-        //         $mail->isHTML(true);
-        //         $mail->Subject = 'Staff Information';
-       	//         $mail->Body = "
-        // <!DOCTYPE html>
-        // <head>
-        // <style>
-        //     body {
-        //         font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-        //         }
-        // </style>
-        // </head>
-        // <body>
-        //     <div class='container m-auto'>
-        //         <div class='row'>
-        //             <div class='col-sm-12'>
-        //              Hello $name,
+         try {
+                            	$mail = new PHPMailer();
+								// $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+								// $mail->SMTPDebug = 3;
+								$mail->isSMTP();
+								$mail->SMTPAuth = true;
+								$mail->SMTPAutoTLS = false;
+								$mail->Host = "smtp.hostinger.com";
+								$mail->Username = 'support@barkomatic.online';
+								$mail->Password = 'Deathpoyax@9876';
+								$mail->Port = 587; // or 465
+								$mail->setFrom('support@barkomatic.online', 'Confirmation');
+								$mail->addAddress($email);
+								$mail->isHTML(true);
+                $mail->Subject = 'Staff Information';
+       	        $mail->Body = "
+        <!DOCTYPE html>
+        <head>
+        <style>
+            body {
+                font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+                }
+        </style>
+        </head>
+        <body>
+            <div class='container m-auto'>
+                <div class='row'>
+                    <div class='col-sm-12'>
+                     Hello $name,
                      
-        //              Congratulations you've been hired as Staff in Shipping $ship_comp, Please save the following credentials.
-        //              <br>
-        //              login information:<br>
-        //              <b>Username</b> : $uname <br>
-        //              <b>Password</b> : $pass1 <br>
-        //             </div>
-        //         </div>
-        //     </div>
-        // </body>
-        // </html>";
-        // $mail->send();
-        // echo 'Successfully created an account.';
-        // }
-        // catch(Exception $e){
-        // echo "Could not sent the reservation confirmation. Mailer Error: {$mail->ErrorInfo}";
-        // echo 'Could not sent the reservation confirmation.{$mail->ErrorInfo}';
-    // } 
+                     Congratulations you've been hired as Staff in Shipping $ship_comp, Please save the following credentials.
+                     <br>
+                     login information:<br>
+                     <b>Username</b> : $uname <br>
+                     <b>Password</b> : $pass1 <br>
+                    </div>
+                </div>
+            </div>
+        </body>
+        </html>";
+        $mail->send();
+        echo 'Successfully created an account.';
+        }
+        catch(Exception $e){
+        echo "Could not sent the reservation confirmation. Mailer Error: {$mail->ErrorInfo}";
+        echo 'Could not sent the reservation confirmation.{$mail->ErrorInfo}';
+    } 
     }
 }
 // fetch ticket

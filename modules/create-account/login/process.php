@@ -286,29 +286,32 @@ function passengerSession($c, $u) {
             tbl_pa.email,
             tbl_pa.dob,
             tbl_pd.username
-            FROM tbl_passenger tbl_pd
-            INNER JOIN passengers tbl_pa ON tbl_pd.alt_passenger_id = tbl_pa.alt_passenger_id
+            FROM passengers tbl_pa
+            INNER JOIN tbl_passenger tbl_pd ON tbl_pa.alt_passenger_id = tbl_pd.alt_passenger_id
             WHERE tbl_pd.username = ?";
             
     if($stmt = mysqli_prepare($c, $sql)) {
-        mysqli_stmt_bind_param($stmt, 's', $bind_param_uname);
         $bind_param_uname = $u;
+        mysqli_stmt_bind_param($stmt, 's', $bind_param_uname);
+        
         if(mysqli_stmt_execute($stmt)) {
             mysqli_stmt_store_result($stmt);
+            
             if(mysqli_stmt_num_rows($stmt) == 1) {
-                mysqli_stmt_bind_result($stmt, $id,$first_name,$lastname,$gender,$dob,$email,$username,$ci,$address);
+                mysqli_stmt_bind_result($stmt, $id, $first_name, $lastname, $gender, $address, $ci, $email, $dob, $username);
+                
                 if(mysqli_stmt_fetch($stmt)) {
                     if($id != '' && $first_name != '' && $lastname != '' && $gender != '' && $dob != '' && $email != '' && $username != '') {
                         $_SESSION['passenger_id'] = $id;
                         $_SESSION['name'] = $first_name; 
                         $_SESSION['lastname'] = $lastname;
                         $_SESSION['gender'] = $gender;
-                        // $_SESSION['verified'] = $verified;
-                        $_SESSION['address'] = $address;
-                        $_SESSION['contact_info'] = $ci;
                         $_SESSION['dob'] = $dob;
                         $_SESSION['email'] = $email;
                         $_SESSION['username'] = $username;
+                        $_SESSION['contact_info'] = $ci;
+                        $_SESSION['address'] = $address;
+                        
                         echo "Sign in Successfully!";
                     }
                     else{
@@ -317,7 +320,7 @@ function passengerSession($c, $u) {
                 }
             }
             else{
-                 echo "Verify Your email";
+                echo "Verify Your email";
             }
         }
         mysqli_stmt_close($stmt);
@@ -325,6 +328,7 @@ function passengerSession($c, $u) {
         echo 'Login failed!';
     }
 }
+
 //* request reset password - passenger
 function requestResetPasswordPassenger($c) {
     $em = $_POST['passenger_email_forgot'];

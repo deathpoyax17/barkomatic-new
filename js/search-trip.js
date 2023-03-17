@@ -28,19 +28,24 @@ function modifyMinMaxDate(date, days) {
 $(function() {
     var dateFormat = "mm/dd/yy";
     from = $("#from").datepicker({
-        defaultDate: "-1w",
-        changeMonth: true,
-        changeYear: true,
-        onClose: function(selectedDate) {
+             defaultDate: "-1w",
+            changeMonth: true,
+            changeYear: true,
+            onClose: function(selectedDate) {
                 $("#to").datepicker(
                     "option",
                     "minDate",
                     modifyMinMaxDate(new Date(selectedDate), 1)
                 );
-            }
+                
+            },
+               onSelect: function(selectedDate) {
+                $(this).val(selectedDate);
+    }
+            
         }),
-        $("#to").datepicker({
-            defaultDate: "-1w",
+        to = $("#to").datepicker({
+             defaultDate: "-1w",
             changeMonth: true,
             changeYear: true,
             onClose: function(selectedDate) {
@@ -50,30 +55,33 @@ $(function() {
                     modifyMinMaxDate(new Date(selectedDate), -1)
                 );
             },
-            onSelect: function(selectedDate) {
-                // set the selected date as the value of the input field
+               onSelect: function(selectedDate) {
                 $(this).val(selectedDate);
-            }
+               }
         });
-        
+        $("#from").val($.datepicker.formatDate("mm/dd/yy", new Date()));
+        $("#to").val($.datepicker.formatDate("mm/dd/yy", new Date()));
 });
 
 $(function() {
     var dateFormat = "mm/dd/yy";
     from2 = $("#from2").datepicker({
-        defaultDate: "-1w",
-        changeMonth: true,
-        changeYear: true,
+            defaultDate: "-1w",
+            changeMonth: true,
+            changeYear: true,
             onClose: function(selectedDate) {
                 $("#to").datepicker(
                     "option",
                     "minDate",
                     modifyMinMaxDate(new Date(selectedDate), 1)
                 );
-            }
+            },
+               onSelect: function(selectedDate) {
+                $(this).val(selectedDate);
+               }
         }),
         to2 = $("#to2").datepicker({
-            defaultDate: "-1w",
+                defaultDate: "-1w",
             changeMonth: true,
             changeYear: true,
             onClose: function(selectedDate) {
@@ -82,6 +90,11 @@ $(function() {
                     "maxDate",
                     modifyMinMaxDate(new Date(selectedDate), -1)
                 );
-            }
+            },
+               onSelect: function(selectedDate) {
+                $(this).val(selectedDate);
+               }
         });
+        $("#from2").val($.datepicker.formatDate("mm/dd/yy", new Date()));
+        $("#to2").val($.datepicker.formatDate("mm/dd/yy", new Date()));
 });

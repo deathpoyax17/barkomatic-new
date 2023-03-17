@@ -62,15 +62,15 @@ require "resources/templates/_search-trip_header.php"; ?>
                         </div>
                         <!---->
                         <div class="row">
-                            <div class="col">
-                                <div class="md-radio">
-                                    <input id="trip1" type="radio" name="tripDirection" formcontrolname="tripDirection"
-                                        checked="" class="ng-untouched ng-pristine ng-valid" /><label for="trip1">One-Way</label>
-                                        <input id="trip2" type="radio" name="tripDirection"
-                                        formcontrolname="tripDirection"
-                                        class="ng-untouched ng-pristine ng-valid" /><label for="trip2">One Way</label>
-                                </div>
-                            </div>
+                            <!--<div class="col">-->
+                            <!--    <div class="md-radio">-->
+                            <!--        <input id="trip1" type="radio" name="tripDirection" formcontrolname="tripDirection"-->
+                            <!--            checked="" class="ng-untouched ng-pristine ng-valid" /><label for="trip1">One-Way</label>-->
+                            <!--            <input id="trip2" type="radio" name="tripDirection"-->
+                            <!--            formcontrolname="tripDirection"-->
+                            <!--            class="ng-untouched ng-pristine ng-valid" /><label for="trip2">One Way</label>-->
+                            <!--    </div>-->
+                            <!--</div>-->
                         </div>
                         <!---->
                         <!---->
@@ -96,7 +96,7 @@ require "resources/templates/_search-trip_header.php"; ?>
                             </div>
                             <div class="col-ms switch-icon">
                                 <button type="button" class="btn btn-transparent">
-                                    <span class="fa fa-exchange"></span>
+                                    <span id="exchange" class="fa fa-exchange"></span>
                                 </button>
                             </div>
                             <div class="col-md">
@@ -104,8 +104,7 @@ require "resources/templates/_search-trip_header.php"; ?>
                                     <div class="input-group-prepend">
                                         <label class="input-group-text input-label-w">To</label>
                                     </div>
-                                    <!----><select name="srch_sched_loc_to"
-                                        class="custom-select ng-untouched ng-pristine ng-valid" id="depto">
+                                    <!----><select name="srch_sched_loc_to" class="custom-select ng-untouched ng-pristine ng-valid" id="depto">
                                         <?php 
                                                     $stmt1 = $con->prepare("SELECT * FROM routes"); 
                                                     $stmt1->execute();
@@ -138,11 +137,12 @@ require "resources/templates/_search-trip_header.php"; ?>
                                         </div>
                                     </div>
                                     <div class="col-md">
-                                        <div class="input-group mb-3" style="visibility: visible">
+                                        <div class="input-group" style="visibility: hidden;">
                                             <div class="input-group-prepend">
                                                 <span  class="input-group-text input-label-w">Return</span>
                                             </div>
-                                            <input id="to2" type="text" name="returnDate" placement="top" class="form-control ng-untouched ng-pristine ng-valid" />
+                                            <!--<input id="to2" type="text" name="returnDate" placement="top" class="form-control ng-untouched ng-pristine ng-valid" />-->
+                                            <input  type="text" name="returnDate" placement="top" class="form-control ng-untouched ng-pristine ng-valid" placeholder="COMMING SOON" disabled/>
                                             <!---->
                                             <div class="input-group-append toggle-calendar" aria-expanded="false">
                                                 <span class="input-group-text"><span
@@ -160,7 +160,7 @@ require "resources/templates/_search-trip_header.php"; ?>
                                                 <span class="input-group-text input-label-w"
                                                     style="width: auto">Passengers</span>
                                             </div>
-                                            <input type="number" min="1" name="paxCount" class="form-control ng-untouched ng-pristine ng-valid" max="10" />
+                                            <input type="number" min="1" name="paxCount" class="form-control ng-untouched ng-pristine ng-valid" max="1" disabled/>
                                             <!---->
                                         </div>
                                     </div>

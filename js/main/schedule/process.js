@@ -1,4 +1,12 @@
 $(document).ready(function() {
+$("#exchange").click(function() {
+  // Swap the values of the two input fields
+  const temp = $("#depFrom").val();
+  $("#depFrom").val($("#depto").val());
+  $("#depto").val(temp);
+});
+});
+$(document).ready(function() {
     $('#passengerinfoSubmit').validate();
     $('#passengerInfBtn').click(function() {
         // Get the number of passengers

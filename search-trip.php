@@ -91,7 +91,7 @@ require "resources/templates/_search-trip_header.php"; ?>
                                 </div>
                                 <div class="col-ms switch-icon">
                                     <button type="button" class="btn btn-transparent">
-                                        <span class="fa fa-exchange"></span>
+                                        <span id="exchange" class="fa fa-exchange"></span>
                                     </button>
                                 </div>
                                 <div class="col-md">

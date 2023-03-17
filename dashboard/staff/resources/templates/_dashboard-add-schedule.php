@@ -67,14 +67,14 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="accomm-vessel" class="col-sm-4 control-label">Accomodation</label>
-                        <div class="col-sm-8">
-                            <select class="form-control" id="accomm-vessel" name="accomm-vessel">
+                    <!--<div class="form-group row">-->
+                    <!--    <label for="accomm-vessel" class="col-sm-4 control-label">Accomodation</label>-->
+                    <!--    <div class="col-sm-8">-->
+                    <!--        <select class="form-control" id="accomm-vessel" name="accomm-vessel">-->
                             
-                            </select>
-                        </div>
-                    </div>
+                    <!--        </select>-->
+                    <!--    </div>-->
+                    <!--</div>-->
                     <hr>
                     <div class="form-group row">
                         <label for="min-date" class="col-sm-4 control-label">Depart Date</label>

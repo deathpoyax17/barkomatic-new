@@ -151,7 +151,7 @@ if (isset($_COOKIE['data'])) {
                                                             </div>
                                                             <div class="booking-type booking-td-title">
                                                                 <div class="booking-td-meta" style="margin-right: 5px">
-                                                                    <span style="font-weight: 800; color: #ff8c00">
+                                                                    <span style="font-weight: 800; color: #ff8ic00">
                                                                         Ticket Price
                                                                     </span>
                                                                 </div>
@@ -310,7 +310,7 @@ if (isset($_COOKIE['data'])) {
                     <input type='hidden' name='business' value='<?php echo PAYPAL_EMAIL; ?>'>
                     <!-- Details of item that customers will purchase -->
                     <input type='hidden' name='item_number' value='Purchase'>
-                    <input type='hidden' name='item_name' id="idPass" value=''>
+                    <input type='hidden' name='item_name' id="idTicket" value=''>
                     <input type='hidden' name='amount' id="paypalAmt" value=''>
                     <input type='hidden' name='currency_code' value='<?php echo CURRENCY; ?>'>
                     <input type='hidden' name='no_shipping' value='1'>
